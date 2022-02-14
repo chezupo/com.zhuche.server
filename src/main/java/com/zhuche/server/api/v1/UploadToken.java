@@ -10,15 +10,18 @@ package com.zhuche.server.api.v1;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.response.UnityResponse;
-import com.zhuche.server.dto.response.uploadToken.CreateTokenResponse;
 import com.zhuche.server.model.Role;
+import com.zhuche.server.services.UploadTokenService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/uploadToken")
+@AllArgsConstructor
 public class UploadToken {
+   private final UploadTokenService uploadTokenService;
 
     @PostMapping
     @Permission(roles = {
@@ -30,13 +33,9 @@ public class UploadToken {
         Role.ROLE_PROMOTER
     })
     public UnityResponse createToken() {
-        var tokenRes = CreateTokenResponse.builder()
-            .accessToken("hello! I'm the token.")
-            .platForm("qiniu")
-            .prefixUrl("http://wuchuehng.com")
-            .build();
+        final var token = uploadTokenService.createToken();
         return UnityResponse.builder()
-            .data(tokenRes)
+            .data(token)
             .build();
     }
 }

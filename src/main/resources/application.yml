@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: prod
+
+springbootwebfluxjjwt:
+  password:
+    encoder:
+      secret: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+      iteration: 33
+      keylength: 256
+  jjwt:
+    secret: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+    expiration: 604800000

@@ -44,4 +44,17 @@ public abstract class BaseAbstract {
 
     }
 
+    protected ResultActions postRequest(String url, String requestBody, String token) throws Exception {
+        return this.mockMvc.perform(
+                post(BASE_URL + url)
+                    .contentType(APPLICATION_JSON_UTF8)
+                    .content(requestBody)
+                    .header("Authorization", "Bearer " + token)
+            )
+            .andDo(print())
+            .andExpect( status().isOk() )
+            .andExpect( content() .contentTypeCompatibleWith(MediaType.APPLICATION_JSON) )
+            .andExpect( jsonPath("isSuccess", is(true)) );
+    }
+
 }

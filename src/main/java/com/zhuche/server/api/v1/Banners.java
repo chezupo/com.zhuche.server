@@ -10,6 +10,7 @@ package com.zhuche.server.api.v1;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.banners.CreateBannerRequest;
+import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Banner;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.repositories.BannerRepository;
@@ -29,13 +30,15 @@ public class Banners {
 
     @PostMapping
     @Permission(roles = {Role.ROLE_ADMIN})
-    public Banner createBanner(@Valid @RequestBody CreateBannerRequest request ) {
+    public UnityResponse createBanner(@Valid @RequestBody CreateBannerRequest request ) {
         var newBanner = Banner.builder()
             .imgKey(request.getImgKey())
             .content(request.getContent())
             .build();
         newBanner = bannerRepository.save(newBanner);
 
-        return newBanner;
+        return UnityResponse.builder()
+            .data(newBanner)
+            .build();
     }
 }

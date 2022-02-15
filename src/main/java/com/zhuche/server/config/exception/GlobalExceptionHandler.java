@@ -23,31 +23,38 @@ import java.util.Map;
 @ResponseBody
 public class GlobalExceptionHandler {
 
+    // 不想处理的异常
     @ExceptionHandler(RuntimeException.class)
     public Map<String, Object> handle(RuntimeException  e) {
-        return this.getResponseByException(e);
+        var err = new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE);
+            err.setStackTrace(e.getStackTrace());
+            err.setMessage(e.getMessage());
+
+        return this.getResponseByException(err);
     }
 
+    // 验证异常
     @ExceptionHandler(BindException.class)
     public Map<String, Object> handle(BindException e) {
         var errObject = e.getBindingResult().getAllErrors().stream().findFirst().get();
-        var newException = new RuntimeException(
-            String.format("%s %s", errObject.getObjectName(), errObject.getDefaultMessage())
-        );
-        newException.setStackTrace(e.getStackTrace());
+        var err = new MyRuntimeException(ExceptionCodeConfig.VALIDATED_ERROR_TYPE);
+        err.setStackTrace(e.getStackTrace());
+        err.setMessage( String.format("%s %s", errObject.getObjectName(), errObject.getDefaultMessage()) );
 
-        return this.getResponseByException(newException);
+        return this.getResponseByException(err);
     }
 
+    // 自己抛的异常
     @ExceptionHandler(MyRuntimeException.class)
     public Map<String, Object> handle(MyRuntimeException  e) {
         return this.getResponseByException(e);
     }
 
-    private Map<String, Object> getResponseByException(Throwable e) {
+    private Map<String, Object> getResponseByException(MyRuntimeException e) {
         var response = new HashMap<String, Object>();
         response.put("isSuccess", false);
         response.put("errorMessage", e.getMessage());
+        response.put("errorCode", e.getErrorCode());
         log.error("Application error in: [" + e.getClass().getName() + "]", e);
 
         return response;

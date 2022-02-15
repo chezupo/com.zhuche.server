@@ -21,18 +21,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ExceptionCodeConfig {
-    VALIDATED_ERROR_TYPE(50001, "Validation error occurred."),
-    INTERIOR_ERROR_TYPE(50000, "The error occurred inside the server."),
+    // 内部错误
+    INTERIOR_ERROR_TYPE(50000, "The error occurred inside the server."), // 内部错误
 
-    GRAPHQL_ERROR_TYPE(40000, "GraphQL error occurred."),
+    // 登录错误
+    AUTHORIZATION_ERROR_TYPE(40100, "Login failure."), // 登录错误
 
-    AUTHORIZATION_ERROR_TYPE(40100, "Login failure."),
-
+    // 鉴权错误
     UN_AUTHORIZATION_ERROR_TOKEN_CANNOT_BE_EMPTY(40200, "Token cannot empty."),
     UN_AUTHORIZATION_ERROR_UN_VALID_TOKEN(40201, "Unvalid token."),
     UN_AUTHORIZATION_ERROR_NO_SUCH_USER(40202, "No relative user,the token invalid"),
     UN_AUTHORIZATION_ERROR_ACCESS_DISABLE(40203, "Accessing disable, please ask the administrator."),
-    UN_AUTHORIZATION_ERROR_YOU_DONNOT_HAVE_ENOUGH_PRIVILEGES_TO_ACCESS(40204, "You do not have enough privileges to access.")
+    UN_AUTHORIZATION_ERROR_YOU_DONNOT_HAVE_ENOUGH_PRIVILEGES_TO_ACCESS(40204, "You do not have enough privileges to access."),
+
+    // 验证错误
+    VALIDATED_ERROR_TYPE(40300, "Validation error occurred."), // 验证错误
     ;
 
     @Getter

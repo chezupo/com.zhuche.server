@@ -24,6 +24,14 @@ public class MyRuntimeException extends java.lang.RuntimeException {
         this.exceptionCodeConfig.setErrorMessage(errorMessage);
     }
 
+    public Integer getErrorCode() {
+        return this.exceptionCodeConfig.getErrorCode();
+    }
+
+    public void setMessage(String message) {
+        this.exceptionCodeConfig.setErrorMessage(message);
+    }
+
     @Override
     public String getMessage() {
         return this.exceptionCodeConfig.getErrorMessage();

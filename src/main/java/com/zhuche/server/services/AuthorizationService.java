@@ -8,7 +8,7 @@
 
 package com.zhuche.server.services;
 
-import com.zhuche.server.dto.request.CreateAuthorizationTokenRequest;
+import com.zhuche.server.dto.request.authorizatioins.CreateAuthorizationTokenRequest;
 import com.zhuche.server.dto.response.authorization.CreateAuthorizationTokenResponse;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.util.JWTUtil;

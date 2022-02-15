@@ -8,7 +8,7 @@
 
 package com.zhuche.server.api.v1;
 
-import com.zhuche.server.dto.request.CreateAuthorizationTokenRequest;
+import com.zhuche.server.dto.request.authorizatioins.CreateAuthorizationTokenRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.services.AuthorizationService;
 import lombok.AllArgsConstructor;

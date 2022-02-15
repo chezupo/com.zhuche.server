@@ -9,17 +9,33 @@
 package com.zhuche.server.api.v1;
 
 import com.zhuche.server.config.interceptors.Permission;
+import com.zhuche.server.dto.request.banners.CreateBannerRequest;
+import com.zhuche.server.model.Banner;
 import com.zhuche.server.model.Role;
+import com.zhuche.server.repositories.BannerRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/banners")
+@AllArgsConstructor
 public class Banners {
-    @PostMapping("/banners")
+    private final BannerRepository bannerRepository;
+
+    @PostMapping
     @Permission(roles = {Role.ROLE_ADMIN})
-    public String createBanner() {
-        return "create banner";
+    public Banner createBanner(@Valid @RequestBody CreateBannerRequest request ) {
+        var newBanner = Banner.builder()
+            .imgKey(request.getImgKey())
+            .content(request.getContent())
+            .build();
+        newBanner = bannerRepository.save(newBanner);
+
+        return newBanner;
     }
 }

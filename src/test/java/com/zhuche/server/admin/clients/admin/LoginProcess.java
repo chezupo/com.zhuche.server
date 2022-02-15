@@ -8,7 +8,7 @@
 
 package com.zhuche.server.admin.clients.admin;
 
-import com.zhuche.server.dto.request.CreateAuthorizationTokenRequest;
+import com.zhuche.server.dto.request.authorizatioins.CreateAuthorizationTokenRequest;
 import com.zhuche.server.rest.api.AuthorizationResource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;

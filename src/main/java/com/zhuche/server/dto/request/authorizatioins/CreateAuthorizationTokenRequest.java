@@ -6,7 +6,7 @@
  * Listen  MIT
  */
 
-package com.zhuche.server.dto.request;
+package com.zhuche.server.dto.request.authorizatioins;
 
 import com.zhuche.server.validators.authorize.AuthorizeValidator;
 import lombok.AllArgsConstructor;

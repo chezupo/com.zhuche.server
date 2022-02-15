@@ -8,10 +8,7 @@
 
 package com.zhuche.server.api.v1;
 
-import com.zhuche.server.config.exception.ExceptionCodeConfig;
-import com.zhuche.server.exceptions.MyRuntimeException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,9 +18,6 @@ public class Hello {
 
     @GetMapping("/hello")
     public String hello() {
-        if (true) {
-            throw new MyRuntimeException(ExceptionCodeConfig.GRAPHQL_ERROR_TYPE);
-        }
         return "hello, world!";
     }
 }

@@ -20,11 +20,11 @@ import java.nio.charset.Charset;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Slf4j
-@Component
 public abstract class BaseAbstract {
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
@@ -57,4 +57,11 @@ public abstract class BaseAbstract {
             .andExpect( jsonPath("isSuccess", is(true)) );
     }
 
+    protected ResultActions getRequest(String url) throws Exception {
+        return this.mockMvc.perform( get(BASE_URL + url) )
+            .andDo(print())
+            .andExpect( status().isOk() )
+            .andExpect( content() .contentTypeCompatibleWith(MediaType.APPLICATION_JSON) )
+            .andExpect( jsonPath("isSuccess", is(true)) );
+    }
 }

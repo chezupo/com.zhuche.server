@@ -9,6 +9,7 @@
 package com.zhuche.server.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -30,5 +31,6 @@ public abstract class BaseEntity {
     private LocalDateTime updatedAt;
 
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @JsonIgnore
     private LocalDateTime deletedAt;
 }

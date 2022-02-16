@@ -14,19 +14,23 @@ import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Banner;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.repositories.BannerRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/api/v1/banners")
-@AllArgsConstructor
 public class Banners {
-    private final BannerRepository bannerRepository;
+
+    @Autowired
+    private BannerRepository bannerRepository;
 
     @PostMapping
     @Permission(roles = {Role.ROLE_ADMIN})
@@ -39,6 +43,20 @@ public class Banners {
 
         return UnityResponse.builder()
             .data(newBanner)
+            .build();
+    }
+
+
+    @GetMapping
+    public UnityResponse getBanners(@Param("page") @Min(1) Integer page, @Param("size") Integer size) {
+        page = page != null ? --page : 0;
+        size = size != null ? size : 10;
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable pagingSort = PageRequest.of(page, size, sort);
+        var bannerPage = bannerRepository.getBanners(pagingSort).stream().toList();
+
+        return UnityResponse.builder()
+            .data(bannerPage)
             .build();
     }
 }

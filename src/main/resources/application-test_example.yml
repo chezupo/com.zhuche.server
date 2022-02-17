@@ -34,3 +34,21 @@ springbootwebfluxjjwt:
     jjwt:
         secret: ""
         expiration: 604800000
+logging:
+    level:
+        jdbc:
+            resultsettable: info
+            sqltiming: info
+            sqlonly: fatal
+            audit: fatal
+            resultset: fatal
+            connection: fatal
+
+log4jdbc:
+    dump:
+        sql:
+            addsemicolon: true
+            maxlinelength: 0
+    trim:
+        sql:
+            extrablanklines: true

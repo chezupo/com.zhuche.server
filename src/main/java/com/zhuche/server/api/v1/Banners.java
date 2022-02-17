@@ -10,6 +10,7 @@ package com.zhuche.server.api.v1;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.banners.CreateBannerRequest;
+import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Banner;
 import com.zhuche.server.model.Role;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/api/v1/banners")
@@ -54,9 +54,14 @@ public class Banners {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Pageable pagingSort = PageRequest.of(page, size, sort);
         var bannerPage = bannerRepository.getBanners(pagingSort).stream().toList();
+        var pageFormat  = PageFormat.builder()
+            .total( bannerRepository.count() )
+            .list(bannerPage.stream().toList())
+            .currentPage(page + 1)
+            .build();
 
         return UnityResponse.builder()
-            .data(bannerPage)
+            .data(pageFormat)
             .build();
     }
 }

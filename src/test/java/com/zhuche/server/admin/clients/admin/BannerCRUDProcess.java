@@ -19,6 +19,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import static net.bytebuddy.matcher.ElementMatchers.isArray;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Testing the processing of  banner CRUD for admin role.")
 @Slf4j
@@ -48,16 +52,28 @@ public class BannerCRUDProcess extends BaseClientAbstract {
         token =  this.getToken(loginBody);
     }
 
-
     @Test
     @Order(2)
     @DisplayName("Should return the new banner infomation.")
-    public void shouldReturnAccessTokenTest() throws Exception {
+    public void shouldReturnBannerInfoTest() throws Exception {
         log.info("AccessToken", token);
         var requestBody= CreateBannerRequest.builder()
             .imgKey("bannerKey")
             .content("bannerContent")
             .build();
         bannerResource.createBanner(requestBody, token);
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("Should return the new banner information.")
+    public void shouldReturnListOfBannerTest() throws Exception {
+        var res = bannerResource.getBanners();
+        res.andExpect( jsonPath("$.data.currentPage").isNumber() );
+        res.andExpect( jsonPath("$.data.list").isArray());
+        res.andExpect( jsonPath("$.data.list[0].id").isNumber());
+        res.andExpect( jsonPath("$.data.list[0].imgKey").isString());
+        res.andExpect( jsonPath("$.data.list[0].content").isString());
+        res.andExpect( jsonPath("$.data.total").isNumber());
     }
 }

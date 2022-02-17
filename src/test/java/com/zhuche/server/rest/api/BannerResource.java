@@ -25,4 +25,10 @@ public class BannerResource extends BaseAbstract{
 
         return postRequest("/banners", json, token);
     }
+
+    public ResultActions getBanners() throws Exception {
+        log.info("Getting list of banner banners." );
+
+        return getRequest("/banners");
+    }
 }

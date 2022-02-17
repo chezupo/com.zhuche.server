@@ -21,4 +21,5 @@ public class PageFormat {
    Integer currentPage;
    Object list;
    Long total;
+   Integer size;
 }

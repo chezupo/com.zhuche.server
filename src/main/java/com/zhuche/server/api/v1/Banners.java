@@ -58,6 +58,7 @@ public class Banners {
             .total( bannerRepository.count() )
             .list(bannerPage.stream().toList())
             .currentPage(page + 1)
+            .size(size)
             .build();
 
         return UnityResponse.builder()

@@ -75,5 +75,6 @@ public class BannerCRUDProcess extends BaseClientAbstract {
         res.andExpect( jsonPath("$.data.list[0].imgKey").isString());
         res.andExpect( jsonPath("$.data.list[0].content").isString());
         res.andExpect( jsonPath("$.data.total").isNumber());
+        res.andExpect( jsonPath("$.data.size").isNumber());
     }
 }

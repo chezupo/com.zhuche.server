@@ -1,0 +1,36 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/com_zhuche_server?characterEncoding=utf-8&serverTimezone=GMT%2B8
+        username: root
+        password: 12345678
+    jpa:
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
+        hibernate:
+            ddl-auto: update
+
+alipay:
+    privateKey: ""
+    serverUrl: "https://openapi.alipay.com/gateway.do"
+    appid: ""
+    alipayPublicKey: ""
+
+disk:
+    qiniu:
+        accessKey: ""
+        secretKey: ""
+        bucket: "zhuche-a1001"
+        prefixUrl: "https://zhuche-a1001.qiniu.wuchuheng.com"
+
+springbootwebfluxjjwt:
+    password:
+        encoder:
+            secret: ""
+            iteration: 33
+            keylength: 256
+    jjwt:
+        secret: ""
+        expiration: 604800000

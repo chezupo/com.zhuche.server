@@ -8,14 +8,17 @@
 
 package com.zhuche.server.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
 public class UnityResponse<T> {
+    @JsonProperty
     private T data;
 
+    @JsonProperty
     public Boolean getIsSuccess() {
         return true;
     }

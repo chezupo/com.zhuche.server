@@ -10,17 +10,16 @@ package com.zhuche.server.rest.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.Charset;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -63,5 +62,18 @@ public abstract class BaseAbstract {
             .andExpect( status().isOk() )
             .andExpect( content() .contentTypeCompatibleWith(MediaType.APPLICATION_JSON) )
             .andExpect( jsonPath("isSuccess", is(true)) );
+    }
+
+    protected ResultActions patchRequest(String url, String requestBody, String token) throws Exception {
+        return this.mockMvc.perform(
+                        patch(BASE_URL + url)
+                                .contentType(APPLICATION_JSON_UTF8)
+                                .content(requestBody)
+                                .header("Authorization", "Bearer " + token)
+                )
+                .andDo(print())
+                .andExpect( status().isOk() )
+                .andExpect( content() .contentTypeCompatibleWith(MediaType.APPLICATION_JSON) )
+                .andExpect( jsonPath("isSuccess", is(true)) );
     }
 }

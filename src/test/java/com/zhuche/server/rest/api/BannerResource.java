@@ -10,6 +10,7 @@ package com.zhuche.server.rest.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhuche.server.dto.request.banners.CreateBannerRequest;
+import com.zhuche.server.dto.request.banners.UpdateBannerRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.ResultActions;
@@ -30,5 +31,14 @@ public class BannerResource extends BaseAbstract{
         log.info("Getting list of banner banners." );
 
         return getRequest("/banners");
+    }
+
+    public ResultActions updateBanner(Integer id, UpdateBannerRequest requestBody, String token) throws Exception {
+        log.info("Getting list of banner banners." );
+        var objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(requestBody);
+        var url  = String.format("/banners/%d", id);
+
+        return patchRequest(url,  json, token);
     }
 }

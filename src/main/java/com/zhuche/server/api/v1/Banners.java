@@ -84,4 +84,12 @@ public class Banners {
             .data(banner)
             .build();
     }
+
+    @DeleteMapping("/{id}")
+    @Permission(roles = {Role.ROLE_ADMIN})
+    public UnityResponse destroy( @PathVariable("id") @HasBannerId(message = "没有该banner") Integer id) {
+         bannerService.destroy(id);
+
+        return UnityResponse.builder().build();
+    }
 }

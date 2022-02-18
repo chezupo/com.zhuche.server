@@ -39,4 +39,9 @@ public class BannerService {
 
          return banner;
      }
+
+    public void destroy(Integer id) {
+        var banner = bannerRepository.findById((long) id).get();
+        bannerRepository.delete(banner);
+    }
 }

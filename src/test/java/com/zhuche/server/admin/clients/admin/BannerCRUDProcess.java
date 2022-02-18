@@ -105,4 +105,10 @@ public class BannerCRUDProcess extends BaseClientAbstract {
         res.andExpect( jsonPath("$.data.id", is(id)));
     }
 
+    @Test
+    @Order(5)
+    @DisplayName("Should return the successful response.")
+    public void shouldDestroyBannerTest() throws Exception {
+        bannerResource.deleteBanner((Integer) banner.getId().intValue(), token);
+    }
 }

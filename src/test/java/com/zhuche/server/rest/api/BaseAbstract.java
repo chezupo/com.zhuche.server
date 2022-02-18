@@ -17,9 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.nio.charset.Charset;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -69,6 +67,18 @@ public abstract class BaseAbstract {
                         patch(BASE_URL + url)
                                 .contentType(APPLICATION_JSON_UTF8)
                                 .content(requestBody)
+                                .header("Authorization", "Bearer " + token)
+                )
+                .andDo(print())
+                .andExpect( status().isOk() )
+                .andExpect( content() .contentTypeCompatibleWith(MediaType.APPLICATION_JSON) )
+                .andExpect( jsonPath("isSuccess", is(true)) );
+    }
+
+    protected ResultActions deleteRequest(String url, String token) throws Exception {
+        return this.mockMvc.perform(
+                        delete(BASE_URL + url)
+                                .contentType(APPLICATION_JSON_UTF8)
                                 .header("Authorization", "Bearer " + token)
                 )
                 .andDo(print())

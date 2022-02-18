@@ -41,4 +41,12 @@ public class BannerResource extends BaseAbstract{
 
         return patchRequest(url,  json, token);
     }
+
+    public ResultActions deleteBanner(Integer id, String token) throws Exception {
+        log.info("Destroy the banner, id: {}", id );
+        var url  = String.format("/banners/%d", id);
+
+        return deleteRequest(url, token);
+    }
 }
+

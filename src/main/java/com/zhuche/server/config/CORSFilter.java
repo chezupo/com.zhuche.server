@@ -20,7 +20,7 @@ public class CORSFilter implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
             .allowedOrigins("*")
-            .allowedMethods("PUT", "POST", "OPTION", "get")
+            .allowedMethods("PUT", "POST", "OPTION", "GET", "DELETE", "PATCH")
             .maxAge(3600);
     }
 }

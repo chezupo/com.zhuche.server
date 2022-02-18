@@ -54,6 +54,7 @@ public class BannerCRUDProcess extends BaseClientAbstract {
 
     @Test
     @Order(2)
+
     @DisplayName("Should return the new banner infomation.")
     public void shouldReturnBannerInfoTest() throws Exception {
         log.info("AccessToken", token);

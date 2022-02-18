@@ -8,6 +8,7 @@
 
 package com.zhuche.server.services;
 
+import com.zhuche.server.dto.request.banners.UpdateBannerRequest;
 import com.zhuche.server.model.Banner;
 import com.zhuche.server.repositories.BannerRepository;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,14 @@ public class BannerService {
          Sort sort = Sort.by(Sort.Direction.DESC, "id");
          Pageable pagingSort = PageRequest.of(page, size, sort);
          return null;
+     }
 
-//        return bannerRepository.findByContaining(pagingSort);
+     public Banner updateBanner(Integer id, UpdateBannerRequest request) {
+         var banner = bannerRepository.findById((long) id).get();
+         banner.setContent(request.getContent());
+         banner.setImgKey(request.getImgKey());
+         banner = bannerRepository.save(banner);
+
+         return banner;
      }
 }

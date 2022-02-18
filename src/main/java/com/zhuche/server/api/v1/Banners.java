@@ -10,11 +10,14 @@ package com.zhuche.server.api.v1;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.banners.CreateBannerRequest;
+import com.zhuche.server.dto.request.banners.UpdateBannerRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Banner;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.repositories.BannerRepository;
+import com.zhuche.server.services.BannerService;
+import com.zhuche.server.validators.banners.HasBannerId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +34,9 @@ public class Banners {
 
     @Autowired
     private BannerRepository bannerRepository;
+
+    @Autowired
+    private BannerService bannerService;
 
     @PostMapping
     @Permission(roles = {Role.ROLE_ADMIN})
@@ -63,6 +69,19 @@ public class Banners {
 
         return UnityResponse.builder()
             .data(pageFormat)
+            .build();
+    }
+
+    @Permission(roles = {Role.ROLE_ADMIN})
+    @PatchMapping("/{id}")
+    public UnityResponse updateBanner(
+        @PathVariable("id") @HasBannerId Integer id,
+        @Valid @RequestBody UpdateBannerRequest requestBody
+    ) {
+        var banner = bannerService.updateBanner(id, requestBody);
+
+        return UnityResponse.builder()
+            .data(banner)
             .build();
     }
 }

@@ -6,12 +6,15 @@
  * Listen  MIT
  */
 
-package com.zhuche.server.config.exception;
+package com.zhuche.server.config;
 
+import com.zhuche.server.model.Configuration;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.model.User;
+import com.zhuche.server.repositories.ConfigurationRepository;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.util.PasswordEncodeUtil;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -22,20 +25,32 @@ import java.util.List;
 @Slf4j
 public class InitDatabaseSeeder {
     private final UserRepository userRepository;
+
     private final PasswordEncodeUtil passwordEncodeUtil;
+
+    private final ConfigurationRepository configurationRepository;
+
+    private final String appName;
+
+    private final String logo;
 
     public InitDatabaseSeeder(
         UserRepository userRepository,
-        PasswordEncodeUtil passwordEncodeUtil
+        PasswordEncodeUtil passwordEncodeUtil,
+        ConfigurationRepository configurationRepository,
+        @Value("${initAppName}") String appName,
+        @Value("${initLogo}") String logo
     ) {
+        this.appName = appName;
+        this.logo = logo;
         this.userRepository = userRepository;
         this.passwordEncodeUtil = passwordEncodeUtil;
+        this.configurationRepository = configurationRepository;
         this.initUser();
+        this.initConfiguration();
     }
 
     private void initUser() {
-
-
         final var res = userRepository.findUserById(1L);
         final var count = userRepository.count();
         if (res == null && count == 0) {
@@ -51,6 +66,17 @@ public class InitDatabaseSeeder {
                 .updatedAt(LocalDateTime.now())
                 .build();
             userRepository.save(newUser);
+        }
+    }
+
+    private void initConfiguration() {
+        final var count = configurationRepository.count();
+        if (count == 0) {
+           final var configuration =  Configuration.builder()
+                .appName(appName)
+                .logo(logo)
+                .build();
+           configurationRepository.save(configuration);
         }
     }
 }

@@ -8,10 +8,9 @@
 
 package com.zhuche.server.commons;
 
-import com.zhuche.server.rest.api.ConfigurationResource;
+import com.zhuche.server.rest.api.BaseAbstract;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,10 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class ConfigurationsTest {
-
-    @Autowired
-    private ConfigurationResource configurationResource;
+public class ConfigurationsTest extends BaseAbstract {
 
     @Value("${disk.qiniu.prefixUrl}")
     String prefixUrl;
@@ -38,7 +34,9 @@ public class ConfigurationsTest {
     @Order(1)
     @DisplayName("Should return the common configurations.")
     public void shouldReturnConfiguration() throws Exception {
-        var res = configurationResource.getConfiguration();
+        var url = "/configuration";
+        log.info("Getting the common Configurations: {}", url);
+        var res = getRequest(url);
         res.andExpect(jsonPath("$.data.imgPrefix",is(prefixUrl)));
     }
 }

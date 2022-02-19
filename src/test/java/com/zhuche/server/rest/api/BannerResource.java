@@ -35,11 +35,9 @@ public class BannerResource extends BaseAbstract{
 
     public ResultActions updateBanner(Integer id, UpdateBannerRequest requestBody, String token) throws Exception {
         log.info("Getting list of banner banners." );
-        var objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(requestBody);
         var url  = String.format("/banners/%d", id);
 
-        return patchRequest(url,  json, token);
+        return patchRequest(url, requestBody, token);
     }
 
     public ResultActions deleteBanner(Integer id, String token) throws Exception {

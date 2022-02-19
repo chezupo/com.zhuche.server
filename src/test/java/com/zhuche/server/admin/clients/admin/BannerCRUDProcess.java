@@ -10,8 +10,6 @@ package com.zhuche.server.admin.clients.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
-import com.zhuche.server.BaseClientAbstract;
-import com.zhuche.server.dto.request.authorizatioins.CreateAuthorizationTokenRequest;
 import com.zhuche.server.dto.request.banners.CreateBannerRequest;
 import com.zhuche.server.dto.request.banners.UpdateBannerRequest;
 import com.zhuche.server.model.Banner;
@@ -32,30 +30,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class BannerCRUDProcess extends BaseClientAbstract {
+public class BannerCRUDProcess extends BaseAdminRoleProcess {
 
     private static Banner banner;
 
     @Autowired
     private BannerResource bannerResource;
-
-    private static String token;
-
-    private final String username = "admin";
-    private final String password = "12345678";
-
-    @Test
-    @Order(1)
-    @DisplayName("Initialize BannerCRUDProcess")
-    public void init() throws Exception {
-        var loginBody = CreateAuthorizationTokenRequest
-            .builder()
-            .username(username)
-            .password(password)
-            .build();
-
-        token =  this.getToken(loginBody);
-    }
 
     @Test
     @Order(2)

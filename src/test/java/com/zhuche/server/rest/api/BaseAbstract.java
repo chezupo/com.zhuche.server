@@ -8,6 +8,7 @@
 
 package com.zhuche.server.rest.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -62,11 +63,13 @@ public abstract class BaseAbstract {
             .andExpect( jsonPath("isSuccess", is(true)) );
     }
 
-    protected ResultActions patchRequest(String url, String requestBody, String token) throws Exception {
+    protected ResultActions patchRequest(String url, Object requestBody, String token) throws Exception {
+        var objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(requestBody);
         return this.mockMvc.perform(
                         patch(BASE_URL + url)
                                 .contentType(APPLICATION_JSON_UTF8)
-                                .content(requestBody)
+                                .content(json)
                                 .header("Authorization", "Bearer " + token)
                 )
                 .andDo(print())

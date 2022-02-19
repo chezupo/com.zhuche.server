@@ -10,6 +10,7 @@ package com.zhuche.server;
 
 import com.zhuche.server.dto.request.authorizatioins.CreateAuthorizationTokenRequest;
 import com.zhuche.server.rest.api.AuthorizationResource;
+import com.zhuche.server.rest.api.BaseAbstract;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Map;
 
 @Slf4j
-public abstract class BaseClientAbstract {
+public abstract class BaseClientAbstract extends BaseAbstract {
     @Autowired
     private AuthorizationResource authorizationResource;
 

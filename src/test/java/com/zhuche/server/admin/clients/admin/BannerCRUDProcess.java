@@ -59,13 +59,13 @@ public class BannerCRUDProcess extends BaseClientAbstract {
 
     @Test
     @Order(2)
-
-    @DisplayName("Should return the new banner infomation.")
+    @DisplayName("Should return the new banner information.")
     public void shouldReturnBannerInfoTest() throws Exception {
         log.info("AccessToken", token);
         var requestBody= CreateBannerRequest.builder()
             .imgKey("bannerKey")
             .content("bannerContent")
+            .title("title")
             .build();
         bannerResource.createBanner(requestBody, token);
     }
@@ -80,6 +80,7 @@ public class BannerCRUDProcess extends BaseClientAbstract {
         res.andExpect( jsonPath("$.data.list[0].id").isNumber());
         res.andExpect( jsonPath("$.data.list[0].imgKey").isString());
         res.andExpect( jsonPath("$.data.list[0].content").isString());
+        res.andExpect( jsonPath("$.data.list[0].title").isString());
         res.andExpect( jsonPath("$.data.total").isNumber());
         res.andExpect( jsonPath("$.data.size").isNumber());
         var jsonResponse = res.andReturn().getResponse().getContentAsString();
@@ -94,14 +95,17 @@ public class BannerCRUDProcess extends BaseClientAbstract {
     public void shouldReturnUpdatedBannerTest() throws Exception {
         var content = "content";
         var imgKey = "imgKey";
+        var title = "title";
         var requestBody = UpdateBannerRequest.builder()
             .imgKey(imgKey)
             .content(content)
+            .title(title)
             .build();
         var id = (Integer) banner.getId().intValue();
         var res = bannerResource.updateBanner(id, requestBody, token);
         res.andExpect( jsonPath("$.data.content", is(content)));
         res.andExpect( jsonPath("$.data.imgKey", is(imgKey)));
+        res.andExpect( jsonPath("$.data.title", is(title)));
         res.andExpect( jsonPath("$.data.id", is(id)));
     }
 

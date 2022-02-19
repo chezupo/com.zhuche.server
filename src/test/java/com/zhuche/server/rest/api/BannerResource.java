@@ -30,7 +30,7 @@ public class BannerResource extends BaseAbstract{
     public ResultActions getBanners() throws Exception {
         log.info("Getting list of banner banners." );
 
-        return getRequest("/banners");
+        return getRequest("/banners?page=1");
     }
 
     public ResultActions updateBanner(Integer id, UpdateBannerRequest requestBody, String token) throws Exception {

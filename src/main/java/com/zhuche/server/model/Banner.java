@@ -33,10 +33,14 @@ public class Banner extends BaseEntity{
     @JsonProperty
     private Long id;
 
+    private String title;
+
     @JsonProperty
     private String imgKey;
 
     @Lob
     @JsonProperty
     private String content;
+
+
 }

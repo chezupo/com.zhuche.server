@@ -15,8 +15,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BannerRepository extends JpaRepository<Banner, Long> {
     @Query("SELECT u FROM Banner u ")
-     Page<Banner> getBanners(Pageable pageable);
+    Page<Banner> getBanners(Pageable pageable);
+
+    @Query("SELECT u FROM Banner u ")
+    List<Banner> getBanners();
 }

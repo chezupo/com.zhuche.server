@@ -19,4 +19,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Configuration {
     private String imgPrefix;
+
+    private String appName;
+
+    private String logo;
+
+//    private
+
 }

@@ -8,7 +8,6 @@
 
 package com.zhuche.server.dto.request.banners;
 
-import com.zhuche.server.validators.authorize.AuthorizeValidator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +22,9 @@ import javax.validation.constraints.NotBlank;
 public class CreateBannerRequest {
     @NotBlank
     private String imgKey;
+
+    @NotBlank
+    private String title;
 
     @NotBlank
     private String content;

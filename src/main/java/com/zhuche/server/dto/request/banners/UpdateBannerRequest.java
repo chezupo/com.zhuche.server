@@ -26,5 +26,8 @@ public class UpdateBannerRequest {
     String imgKey;
 
     @NotBlank
+    String title;
+
+    @NotBlank
     String content;
 }

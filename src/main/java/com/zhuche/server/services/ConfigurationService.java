@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class ConfigurationService {
 
     @Value("${disk.qiniu.prefixUrl}")
-    String prefixUrl;
+    public String prefixUrl;
 
     public Configuration getConfiguration() {
         return Configuration.builder()

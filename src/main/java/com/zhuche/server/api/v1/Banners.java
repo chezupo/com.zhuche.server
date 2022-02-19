@@ -11,7 +11,6 @@ package com.zhuche.server.api.v1;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.banners.CreateBannerRequest;
 import com.zhuche.server.dto.request.banners.UpdateBannerRequest;
-import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Banner;
 import com.zhuche.server.model.Role;
@@ -19,9 +18,6 @@ import com.zhuche.server.repositories.BannerRepository;
 import com.zhuche.server.services.BannerService;
 import com.zhuche.server.validators.banners.HasBannerId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +40,7 @@ public class Banners {
         var newBanner = Banner.builder()
             .imgKey(request.getImgKey())
             .content(request.getContent())
+            .title(request.getTitle())
             .build();
         newBanner = bannerRepository.save(newBanner);
 
@@ -52,23 +49,17 @@ public class Banners {
             .build();
     }
 
-
     @GetMapping
     public UnityResponse getBanners(@Param("page") @Min(1) Integer page, @Param("size") Integer size) {
-        page = page != null ? --page : 0;
-        size = size != null ? size : 10;
-        Sort sort = Sort.by(Sort.Direction.ASC, "id");
-        Pageable pagingSort = PageRequest.of(page, size, sort);
-        var bannerPage = bannerRepository.getBanners(pagingSort).stream().toList();
-        var pageFormat  = PageFormat.builder()
-            .total( bannerRepository.count() )
-            .list(bannerPage.stream().toList())
-            .currentPage(page + 1)
-            .size(size)
-            .build();
+        Object res = null;
+        if (page != null) {
+            res = bannerService.getBannerPage(page, size);
+        } else {
+            res = bannerService.getBanners();
+        }
 
         return UnityResponse.builder()
-            .data(pageFormat)
+            .data(res)
             .build();
     }
 

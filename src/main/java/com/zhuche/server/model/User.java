@@ -30,6 +30,8 @@ public class User extends BaseEntity {
 
     private Boolean isEnabled;
 
+    private String phone;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
     @Getter @Setter
@@ -39,4 +41,7 @@ public class User extends BaseEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private MiniProgramUser miniProgramUser;
 }

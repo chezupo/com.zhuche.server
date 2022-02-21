@@ -24,8 +24,10 @@ public class ConfigurationService {
     @Autowired
     private ConfigurationRepository configurationRepository;
 
+    private Long id = 1L;
+
     public Configuration getConfiguration() {
-        final var configuration = configurationRepository.findById(1L).get();
+        final var configuration = configurationRepository.findById(id).get();
 
         return Configuration.builder()
             .imgPrefix(prefixUrl)
@@ -35,7 +37,7 @@ public class ConfigurationService {
     }
 
     public Configuration updateConfiguration(UpdateConfigurationRequest request) {
-        final var configuration = configurationRepository.findById(1L).get();
+        final var configuration = configurationRepository.findById(id).get();
         configuration.setLogo(request.getLogo());
         configuration.setAppName(request.getAppName());
         configurationRepository.save(configuration);

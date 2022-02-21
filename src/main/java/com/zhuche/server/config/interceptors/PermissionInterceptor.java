@@ -45,24 +45,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     private void permissionValidator(Method method, HttpServletRequest request) {
         var roles = method.getAnnotation(Permission.class).roles();
-        String bearerToken = request.getHeader("Authorization");
-        if  (bearerToken == null) {
-            throw new MyRuntimeException( ExceptionCodeConfig.UN_AUTHORIZATION_ERROR_TOKEN_CANNOT_BE_EMPTY );
-        }
-        final var tokenPrefix = "Bearer ";
-
-        if (bearerToken.length() <= 7 || !bearerToken.startsWith(tokenPrefix)) {
-            throw new MyRuntimeException(ExceptionCodeConfig.UN_AUTHORIZATION_ERROR_UN_VALID_TOKEN);
-        }
-        bearerToken = bearerToken.split(" ")[1];
-
-        if (!jwtUtil.validateToken(bearerToken)) {
-            throw new MyRuntimeException(ExceptionCodeConfig.AUTHORIZATION_ERROR_TYPE);
-        }
-        final var username = jwtUtil.getUsernameFromToken(bearerToken);
-        final var user = userRepository.findUserByUsername(username);
-        if (user == null) throw new MyRuntimeException(ExceptionCodeConfig.UN_AUTHORIZATION_ERROR_NO_SUCH_USER);
-        if (!user.getIsEnabled())  throw new MyRuntimeException(ExceptionCodeConfig.UN_AUTHORIZATION_ERROR_ACCESS_DISABLE);
+        var user = jwtUtil.getUser();
 
         var accessRoleCount = Arrays.stream(roles)
             .filter(role -> user.getRoles().contains(role) )

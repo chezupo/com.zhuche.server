@@ -17,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Testing the processing of configuration CRUD for admin role.")

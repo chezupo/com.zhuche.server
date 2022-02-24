@@ -28,10 +28,11 @@ public class AuthorizationService {
         this.jwtUtil = jwtUtil;
     }
 
-
     public CreateAuthorizationTokenResponse createToken(CreateAuthorizationTokenRequest authRequest) {
         var user = userRepository.findUserByUsername(authRequest.getUsername());
+        var res = jwtUtil.generateToken(user);
+        res.setRoles(user.getRoles());
 
-        return jwtUtil.generateToken(user);
+        return res;
     }
 }

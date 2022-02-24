@@ -12,7 +12,6 @@ import com.alipay.api.AlipayApiException;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.authorizatioins.CreateSocialAuthorizationTokenRequest;
 import com.zhuche.server.dto.response.UnityResponse;
-import com.zhuche.server.dto.response.authorization.CreateAuthorizationTokenResponse;
 import com.zhuche.server.services.SocialAuthorizationService;
 import com.zhuche.server.validators.social.AccessSocialType;
 import lombok.extern.slf4j.Slf4j;

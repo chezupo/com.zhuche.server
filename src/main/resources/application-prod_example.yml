@@ -55,3 +55,7 @@ log4jdbc:
 
 initAppName: "车租婆"
 initLogo: "2022-2-20-1-27-36-1645291656873-logo.png"
+
+amap:
+    key: ""
+    secret: ""

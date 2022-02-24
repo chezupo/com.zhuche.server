@@ -1,6 +1,5 @@
 package com.zhuche.server.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -9,7 +8,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -30,7 +29,6 @@ public class User extends BaseEntity {
 
     private Boolean isEnabled;
 
-    private String phone;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
@@ -44,4 +42,10 @@ public class User extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     private MiniProgramUser miniProgramUser;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Store  store;
+
+    @OneToMany
+    private Set<Comments> comments;
 }

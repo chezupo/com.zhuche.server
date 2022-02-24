@@ -8,8 +8,11 @@
 
 package com.zhuche.server.dto.response.authorization;
 
+import com.zhuche.server.model.Role;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Collection;
 
 @Data
 @SuperBuilder
@@ -19,4 +22,6 @@ public class CreateAuthorizationTokenResponse {
     private Integer expiration;
 
     private String tokenType;
+
+    private Collection<Role> roles;
 }

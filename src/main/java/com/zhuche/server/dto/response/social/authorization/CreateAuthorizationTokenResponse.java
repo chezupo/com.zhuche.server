@@ -8,8 +8,11 @@
 
 package com.zhuche.server.dto.response.social.authorization;
 
+import com.zhuche.server.model.Role;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Collection;
 
 @Data
 @SuperBuilder
@@ -21,4 +24,6 @@ public class CreateAuthorizationTokenResponse {
     private String tokenType;
 
     private Boolean isNewUser;
+
+    private Collection<Role> roles;
 }

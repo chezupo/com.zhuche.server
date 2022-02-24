@@ -23,4 +23,6 @@ public class Configuration {
     private String appName;
 
     private String logo;
+
+    private String amapKey;
 }

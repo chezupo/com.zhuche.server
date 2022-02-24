@@ -69,6 +69,7 @@ public class SocialAuthorizationService {
         final var res = jwtUtil.generateToken(miniProgramUser.getUser(), SocialType.ALIPAY);
         return CreateAuthorizationTokenResponse.builder()
             .accessToken(res.getAccessToken())
+            .roles(miniProgramUser.getUser().getRoles())
             .expiration(res.getExpiration())
             .tokenType(res.getTokenType())
             .isNewUser(miniProgramUser.getAlipayNickName() == null)

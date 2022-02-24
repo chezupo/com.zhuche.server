@@ -21,20 +21,28 @@ public class ConfigurationService {
     @Value("${disk.qiniu.prefixUrl}")
     public String prefixUrl;
 
+    @Value("${amap.key}")
+    public String mapKey;
+
     @Autowired
     private ConfigurationRepository configurationRepository;
 
     private Long id = 1L;
 
-    public Configuration getConfiguration() {
-        final var configuration = configurationRepository.findById(id).get();
-
+    private Configuration formatResponse(com.zhuche.server.model.Configuration configuration) {
         return Configuration.builder()
             .imgPrefix(prefixUrl)
             .appName(configuration.getAppName())
             .logo(configuration.getLogo())
+            .amapKey(mapKey)
             .build();
     }
+    public Configuration getConfiguration() {
+        final var configuration = configurationRepository.findById(id).get();
+
+        return formatResponse( configuration);
+    }
+
 
     public Configuration updateConfiguration(UpdateConfigurationRequest request) {
         final var configuration = configurationRepository.findById(id).get();
@@ -42,10 +50,6 @@ public class ConfigurationService {
         configuration.setAppName(request.getAppName());
         configurationRepository.save(configuration);
 
-        return Configuration.builder()
-            .imgPrefix(prefixUrl)
-            .appName(configuration.getAppName())
-            .logo(configuration.getLogo())
-            .build();
+        return formatResponse( configuration);
     }
 }

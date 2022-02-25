@@ -24,6 +24,9 @@ public class ConfigurationService {
     @Value("${amap.key}")
     public String mapKey;
 
+    @Value("${amap.searchKey}")
+    public String mapSearchKey;
+
     @Autowired
     private ConfigurationRepository configurationRepository;
 
@@ -35,6 +38,7 @@ public class ConfigurationService {
             .appName(configuration.getAppName())
             .logo(configuration.getLogo())
             .amapKey(mapKey)
+            .amapSearchKey(mapSearchKey)
             .build();
     }
     public Configuration getConfiguration() {

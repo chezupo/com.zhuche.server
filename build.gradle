@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.20'
     implementation 'com.integralblue:log4jdbc-spring-boot-starter:2.0.0'
     implementation 'com.alipay.sdk:alipay-sdk-java:4.22.37.ALL'
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 }
 
 tasks.named('test') {

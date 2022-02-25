@@ -25,4 +25,6 @@ public class Configuration {
     private String logo;
 
     private String amapKey;
+
+    private String amapSearchKey;
 }

@@ -30,6 +30,4 @@ public class Area {
     @JoinColumn(name = "city_code")
     private City city;
 
-    @OneToMany(mappedBy = "area")
-    private List<Street> streets;
 }

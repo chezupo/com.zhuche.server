@@ -25,13 +25,15 @@ import javax.persistence.*;
 @SuperBuilder
 @SQLDelete(sql = "UPDATE banner SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
-public class ReturnGuide extends BaseEntity{
+public class ReturnGuid extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
     private Long id;
 
     private String imgKey;
+
+    private String title;
 
     @ManyToOne
     private Store store;

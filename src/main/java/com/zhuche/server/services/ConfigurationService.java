@@ -15,11 +15,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 @Service
 public class ConfigurationService {
+    private static  String prefixUrl;
+
+    public static String getPrefixUrl() {
+        return prefixUrl;
+    }
 
     @Value("${disk.qiniu.prefixUrl}")
-    public String prefixUrl;
+    private String prefix;
+
+    @PostConstruct
+    private void init() {
+        prefixUrl = prefix;
+    }
+
 
     @Value("${amap.key}")
     public String mapKey;
@@ -34,7 +47,7 @@ public class ConfigurationService {
 
     private Configuration formatResponse(com.zhuche.server.model.Configuration configuration) {
         return Configuration.builder()
-            .imgPrefix(prefixUrl)
+            .imgPrefix(prefix)
             .appName(configuration.getAppName())
             .logo(configuration.getLogo())
             .amapKey(mapKey)

@@ -10,9 +10,8 @@ package com.zhuche.server.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -21,11 +20,4 @@ public class Province {
     private String code;
 
     private String name;
-
-    @OneToMany(mappedBy = "province")
-    private List<City> cities;
-
-    @OneToMany(mappedBy = "province")
-    private List<Area> areas;
-
 }

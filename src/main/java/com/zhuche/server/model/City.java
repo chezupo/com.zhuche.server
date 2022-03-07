@@ -8,6 +8,7 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,11 +25,13 @@ public class City {
 
     private String pinyin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "province_code")
+    @OneToOne
     private Province province;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city"
+//         cascade = CascadeType.ALL
+    )
+    @JsonIgnore
     private List<Area> areas;
 
 }

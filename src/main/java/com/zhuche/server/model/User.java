@@ -1,5 +1,6 @@
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -25,10 +26,10 @@ public class User extends BaseEntity {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private Boolean isEnabled;
-
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
@@ -40,12 +41,13 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MiniProgramUser miniProgramUser;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Store  store;
 
-    @OneToMany
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Comments> comments;
 }

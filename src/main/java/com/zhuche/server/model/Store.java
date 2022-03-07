@@ -9,6 +9,8 @@
 package com.zhuche.server.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +20,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 
 @Data
@@ -46,11 +48,9 @@ public class Store extends BaseEntity{
 
     private String servicePhone;
 
-    private String tags;
+    private Float lat;
 
-    private Integer lat;
-
-    private Integer lng;
+    private Float lng;
 
     private Boolean isEnable;
 
@@ -60,19 +60,37 @@ public class Store extends BaseEntity{
 
     protected Boolean isSelfService;
 
-    @OneToOne(mappedBy = "store")
+    @OneToOne(mappedBy = "store", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"store", "comments", "password"})
     private User admin;
 
-    @OneToMany
-    private Set<StoreBanner> banners;
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"store"})
+    private List<StoreBanner> banners;
 
-    @OneToMany
-    private Set<PickupGuide> pickupGuides;
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"store"})
+    private List<PickupGuid> pickupGuides;
 
-    @OneToMany
-    private Set<ReturnGuide> returnGuides;
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"store"})
+    private List<ReturnGuid> returnGuides;
 
-    @OneToMany
-    private Set<Comments> comments;
+    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Comments> comments;
+
+    @OneToOne
+    @JoinColumn(name = "area_code", referencedColumnName = "code")
+    @JsonIgnoreProperties({"province", "city"})
+    private Area area;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"province", "areas"})
+    private City city;
+
+    @OneToOne
+    @JoinColumn(name = "province_code", referencedColumnName = "code")
+    private Province province;
 }
 

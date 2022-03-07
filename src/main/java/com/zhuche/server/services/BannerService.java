@@ -46,7 +46,7 @@ public class BannerService {
 
     public List<Banner> getBanners() {
         var res = bannerRepository.getBanners();
-        res = res.stream().peek(i -> i.setImgKey( configurationService.prefixUrl + "/" + i.getImgKey() ))
+        res = res.stream().peek(i -> i.setImgKey( ConfigurationService.getPrefixUrl()+ "/" + i.getImgKey() ))
             .toList();
 
         return res;

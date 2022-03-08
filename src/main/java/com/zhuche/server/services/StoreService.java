@@ -11,10 +11,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Order;
 
 @Service
 @RequiredArgsConstructor
@@ -62,17 +66,40 @@ public class StoreService {
         return newStore;
     }
 
-    public PageFormat getPage(Integer page, Integer size) {
+    public PageFormat getPage(Integer page, Integer size,String name, String provinceCode, String cityCode, String  areaCode) {
         page = page != null ? --page : 0;
         size = size != null ? size : 10;
-        Sort sort = Sort.by(Sort.Direction.ASC, "id");
-        Pageable pagingSort = PageRequest.of(page, size, sort);
-        final Page<Store> storeList = storeRepository.getStores(pagingSort);
-        final List<Store> stores = storeList.stream().toList();
+        Pageable pagingSort = PageRequest.of(page, size);
+        // dynamic query
+        Specification<Store> sf = (Specification<Store>) (root, query,builder) -> {
+            List<Predicate> maps = new ArrayList<>();
+            if (null != provinceCode) {
+                Predicate provinceMap = builder.equal(root.get("province").get("code").as(String.class), provinceCode);
+                maps.add(provinceMap);
+            }
+            if (null != cityCode) {
+                maps.add( builder.equal(root.get("city").get("code").as(String.class), cityCode) );
+            }
+            if (null != cityCode) {
+                maps.add( builder.equal(root.get("area").get("code").as(String.class), areaCode) );
+            }
+            if (name != null) {
+                var p3 = builder.like(root.get("name"), "%" + name + "%");
+                maps.add(p3);
+            }
+            Predicate[] pre = new Predicate[maps.size()];
+            Predicate and = builder.and(maps.toArray(pre));
+            query.where(and);
+            List<Order> orders = new ArrayList<>();
+            orders.add(builder.desc(root.get("id")));
+
+            return query.orderBy(orders).getRestriction();
+        };
+        final Page<Store> storeList = storeRepository.findAll(sf,pagingSort);
 
         return PageFormat.builder()
             .total(storeList.getTotalElements())
-            .list(stores)
+            .list(storeList.stream().toList())
             .currentPage(page + 1)
             .size(size)
             .build();

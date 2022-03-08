@@ -86,7 +86,7 @@ public class Store extends BaseEntity{
     private Area area;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"province", "areas"})
+
     private City city;
 
     @OneToOne

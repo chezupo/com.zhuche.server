@@ -36,9 +36,16 @@ public class Store {
 
     @Permission(roles =  {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
     @GetMapping
-    public UnityResponse getStores(@Param("page") @Min(1) Integer page, @Param("size") Integer size) {
+    public UnityResponse getStores(
+        @Param("page") @Min(1) Integer page,
+        @Param("size") Integer size,
+        @Param("name") String name,
+        @Param("provinceCode") String provinceCode,
+        @Param("cityCode") String cityCode,
+        @Param("areaCode") String areaCode
+    ) {
 
-        PageFormat pageDate = storeService.getPage(page, size);
+        PageFormat pageDate = storeService.getPage(page, size, name, provinceCode, cityCode, areaCode);
 
         return UnityResponse.builder()
             .data(pageDate)

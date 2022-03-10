@@ -20,6 +20,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,7 +29,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @SuperBuilder
-@SQLDelete(sql = "UPDATE banner SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE store SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
 public class Store extends BaseEntity{
     @Id
@@ -74,7 +75,7 @@ public class Store extends BaseEntity{
 
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"store"})
-    private List<ReturnGuid> returnGuides;
+    private List<ReturnGuid> returnGuides = new ArrayList<ReturnGuid>();
 
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
     @JsonIgnore

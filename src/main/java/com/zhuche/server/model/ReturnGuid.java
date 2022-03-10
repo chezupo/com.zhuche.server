@@ -23,7 +23,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @SuperBuilder
-@SQLDelete(sql = "UPDATE banner SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE return_guid SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
 public class ReturnGuid extends BaseEntity{
     @Id

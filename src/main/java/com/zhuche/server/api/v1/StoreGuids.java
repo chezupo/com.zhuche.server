@@ -1,7 +1,7 @@
 package com.zhuche.server.api.v1;
 
 import com.zhuche.server.dto.response.UnityResponse;
-import com.zhuche.server.services.StoreBannerService;
+import com.zhuche.server.services.StoreGuidService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
@@ -17,17 +17,17 @@ import javax.validation.constraints.Min;
 @Slf4j
 @RequiredArgsConstructor
 @Validated
-public class StoreBanner {
-    private final StoreBannerService storeBannerService;
+public class StoreGuids {
+    private final StoreGuidService storeGuidService;
 
-    @GetMapping("/banners")
-    public UnityResponse getStoreBanners(
+    @GetMapping("/banners/returnGuids")
+    public UnityResponse getReturnGuids(
         @Param("page") @Min(1) Integer page,
         @Param("size") Integer size,
         @Param("storeId") Long storeId
     ) {
         return UnityResponse.builder()
-            .data(storeBannerService.getStoreBanners(page, size, storeId))
+            .data(storeGuidService.getStoreReturnGuid(page, size, storeId))
             .build();
     }
 }

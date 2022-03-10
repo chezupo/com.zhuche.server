@@ -2,7 +2,8 @@ package com.zhuche.server.services;
 
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.model.Store;
-import com.zhuche.server.repositories.StoreBannerRepository;
+import com.zhuche.server.repositories.PickupGuidRepository;
+import com.zhuche.server.repositories.ReturnGuidRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +17,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class StoreBannerService {
-    final private StoreBannerRepository storeBannerRepository;
+public class StoreGuidService {
+    final private ReturnGuidRepository returnGuidRepository;
+    final private PickupGuidRepository PickupGuidRepository;
 
-    public PageFormat getStoreBanners(Integer page, Integer size, Long id) {
+    public PageFormat getStoreReturnGuid(Integer page, Integer size, Long id) {
         page = page != null ? --page : 0;
         size = size != null ? size : 12;
         Pageable pagingSort = PageRequest.of(page, size);
@@ -37,7 +39,7 @@ public class StoreBannerService {
 
             return query.orderBy(orders).getRestriction();
         };
-        final var pageData = storeBannerRepository.findAll(sf,pagingSort);
+        final var pageData = returnGuidRepository.findAll(sf,pagingSort);
 
         return PageFormat
             .builder()

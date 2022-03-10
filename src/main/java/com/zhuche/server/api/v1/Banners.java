@@ -50,7 +50,10 @@ public class Banners {
     }
 
     @GetMapping
-    public UnityResponse getBanners(@Param("page") @Min(1) Integer page, @Param("size") Integer size) {
+    public UnityResponse getBanners(
+        @Param("page") @Min(1) Integer page,
+        @Param("size") Integer size
+    ) {
         Object res = null;
         if (page != null) {
             res = bannerService.getBannerPage(page, size);

@@ -8,6 +8,7 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuche.server.services.ConfigurationService;
 import lombok.*;
@@ -49,5 +50,35 @@ public class StoreBanner extends BaseEntity{
     }
 
     @ManyToOne
+    @JsonIgnoreProperties({
+        "admin",
+        "banners",
+        "pickupGuides",
+        "returnGuides",
+        "updatedAt",
+        "mark",
+        "starAt",
+        "endAt",
+        "address",
+        "servicePhone",
+        "lat",
+        "lng",
+        "isEnable",
+        "isStation",
+        "isAirport",
+        "isSelfService",
+        "area",
+        "city",
+        "province",
+        "imgKey",
+        "prefixUrl",
+        "createdAt",
+        "updatedAt",
+        "area",
+        "city",
+        "province"
+    })
+
+
     private Store store;
 }

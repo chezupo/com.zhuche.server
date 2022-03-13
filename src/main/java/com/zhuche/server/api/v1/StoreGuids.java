@@ -20,7 +20,7 @@ import javax.validation.constraints.Min;
 public class StoreGuids {
     private final StoreGuidService storeGuidService;
 
-    @GetMapping("/banners/returnGuids")
+    @GetMapping("/returnGuides")
     public UnityResponse getReturnGuids(
         @Param("page") @Min(1) Integer page,
         @Param("size") Integer size,

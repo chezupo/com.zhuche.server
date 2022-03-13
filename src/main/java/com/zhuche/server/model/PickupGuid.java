@@ -9,6 +9,7 @@
 package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zhuche.server.services.ConfigurationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ import javax.persistence.*;
 @SuperBuilder
 @SQLDelete(sql = "UPDATE pickup_guid SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
-public class PickupGuid extends BaseEntity{
+public class PickupGuid extends ReturnGuid{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
@@ -34,6 +35,15 @@ public class PickupGuid extends BaseEntity{
     private String imgKey;
 
     private String title;
+
+    @Transient
+    private String prefixUrl;
+
+    public String getPrefixUrl() {
+        final var prefixUrl = ConfigurationService.getPrefixUrl();
+
+        return prefixUrl;
+    }
 
     @ManyToOne
     private Store store;

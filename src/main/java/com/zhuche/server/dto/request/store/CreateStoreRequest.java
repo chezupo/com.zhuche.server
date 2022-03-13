@@ -29,10 +29,4 @@ public class CreateStoreRequest extends UpdateStoreRequest{
     @NotBlank
     // todo 添加密码不能有空格的验证器
     private String password;
-
-    @NotNull
-    private List<CreateGuid> pickupGuids;
-
-    @NotNull
-    private List<CreateGuid> returnGuids;
 }

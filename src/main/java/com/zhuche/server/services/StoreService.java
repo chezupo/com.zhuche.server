@@ -1,6 +1,7 @@
 package com.zhuche.server.services;
 
 import com.zhuche.server.dto.mapper.StoreMapper;
+import com.zhuche.server.dto.request.guid.CreateGuid;
 import com.zhuche.server.dto.request.store.CreateStoreRequest;
 import com.zhuche.server.dto.request.store.UpdateStoreRequest;
 import com.zhuche.server.dto.response.PageFormat;
@@ -9,6 +10,7 @@ import com.zhuche.server.repositories.*;
 import com.zhuche.server.util.PasswordEncodeUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.dialect.InnoDBStorageEngine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -116,9 +118,89 @@ public class StoreService {
     public Store update(Long id, UpdateStoreRequest request) {
         final var store = storeRepository.getById(id);
         // update store's banners
+        final var differentiatedStoreBanners = getDifferentiatedStoreBanners(store, request);
+        storeBannerRepository.deleteAll(differentiatedStoreBanners.get(0));
+        storeBannerRepository.saveAll(differentiatedStoreBanners.get(1));
+        // update the return guides for store.
+        final var differentiatedReturnGuides  = getDifferentiated(store, request);
+        returnGuidRepository.deleteAll(differentiatedReturnGuides.get(0));
+        returnGuidRepository.saveAll(differentiatedReturnGuides.get(1));
+        // update the return pickup for store.
+        final var differentiatedPickupGuides = getDifferentiatedPickupGuides(store, request);
+        pickupGuidRepository.saveAll(differentiatedPickupGuides.get(0));
+        pickupGuidRepository.deleteAll(differentiatedPickupGuides.get(1));
+        // Update other properties of the store.
+        var area = areaRepository.findByCode(request.getAreaCode());
+        store.setAddress(request.getAddress());
+        store.setServicePhone(request.getServicePhone());
+        store.setArea(area);
+        store.setCity(area.getCity());
+        store.setProvince(area.getProvince());
+        store.setIsStation(request.getIsStation());
+        store.setIsAirport(request.getIsAirport());
+        store.setIsStation(request.getIsStation());
+        store.setEndAt(request.getEndAt());
+        store.setStarAt(request.getStarAt());
+        store.setIsSelfService(request.getIsSelfService());
+        store.setLat(request.getLat());
+        store.setLng(request.getLng());
+        store.setMark(request.getMark());
+        store.setName(request.getName());
+
+        return store;
+    }
+
+    private List<List<ReturnGuid>> getDifferentiated(Store store, UpdateStoreRequest request) {
+        final List<String> savedReturnGuides =  store.getReturnGuides().stream().map(ReturnGuid::getImgKey).toList();
+        final List<String> requestReturnGuids = request.getReturnGuids().stream().map(CreateGuid::getImgKey).toList();
+        final List<ReturnGuid> deleteReturnGuides = store.getReturnGuides().stream().filter(el ->
+            !requestReturnGuids.contains(el.getImgKey())
+        ).toList();
+        final List<ReturnGuid> newReturnGuides = request.getReturnGuids().stream()
+            .filter(el -> !savedReturnGuides.contains(el.getImgKey()))
+            .map(el ->
+                (ReturnGuid) ReturnGuid.builder()
+                    .store(store)
+                    .imgKey(el.getImgKey())
+                    .title(el.getTitle())
+                    .build()
+            )
+            .toList();
+        final List<List<ReturnGuid>> res = new ArrayList<>();
+        res.add(deleteReturnGuides);
+        res.add(newReturnGuides);
+
+        return res;
+    }
+
+    private List<List<PickupGuid>> getDifferentiatedPickupGuides(Store store, UpdateStoreRequest request) {
+        final List<String> savedPickupGuides = store.getPickupGuides().stream().map(PickupGuid::getImgKey).toList();
+        final List<PickupGuid> newPickGuides = request.getPickupGuids()
+            .stream()
+            .filter(el -> !savedPickupGuides.contains(el.getImgKey()))
+            .map(el ->
+                (PickupGuid) PickupGuid
+                    .builder()
+                    .title(el.getTitle())
+                    .imgKey(el.getImgKey())
+                    .store(store)
+                    .build()
+            )
+            .toList();
+        final List<String> requestPickupGuides = request.getPickupGuids().stream().map(CreateGuid::getImgKey).toList();
+        final List<PickupGuid> deletePickupGuides = store.getPickupGuides().stream()
+            .filter(el -> !requestPickupGuides.contains(el.getImgKey()))
+            .toList();
+        final List<List<PickupGuid>> res = new ArrayList<>();
+        res.add(deletePickupGuides);
+        res.add(newPickGuides);
+
+        return res;
+    }
+
+    private List<List<StoreBanner>> getDifferentiatedStoreBanners(Store store, UpdateStoreRequest request) {
         final List<StoreBanner> deleteBanners = new ArrayList();
         final List<StoreBanner> newBanners = new ArrayList();
-
         store.setBanners(
             store.getBanners()
                 .stream()
@@ -143,27 +225,10 @@ public class StoreService {
                         .build()
                 );
             });
-        storeBannerRepository.deleteAll(deleteBanners);
-        storeBannerRepository.saveAll(newBanners);
+        final List<List<StoreBanner>> res = new ArrayList<>();
+        res.add(deleteBanners);
+        res.add(newBanners);
 
-        // Update other properties of the store.
-        var area = areaRepository.findByCode(request.getAreaCode());
-        store.setAddress(request.getAddress());
-        store.setServicePhone(request.getServicePhone());
-        store.setArea(area);
-        store.setCity(area.getCity());
-        store.setProvince(area.getProvince());
-        store.setIsStation(request.getIsStation());
-        store.setIsAirport(request.getIsAirport());
-        store.setIsStation(request.getIsStation());
-        store.setEndAt(request.getEndAt());
-        store.setStarAt(request.getStarAt());
-        store.setIsSelfService(request.getIsSelfService());
-        store.setLat(request.getLat());
-        store.setLng(request.getLng());
-        store.setMark(request.getMark());
-        store.setName(request.getName());
-
-        return store;
+        return res;
     }
 }

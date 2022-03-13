@@ -1,5 +1,6 @@
 package com.zhuche.server.dto.request.store;
 
+import com.zhuche.server.dto.request.guid.CreateGuid;
 import com.zhuche.server.validators.area.code.AreaCodeMustBeExisted;
 import com.zhuche.server.validators.store.ServicePhoneFormatValidator;
 import lombok.AllArgsConstructor;
@@ -59,4 +60,10 @@ public class UpdateStoreRequest {
 
     @NotNull
     private Boolean isSelfService;
+
+    @NotNull
+    private List<CreateGuid> pickupGuids;
+
+    @NotNull
+    private List<CreateGuid> returnGuids;
 }

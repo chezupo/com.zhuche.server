@@ -8,25 +8,25 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuche.server.services.ConfigurationService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @SuperBuilder
 @SQLDelete(sql = "UPDATE pickup_guid SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
-public class PickupGuid extends ReturnGuid{
+public class PickupGuid extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
@@ -46,5 +46,34 @@ public class PickupGuid extends ReturnGuid{
     }
 
     @ManyToOne
+    @JoinColumn(name = "store_id")
+    @JsonIgnoreProperties({
+        "admin",
+        "banners",
+        "pickupGuides",
+        "returnGuides",
+        "updatedAt",
+        "mark",
+        "starAt",
+        "endAt",
+        "address",
+        "servicePhone",
+        "lat",
+        "lng",
+        "isEnable",
+        "isStation",
+        "isAirport",
+        "isSelfService",
+        "area",
+        "city",
+        "province",
+        "imgKey",
+        "prefixUrl",
+        "createdAt",
+        "updatedAt",
+        "area",
+        "city",
+        "province"
+    })
     private Store store;
 }

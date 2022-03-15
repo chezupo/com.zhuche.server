@@ -12,10 +12,10 @@ package com.zhuche.server.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -69,13 +70,15 @@ public class Store extends BaseEntity{
     @JsonIgnoreProperties({"store"})
     private List<StoreBanner> banners;
 
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"store"})
-    private List<PickupGuid> pickupGuides;
+    @JoinColumn(name = "store_id")
+    private List<PickupGuid> pickupGuides = new ArrayList<>();
 
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id")
     @JsonIgnoreProperties({"store"})
-    private List<ReturnGuid> returnGuides = new ArrayList<ReturnGuid>();
+    private List<ReturnGuid> returnGuides;
 
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
     @JsonIgnore

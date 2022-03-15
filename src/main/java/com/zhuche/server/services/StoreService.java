@@ -1,7 +1,6 @@
 package com.zhuche.server.services;
 
 import com.zhuche.server.dto.mapper.StoreMapper;
-import com.zhuche.server.dto.request.guid.CreateGuid;
 import com.zhuche.server.dto.request.store.CreateStoreRequest;
 import com.zhuche.server.dto.request.store.UpdateStoreRequest;
 import com.zhuche.server.dto.response.PageFormat;
@@ -10,7 +9,6 @@ import com.zhuche.server.repositories.*;
 import com.zhuche.server.util.PasswordEncodeUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.dialect.InnoDBStorageEngine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -118,17 +116,11 @@ public class StoreService {
     public Store update(Long id, UpdateStoreRequest request) {
         final var store = storeRepository.getById(id);
         // update store's banners
-        final var differentiatedStoreBanners = getDifferentiatedStoreBanners(store, request);
-        storeBannerRepository.deleteAll(differentiatedStoreBanners.get(0));
-        storeBannerRepository.saveAll(differentiatedStoreBanners.get(1));
+        final var deletedBanners = updateBanners(store, request);
         // update the return guides for store.
-        final var differentiatedReturnGuides  = getDifferentiated(store, request);
-        returnGuidRepository.deleteAll(differentiatedReturnGuides.get(0));
-        returnGuidRepository.saveAll(differentiatedReturnGuides.get(1));
-        // update the return pickup for store.
-        final var differentiatedPickupGuides = getDifferentiatedPickupGuides(store, request);
-        pickupGuidRepository.saveAll(differentiatedPickupGuides.get(0));
-        pickupGuidRepository.deleteAll(differentiatedPickupGuides.get(1));
+        final var deletedReturnGuides = updateReturnGuidesData(store, request);
+        // update the pickup for store.
+        final var deletedPickupGuides = updatePickupGuides(store, request);
         // Update other properties of the store.
         var area = areaRepository.findByCode(request.getAreaCode());
         store.setAddress(request.getAddress());
@@ -146,89 +138,114 @@ public class StoreService {
         store.setLng(request.getLng());
         store.setMark(request.getMark());
         store.setName(request.getName());
+        storeRepository.save(store);
+        returnGuidRepository.deleteAll(deletedReturnGuides);
+        pickupGuidRepository.deleteAll(deletedPickupGuides);
+        storeBannerRepository.deleteAll(deletedBanners);
 
         return store;
     }
 
-    private List<List<ReturnGuid>> getDifferentiated(Store store, UpdateStoreRequest request) {
-        final List<String> savedReturnGuides =  store.getReturnGuides().stream().map(ReturnGuid::getImgKey).toList();
-        final List<String> requestReturnGuids = request.getReturnGuids().stream().map(CreateGuid::getImgKey).toList();
-        final List<ReturnGuid> deleteReturnGuides = store.getReturnGuides().stream().filter(el ->
-            !requestReturnGuids.contains(el.getImgKey())
-        ).toList();
-        final List<ReturnGuid> newReturnGuides = request.getReturnGuids().stream()
-            .filter(el -> !savedReturnGuides.contains(el.getImgKey()))
-            .map(el ->
-                (ReturnGuid) ReturnGuid.builder()
-                    .store(store)
-                    .imgKey(el.getImgKey())
-                    .title(el.getTitle())
-                    .build()
-            )
-            .toList();
-        final List<List<ReturnGuid>> res = new ArrayList<>();
-        res.add(deleteReturnGuides);
-        res.add(newReturnGuides);
-
-        return res;
-    }
-
-    private List<List<PickupGuid>> getDifferentiatedPickupGuides(Store store, UpdateStoreRequest request) {
-        final List<String> savedPickupGuides = store.getPickupGuides().stream().map(PickupGuid::getImgKey).toList();
-        final List<PickupGuid> newPickGuides = request.getPickupGuids()
-            .stream()
-            .filter(el -> !savedPickupGuides.contains(el.getImgKey()))
-            .map(el ->
-                (PickupGuid) PickupGuid
-                    .builder()
-                    .title(el.getTitle())
-                    .imgKey(el.getImgKey())
-                    .store(store)
-                    .build()
-            )
-            .toList();
-        final List<String> requestPickupGuides = request.getPickupGuids().stream().map(CreateGuid::getImgKey).toList();
-        final List<PickupGuid> deletePickupGuides = store.getPickupGuides().stream()
-            .filter(el -> !requestPickupGuides.contains(el.getImgKey()))
-            .toList();
-        final List<List<PickupGuid>> res = new ArrayList<>();
-        res.add(deletePickupGuides);
-        res.add(newPickGuides);
-
-        return res;
-    }
-
-    private List<List<StoreBanner>> getDifferentiatedStoreBanners(Store store, UpdateStoreRequest request) {
-        final List<StoreBanner> deleteBanners = new ArrayList();
-        final List<StoreBanner> newBanners = new ArrayList();
-        store.setBanners(
-            store.getBanners()
-                .stream()
-                .filter(el -> {
-                    if(request.getBanners().contains(el.getImgKey())) {
-                        return true;
-                    } else {
-                        deleteBanners.add(el);
-                        return false;
-                    }
-                })
-                .toList()
-        );
-        final List<String> storedBanners = store.getBanners().stream().map(el -> el.getImgKey()).toList();
-        request.getBanners().stream().filter(el -> !storedBanners.contains(el))
-            .forEach(el -> {
-                newBanners.add(
-                    StoreBanner
-                        .builder()
-                        .imgKey(el)
+    private List<ReturnGuid> updateReturnGuidesData(Store store, UpdateStoreRequest request) {
+        final List<Long> changeIds = new ArrayList<>();
+        final List<Long> savedIds = new ArrayList<>();
+        final Map<Long, Integer> idMapReturnGuideIndex = new HashMap<>();
+        final AtomicInteger indexHolder = new AtomicInteger();
+        for (ReturnGuid returnGuid : store.getReturnGuides()) {
+            final var index = indexHolder.getAndIncrement();
+            idMapReturnGuideIndex.put(returnGuid.getId(), index);
+            savedIds.add(returnGuid.getId());
+        }
+        request.getReturnGuids().forEach(requestReturnGuide -> {
+            if (requestReturnGuide.getId() != null && savedIds.contains(requestReturnGuide.getId())) {
+                final var index = idMapReturnGuideIndex.get(requestReturnGuide.getId());
+                final var savedReturnGuide = store.getReturnGuides().get(index);
+                savedReturnGuide.setImgKey(requestReturnGuide.getImgKey());
+                savedReturnGuide.setTitle(requestReturnGuide.getTitle());
+                changeIds.add(requestReturnGuide.getId());
+            } else {
+                store.getReturnGuides().add(
+                    ReturnGuid.builder()
+                        .imgKey(requestReturnGuide.getImgKey())
+                        .title(requestReturnGuide.getTitle())
                         .store(store)
                         .build()
                 );
-            });
-        final List<List<StoreBanner>> res = new ArrayList<>();
-        res.add(deleteBanners);
-        res.add(newBanners);
+            }
+        });
+        final List<ReturnGuid> deletedReturnGuides = new ArrayList<>();
+        store.getReturnGuides().removeIf(item -> {
+                if (item.getId() != null && !changeIds.contains(item.getId())) {
+                    deletedReturnGuides.add(item);
+                    return true;
+                }
+                return false;
+            }
+        );
 
-        return res;
+        return deletedReturnGuides;
+    }
+
+    private List<PickupGuid> updatePickupGuides(Store store, UpdateStoreRequest request) {
+        final List<Long> savedIds = store.getPickupGuides().stream().map(PickupGuid::getId).toList();
+        final Map<Long, Integer> idMapIndex = new HashMap<>();
+        final AtomicInteger indexHolder = new AtomicInteger();
+        store.getPickupGuides().forEach((el) -> idMapIndex.put(el.getId(), indexHolder.getAndIncrement()));
+        final List<Long> changeIds = new ArrayList<>();
+        request.getPickupGuids().forEach(el -> {
+            if (el.getId() != null && savedIds.contains(el.getId())) {
+                final var index = idMapIndex.get(el.getId());
+                final var updatedPickupGuid = store.getPickupGuides().get(index);
+                updatedPickupGuid.setImgKey(el.getImgKey());
+                updatedPickupGuid.setTitle(el.getTitle());
+                store.getPickupGuides().set(index, updatedPickupGuid);
+                changeIds.add(updatedPickupGuid.getId());
+            } else {
+                store.getPickupGuides().add(
+                    PickupGuid.builder()
+                        .imgKey(el.getImgKey())
+                        .title(el.getTitle())
+                        .store(store)
+                        .build()
+                );
+            }
+        });
+        final List<PickupGuid> deletedReturnGuids = new ArrayList<>();
+        store.getPickupGuides()
+            .removeIf(el -> {
+                if (el.getId() != null && !changeIds.contains(el.getId())) {
+                    deletedReturnGuids.add(el);
+                    return true;
+                }
+                return false;
+            });
+
+        storeRepository.save(store);
+        return deletedReturnGuids;
+    }
+
+    private List<StoreBanner> updateBanners(Store store, UpdateStoreRequest request) {
+        final List<StoreBanner> deletedBanners = new ArrayList<>();
+        final List<String> saveBannerKeys = new ArrayList<>();
+        store.getBanners().removeIf(el -> {
+            if (!request.getBanners().contains(el.getImgKey())) {
+                deletedBanners.add(el);
+                return true;
+            }
+            saveBannerKeys.add(el.getImgKey());
+            return false;
+        });
+        for (String requestImgKey : request.getBanners()) {
+            if (!saveBannerKeys.contains(requestImgKey)) {
+                store.getBanners().add(
+                    StoreBanner.builder()
+                        .imgKey(requestImgKey)
+                        .store(store)
+                        .build()
+                );
+            }
+        }
+
+        return deletedBanners;
     }
 }

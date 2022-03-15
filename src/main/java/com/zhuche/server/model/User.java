@@ -12,7 +12,8 @@ import java.util.Collection;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

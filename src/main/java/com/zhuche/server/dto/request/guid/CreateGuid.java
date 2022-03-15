@@ -12,6 +12,8 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateGuid {
+    Long id;
+
     @NotBlank
     String title;
 

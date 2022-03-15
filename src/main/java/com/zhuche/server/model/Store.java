@@ -62,12 +62,13 @@ public class Store extends BaseEntity{
 
     protected Boolean isSelfService;
 
-    @OneToOne(mappedBy = "store", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"store", "comments", "password"})
     private User admin;
 
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"store"})
+    @JoinColumn(name = "store_id")
     private List<StoreBanner> banners;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

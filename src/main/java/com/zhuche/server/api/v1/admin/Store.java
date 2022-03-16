@@ -1,4 +1,4 @@
-package com.zhuche.server.api.v1;
+package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.store.CreateStoreRequest;

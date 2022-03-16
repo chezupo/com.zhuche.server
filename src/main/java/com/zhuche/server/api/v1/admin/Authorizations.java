@@ -6,7 +6,7 @@
  * Listen  MIT
  */
 
-package com.zhuche.server.api.v1;
+package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.dto.request.authorizatioins.CreateAuthorizationTokenRequest;
 import com.zhuche.server.dto.response.UnityResponse;

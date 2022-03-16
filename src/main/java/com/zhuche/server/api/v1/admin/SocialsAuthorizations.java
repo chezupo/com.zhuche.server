@@ -6,7 +6,7 @@
  * Listen  MIT
  */
 
-package com.zhuche.server.api.v1;
+package com.zhuche.server.api.v1.admin;
 
 import com.alipay.api.AlipayApiException;
 import com.zhuche.server.dto.path.variable.SocialType;

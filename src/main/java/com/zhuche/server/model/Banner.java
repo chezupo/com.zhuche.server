@@ -9,6 +9,7 @@
 package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zhuche.server.services.ConfigurationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,6 +38,13 @@ public class Banner extends BaseEntity{
 
     @JsonProperty
     private String imgKey;
+
+    @Transient
+    private String prefixUrl;
+
+    public String getPrefixUrl() {
+        return ConfigurationService.getPrefixUrl();
+    }
 
     @Lob
     @JsonProperty

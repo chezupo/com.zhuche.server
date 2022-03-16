@@ -24,6 +24,7 @@ import com.zhuche.server.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class SocialAuthorizationService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public CreateAuthorizationTokenResponse alipayAuthorize(CreateSocialAuthorizationTokenRequest request) throws AlipayApiException {
         AlipaySystemOauthTokenRequest alipayRequest = new AlipaySystemOauthTokenRequest();
         alipayRequest.setGrantType("authorization_code");
@@ -64,6 +66,7 @@ public class SocialAuthorizationService {
                 .build();
             newUser.setIsEnabled(true);
             userRepository.save(newUser);
+            miniProgramUser.setUser(newUser);
         }
 
         final var res = jwtUtil.generateToken(miniProgramUser.getUser(), SocialType.ALIPAY);

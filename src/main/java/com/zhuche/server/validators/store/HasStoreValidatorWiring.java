@@ -1,6 +1,5 @@
 package com.zhuche.server.validators.store;
 
-import com.zhuche.server.api.v1.Store;
 import com.zhuche.server.repositories.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

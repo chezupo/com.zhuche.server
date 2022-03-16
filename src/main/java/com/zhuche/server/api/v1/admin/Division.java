@@ -1,4 +1,4 @@
-package com.zhuche.server.api.v1;
+package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.dto.mapper.DivisionMapper;
 import com.zhuche.server.dto.response.division.AreaResponse;

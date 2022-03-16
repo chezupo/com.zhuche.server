@@ -9,6 +9,7 @@
 package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class City {
     private String pinyin;
 
     @OneToOne
+    @JsonIgnore
     private Province province;
 
     @OneToMany(mappedBy = "city"

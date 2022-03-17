@@ -52,9 +52,9 @@ public class InitDatabaseSeeder {
         this.passwordEncodeUtil = passwordEncodeUtil;
         this.configurationRepository = configurationRepository;
         this.bannerRepository = bannerRepository;
-        this.initUser();
-        this.initConfiguration();
-        this.initBanner();
+//        this.initUser();
+//        this.initConfiguration();
+//        this.initBanner();
     }
 
     private void initUser() {

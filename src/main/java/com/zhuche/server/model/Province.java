@@ -10,8 +10,8 @@ package com.zhuche.server.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,4 +20,8 @@ public class Province {
     private String code;
 
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "province_code")
+    private List<City> cities;
 }

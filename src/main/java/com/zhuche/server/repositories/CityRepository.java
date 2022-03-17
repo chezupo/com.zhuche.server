@@ -17,4 +17,6 @@ public interface CityRepository extends CrudRepository<City, Long> {
     City findByCode(@Param("code") String code);
 
     List<City> findAll();
+
+    List<City> findAllByOrderByPinyinAsc();
 }

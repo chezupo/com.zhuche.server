@@ -12,7 +12,7 @@ import java.util.List;
 public class CityService {
     private final CityRepository cityRepository;
     public List<City> getCities() {
-        final List<City> cities =  cityRepository.findAll().stream().map(el -> {
+        final List<City> cities =  cityRepository.findAllByOrderByPinyinAsc().stream().map(el -> {
             if ("市辖区".equals(el.getName())) {
                 el.setName(el.getProvince().getName());
             }

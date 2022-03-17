@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface  ProvincesRepository extends CrudRepository<Province, Long> {}
+public interface  ProvincesRepository extends CrudRepository<Province, Long> {
+    Province findByCode(String s);
+}

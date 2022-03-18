@@ -57,7 +57,8 @@ public class Store {
     @Permission(roles = {Role.ROLE_ADMIN})
     @DeleteMapping("/{id}")
     public UnityResponse destroy(
-        @PathVariable @HasStoreValidator Long id) {
+        @PathVariable @HasStoreValidator Long id
+    ) {
         storeService.destroy(id);
 
         return UnityResponse.builder()

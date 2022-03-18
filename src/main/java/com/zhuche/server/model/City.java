@@ -9,15 +9,21 @@
 package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Data
+@Setter
+@Getter
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class City {
     @Id
     private String code;
@@ -26,14 +32,12 @@ public class City {
 
     private String pinyin;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Province province;
 
-    @OneToMany(mappedBy = "city"
-//         cascade = CascadeType.ALL
-    )
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_code")
     @JsonIgnore
     private List<Area> areas;
-
 }

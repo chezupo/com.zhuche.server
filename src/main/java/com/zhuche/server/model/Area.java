@@ -9,13 +9,12 @@
 package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -30,11 +29,13 @@ public class Area {
     @JoinColumn(name = "province_code")
     private Province province;
 
-    @ManyToOne(
-//        fetch = FetchType.LAZY
-    )
+    @OneToOne( fetch = FetchType.LAZY )
     @JoinColumn(name = "city_code")
     @JsonIgnore
     private City city;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"area"})
+    @JoinColumn(name = "area_code")
+    private List<Store> stores;
 }

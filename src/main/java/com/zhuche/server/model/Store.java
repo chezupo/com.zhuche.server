@@ -62,8 +62,9 @@ public class Store extends BaseEntity{
 
     protected Boolean isSelfService;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "store",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"store", "comments", "password"})
+    @JoinColumn(name = "id",referencedColumnName = "store_id")
     private User admin;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -86,16 +87,18 @@ public class Store extends BaseEntity{
     private List<Comments> comments;
 
     @OneToOne
-    @JoinColumn(name = "area_code", referencedColumnName = "code")
-    @JsonIgnoreProperties({"province", "city"})
+    @JoinColumn(name = "area_code")
+    @JsonIgnoreProperties({"province", "city", "stores"})
     private Area area;
 
-    @OneToOne(fetch = FetchType.LAZY)
-
+    @OneToOne
+    @JoinColumn(name = "city_code")
+    @JsonIgnoreProperties({"areas", "province"})
     private City city;
 
     @OneToOne
     @JoinColumn(name = "province_code", referencedColumnName = "code")
+    @JsonIgnoreProperties({"areas", "cities"})
     private Province province;
 }
 

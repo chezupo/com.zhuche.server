@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface StoreRepository extends JpaRepository<Store, Long>, JpaSpecificationExecutor {
     @Query("SELECT s FROM Store s")
     Page<Store> getStores(Pageable pageable);
+
+
 }

@@ -1,12 +1,12 @@
 package com.zhuche.server.api.v1.mini.program;
 
 import com.zhuche.server.dto.response.UnityResponse;
-import com.zhuche.server.dto.response.division.ProvinceResponse;
 import com.zhuche.server.repositories.CityRepository;
 import com.zhuche.server.repositories.ProvincesRepository;
 import com.zhuche.server.services.CityService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,4 +38,15 @@ public class City {
 
         return UnityResponse.builder().data(res).build();
     }
+
+    @GetMapping("cities/{citiCode}/stores")
+    public UnityResponse getCityStores(
+        @PathVariable("citiCode") String  cityCode
+    ) {
+        final var city = cityRepository.findByCode(cityCode);
+        return UnityResponse.builder().data(
+            city.getAreas()
+        ).build();
+    }
+
 }

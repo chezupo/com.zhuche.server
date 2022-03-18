@@ -8,6 +8,7 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,5 +24,6 @@ public class Province {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_code")
+    @JsonIgnore
     private List<City> cities;
 }

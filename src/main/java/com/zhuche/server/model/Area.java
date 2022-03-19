@@ -10,6 +10,7 @@ package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +28,7 @@ public class Area {
 
     @OneToOne
     @JoinColumn(name = "province_code")
+    @JsonIncludeProperties({"hibernateLazyInitializer"})
     private Province province;
 
     @OneToOne( fetch = FetchType.LAZY )
@@ -35,7 +37,6 @@ public class Area {
     private City city;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"area"})
     @JoinColumn(name = "area_code")
     private List<Store> stores;
 }

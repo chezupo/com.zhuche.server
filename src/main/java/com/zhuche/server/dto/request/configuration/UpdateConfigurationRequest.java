@@ -25,4 +25,7 @@ public class UpdateConfigurationRequest {
 
     @NotBlank
     private String appName;
+
+    @NotBlank
+    private String notice;
 }

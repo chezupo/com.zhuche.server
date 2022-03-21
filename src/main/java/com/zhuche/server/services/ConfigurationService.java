@@ -66,6 +66,7 @@ public class ConfigurationService {
         final var configuration = configurationRepository.findById(id).get();
         configuration.setLogo(request.getLogo());
         configuration.setAppName(request.getAppName());
+        configuration.setNotice(request.getNotice());
         configurationRepository.save(configuration);
 
         return formatResponse( configuration);

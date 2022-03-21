@@ -52,6 +52,7 @@ public class ConfigurationService {
             .logo(configuration.getLogo())
             .amapKey(mapKey)
             .amapSearchKey(mapSearchKey)
+            .notice(configuration.getNotice())
             .build();
     }
     public Configuration getConfiguration() {

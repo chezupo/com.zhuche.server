@@ -27,4 +27,6 @@ public class Configuration {
     private String amapKey;
 
     private String amapSearchKey;
+
+    private String notice;
 }

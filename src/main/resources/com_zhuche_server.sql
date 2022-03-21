@@ -3437,6 +3437,7 @@ CREATE TABLE `configuration` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `app_name` varchar(255) DEFAULT NULL,
   `logo` varchar(255) DEFAULT NULL,
+  `notice` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
@@ -3444,7 +3445,7 @@ CREATE TABLE `configuration` (
 -- Records of configuration
 -- ----------------------------
 BEGIN;
-INSERT INTO `configuration` VALUES (1, '车租婆', '2022-2-20-1-27-36-1645291656873-logo.png');
+INSERT INTO `configuration` VALUES (1, '车租婆', '2022-2-20-1-27-36-1645291656873-logo.png', '消息公告内容消息公告内容消息公告内容消息公告内容消息公告内容消息公告内容');
 COMMIT;
 
 -- ----------------------------

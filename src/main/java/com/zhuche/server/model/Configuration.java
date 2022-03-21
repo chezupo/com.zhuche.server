@@ -33,4 +33,6 @@ public class Configuration{
     private String logo;
 
     private String appName;
+
+    private String notice;
 }

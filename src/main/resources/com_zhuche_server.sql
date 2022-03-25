@@ -3687,7 +3687,7 @@ CREATE TABLE `brand` (
                          `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
                          `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
                          `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                         `img_key` varchar(255) DEFAULT NULL,
+                         `img_key` varchar(3000) DEFAULT NULL,
                          `name` varchar(255) DEFAULT NULL,
                          `store_id` bigint DEFAULT NULL,
                          PRIMARY KEY (`id`)

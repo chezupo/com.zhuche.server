@@ -15,12 +15,10 @@ import com.zhuche.server.model.Role;
 import com.zhuche.server.services.BrandService;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/v1/brands")
@@ -30,11 +28,27 @@ public class Brand {
     private final BrandService brandService;
 
     @PostMapping
-    @Permission(roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN})
+    @Permission(roles = {Role.ROLE_BUSINESS})
     public UnityResponse create(
         @RequestBody @Valid CreateBrandRequest request
     ) {
         final var newBrand = brandService.createBrand(request);
+
+        return UnityResponse
+            .builder()
+            .data(newBrand)
+            .build();
+    }
+
+
+    @GetMapping
+    @Permission(roles = {Role.ROLE_BUSINESS})
+    public UnityResponse getBrands(
+        @PathParam("page") Integer page,
+        @PathParam("size") Integer size
+
+    ) {
+        final var newBrand = brandService.getBrands(page, size);
 
         return UnityResponse
             .builder()

@@ -8,7 +8,6 @@
 
 package com.zhuche.server.dto.request.brand;
 
-import com.zhuche.server.validators.brand.MustBeAdminRoleValidator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +25,4 @@ public class CreateBrandRequest {
 
     @NotBlank
     private String imgKey;
-
-    @MustBeAdminRoleValidator
-    private Integer storeId;
 }

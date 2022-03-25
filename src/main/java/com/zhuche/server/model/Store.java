@@ -32,6 +32,7 @@ import java.util.List;
 @SuperBuilder
 @SQLDelete(sql = "UPDATE store SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Store extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,5 +101,10 @@ public class Store extends BaseEntity{
     @JoinColumn(name = "province_code", referencedColumnName = "code")
     @JsonIgnoreProperties({"areas", "cities"})
     private Province province;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "store"})
+    private List<Brand> brands;
 }
 

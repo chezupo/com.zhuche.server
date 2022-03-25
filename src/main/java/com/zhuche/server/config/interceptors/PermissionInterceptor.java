@@ -51,7 +51,24 @@ public class PermissionInterceptor implements HandlerInterceptor {
             .filter(role -> user.getRoles().contains(role) )
                 .count();
         if (accessRoleCount == 0) {
-            throw new MyRuntimeException(ExceptionCodeConfig.UN_AUTHORIZATION_ERROR_YOU_DONNOT_HAVE_ENOUGH_PRIVILEGES_TO_ACCESS);
+            String res = "";
+            int index = 0;
+            for (var role : roles) {
+                index++;
+                res += index == roles.length ? role.name() : role.name() + ", ";
+            }
+            String myRoleStr = "";
+            index = 0;
+            for (var role : user.getRoles()) {
+                index++;
+                myRoleStr += index == roles.length ? role.name() : role.name() + ", ";
+            }
+
+
+            throw new MyRuntimeException(
+                ExceptionCodeConfig.UN_AUTHORIZATION_ERROR_YOU_DONNOT_HAVE_ENOUGH_PRIVILEGES_TO_ACCESS,
+                String.format("您当前权限角色为: %s, 本接口需要:%s 任一角色的账号才能访问", myRoleStr, res)
+            );
         }
     }
 }

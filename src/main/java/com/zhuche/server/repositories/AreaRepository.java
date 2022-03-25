@@ -1,7 +1,6 @@
 package com.zhuche.server.repositories;
 
 import com.zhuche.server.model.Area;
-import com.zhuche.server.model.City;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

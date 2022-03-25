@@ -65,7 +65,7 @@ public class Store {
             .build();
     }
 
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
     @PatchMapping("/{id}")
     public UnityResponse update(
         @PathVariable("id") @HasStoreValidator Long id,

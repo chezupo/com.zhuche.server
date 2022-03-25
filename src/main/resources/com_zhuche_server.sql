@@ -3681,3 +3681,14 @@ INSERT INTO `user_roles` VALUES (3, 'ROLE_BUSINESS');
 INSERT INTO `user_roles` VALUES (4, 'ROLE_BUSINESS');
 COMMIT;
 
+DROP TABLE IF EXISTS `brand`;
+CREATE TABLE `brand` (
+                         `id` bigint NOT NULL AUTO_INCREMENT,
+                         `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                         `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                         `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                         `img_key` varchar(255) DEFAULT NULL,
+                         `name` varchar(255) DEFAULT NULL,
+                         `store_id` bigint DEFAULT NULL,
+                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

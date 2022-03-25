@@ -6,6 +6,7 @@ import com.zhuche.server.dto.request.store.UpdateStoreRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.model.*;
 import com.zhuche.server.repositories.*;
+import com.zhuche.server.util.JWTUtil;
 import com.zhuche.server.util.PasswordEncodeUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
+import javax.swing.text.Utilities;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,6 +35,7 @@ public class StoreService {
     private final ReturnGuidRepository returnGuidRepository;
     private final PickupGuidRepository pickupGuidRepository;
     private final AreaRepository areaRepository;
+    private final JWTUtil jwtUtil;
 
     @Transactional
     public Store createStore(CreateStoreRequest request) {
@@ -90,6 +93,13 @@ public class StoreService {
                 var p3 = builder.like(root.get("name"), "%" + name + "%");
                 maps.add(p3);
             }
+            final var me = jwtUtil.getUser();
+            // 不是管理员
+            if (!me.getRoles().contains(Role.ROLE_ADMIN)) {
+                Predicate  storeAdminMap = builder.equal(root.get("admin").get("id").as(Long.class), me.getId());
+                maps.add(storeAdminMap);
+            }
+
             Predicate[] pre = new Predicate[maps.size()];
             Predicate and = builder.and(maps.toArray(pre));
             query.where(and);
@@ -99,6 +109,8 @@ public class StoreService {
             return query.orderBy(orders).getRestriction();
         };
         final Page<Store> storeList = storeRepository.findAll(sf,pagingSort);
+
+
 
         return PageFormat.builder()
             .total(storeList.getTotalElements())

@@ -10,6 +10,7 @@ package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.brand.CreateBrandRequest;
+import com.zhuche.server.dto.request.brand.UpdateBrandRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.BrandService;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
-@RestController
+@RestController("adminBrand")
 @RequestMapping("/api/v1/brands")
 @AllArgsConstructor
 @Validated
@@ -53,6 +54,18 @@ public class Brand {
         return UnityResponse
             .builder()
             .data(newBrand)
+            .build();
+    }
+
+    @PatchMapping("/{id}")
+    @Permission(roles = {Role.ROLE_BUSINESS})
+    public UnityResponse getBrands(
+        @PathVariable("id") int id,
+        @RequestBody @Valid UpdateBrandRequest request
+    ) {
+        this.brandService.updateBrand(id, request);
+        return UnityResponse
+            .builder()
             .build();
     }
 }

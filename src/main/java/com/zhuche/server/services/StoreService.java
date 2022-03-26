@@ -110,8 +110,6 @@ public class StoreService {
         };
         final Page<Store> storeList = storeRepository.findAll(sf,pagingSort);
 
-
-
         return PageFormat.builder()
             .total(storeList.getTotalElements())
             .list(storeList.stream().toList())

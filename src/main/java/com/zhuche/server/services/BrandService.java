@@ -10,6 +10,7 @@ package com.zhuche.server.services;
 
 import com.zhuche.server.dto.mapper.BrandMapper;
 import com.zhuche.server.dto.request.brand.CreateBrandRequest;
+import com.zhuche.server.dto.request.brand.UpdateBrandRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.model.Brand;
 import com.zhuche.server.repositories.BrandRepository;
@@ -49,7 +50,14 @@ public class BrandService {
             .size(pageData.getSize())
             .total(pageData.getTotalElements())
             .list(pageData.getContent())
-            .currentPage(pageData.getNumber() + 1)
+            .currentPage(page + 1)
             .build();
+    }
+
+    public void updateBrand(Integer id, UpdateBrandRequest request) {
+        final var brand = brandRepository.findById(Long.valueOf(id)).get();
+        brand.setName(request.getName());
+        brand.setImgKey(request.getImgKey());
+        brandRepository.save(brand);
     }
 }

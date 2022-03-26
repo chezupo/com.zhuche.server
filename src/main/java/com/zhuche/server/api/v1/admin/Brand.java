@@ -63,9 +63,10 @@ public class Brand {
         @PathVariable("id") int id,
         @RequestBody @Valid UpdateBrandRequest request
     ) {
-        this.brandService.updateBrand(id, request);
+        final var newBrand = this.brandService.updateBrand(id, request);
         return UnityResponse
             .builder()
+            .data(newBrand)
             .build();
     }
 }

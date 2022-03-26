@@ -54,10 +54,11 @@ public class BrandService {
             .build();
     }
 
-    public void updateBrand(Integer id, UpdateBrandRequest request) {
+    public Brand updateBrand(Integer id, UpdateBrandRequest request) {
         final var brand = brandRepository.findById(Long.valueOf(id)).get();
         brand.setName(request.getName());
         brand.setImgKey(request.getImgKey());
-        brandRepository.save(brand);
+
+        return brandRepository.save(brand);
     }
 }

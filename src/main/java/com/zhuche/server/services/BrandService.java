@@ -45,7 +45,7 @@ public class BrandService {
         return brandRepository.save(newBrand);
     }
 
-    public PageFormat getBrands(Integer page, Integer size) {
+    public PageFormat getBrands(Integer page, Integer size, String name, String storeName) {
         page = page != null ? --page : 0;
         size = size != null ? size : 10;
         Pageable pagingSort = PageRequest.of(page, size);
@@ -57,6 +57,12 @@ public class BrandService {
             if (!me.getRoles().contains(Role.ROLE_ADMIN)) {
                 Predicate  storeAdminMap = builder.equal(root.get("store").get("admin").get("id").as(Long.class), me.getId());
                 maps.add(storeAdminMap);
+            }
+            if (name != null && name.length() > 0) {
+                maps.add( builder.like(root.get("name"), "%" + name + "%") );
+            }
+            if (storeName != null && storeName.length() > 0) {
+                maps.add( builder.like(root.get("store").get("name"), "%" + storeName + "%") );
             }
 
             Predicate[] pre = new Predicate[maps.size()];

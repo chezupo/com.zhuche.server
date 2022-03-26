@@ -43,13 +43,14 @@ public class Brand {
 
 
     @GetMapping
-    @Permission(roles = {Role.ROLE_BUSINESS})
+    @Permission(roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN})
     public UnityResponse getBrands(
         @PathParam("page") Integer page,
-        @PathParam("size") Integer size
-
+        @PathParam("size") Integer size,
+        @PathParam("name") String name,
+        @PathParam("storeName") String storeName
     ) {
-        final var newBrand = brandService.getBrands(page, size);
+        final var newBrand = brandService.getBrands(page, size,  name, storeName);
 
         return UnityResponse
             .builder()
@@ -58,7 +59,7 @@ public class Brand {
     }
 
     @PatchMapping("/{id}")
-    @Permission(roles = {Role.ROLE_BUSINESS})
+    @Permission(roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN})
     public UnityResponse getBrands(
         @PathVariable("id") int id,
         @RequestBody @Valid UpdateBrandRequest request

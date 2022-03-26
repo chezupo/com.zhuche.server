@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthorizeValidator {
-    String message() default "Invalid authorization.";
+    String message() default "账号或密码错误.";
 
     String username();
 

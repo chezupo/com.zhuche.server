@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
-import javax.swing.text.Utilities;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -37,6 +36,7 @@ public class StoreService {
     private final AreaRepository areaRepository;
     private final JWTUtil jwtUtil;
     private final BrandRepository brandRepository;
+    private final StoreCarConfigRepository carConfigRepository;
 
     @Transactional
     public Store createStore(CreateStoreRequest request) {
@@ -130,6 +130,31 @@ public class StoreService {
             Brand.builder()
                 .name("荣威")
                 .imgKey("data:image/jpeg;base64,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")
+                .store(newStore)
+                .build()
+        );
+        // 添加汽车配置
+        this.carConfigRepository.save(
+            StoreCarConfig.builder()
+                .name("倒车雷达")
+                .store(newStore)
+                .build()
+        );
+        this.carConfigRepository.save(
+            StoreCarConfig.builder()
+                .name("倒车影像")
+                .store(newStore)
+                .build()
+        );
+        this.carConfigRepository.save(
+            StoreCarConfig.builder()
+                .name("雪地胎")
+                .store(newStore)
+                .build()
+        );
+        this.carConfigRepository.save(
+            StoreCarConfig.builder()
+                .name("行车记录仪")
                 .store(newStore)
                 .build()
         );

@@ -35,7 +35,6 @@ public class User extends BaseEntity {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
-    @Getter @Setter
     private Collection<Role> roles;
 
     @JsonProperty

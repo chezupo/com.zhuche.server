@@ -67,4 +67,14 @@ public class StoreCarConfig {
             .data(data)
             .build();
     }
+
+    @DeleteMapping("/{id}")
+    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
+    public UnityResponse deleteStoreConfigs(
+        @PathVariable("id") Integer id
+    ) {
+         storeCarConfigService.destoryStoreConfig(id);
+        return UnityResponse.builder()
+            .build();
+    }
 }

@@ -22,7 +22,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @SuperBuilder
-@SQLDelete(sql = "UPDATE car_config SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE store_car_config SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
 public class StoreCarConfig extends BaseEntity{
     @Id

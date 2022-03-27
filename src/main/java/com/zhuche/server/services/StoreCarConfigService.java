@@ -82,4 +82,8 @@ public class StoreCarConfigService {
         storeCarConfig.setName(request.getName());
         return storeCarConfigRepository.save(storeCarConfig);
     }
+
+    public void destoryStoreConfig(Integer id) {
+        storeCarConfigRepository.deleteById(id.longValue());
+    }
 }

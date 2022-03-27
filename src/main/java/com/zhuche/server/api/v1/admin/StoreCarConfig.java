@@ -9,16 +9,16 @@
 package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.config.interceptors.Permission;
+import com.zhuche.server.dto.request.store.car.config.CreateStoreCarConfigRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.StoreCarConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 @RestController
@@ -39,6 +39,17 @@ public class StoreCarConfig {
         final var data = storeCarConfigService.getStoreConfigs(page, size);
         return UnityResponse.builder()
             .data(data)
+            .build();
+    }
+
+    @PostMapping
+    @Permission(roles = {Role.ROLE_BUSINESS})
+    public UnityResponse createStoreConfigs(
+        @RequestBody @Valid CreateStoreCarConfigRequest request
+    ) {
+        final com.zhuche.server.model.StoreCarConfig newConfig = storeCarConfigService.createStoreCarConfig(request);
+        return UnityResponse.builder()
+            .data(newConfig)
             .build();
     }
 }

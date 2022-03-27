@@ -8,6 +8,7 @@
 
 package com.zhuche.server.services;
 
+import com.zhuche.server.dto.request.store.car.config.CreateStoreCarConfigRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.model.Store;
@@ -63,5 +64,15 @@ public class StoreCarConfigService {
             .currentPage(page + 1)
             .size(size)
             .build();
+    }
+
+    public StoreCarConfig createStoreCarConfig(CreateStoreCarConfigRequest request) {
+        final var store = jwtUtil.getUser().getStore();
+        return carConfigRepository.save(
+            StoreCarConfig.builder()
+                .name(request.getName())
+                .store(store)
+                .build()
+        );
     }
 }

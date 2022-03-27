@@ -9,6 +9,7 @@
 package com.zhuche.server.services;
 
 import com.zhuche.server.dto.request.store.car.config.CreateStoreCarConfigRequest;
+import com.zhuche.server.dto.request.store.car.config.UpdateStoreCarConfigRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.model.Store;
@@ -30,7 +31,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class StoreCarConfigService {
-    private final StoreCarConfigRepository carConfigRepository;
+    private final StoreCarConfigRepository storeCarConfigRepository;
     private final JWTUtil jwtUtil;
 
     public PageFormat getStoreConfigs(Integer page, Integer size) {
@@ -56,7 +57,7 @@ public class StoreCarConfigService {
 
             return query.orderBy(orders).getRestriction();
         };
-        final Page<StoreCarConfig> pageDate = carConfigRepository.findAll(sf, pagingSort);
+        final Page<StoreCarConfig> pageDate = storeCarConfigRepository.findAll(sf, pagingSort);
 
         return PageFormat.builder()
             .list(pageDate.getContent())
@@ -68,11 +69,17 @@ public class StoreCarConfigService {
 
     public StoreCarConfig createStoreCarConfig(CreateStoreCarConfigRequest request) {
         final var store = jwtUtil.getUser().getStore();
-        return carConfigRepository.save(
+        return storeCarConfigRepository.save(
             StoreCarConfig.builder()
                 .name(request.getName())
                 .store(store)
                 .build()
         );
+    }
+
+    public StoreCarConfig updateStoreConfigs(Integer id, UpdateStoreCarConfigRequest request) {
+        final var storeCarConfig = storeCarConfigRepository.findById(id.longValue()).get();
+        storeCarConfig.setName(request.getName());
+        return storeCarConfigRepository.save(storeCarConfig);
     }
 }

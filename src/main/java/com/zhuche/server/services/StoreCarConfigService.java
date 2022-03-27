@@ -37,7 +37,6 @@ public class StoreCarConfigService {
         size = size == null ? 10 :  size;
         Pageable pagingSort = PageRequest.of(page, size);
 
-        final Page<StoreCarConfig> pageDate = carConfigRepository.findAll(pagingSort);
 
         Specification<Store> sf = (root, query,builder) -> {
             List<Predicate> maps = new ArrayList<>();
@@ -56,6 +55,7 @@ public class StoreCarConfigService {
 
             return query.orderBy(orders).getRestriction();
         };
+        final Page<StoreCarConfig> pageDate = carConfigRepository.findAll(sf, pagingSort);
 
         return PageFormat.builder()
             .list(pageDate.getContent())

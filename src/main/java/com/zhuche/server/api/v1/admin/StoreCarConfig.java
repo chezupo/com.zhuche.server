@@ -12,6 +12,7 @@ import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.store.car.config.CreateStoreCarConfigRequest;
 import com.zhuche.server.dto.request.store.car.config.UpdateStoreCarConfigRequest;
 import com.zhuche.server.dto.response.UnityResponse;
+import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.StoreCarConfigService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,9 @@ public class StoreCarConfig {
     private final StoreCarConfigService storeCarConfigService;
 
     @GetMapping
-    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
+    @Permission(
+        roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS}
+    )
     public UnityResponse getStoreConfigs(
         @PathParam("page") Integer page,
         @PathParam("size") Integer size
@@ -44,7 +47,12 @@ public class StoreCarConfig {
     }
 
     @PostMapping
-    @Permission(roles = {Role.ROLE_BUSINESS})
+    @Permission(
+        roles = {Role.ROLE_BUSINESS},
+        isLog = true,
+        title = "创建商店汽车配置",
+        type = LogType.CREATED
+    )
     public UnityResponse createStoreConfigs(
         @RequestBody @Valid CreateStoreCarConfigRequest request
     ) {
@@ -55,7 +63,12 @@ public class StoreCarConfig {
     }
 
     @PatchMapping("/{id}")
-    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
+    @Permission(
+        roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS},
+        isLog = true,
+        title = "更新商店汽车配置",
+        type = LogType.UPDATED
+    )
     public UnityResponse updateStoreConfigs(
         @PathVariable("id") Integer id,
         @RequestBody UpdateStoreCarConfigRequest request
@@ -68,7 +81,12 @@ public class StoreCarConfig {
     }
 
     @DeleteMapping("/{id}")
-    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
+    @Permission(
+        roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS},
+        isLog = true,
+        title = "删除汽车商店配置",
+        type = LogType.DELETED
+    )
     public UnityResponse deleteStoreConfigs(
         @PathVariable("id") Integer id
     ) {

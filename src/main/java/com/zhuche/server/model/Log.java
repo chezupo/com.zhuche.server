@@ -28,6 +28,7 @@ import javax.persistence.*;
 @SuperBuilder
 @SQLDelete(sql = "UPDATE log SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class Log extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

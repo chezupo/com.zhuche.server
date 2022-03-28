@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
@@ -50,10 +51,10 @@ public class PermissionInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
         var method = ((HandlerMethod) handler).getMethod();
-        if (method.isAnnotationPresent(Permission.class)) log(method, request);
+        if (method.isAnnotationPresent(Permission.class)) handleLog(method, request);
     }
 
-    private void log(Method method, HttpServletRequest request) throws IOException {
+    private void handleLog(Method method, HttpServletRequest request) throws IOException {
         final var isLog = method.getAnnotation(Permission.class).isLog();
         if (isLog) {
             final var title = method.getAnnotation(Permission.class).title();

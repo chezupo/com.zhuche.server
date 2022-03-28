@@ -11,6 +11,7 @@ package com.zhuche.server.api.v1.admin;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.configuration.UpdateConfigurationRequest;
 import com.zhuche.server.dto.response.UnityResponse;
+import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.ConfigurationService;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,12 @@ public class Configurations {
     }
 
     @PatchMapping
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "更新配置",
+        type = LogType.UPDATED
+    )
     public UnityResponse updateConfiguration(@RequestBody UpdateConfigurationRequest request) {
         final var configuration = configurationService.updateConfiguration(request);
 

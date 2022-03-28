@@ -12,6 +12,7 @@ import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.brand.CreateBrandRequest;
 import com.zhuche.server.dto.request.brand.UpdateBrandRequest;
 import com.zhuche.server.dto.response.UnityResponse;
+import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.BrandService;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,12 @@ public class Brand {
     private final BrandService brandService;
 
     @PostMapping
-    @Permission(roles = {Role.ROLE_BUSINESS})
+    @Permission(
+        roles = {Role.ROLE_BUSINESS},
+        isLog = true,
+        title = "创建品牌",
+        type = LogType.CREATED
+    )
     public UnityResponse create(
         @RequestBody @Valid CreateBrandRequest request
     ) {
@@ -43,7 +49,9 @@ public class Brand {
 
 
     @GetMapping
-    @Permission(roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN}
+    )
     public UnityResponse getBrands(
         @PathParam("page") Integer page,
         @PathParam("size") Integer size,
@@ -59,7 +67,9 @@ public class Brand {
     }
 
     @PatchMapping("/{id}")
-    @Permission(roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN}
+    )
     public UnityResponse getBrands(
         @PathVariable("id") int id,
         @RequestBody @Valid UpdateBrandRequest request

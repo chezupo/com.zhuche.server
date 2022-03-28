@@ -5,6 +5,7 @@ import com.zhuche.server.dto.request.store.CreateStoreRequest;
 import com.zhuche.server.dto.request.store.UpdateStoreRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
+import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.repositories.AreaRepository;
 import com.zhuche.server.services.StoreService;
@@ -27,7 +28,12 @@ public class Store {
     private final StoreService storeService;
     private final AreaRepository areaRepository;
 
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "创建商店",
+        type = LogType.CREATED
+    )
     @PostMapping
     public UnityResponse createStore(@RequestBody @Valid CreateStoreRequest request) {
         var res = storeService.createStore(request);
@@ -36,7 +42,9 @@ public class Store {
             .build();
     }
 
-    @Permission(roles =  {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
+    @Permission(
+        roles =  {Role.ROLE_ADMIN, Role.ROLE_BUSINESS}
+    )
     @GetMapping
     public UnityResponse getStores(
         @Param("page") @Min(1) Integer page,
@@ -54,7 +62,12 @@ public class Store {
             .build();
     }
 
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        isLog = true,
+        roles = {Role.ROLE_ADMIN},
+        title = "删除商店",
+        type = LogType.DELETED
+    )
     @DeleteMapping("/{id}")
     public UnityResponse destroy(
         @PathVariable @HasStoreValidator Long id
@@ -65,7 +78,12 @@ public class Store {
             .build();
     }
 
-    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
+    @Permission(
+        roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS},
+        isLog = true,
+        title = "更新商店",
+        type = LogType.UPDATED
+    )
     @PatchMapping("/{id}")
     public UnityResponse update(
         @PathVariable("id") @HasStoreValidator Long id,

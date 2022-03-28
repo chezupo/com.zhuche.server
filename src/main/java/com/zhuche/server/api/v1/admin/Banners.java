@@ -13,6 +13,8 @@ import com.zhuche.server.dto.request.banners.CreateBannerRequest;
 import com.zhuche.server.dto.request.banners.UpdateBannerRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Banner;
+import com.zhuche.server.model.Log;
+import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.repositories.BannerRepository;
 import com.zhuche.server.services.BannerService;
@@ -35,7 +37,12 @@ public class Banners {
     private BannerService bannerService;
 
     @PostMapping
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "创建banner图",
+        type = LogType.CREATED
+    )
     public UnityResponse createBanner(@Valid @RequestBody CreateBannerRequest request ) {
         var newBanner = Banner.builder()
             .imgKey(request.getImgKey())
@@ -66,7 +73,12 @@ public class Banners {
             .build();
     }
 
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "修改banner",
+        type = LogType.UPDATED
+    )
     @PatchMapping("/{id}")
     public UnityResponse updateBanner(
         @PathVariable("id") @HasBannerId Integer id,
@@ -80,7 +92,12 @@ public class Banners {
     }
 
     @DeleteMapping("/{id}")
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "删除banner图片",
+        type = LogType.DELETED
+    )
     public UnityResponse destroy( @PathVariable("id") @HasBannerId(message = "没有该banner") Integer id) {
          bannerService.destroy(id);
 

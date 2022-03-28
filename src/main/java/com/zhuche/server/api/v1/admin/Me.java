@@ -15,6 +15,7 @@ import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.dto.response.me.MeResponse;
+import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.MeService;
 import com.zhuche.server.validators.social.AccessSocialType;
@@ -36,7 +37,12 @@ public class Me {
     @Autowired
     private MeService meService;
 
-    @Permission(roles = {Role.ROLE_USER, Role.ROLE_AGENT})
+    @Permission(
+        roles = {Role.ROLE_USER, Role.ROLE_AGENT},
+        isLog = true,
+        title = "更新账号",
+        type = LogType.UPDATED
+    )
     @PutMapping("/{social}/me")
     public UnityResponse updateMe(@PathVariable @AccessSocialType String social , @RequestBody UpdateMeRequest request) {
         MeResponse res = null;
@@ -49,7 +55,9 @@ public class Me {
             .build();
     }
 
-    @Permission(roles = {Role.ROLE_USER, Role.ROLE_AGENT})
+    @Permission(
+        roles = {Role.ROLE_USER, Role.ROLE_AGENT}
+    )
     @GetMapping("/{social}/me")
     public UnityResponse getMe(@PathVariable @AccessSocialType String social ) {
         MeResponse res = null;

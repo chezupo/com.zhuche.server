@@ -21,6 +21,7 @@ import java.util.Set;
 @SuperBuilder
 @SQLDelete(sql = "UPDATE user  SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

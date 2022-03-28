@@ -20,7 +20,9 @@ import java.util.HashMap;
 public class Users {
     private final UserRepository userRepository;
 
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_ADMIN}
+    )
     @RequestMapping("/{username}")
     public UnityResponse getUser(@PathVariable("username") @HasUserValidator String username) {
         var user = userRepository.findUserByUsername(username);
@@ -29,7 +31,9 @@ public class Users {
             .build();
     }
 
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(
+        roles = {Role.ROLE_ADMIN}
+    )
     @RequestMapping("/{username}/hasUser")
     public UnityResponse hasUser(@PathVariable("username") String username) {
         var user = userRepository.findUserByUsername(username);

@@ -12,6 +12,7 @@ import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.car.CreateCarRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Role;
+import com.zhuche.server.services.CarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -28,12 +29,18 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Slf4j
 public class Car {
+    private final CarService carService;
 
     @PostMapping
     @Permission(roles = {Role.ROLE_BUSINESS})
     public UnityResponse createCar(
         @RequestBody @Valid CreateCarRequest request
     ) {
-        return UnityResponse.builder().build();
+        final com.zhuche.server.model.Car newCar  =  carService.createCar(request);
+
+        return UnityResponse
+            .builder()
+            .data(newCar)
+            .build();
     }
 }

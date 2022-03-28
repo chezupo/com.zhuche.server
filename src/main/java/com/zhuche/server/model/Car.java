@@ -71,6 +71,8 @@ public class Car extends BaseEntity{
 
     private String licenseType; // 牌照
 
+    private String number; // 车牌号
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;

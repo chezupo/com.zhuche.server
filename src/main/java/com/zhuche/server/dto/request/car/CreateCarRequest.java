@@ -67,4 +67,7 @@ public class CreateCarRequest {
 
     @NotBlank
     private String licenseType; // 牌照
+
+    @NotBlank
+    private String number; // 车牌号
 }

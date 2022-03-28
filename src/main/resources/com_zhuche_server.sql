@@ -3761,6 +3761,20 @@ CREATE TABLE `car` (
                        `tags` varchar(255) DEFAULT NULL,
                        `type` varchar(255) DEFAULT NULL,
                        `store_id` bigint DEFAULT NULL,
+                       `number` varchar(255) DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+                       `id` bigint NOT NULL AUTO_INCREMENT,
+                       `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `title` varchar(255) DEFAULT NULL,
+                       `type` varchar(255) DEFAULT NULL,
+                       `user_id` bigint DEFAULT NULL,
+                       `data` varchar(255) DEFAULT NULL,
+                       `request_path` varchar(255) DEFAULT NULL,
+                       PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

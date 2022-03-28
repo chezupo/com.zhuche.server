@@ -11,6 +11,7 @@ package com.zhuche.server.api.v1.admin;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.car.CreateCarRequest;
 import com.zhuche.server.dto.response.UnityResponse;
+import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.CarService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,12 @@ public class Car {
     private final CarService carService;
 
     @PostMapping
-    @Permission(roles = {Role.ROLE_BUSINESS})
+    @Permission(
+        roles = {Role.ROLE_BUSINESS},
+        isLog = true,
+        title = "添加汽车",
+        type = LogType.CREATED
+    )
     public UnityResponse createCar(
         @RequestBody @Valid CreateCarRequest request
     ) {

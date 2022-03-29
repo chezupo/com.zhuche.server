@@ -14,6 +14,7 @@ import java.lang.annotation.Target;
 public @interface Permission {
     Role[] roles();
     String title() default "";
+    String desc() default "";
     LogType type() default LogType.CREATED;
     boolean isLog() default false;
 }

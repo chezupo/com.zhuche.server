@@ -40,9 +40,13 @@ public class Log extends BaseEntity {
     @Enumerated(EnumType.STRING) // 操作类型
     private LogType type;
 
-    private String data;
+    private String params;
+
+    private String description;
 
     private String requestPath;
+
+    private String className;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")

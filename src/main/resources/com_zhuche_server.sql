@@ -3774,7 +3774,9 @@ CREATE TABLE `log` (
                        `title` varchar(255) DEFAULT NULL,
                        `type` varchar(255) DEFAULT NULL,
                        `user_id` bigint DEFAULT NULL,
-                       `data` varchar(255) DEFAULT NULL,
+                       `params` varchar(255) DEFAULT NULL,
+                       `description` varchar(255) DEFAULT NULL,
+                       `class_name` varchar(255) DEFAULT NULL,
                        `request_path` varchar(255) DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

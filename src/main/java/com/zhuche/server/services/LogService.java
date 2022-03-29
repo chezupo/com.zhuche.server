@@ -32,6 +32,7 @@ public class LogService {
 
             .currentPage(page + 1)
             .list(pageData.getContent())
+            .size(size)
             .total(pageData.getTotalElements())
             .build();
     }

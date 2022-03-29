@@ -76,17 +76,4 @@ public class LogAspect {
             }
         }
     }
-
-    /**
-     * 转换request 请求参数
-     *
-     * @param paramMap request获取的参数数组
-     */
-    public Map<String, String> converMap(Map<String, String[]> paramMap) {
-        Map<String, String> rtnMap = new HashMap<String, String>();
-        for (String key : paramMap.keySet()) {
-            rtnMap.put(key, paramMap.get(key)[0]);
-        }
-        return rtnMap;
-    }
 }

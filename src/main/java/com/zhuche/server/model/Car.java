@@ -61,6 +61,8 @@ public class Car extends BaseEntity{
 
     private String tags;
 
+    private boolean isOnline; // 是否上架
+
     private void setTags(List<String> tags) {
         this.tags = String.join(",", tags);
     }
@@ -71,12 +73,14 @@ public class Car extends BaseEntity{
 
     private String licenseType; // 牌照
 
-    private String number; // 车牌号
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<StoreCarConfig> configs;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 }

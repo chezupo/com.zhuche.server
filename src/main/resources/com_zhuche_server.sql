@@ -3753,7 +3753,6 @@ CREATE TABLE `car` (
                        `engine_type` varchar(255) DEFAULT NULL,
                        `gas_volume` float NOT NULL,
                        `is_self_help` bit(1) DEFAULT NULL,
-                       `license_type` varchar(255) DEFAULT NULL,
                        `name` varchar(255) DEFAULT NULL,
                        `power_type` varchar(255) DEFAULT NULL,
                        `seats` int DEFAULT NULL,
@@ -3762,6 +3761,7 @@ CREATE TABLE `car` (
                        `type` varchar(255) DEFAULT NULL,
                        `store_id` bigint DEFAULT NULL,
                        `number` varchar(255) DEFAULT NULL,
+                       `is_online` int DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -3778,5 +3778,16 @@ CREATE TABLE `log` (
                        `description` varchar(255) DEFAULT NULL,
                        `class_name` varchar(255) DEFAULT NULL,
                        `request_path` varchar(255) DEFAULT NULL,
+                       PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+DROP TABLE IF EXISTS `brand_series`;
+CREATE TABLE `brand_series` (
+                       `id` bigint NOT NULL AUTO_INCREMENT,
+                       `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `name` varchar(255) DEFAULT NULL,
+                       `brand_id` bigint DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

@@ -30,7 +30,7 @@ public class BrandSeries {
 
     @PostMapping("/{id}/series")
     @Permission(
-        roles = {Role.ROLE_BUSINESS},
+        roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN},
         isLog = true,
         title = "创建车系列",
         type = LogType.CREATED
@@ -42,6 +42,39 @@ public class BrandSeries {
         final var newBrandSeries = brandSeriesService.createBrandSeries(id, request);
         return UnityResponse.builder()
             .data(newBrandSeries)
+            .build();
+    }
+
+
+    @PatchMapping("/series/{id}")
+    @Permission(
+        roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN},
+        isLog = true,
+        title = "修改车系列",
+        type = LogType.UPDATED
+    )
+    public UnityResponse updateBrandSeries(
+        @RequestBody @Valid CreateSeriesRequest request,
+        @PathVariable("id") Integer id
+    ) {
+        final com.zhuche.server.model.BrandSeries newBrandSeries = brandSeriesService.updateBrandSeries(id, request);
+        return UnityResponse.builder()
+            .data(newBrandSeries)
+            .build();
+    }
+
+    @DeleteMapping("/series/{id}")
+    @Permission(
+        roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN},
+        isLog = true,
+        title = "删除车系列",
+        type = LogType.DELETED
+    )
+    public UnityResponse destroyBrandSeries(
+        @PathVariable("id") Integer id
+    ) {
+        brandSeriesService.destroy(id);
+        return UnityResponse.builder()
             .build();
     }
 }

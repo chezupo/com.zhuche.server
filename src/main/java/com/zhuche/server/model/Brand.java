@@ -36,6 +36,7 @@ import java.util.List;
 @SQLDelete(sql = "UPDATE brand SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
 @Slf4j
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Brand extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

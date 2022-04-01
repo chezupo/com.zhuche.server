@@ -30,4 +30,15 @@ public class BrandSeriesService {
                 .build()
         );
     }
+
+    public BrandSeries updateBrandSeries(Integer id, CreateSeriesRequest request) {
+        final var brandSeries = brandSeriesRepository.findById(id.longValue()).get();
+        brandSeries.setName(request.getName());
+
+        return brandSeriesRepository.save( brandSeries );
+    }
+
+    public void destroy(Integer id) {
+        brandSeriesRepository.deleteById(id.longValue());
+    }
 }

@@ -3762,6 +3762,7 @@ CREATE TABLE `car` (
                        `store_id` bigint DEFAULT NULL,
                        `brand_series_id` int DEFAULT NULL,
                        `number` varchar(255) DEFAULT NULL,
+                       `price` float NOT NULL,
                        `is_online` int DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -3792,3 +3793,37 @@ CREATE TABLE `brand_series` (
                        `brand_id` bigint DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (1, NULL, NULL, NULL, 'ERX5(混动)', 45);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (3, NULL, NULL, NULL, '领动', 44);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (4, NULL, NULL, NULL, 'IX35', 44);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (5, NULL, NULL, NULL, 'U5', 43);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (6, NULL, NULL, NULL, '凌派', 42);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (7, NULL, NULL, NULL, '缤智', 42);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (8, NULL, NULL, NULL, '奥德赛', 42);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (9, NULL, NULL, NULL, '新飞度', 42);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (10, NULL, NULL, NULL, '轩逸', 41);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (11, NULL, NULL, NULL, '奇骏', 41);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (12, NULL, NULL, NULL, '天籁', 41);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (13, NULL, NULL, NULL, '劲客', 41);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (14, NULL, NULL, NULL, 'SUV', 40);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (15, NULL, NULL, NULL, '迈腾', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (16, NULL, NULL, NULL, '朗逸', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (17, NULL, NULL, NULL, '探歌', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (18, NULL, NULL, NULL, '高尔夫', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (19, NULL, NULL, NULL, '探岳四驱', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (20, NULL, NULL, NULL, '探岳俩驱	', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (21, NULL, NULL, NULL, '高尔夫.嘉族', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (22, NULL, NULL, NULL, '帕萨特', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (23, NULL, NULL, NULL, '宝来', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (24, NULL, NULL, NULL, '速腾 经典', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (25, NULL, NULL, NULL, '宝来', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (26, NULL, NULL, NULL, '速腾 经典', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (27, NULL, NULL, NULL, '朗逸 经典', 39);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (28, NULL, NULL, NULL, '雷凌', 37);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (29, NULL, NULL, NULL, 'RAV4荣放', 37);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (30, NULL, NULL, NULL, '卡罗拉', 37);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (31, NULL, NULL, NULL, '普拉多（霸道）', 37);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (32, NULL, NULL, NULL, '普拉多2700（霸道）', 37);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (33, NULL, NULL, NULL, '亚洲狮', 37);
+INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (34, NULL, NULL, NULL, 'GL8', 38);

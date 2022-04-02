@@ -35,10 +35,10 @@ public class StoreCarConfigService {
     private final JWTUtil jwtUtil;
 
     public PageFormat getStoreConfigs(Integer page, Integer size) {
+        final boolean isFetchAll = page == null && size == null;
         page = page == null ? 0 : --page;
         size = size == null ? 10 :  size;
         Pageable pagingSort = PageRequest.of(page, size);
-
 
         Specification<Store> sf = (root, query,builder) -> {
             List<Predicate> maps = new ArrayList<>();
@@ -57,14 +57,25 @@ public class StoreCarConfigService {
 
             return query.orderBy(orders).getRestriction();
         };
-        final Page<StoreCarConfig> pageDate = storeCarConfigRepository.findAll(sf, pagingSort);
+        if (isFetchAll) {
+            final List<StoreCarConfig> pageDate = storeCarConfigRepository.findAll(sf);
 
-        return PageFormat.builder()
-            .list(pageDate.getContent())
-            .total(pageDate.getTotalElements())
-            .currentPage(page + 1)
-            .size(size)
-            .build();
+            return PageFormat.builder()
+                .list(pageDate)
+                .total((long) pageDate.size())
+                .currentPage(page + 1)
+                .size(size)
+                .build();
+        } else {
+            final Page<StoreCarConfig> pageDate = storeCarConfigRepository.findAll(sf, pagingSort);
+
+            return PageFormat.builder()
+                .list(pageDate.getContent())
+                .total(pageDate.getTotalElements())
+                .currentPage(page + 1)
+                .size(size)
+                .build();
+        }
     }
 
     public StoreCarConfig createStoreCarConfig(CreateStoreCarConfigRequest request) {

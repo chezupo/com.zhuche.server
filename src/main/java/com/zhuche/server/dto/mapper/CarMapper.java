@@ -9,23 +9,37 @@
 package com.zhuche.server.dto.mapper;
 
 import com.zhuche.server.dto.request.car.CreateCarRequest;
+import com.zhuche.server.model.BrandSeries;
 import com.zhuche.server.model.Car;
+import com.zhuche.server.repositories.BrandSeriesRepository;
+import lombok.AllArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@Component
 public abstract class CarMapper {
+    @Autowired private BrandSeriesRepository brandSeriesRepository;
+
     @Mappings({
-        @Mapping(source = "tags", target = "tags", qualifiedByName = "fromRequestTagsToPickupTags")
+        @Mapping(source = "tags", target = "tags", qualifiedByName = "fromRequestTagsToPickupTags"),
+        @Mapping(source = "seriesId", target = "brandSeries", qualifiedByName = "fromRequestSeriesIdToBrandSeries")
     })
     public abstract Car createCarRequestToCar(CreateCarRequest request);
 
     @Named("fromRequestTagsToPickupTags")
     protected String fromRequestTagsToPickupTags(List<String> tags) {
         return String.join(",", tags);
+    }
+
+    @Named("fromRequestSeriesIdToBrandSeries")
+    protected BrandSeries fromRequestSeriesIdToBrandSeries(Long id ) {
+        return brandSeriesRepository.findById(id).get();
     }
 }

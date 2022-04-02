@@ -46,10 +46,10 @@ public class BrandService {
     }
 
     public PageFormat getBrands(Integer page, Integer size, String name, String storeName) {
+        final var isShowAll = page == null && size == null ;
         page = page != null ? --page : 0;
         size = size != null ? size : 10;
         Pageable pagingSort = PageRequest.of(page, size);
-
         Specification<Store> sf = (root, query, builder) -> {
             List<Predicate> maps = new ArrayList<>();
             final var me = jwtUtil.getUser();
@@ -74,13 +74,23 @@ public class BrandService {
             return query.orderBy(orders).getRestriction();
         };
 
-        final var pageData = brandRepository.findAll(sf, pagingSort);
-        return PageFormat.builder()
-            .size(pageData.getSize())
-            .total(pageData.getTotalElements())
-            .list(pageData.getContent())
-            .currentPage(page + 1)
-            .build();
+        if (isShowAll) {
+            final var pageData = brandRepository.findAll(sf);
+            return PageFormat.builder()
+                .size(pageData.size())
+                .total((long) pageData.size())
+                .list(pageData)
+                .currentPage(page + 1)
+                .build();
+        } else {
+            final var pageData = brandRepository.findAll(sf, pagingSort);
+            return PageFormat.builder()
+                .size(pageData.getSize())
+                .total(pageData.getTotalElements())
+                .list(pageData.getContent())
+                .currentPage(page + 1)
+                .build();
+        }
     }
 
     public Brand updateBrand(Integer id, UpdateBrandRequest request) {

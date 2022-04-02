@@ -46,8 +46,8 @@ public class User extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MiniProgramUser miniProgramUser;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"admin"})
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"admin", "comments", "password"})
     private Store  store;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

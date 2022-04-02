@@ -40,6 +40,7 @@ public class Log extends BaseEntity {
     @Enumerated(EnumType.STRING) // 操作类型
     private LogType type;
 
+    @Column(columnDefinition="TEXT")
     private String params;
 
     private String description;

@@ -10,7 +10,9 @@ package com.zhuche.server.services;
 
 import com.zhuche.server.dto.mapper.CarMapper;
 import com.zhuche.server.dto.request.car.CreateCarRequest;
+import com.zhuche.server.model.BrandSeries;
 import com.zhuche.server.model.Car;
+import com.zhuche.server.repositories.BrandSeriesRepository;
 import com.zhuche.server.repositories.CarRepository;
 import com.zhuche.server.util.JWTUtil;
 import lombok.AllArgsConstructor;
@@ -24,8 +26,7 @@ public class CarService {
     private final JWTUtil jwtUtil;
     private final CarMapper carMapper;
     private final CarRepository carRepository;
-
-
+    private final BrandSeriesRepository brandSeriesRepository;
     public Car createCar(@Valid CreateCarRequest request)  {
         final var meyStore = jwtUtil.getUser().getStore();
         Car newCar = carMapper.createCarRequestToCar(request);

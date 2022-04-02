@@ -3760,6 +3760,7 @@ CREATE TABLE `car` (
                        `tags` varchar(255) DEFAULT NULL,
                        `type` varchar(255) DEFAULT NULL,
                        `store_id` bigint DEFAULT NULL,
+                       `brand_series_id` int DEFAULT NULL,
                        `number` varchar(255) DEFAULT NULL,
                        `is_online` int DEFAULT NULL,
                        PRIMARY KEY (`id`)
@@ -3774,7 +3775,7 @@ CREATE TABLE `log` (
                        `title` varchar(255) DEFAULT NULL,
                        `type` varchar(255) DEFAULT NULL,
                        `user_id` bigint DEFAULT NULL,
-                       `params` varchar(255) DEFAULT NULL,
+                       `params` text CHARACTER SET utf8 COLLATE utf8_general_ci,
                        `description` varchar(255) DEFAULT NULL,
                        `class_name` varchar(255) DEFAULT NULL,
                        `request_path` varchar(255) DEFAULT NULL,

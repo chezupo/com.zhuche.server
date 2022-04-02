@@ -12,6 +12,7 @@ package com.zhuche.server.dto.request.car;
 import com.zhuche.server.model.CarEngineType;
 import com.zhuche.server.model.CarPowerType;
 import com.zhuche.server.model.CarShift;
+import com.zhuche.server.validators.car.StoreBrandSeriesMustBeExisted;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -66,8 +67,9 @@ public class CreateCarRequest {
     private List<String> tags;
 
     @NotBlank
-    private String licenseType; // 牌照
-
-    @NotBlank
     private String number; // 车牌号
+
+    @NotNull
+    @StoreBrandSeriesMustBeExisted
+    private Long seriesId;
 }

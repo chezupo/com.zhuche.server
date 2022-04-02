@@ -71,7 +71,7 @@ public class Car extends BaseEntity{
         return  Arrays.asList( tags.split(",") );
     }
 
-    private String licenseType; // 牌照
+    private String number; // 车牌号
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
@@ -81,6 +81,6 @@ public class Car extends BaseEntity{
     private Set<StoreCarConfig> configs;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+    @JoinColumn(name = "brand_series_id")
+    private BrandSeries brandSeries;
 }

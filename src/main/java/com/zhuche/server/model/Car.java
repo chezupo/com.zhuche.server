@@ -8,7 +8,9 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zhuche.server.services.ConfigurationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -57,17 +59,21 @@ public class Car extends BaseEntity{
 
     private String cover;
 
+    public String getCover() {
+        return ConfigurationService.getPrefixUrl() + "/" + cover;
+    }
+
     private String type; // 车型
 
     private String tags;
 
-    private boolean isOnline; // 是否上架
+    private Boolean isOnline; // 是否上架
 
-    private void setTags(List<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = String.join(",", tags);
     }
 
-    private List<String> getTags() {
+    public List<String> getTags() {
         return  Arrays.asList( tags.split(",") );
     }
 
@@ -75,14 +81,19 @@ public class Car extends BaseEntity{
 
     private Float price; // 价格 / 天
 
+    private Float deposit; // 押金
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
+    @JsonIgnoreProperties({"brands"})
     private Store store;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"store"})
     private Set<StoreCarConfig> configs;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_series_id")
+    @JsonIgnoreProperties({"brand", "hibernateLazyInitializer"})
     private BrandSeries brandSeries;
 }

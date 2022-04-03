@@ -3763,6 +3763,7 @@ CREATE TABLE `car` (
                        `brand_series_id` int DEFAULT NULL,
                        `number` varchar(255) DEFAULT NULL,
                        `price` float NOT NULL,
+                       `deposit` float NOT NULL,
                        `is_online` int DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

@@ -10,6 +10,7 @@ package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.car.CreateCarRequest;
+import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
@@ -17,12 +18,10 @@ import com.zhuche.server.services.CarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/v1/cars")
@@ -49,4 +48,22 @@ public class Car {
             .data(newCar)
             .build();
     }
+
+
+    @GetMapping
+    @Permission(
+        roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN}
+    )
+    public UnityResponse fetchCar(
+        @PathParam("page") Integer page,
+        @PathParam("size") Integer size
+    ) {
+        final PageFormat newCar  =  carService.fetchPageCars(page, size);
+
+        return UnityResponse
+            .builder()
+            .data(newCar)
+            .build();
+    }
+
 }

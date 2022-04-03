@@ -12,6 +12,7 @@ package com.zhuche.server.dto.request.car;
 import com.zhuche.server.model.CarEngineType;
 import com.zhuche.server.model.CarPowerType;
 import com.zhuche.server.model.CarShift;
+import com.zhuche.server.model.StoreCarConfig;
 import com.zhuche.server.validators.car.StoreBrandSeriesMustBeExisted;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -72,4 +73,16 @@ public class CreateCarRequest {
     @NotNull
     @StoreBrandSeriesMustBeExisted
     private Long seriesId;
+
+    @NotNull
+    private Float price;
+
+    @NotNull
+    private List<Long> configIds;
+
+    @NotNull
+    private Float deposit;
+
+    @NotNull
+    private Boolean isOnline;
 }

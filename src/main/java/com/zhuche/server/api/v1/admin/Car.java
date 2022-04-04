@@ -16,6 +16,7 @@ import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.CarService;
+import com.zhuche.server.validators.car.CheckDeleteCarId;
 import com.zhuche.server.validators.car.CheckUpdateCarId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +70,12 @@ public class Car {
     }
 
     @PatchMapping("/{id}")
-    @Permission( roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN} )
+    @Permission(
+        roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN},
+        isLog = true,
+        title = "修改汽车",
+        type = LogType.DELETED
+    )
     public UnityResponse updateCar(
         @PathVariable("id") @CheckUpdateCarId Long id,
         @RequestBody @Valid UpdateCarRequest request
@@ -78,6 +84,20 @@ public class Car {
         return UnityResponse
             .builder()
             .data(newCar)
+            .build();
+    }
+
+    @DeleteMapping("/{id}")
+    @Permission( roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN},
+        isLog = true,
+        title = "删除汽车",
+        type = LogType.DELETED
+    )
+    public UnityResponse destroy(@PathVariable("id") @CheckDeleteCarId Long id) {
+        carService.destroy(id);
+
+        return UnityResponse
+            .builder()
             .build();
     }
 }

@@ -91,4 +91,8 @@ public class CarService {
 
         return carRepository.save(newCar);
     }
+
+    public void destroy(Long id) {
+        carRepository.deleteById(id);
+    }
 }

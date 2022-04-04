@@ -10,11 +10,13 @@ package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.car.CreateCarRequest;
+import com.zhuche.server.dto.request.car.UpdateCarRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.CarService;
+import com.zhuche.server.validators.car.CheckUpdateCarId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -66,4 +68,16 @@ public class Car {
             .build();
     }
 
+    @PatchMapping("/{id}")
+    @Permission( roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN} )
+    public UnityResponse updateCar(
+        @PathVariable("id") @CheckUpdateCarId Long id,
+        @RequestBody @Valid UpdateCarRequest request
+    ) {
+        final com.zhuche.server.model.Car newCar  =  carService.update(id, request);
+        return UnityResponse
+            .builder()
+            .data(newCar)
+            .build();
+    }
 }

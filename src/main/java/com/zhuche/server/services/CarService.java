@@ -10,6 +10,7 @@ package com.zhuche.server.services;
 
 import com.zhuche.server.dto.mapper.CarMapper;
 import com.zhuche.server.dto.request.car.CreateCarRequest;
+import com.zhuche.server.dto.request.car.UpdateCarRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.model.Car;
 import com.zhuche.server.model.Role;
@@ -43,6 +44,7 @@ public class CarService {
         Car newCar = carMapper.createCarRequestToCar(request);
         newCar.setCreatedAt(LocalDateTime.now());
         newCar.setStore(meyStore);
+        newCar.setUpdatedAt(LocalDateTime.now());
 
         return carRepository.save(newCar);
     }
@@ -60,12 +62,6 @@ public class CarService {
                 Predicate  storeAdminMap = builder.equal(root.get("store").get("admin").get("id").as(Long.class), me.getId());
                 maps.add(storeAdminMap);
             }
-//            if (name != null && name.length() > 0) {
-//                maps.add( builder.like(root.get("name"), "%" + name + "%") );
-//            }
-//            if (storeName != null && storeName.length() > 0) {
-//                maps.add( builder.like(root.get("store").get("name"), "%" + storeName + "%") );
-//            }
             Predicate[] pre = new Predicate[maps.size()];
             Predicate and = builder.and(maps.toArray(pre));
             query.where(and);
@@ -83,5 +79,16 @@ public class CarService {
             .currentPage(page + 1)
             .build();
 
+    }
+
+    public Car update(Long id, UpdateCarRequest request) {
+        final var meyStore = jwtUtil.getUser().getStore();
+        Car newCar = carMapper.updateCarRequestToCar(request);
+        newCar.setCreatedAt(LocalDateTime.now());
+        newCar.setStore(meyStore);
+        newCar.setId(id);
+        newCar.setUpdatedAt(LocalDateTime.now());
+
+        return carRepository.save(newCar);
     }
 }

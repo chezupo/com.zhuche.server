@@ -9,6 +9,7 @@
 package com.zhuche.server.dto.mapper;
 
 import com.zhuche.server.dto.request.car.CreateCarRequest;
+import com.zhuche.server.dto.request.car.UpdateCarRequest;
 import com.zhuche.server.model.BrandSeries;
 import com.zhuche.server.model.Car;
 import com.zhuche.server.model.StoreCarConfig;
@@ -39,6 +40,13 @@ public abstract class CarMapper {
         @Mapping(source = "configIds", target = "configs", qualifiedByName = "fromRequestConfigIdsIdToConfigs")
     })
     public abstract Car createCarRequestToCar(CreateCarRequest request);
+
+    @Mappings({
+        @Mapping(source = "tags", target = "tags", qualifiedByName = "fromRequestTagsToPickupTags"),
+        @Mapping(source = "seriesId", target = "brandSeries", qualifiedByName = "fromRequestSeriesIdToBrandSeries"),
+        @Mapping(source = "configIds", target = "configs", qualifiedByName = "fromRequestConfigIdsIdToConfigs")
+    })
+    public abstract Car updateCarRequestToCar(UpdateCarRequest request);
 
     @Named("fromRequestTagsToPickupTags")
     protected String fromRequestTagsToPickupTags(List<String> tags) {

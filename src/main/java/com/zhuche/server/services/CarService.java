@@ -23,12 +23,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.validation.Valid;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,7 +54,7 @@ public class CarService {
         return carRepository.save(newCar);
     }
 
-    public PageFormat fetchPageCars(Integer page, Integer size) {
+    public PageFormat fetchPageCars(Integer page, Integer size, String name, String price, String deposit, String timeRange) {
         page = page != null ? --page : 0;
         size = size != null ? size : 10;
 
@@ -61,6 +66,33 @@ public class CarService {
             if (!me.getRoles().contains(Role.ROLE_ADMIN)) {
                 Predicate  storeAdminMap = builder.equal(root.get("store").get("admin").get("id").as(Long.class), me.getId());
                 maps.add(storeAdminMap);
+            }
+            if (name != null) {
+                maps.add( builder.like(root.get("name"), "%" + name + "%") );
+            }
+            if (timeRange != null) {
+                final var dateTimeStr = Arrays.stream(timeRange.split("-")).toList();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+                LocalDateTime startTime = LocalDateTime.parse(dateTimeStr.get(0), formatter);
+                LocalDateTime endTime = LocalDateTime.parse(dateTimeStr.get(1), formatter);
+                maps.add(builder.between(root.get("createdAt").as(Long.class),
+                    Timestamp.valueOf(startTime).toInstant().toEpochMilli(),
+                    Timestamp.valueOf(endTime).toInstant().toEpochMilli()
+                ));
+            }
+            if (price != null) {
+                final var priceStrList = Arrays.stream(price.split("-")).toList();
+                maps.add(builder.between(root.get("price").as(Float.class),
+                    Float.valueOf(priceStrList.get(0)),
+                    Float.valueOf(priceStrList.get(1))
+                ));
+            }
+            if (deposit != null) {
+                final var depositStrList = Arrays.stream(deposit.split("-")).toList();
+                maps.add(builder.between(root.get("deposit").as(Float.class),
+                    Float.valueOf(depositStrList.get(0)),
+                    Float.valueOf(depositStrList.get(1))
+                ));
             }
             Predicate[] pre = new Predicate[maps.size()];
             Predicate and = builder.and(maps.toArray(pre));

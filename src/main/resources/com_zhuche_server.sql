@@ -3030,7 +3030,7 @@ COMMIT;
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `content` longtext,
@@ -3413,7 +3413,7 @@ COMMIT;
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(255) DEFAULT NULL,
@@ -3454,7 +3454,7 @@ COMMIT;
 DROP TABLE IF EXISTS `mini_program_user`;
 CREATE TABLE `mini_program_user` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `alipay_access_token` varchar(255) DEFAULT NULL,
@@ -3486,7 +3486,7 @@ COMMIT;
 DROP TABLE IF EXISTS `pickup_guid`;
 CREATE TABLE `pickup_guid` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `img_key` varchar(255) DEFAULT NULL,
@@ -3556,7 +3556,7 @@ COMMIT;
 DROP TABLE IF EXISTS `return_guid`;
 CREATE TABLE `return_guid` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `img_key` varchar(255) DEFAULT NULL,
@@ -3581,7 +3581,7 @@ COMMIT;
 DROP TABLE IF EXISTS `store`;
 CREATE TABLE `store` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `address` varchar(255) DEFAULT NULL,
@@ -3617,7 +3617,7 @@ COMMIT;
 DROP TABLE IF EXISTS `store_banner`;
 CREATE TABLE `store_banner` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `img_key` varchar(255) DEFAULT NULL,
@@ -3641,7 +3641,7 @@ COMMIT;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `is_enabled` bit(1) DEFAULT NULL,
@@ -3656,7 +3656,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES (1, '2022-03-16 19:27:50', NULL, '2022-03-16 19:27:50', b'1', 'C+jNtUcwGcqNhaklKgaDX0Y5QvK3NsBIt9F06kNjLwg=', 'admin', NULL, NULL);
+INSERT INTO `user` VALUES (1, 1647430070000, NULL, '2022-03-16 19:27:50', b'1', 'C+jNtUcwGcqNhaklKgaDX0Y5QvK3NsBIt9F06kNjLwg=', 'admin', NULL, NULL);
 INSERT INTO `user` VALUES (2, NULL, NULL, NULL, b'1', NULL, NULL, 1, NULL);
 INSERT INTO `user` VALUES (3, NULL, NULL, NULL, b'1', 'C+jNtUcwGcqNhaklKgaDX0Y5QvK3NsBIt9F06kNjLwg=', '三亚店', NULL, 1);
 INSERT INTO `user` VALUES (4, NULL, NULL, NULL, b'1', 'C+jNtUcwGcqNhaklKgaDX0Y5QvK3NsBIt9F06kNjLwg=', '惠阳店', NULL, 2);
@@ -3684,7 +3684,7 @@ COMMIT;
 DROP TABLE IF EXISTS `brand`;
 CREATE TABLE `brand` (
                          `id` bigint NOT NULL AUTO_INCREMENT,
-                         `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                         `created_at` bigint DEFAULT NULL,
                          `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
                          `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
                          `img_key` varchar(3000) DEFAULT NULL,
@@ -3716,7 +3716,7 @@ COMMIT;
 
 CREATE TABLE `store_car_config` (
                               `id` bigint NOT NULL AUTO_INCREMENT,
-                              `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                              `created_at` bigint DEFAULT NULL,
                               `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
                               `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
                               `name` varchar(255) DEFAULT NULL,
@@ -3745,7 +3745,7 @@ CREATE TABLE `car_configs` (
 DROP TABLE IF EXISTS `car`;
 CREATE TABLE `car` (
                        `id` bigint NOT NULL AUTO_INCREMENT,
-                       `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `created_at` bigint DEFAULT NULL,
                        `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
                        `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
                        `cover` varchar(255) DEFAULT NULL,
@@ -3771,7 +3771,7 @@ CREATE TABLE `car` (
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
                        `id` bigint NOT NULL AUTO_INCREMENT,
-                       `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `created_at` bigint DEFAULT NULL,
                        `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
                        `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
                        `title` varchar(255) DEFAULT NULL,
@@ -3787,7 +3787,7 @@ CREATE TABLE `log` (
 DROP TABLE IF EXISTS `brand_series`;
 CREATE TABLE `brand_series` (
                        `id` bigint NOT NULL AUTO_INCREMENT,
-                       `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                       `created_at` bigint DEFAULT NULL,
                        `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
                        `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
                        `name` varchar(255) DEFAULT NULL,

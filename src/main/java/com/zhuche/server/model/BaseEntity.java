@@ -14,11 +14,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 @MappedSuperclass
 @SuperBuilder
@@ -26,10 +29,27 @@ import java.time.LocalDateTime;
 @Data
 public abstract class BaseEntity {
 
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonProperty
-    private LocalDateTime createdAt;
+    private Long createdAt = Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli();
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonProperty
+    public LocalDateTime getCreatedAt() {
+        if (createdAt == null) {
+            return null;
+        }
+        return LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(createdAt),
+            TimeZone.getDefault().toZoneId()
+        );
+    }
+
+    public void setCreatedAt(LocalDateTime newCreatedAt) {
+        this.createdAt = Timestamp.valueOf(newCreatedAt).toInstant().toEpochMilli();
+    }
 
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")

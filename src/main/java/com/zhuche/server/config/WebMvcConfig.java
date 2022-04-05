@@ -8,12 +8,9 @@
 
 package com.zhuche.server.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhuche.server.config.interceptors.PermissionInterceptor;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 

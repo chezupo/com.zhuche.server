@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -69,7 +70,10 @@ public class InitDatabaseSeeder {
                 .username(adminUsername)
                 .roles(List.of(Role.ROLE_ADMIN))
                 .isEnabled(true)
-                .createdAt(LocalDateTime.now())
+                .createdAt(
+                    Timestamp.valueOf(LocalDateTime.now())
+                        .toInstant().toEpochMilli()
+                )
                 .updatedAt(LocalDateTime.now())
                 .build();
             userRepository.save(newUser);

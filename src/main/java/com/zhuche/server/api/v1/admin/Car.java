@@ -16,6 +16,7 @@ import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.CarService;
+import com.zhuche.server.validators.car.CheckDateTimeRange;
 import com.zhuche.server.validators.car.CheckDeleteCarId;
 import com.zhuche.server.validators.car.CheckUpdateCarId;
 import lombok.RequiredArgsConstructor;
@@ -52,16 +53,25 @@ public class Car {
             .build();
     }
 
-
     @GetMapping
     @Permission(
         roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN}
     )
     public UnityResponse fetchCar(
         @PathParam("page") Integer page,
-        @PathParam("size") Integer size
+        @PathParam("size") Integer size,
+        @PathParam("name") String name,
+        @PathParam("price") String price,
+        @PathParam("deposit") String deposit,
+        @PathParam("timeRange") @CheckDateTimeRange(isAllowNull = true) String timeRange
     ) {
-        final PageFormat newCar  =  carService.fetchPageCars(page, size);
+        final PageFormat newCar  =  carService.fetchPageCars(
+            page, size,
+            name,
+            price,
+            deposit,
+            timeRange
+        );
 
         return UnityResponse
             .builder()

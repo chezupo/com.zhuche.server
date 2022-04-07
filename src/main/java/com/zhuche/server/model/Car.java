@@ -96,4 +96,9 @@ public class Car extends BaseEntity{
     @JoinColumn(name = "brand_series_id")
     @JsonIgnoreProperties({"brand", "hibernateLazyInitializer"})
     private BrandSeries brandSeries;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_category_id")
+    @JsonIgnoreProperties({"brand", "hibernateLazyInitializer"})
+    private CarCategory carCategory;
 }

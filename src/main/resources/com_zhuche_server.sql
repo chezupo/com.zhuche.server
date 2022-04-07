@@ -3765,6 +3765,7 @@ CREATE TABLE `car` (
                        `price` float NOT NULL,
                        `deposit` float NOT NULL,
                        `is_online` int DEFAULT NULL,
+                       `car_category_id` int DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -3828,3 +3829,15 @@ INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `nam
 INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (32, NULL, NULL, NULL, '普拉多2700（霸道）', 37);
 INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (33, NULL, NULL, NULL, '亚洲狮', 37);
 INSERT INTO `brand_series` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `brand_id`) VALUES (34, NULL, NULL, NULL, 'GL8', 38);
+
+DROP TABLE IF EXISTS `car_category`;
+CREATE TABLE `car_category` (
+                                `id` bigint NOT NULL AUTO_INCREMENT,
+                                `created_at` bigint DEFAULT NULL,
+                                `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                                `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                                `name` varchar(255) DEFAULT NULL,
+                                `store_id` bigint DEFAULT NULL,
+                                PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+

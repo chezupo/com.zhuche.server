@@ -3841,3 +3841,18 @@ CREATE TABLE `car_category` (
                                 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (1, 1649424485986, NULL, NULL, '经济型', 1);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (2, 1649424512656, NULL, NULL, '舒适型', 1);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (3, 1649424522772, NULL, NULL, '精英型', 1);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (4, 1649424533242, NULL, NULL, 'SUV', 1);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (5, 1649424547400, NULL, NULL, '5-15座商务', 1);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (6, 1649424556774, NULL, NULL, '电动型', 1);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (7, 1649424563669, NULL, NULL, '高端车', 1);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (8, 1649425747964, NULL, NULL, '经济型', 2);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (9, 1649425747964, NULL, NULL, '舒适型', 2);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (10, 1649425747964, NULL, NULL, '精英型', 2);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (11, 1649425747964, NULL, NULL, 'SUV', 2);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (12, 1649425747964, NULL, NULL, '5-15座商务', 2);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (13, 1649425747964, NULL, NULL, '电动型', 2);
+INSERT INTO `car_category` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (14, 1649425747964, NULL, NULL, '高端车', 2);
+

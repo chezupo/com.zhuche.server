@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -38,6 +40,7 @@ public class StoreService {
     private final BrandRepository brandRepository;
     private final StoreCarConfigRepository carConfigRepository;
     private final BrandSeriesRepository brandSeriesRepository;
+    private final CarCategoryRepository carCategoryRepository;
 
     @Transactional
     public Store createStore(CreateStoreRequest request) {
@@ -189,6 +192,59 @@ public class StoreService {
                 .store(newStore)
                 .build()
         );
+        // 添加汽车分类数据
+        final List<CarCategory> newCarCategoryList = new ArrayList<CarCategory>(){{
+            add(
+                CarCategory.builder()
+                    .name("经济型")
+                    .store(newStore)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                    .build()
+            );
+            add(
+                CarCategory.builder()
+                    .name("舒适型")
+                    .store(newStore)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                    .build()
+            );
+            add(
+                CarCategory.builder()
+                    .name("精英型")
+                    .store(newStore)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                    .build()
+            );
+            add(
+                CarCategory.builder()
+                    .name("SUV")
+                    .store(newStore)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                    .build()
+            );
+            add(
+                CarCategory.builder()
+                    .name("5-15座商务")
+                    .store(newStore)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                    .build()
+            );
+            add(
+                CarCategory.builder()
+                    .name("电动型")
+                    .store(newStore)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                    .build()
+            );
+            add(
+                CarCategory.builder()
+                    .name("高端车")
+                    .store(newStore)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                    .build()
+            );
+        }};
+        carCategoryRepository.saveAll(newCarCategoryList);
 
         return newStore;
     }

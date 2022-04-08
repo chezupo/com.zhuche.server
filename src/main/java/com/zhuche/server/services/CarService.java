@@ -120,6 +120,7 @@ public class CarService {
         newCar.setStore(meyStore);
         newCar.setId(id);
         newCar.setUpdatedAt(LocalDateTime.now());
+        newCar.setCover(newCar.getCover());
 
         return carRepository.save(newCar);
     }

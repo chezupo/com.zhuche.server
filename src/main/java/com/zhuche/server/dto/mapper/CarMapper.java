@@ -12,8 +12,10 @@ import com.zhuche.server.dto.request.car.CreateCarRequest;
 import com.zhuche.server.dto.request.car.UpdateCarRequest;
 import com.zhuche.server.model.BrandSeries;
 import com.zhuche.server.model.Car;
+import com.zhuche.server.model.CarCategory;
 import com.zhuche.server.model.StoreCarConfig;
 import com.zhuche.server.repositories.BrandSeriesRepository;
+import com.zhuche.server.repositories.CarCategoryRepository;
 import com.zhuche.server.repositories.StoreCarConfigRepository;
 import lombok.AllArgsConstructor;
 import org.mapstruct.Mapper;
@@ -33,18 +35,21 @@ import java.util.Set;
 public abstract class CarMapper {
     @Autowired private BrandSeriesRepository brandSeriesRepository;
     @Autowired private StoreCarConfigRepository storeCarConfigRepository;
+    @Autowired private CarCategoryRepository carCategoryRepository;
 
     @Mappings({
         @Mapping(source = "tags", target = "tags", qualifiedByName = "fromRequestTagsToPickupTags"),
         @Mapping(source = "seriesId", target = "brandSeries", qualifiedByName = "fromRequestSeriesIdToBrandSeries"),
-        @Mapping(source = "configIds", target = "configs", qualifiedByName = "fromRequestConfigIdsIdToConfigs")
+        @Mapping(source = "configIds", target = "configs", qualifiedByName = "fromRequestConfigIdsIdToConfigs"),
+        @Mapping(source = "carCategoryId", target = "carCategory", qualifiedByName = "fromCategoryIdToCarCategory")
     })
     public abstract Car createCarRequestToCar(CreateCarRequest request);
 
     @Mappings({
         @Mapping(source = "tags", target = "tags", qualifiedByName = "fromRequestTagsToPickupTags"),
         @Mapping(source = "seriesId", target = "brandSeries", qualifiedByName = "fromRequestSeriesIdToBrandSeries"),
-        @Mapping(source = "configIds", target = "configs", qualifiedByName = "fromRequestConfigIdsIdToConfigs")
+        @Mapping(source = "configIds", target = "configs", qualifiedByName = "fromRequestConfigIdsIdToConfigs"),
+        @Mapping(source = "carCategoryId", target = "carCategory", qualifiedByName = "fromCategoryIdToCarCategory")
     })
     public abstract Car updateCarRequestToCar(UpdateCarRequest request);
 
@@ -67,5 +72,15 @@ public abstract class CarMapper {
         }
 
         return res;
+    }
+
+    @Named("fromCategoryIdToCarCategory")
+    protected CarCategory fromCategoryIdToCarCategory(Long id) {
+        final var option = carCategoryRepository.findById(id);
+        if (option.isEmpty()) {
+            return null;
+        }
+
+        return option.get();
     }
 }

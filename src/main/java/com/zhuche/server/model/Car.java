@@ -63,6 +63,11 @@ public class Car extends BaseEntity{
         return ConfigurationService.getPrefixUrl() + "/" + cover;
     }
 
+    public void setCover(String newCover) {
+        final String prefix = ConfigurationService.getPrefixUrl() + "/";
+        cover = newCover.replace(prefix, "");
+    }
+
     private String type; // 车型
 
     private String tags;
@@ -97,7 +102,7 @@ public class Car extends BaseEntity{
     @JsonIgnoreProperties({"brand", "hibernateLazyInitializer"})
     private BrandSeries brandSeries;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_category_id")
     @JsonIgnoreProperties({"brand", "hibernateLazyInitializer"})
     private CarCategory carCategory;

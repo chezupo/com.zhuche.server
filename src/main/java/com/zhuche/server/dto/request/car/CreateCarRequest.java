@@ -14,6 +14,7 @@ import com.zhuche.server.model.CarPowerType;
 import com.zhuche.server.model.CarShift;
 import com.zhuche.server.model.StoreCarConfig;
 import com.zhuche.server.validators.car.StoreBrandSeriesMustBeExisted;
+import com.zhuche.server.validators.car.category.CheckCarCategoryIdMustBeExist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -85,4 +86,8 @@ public class CreateCarRequest {
 
     @NotNull
     private Boolean isOnline;
+
+    @NotNull
+    @CheckCarCategoryIdMustBeExist
+    private Long carCategoryId;
 }

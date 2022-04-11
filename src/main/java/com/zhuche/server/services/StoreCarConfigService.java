@@ -11,6 +11,7 @@ package com.zhuche.server.services;
 import com.zhuche.server.dto.request.store.car.config.CreateStoreCarConfigRequest;
 import com.zhuche.server.dto.request.store.car.config.UpdateStoreCarConfigRequest;
 import com.zhuche.server.dto.response.PageFormat;
+import com.zhuche.server.model.BrandSeries;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.model.Store;
 import com.zhuche.server.model.StoreCarConfig;

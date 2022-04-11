@@ -8,6 +8,7 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -23,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -50,7 +52,21 @@ public class Brand extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "store_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "brands"})
+    @JsonIgnoreProperties({
+        "hibernateLazyInitializer",
+        "handler",
+        "brands",
+        "admin",
+        "banners",
+        "pickupGuides",
+        "returnGuides",
+        "comments",
+        "area",
+        "city",
+        "province",
+        "brands",
+        "cars",
+    })
     private Store store;
 
     @OneToMany(fetch = FetchType.LAZY)

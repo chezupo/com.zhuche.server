@@ -5,10 +5,12 @@ import com.zhuche.server.dto.request.store.CreateStoreRequest;
 import com.zhuche.server.dto.request.store.UpdateStoreRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
+import com.zhuche.server.model.BrandSeries;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.model.StoreCarConfig;
 import com.zhuche.server.repositories.AreaRepository;
+import com.zhuche.server.services.BrandSeriesService;
 import com.zhuche.server.services.StoreCarConfigService;
 import com.zhuche.server.services.StoreService;
 import com.zhuche.server.validators.store.HasStoreValidator;
@@ -31,6 +33,7 @@ public class Store {
     private final StoreService storeService;
     private final AreaRepository areaRepository;
     private final StoreCarConfigService storeCarConfigService;
+    private final BrandSeriesService brandSeriesService;
 
     @Permission(
         roles = {Role.ROLE_ADMIN},
@@ -113,6 +116,21 @@ public class Store {
         return UnityResponse
             .builder()
             .data(configs)
+            .build();
+    }
+
+    @Permission(
+        roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS}
+    )
+    @GetMapping("/{id}/brands")
+    public UnityResponse getStoreBrands(
+        @PathVariable("id") @HasStoreValidator Long id
+    ) {
+        final List<BrandSeries> brands = brandSeriesService.getStoreBrandsByStoreId(id);
+
+        return UnityResponse
+            .builder()
+            .data(brands)
             .build();
     }
 }

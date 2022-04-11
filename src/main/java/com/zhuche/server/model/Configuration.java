@@ -35,4 +35,6 @@ public class Configuration{
     private String appName;
 
     private String notice;
+
+    private Float insurance; // 出行无忧(保险费)
 }

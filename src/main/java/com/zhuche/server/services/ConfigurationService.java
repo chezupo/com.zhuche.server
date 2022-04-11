@@ -71,4 +71,11 @@ public class ConfigurationService {
 
         return formatResponse( configuration);
     }
+
+    public com.zhuche.server.model.Configuration updateInsurance(Float insurance) {
+        final var configuration = configurationRepository.findById(id).get();
+        configuration.setInsurance(insurance);
+
+       return configurationRepository.save(configuration);
+    }
 }

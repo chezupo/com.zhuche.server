@@ -38,10 +38,7 @@ public class Me {
     private MeService meService;
 
     @Permission(
-        roles = {Role.ROLE_USER, Role.ROLE_AGENT},
-        isLog = true,
-        title = "更新账号",
-        type = LogType.UPDATED
+        roles = {Role.ROLE_USER, Role.ROLE_AGENT}
     )
     @PutMapping("/{social}/me")
     public UnityResponse updateMe(@PathVariable @AccessSocialType String social , @RequestBody UpdateMeRequest request) {

@@ -40,9 +40,4 @@ public class City {
     @JoinColumn(name = "city_code")
     @JsonIgnore
     private List<Area> areas;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_code")
-    @JsonIgnore
-    private List<Store> stores;
 }

@@ -8,6 +8,7 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuche.server.services.ConfigurationService;
@@ -106,4 +107,14 @@ public class Car extends BaseEntity{
     @JoinColumn(name = "car_category_id")
     @JsonIgnoreProperties({"brand", "hibernateLazyInitializer"})
     private CarCategory carCategory;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    @JsonIgnoreProperties({
+        "order",
+        "car",
+        "user",
+        "store",
+    })
+    private List<Comments> comments;
 }

@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -96,5 +97,23 @@ public class StoreCarConfigService {
 
     public void destoryStoreConfig(Integer id) {
         storeCarConfigRepository.deleteById(id.longValue());
+    }
+
+    public List<StoreCarConfig> getStoreConfigsByStoreId(Long id) {
+        Specification<Store> sf = (root, query,builder) -> {
+            List<Predicate> maps = new ArrayList<>();
+            Predicate  storeAdminMap = builder.equal(root.get("store").get("id").as(Long.class), id);
+            maps.add(storeAdminMap);
+
+            Predicate[] pre = new Predicate[maps.size()];
+            Predicate and = builder.and(maps.toArray(pre));
+            query.where(and);
+            List<Order> orders = new ArrayList<>();
+            orders.add(builder.desc(root.get("id")));
+
+            return query.orderBy(orders).getRestriction();
+        };
+
+        return storeCarConfigRepository.findAll(sf);
     }
 }

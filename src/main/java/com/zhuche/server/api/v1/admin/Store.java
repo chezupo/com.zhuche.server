@@ -7,7 +7,9 @@ import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
+import com.zhuche.server.model.StoreCarConfig;
 import com.zhuche.server.repositories.AreaRepository;
+import com.zhuche.server.services.StoreCarConfigService;
 import com.zhuche.server.services.StoreService;
 import com.zhuche.server.validators.store.HasStoreValidator;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/stores")
@@ -27,6 +30,7 @@ import javax.validation.constraints.Min;
 public class Store {
     private final StoreService storeService;
     private final AreaRepository areaRepository;
+    private final StoreCarConfigService storeCarConfigService;
 
     @Permission(
         roles = {Role.ROLE_ADMIN},
@@ -94,6 +98,21 @@ public class Store {
         return UnityResponse
             .builder()
             .data(newStoreItem)
+            .build();
+    }
+
+    @Permission(
+        roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS}
+    )
+    @GetMapping("/{id}/cars/configs")
+    public UnityResponse getStoreCarConfig(
+        @PathVariable("id") @HasStoreValidator Long id
+    ) {
+        final List<StoreCarConfig> configs = storeCarConfigService.getStoreConfigsByStoreId(id);
+
+        return UnityResponse
+            .builder()
+            .data(configs)
             .build();
     }
 }

@@ -8,6 +8,8 @@
 
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -15,6 +17,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -34,5 +38,17 @@ public class StoreCarConfig extends BaseEntity{
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({
+        "admin",
+        "banners",
+        "pickupGuides",
+        "returnGuides",
+        "comments",
+        "area",
+        "city",
+        "province",
+        "brands",
+        "cars",
+    })
     private Store store;
 }

@@ -3417,8 +3417,12 @@ CREATE TABLE `comments` (
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(255) DEFAULT NULL,
+  `images` varchar(255) DEFAULT NULL,
+  `flag` varchar(255) DEFAULT NULL,
   `rating` int DEFAULT NULL,
   `store_id` bigint DEFAULT NULL,
+  `order_id` bigint DEFAULT NULL,
+  `car_id` bigint DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

@@ -8,7 +8,10 @@
 
 package com.zhuche.server.model;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zhuche.server.services.ConfigurationService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +20,9 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -35,9 +41,63 @@ public class Comments extends BaseEntity{
 
     private Integer rating;
 
-    @ManyToOne
+    private String images;
+
+    public List<String> getImages() {
+        if (images == null) {
+            return new ArrayList<String>();
+        }
+        return Arrays.stream(images.split(",")).map( el -> {
+            final var prefixUrl = ConfigurationService.getPrefixUrl();
+            return prefixUrl + "/" + el;
+        }).toList();
+    }
+
+    public void setImages(List<String> images) {
+        final var prefixUrl = ConfigurationService.getPrefixUrl() + "/";
+        final var res = images.stream().map(el -> el.replace(prefixUrl, "")).toList();
+        this.images =  String.join(",", res);
+    }
+
+    private String flag;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Order order;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    @JsonIgnoreProperties({
+        "store",
+        "configs",
+        "carCategory",
+        "hibernateLazyInitializer",
+        "handler"
+    })
+    private Car car;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({
+        "store",
+        "comments",
+        "miniProgramUser"
+    })
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    @JsonIgnoreProperties({
+        "admin",
+        "banners",
+        "pickupGuides",
+        "returnGuides",
+        "comments",
+        "area",
+        "city",
+        "province",
+        "brands",
+        "cars",
+    })
     private Store store;
 }

@@ -17,13 +17,13 @@ import com.zhuche.server.model.Role;
 import com.zhuche.server.model.Store;
 import com.zhuche.server.repositories.BrandSeriesRepository;
 import com.zhuche.server.repositories.CarRepository;
+import com.zhuche.server.repositories.StoreRepository;
 import com.zhuche.server.util.JWTUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
@@ -33,7 +33,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -42,7 +42,7 @@ public class CarService {
     private final JWTUtil jwtUtil;
     private final CarMapper carMapper;
     private final CarRepository carRepository;
-    private final BrandSeriesRepository brandSeriesRepository;
+    private final StoreRepository storeRepository;
 
     public Car createCar(@Valid CreateCarRequest request)  {
         final var meyStore = jwtUtil.getUser().getStore();
@@ -127,5 +127,11 @@ public class CarService {
 
     public void destroy(Long id) {
         carRepository.deleteById(id);
+    }
+
+    public List<Car> fetchAllCarById(Long id) {
+        final var cars = storeRepository.findById(id).get().getCars();
+
+        return cars;
     }
 }

@@ -106,5 +106,10 @@ public class Store extends BaseEntity{
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "store"})
     private List<Brand> brands;
+
+    @OneToMany
+    @JsonIgnore
+    @JoinColumn(name = "store_id")
+    private List<Car> cars;
 }
 

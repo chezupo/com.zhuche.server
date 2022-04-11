@@ -29,4 +29,6 @@ public class Configuration {
     private String amapSearchKey;
 
     private String notice;
+
+    private Float insurance;
 }

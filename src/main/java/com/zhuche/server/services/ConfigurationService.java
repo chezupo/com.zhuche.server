@@ -51,6 +51,7 @@ public class ConfigurationService {
             .appName(configuration.getAppName())
             .logo(configuration.getLogo())
             .amapKey(mapKey)
+            .insurance(configuration.getInsurance())
             .amapSearchKey(mapSearchKey)
             .notice(configuration.getNotice())
             .build();

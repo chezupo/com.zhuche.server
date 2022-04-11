@@ -23,8 +23,9 @@ public class City {
 
     @GetMapping("cities")
     public UnityResponse getCities() {
+        final Iterable<com.zhuche.server.model.City> cities = cityService.getCitiesForStore();
         return UnityResponse.builder()
-            .data(cityService.getCities())
+            .data(cities)
             .build();
     }
 

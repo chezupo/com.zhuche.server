@@ -3443,6 +3443,7 @@ CREATE TABLE `configuration` (
   `logo` varchar(255) DEFAULT NULL,
   `notice` varchar(255) DEFAULT NULL,
   `insurance` float DEFAULT NULL,
+  `service_phone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 

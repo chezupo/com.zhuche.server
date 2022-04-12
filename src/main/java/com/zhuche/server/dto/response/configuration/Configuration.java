@@ -31,4 +31,6 @@ public class Configuration {
     private String notice;
 
     private Float insurance;
+
+    private String servicePhone;
 }

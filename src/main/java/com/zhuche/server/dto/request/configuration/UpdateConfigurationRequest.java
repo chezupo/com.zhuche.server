@@ -28,4 +28,6 @@ public class UpdateConfigurationRequest {
 
     @NotBlank
     private String notice;
+
+    @NotBlank String servicePhone;
 }

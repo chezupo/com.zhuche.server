@@ -51,6 +51,7 @@ public class ConfigurationService {
             .appName(configuration.getAppName())
             .logo(configuration.getLogo())
             .amapKey(mapKey)
+            .servicePhone(configuration.getServicePhone())
             .insurance(configuration.getInsurance())
             .amapSearchKey(mapSearchKey)
             .notice(configuration.getNotice())
@@ -68,6 +69,7 @@ public class ConfigurationService {
         configuration.setLogo(request.getLogo());
         configuration.setAppName(request.getAppName());
         configuration.setNotice(request.getNotice());
+        configuration.setServicePhone(request.getServicePhone());
         configurationRepository.save(configuration);
 
         return formatResponse( configuration);

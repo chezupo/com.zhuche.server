@@ -89,6 +89,10 @@ public class Car extends BaseEntity{
 
     private Float deposit; // 押金
 
+    private Float serviceFee; // 服务费 / 天
+
+    private Float handlingFee; // 手续费
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     @JsonIgnoreProperties({"brands"})

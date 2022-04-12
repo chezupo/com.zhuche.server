@@ -19,10 +19,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Builder
@@ -89,4 +86,14 @@ public class UpdateCarRequest {
     @NotNull
     @CheckCarCategoryIdMustBeExist
     private Long carCategoryId;
+
+    @NotNull
+    @Min(0)
+    @Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
+    private Float serviceFee;
+
+    @NotNull
+    @Min(0)
+    @Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
+    private Float handlingFee;
 }

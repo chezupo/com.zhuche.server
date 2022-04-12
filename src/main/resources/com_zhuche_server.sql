@@ -3772,6 +3772,8 @@ CREATE TABLE `car` (
                        `deposit` float NOT NULL,
                        `is_online` int DEFAULT NULL,
                        `car_category_id` int DEFAULT NULL,
+                       `service_fee` float NOT NULL,
+                       `handling_fee` float NOT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 

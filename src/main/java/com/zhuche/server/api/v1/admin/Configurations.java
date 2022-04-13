@@ -11,6 +11,7 @@ package com.zhuche.server.api.v1.admin;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.configuration.UpdateConfigurationRequest;
 import com.zhuche.server.dto.request.configuration.UpdateInsuranceRequest;
+import com.zhuche.server.dto.request.configuration.UpdateOrderAgreementRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Configuration;
 import com.zhuche.server.model.LogType;
@@ -64,6 +65,23 @@ public class Configurations {
         @RequestBody @Valid UpdateInsuranceRequest request
     ) {
         final Configuration newConfig  = configurationService.updateInsurance(request.getInsurance());
+
+        return UnityResponse.builder()
+            .data(newConfig)
+            .build();
+    }
+
+    @PatchMapping("/orderAgreements")
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "更新订单协议",
+        type = LogType.UPDATED
+    )
+    public UnityResponse updateOrderAgreements(
+        @RequestBody @Valid UpdateOrderAgreementRequest request
+    ) {
+        final Configuration newConfig  = configurationService.updateOrderAgreements(request);
 
         return UnityResponse.builder()
             .data(newConfig)

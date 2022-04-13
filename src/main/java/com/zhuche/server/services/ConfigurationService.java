@@ -9,6 +9,7 @@
 package com.zhuche.server.services;
 
 import com.zhuche.server.dto.request.configuration.UpdateConfigurationRequest;
+import com.zhuche.server.dto.request.configuration.UpdateOrderAgreementRequest;
 import com.zhuche.server.dto.response.configuration.Configuration;
 import com.zhuche.server.repositories.ConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,8 @@ public class ConfigurationService {
             .appName(configuration.getAppName())
             .logo(configuration.getLogo())
             .amapKey(mapKey)
+            .insuranceAgreement(configuration.getInsuranceAgreement())
+            .orderAgreement(configuration.getOrderAgreement())
             .servicePhone(configuration.getServicePhone())
             .insurance(configuration.getInsurance())
             .amapSearchKey(mapSearchKey)
@@ -80,5 +83,13 @@ public class ConfigurationService {
         configuration.setInsurance(insurance);
 
        return configurationRepository.save(configuration);
+    }
+
+    public com.zhuche.server.model.Configuration updateOrderAgreements(UpdateOrderAgreementRequest request) {
+        final var configuration = configurationRepository.findById(id).get();
+        configuration.setInsuranceAgreement(request.getInsuranceAgreement());
+        configuration.setOrderAgreement(request.getOrderAgreement());
+
+        return configurationRepository.save(configuration);
     }
 }

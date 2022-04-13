@@ -3444,6 +3444,8 @@ CREATE TABLE `configuration` (
   `notice` varchar(255) DEFAULT NULL,
   `insurance` float DEFAULT NULL,
   `service_phone` varchar(255) DEFAULT NULL,
+  `insurance_agreement` longtext DEFAULT NULL,
+  `order_agreement`  longtext DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 

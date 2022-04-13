@@ -39,4 +39,8 @@ public class Configuration{
     private Float insurance; // 出行无忧(保险费)
 
     private String servicePhone; // 客服电话
+
+    private String insuranceAgreement; // 驾无忧声明
+
+    private String orderAgreement; // 下单声明
 }

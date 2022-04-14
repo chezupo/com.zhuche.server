@@ -1,6 +1,7 @@
 package com.zhuche.server.validators.car;
 
 import com.zhuche.server.repositories.CarRepository;
+import com.zhuche.server.validators.agreement.CheckAgreementIdMustBeExist;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 
 @Component
 @AllArgsConstructor
-public class CheckCarIdMustBeExistWiring implements ConstraintValidator<CheckCarIdMustBeExist, Long> {
+public class CheckCarIdMustBeExistWiring implements ConstraintValidator<CheckAgreementIdMustBeExist, Long> {
     private final CarRepository carRepository;
 
     @Override

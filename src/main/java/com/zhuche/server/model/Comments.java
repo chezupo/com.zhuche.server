@@ -8,7 +8,6 @@
 
 package com.zhuche.server.model;
 
-import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuche.server.services.ConfigurationService;

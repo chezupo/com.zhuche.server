@@ -3898,3 +3898,31 @@ CREATE TABLE `holiday` (
                            `day` bigint DEFAULT NULL,
                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb3;
+
+DROP TABLE IF EXISTS `coupon`;
+CREATE TABLE `coupon` (
+                          `id` bigint NOT NULL AUTO_INCREMENT,
+                          `created_at` bigint DEFAULT NULL,
+                          `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                          `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                          `title` varchar(255) DEFAULT NULL,
+                          `content` text,
+                          `is_auto_dispatching_to_new_user` int DEFAULT NULL,
+                          `amount` float DEFAULT NULL,
+                          `meet_amount` float DEFAULT NULL,
+                          `expired` bigint DEFAULT NULL,
+                          `is_with_holiday` int DEFAULT NULL,
+                          `is_with_rent` int DEFAULT NULL,
+                          `is_with_service_amount` int DEFAULT NULL,
+                          PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb3;
+
+-- ----------------------------
+-- Records of coupon
+-- ----------------------------
+BEGIN;
+INSERT INTO `coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `content`, `is_auto_dispatching_to_new_user`, `amount`, `meet_amount`, `expired`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (1, NULL, NULL, NULL, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></p><p><span style=\"line-height:2\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></p><p><span style=\"line-height:2\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></p>', 1, 100, 200, 60, 0, 1, 1);
+INSERT INTO `coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `content`, `is_auto_dispatching_to_new_user`, `amount`, `meet_amount`, `expired`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (2, NULL, NULL, NULL, '满800减88元优惠券', '<p style=\"text-align:center;\"><span style=\"line-height:2\"><span style=\"color:#07a9fe\"><strong>使用规则</strong></span></span></p><p style=\"text-align:left;\"><span style=\"line-height:2\">1、自绑定日起6个月有效，单笔订单车辆租赁费 及门店服务费部分满800元可用，仅减免车辆租 赁费及门店服务费部分，其他费用正常收取；</span></p><p><span style=\"line-height:2\">2、租期包含任意法定节假日（含公休及调休） 及前一天不能使用，不可与一嗨其他优惠共享， 仅限一嗨国内自驾业务使用。</span></p>', 0, 88, 800, 60, 0, 1, 1);
+INSERT INTO `coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `content`, `is_auto_dispatching_to_new_user`, `amount`, `meet_amount`, `expired`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (3, NULL, NULL, NULL, '普卡生日优惠', '<h3 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h3><p><span style=\"line-height:2\">1 .生日优惠券使用有效期为生日之日起60天有 效； </span></p><p><span style=\"line-height:2\">2 .仅对车辆租赁费及门店服务费部分进行减免， 其他费用正常收取； </span></p><p><span style=\"line-height:2\">3 .一年内仅可享受一次生日优惠，不可与其他优 惠同享，租期包含任意法定节假日（含公休及调 休）及前一天不能使用； </span></p><p><span style=\"line-height:2\">4 .仅限一嗨国内自驾业务使用。</span></p>', 0, 50, 0, 60, 0, 1, 1);
+COMMIT;
+

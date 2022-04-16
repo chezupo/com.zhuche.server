@@ -28,7 +28,7 @@ public class Coupon extends BaseEntity{
     @JsonProperty
     private Long id;
 
-    private String name;
+    private String title;
 
     private String content;
 
@@ -38,7 +38,7 @@ public class Coupon extends BaseEntity{
 
     private Float meetAmount; // 满足的额度
 
-    private Integer expired; // 期限(秒)
+    private Integer expired; // 期限(天)
 
     private Boolean isWithHoliday; // 节假日能否使用
 

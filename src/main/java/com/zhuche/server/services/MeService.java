@@ -11,7 +11,7 @@ package com.zhuche.server.services;
 import com.zhuche.server.contexts.AuthContext;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.response.me.MeResponse;
-import com.zhuche.server.model.MiniProgramUser;
+import com.zhuche.server.model.AlipayAccount;
 import com.zhuche.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,38 +26,38 @@ public class MeService {
 
     public MeResponse updateAlipayMe(UpdateMeRequest request) {
         final var me = authContext.getMe();
-        final var miniProgramUser = me.getMiniProgramUser();
-        miniProgramUser.setAlipayAvatar(request.getAvatar());
-        miniProgramUser.setAlipayCity(request.getCity());
-        miniProgramUser.setAlipayGender(request.getGender());
-        miniProgramUser.setAlipayCode(request.getCode());
-        miniProgramUser.setAlipayNickName(request.getNickName());
-        miniProgramUser.setAlipayCountryCode(request.getCountryCode());
-        miniProgramUser.setAlipayProvince(request.getProvince());
+        final var alipayAccount = me.getAlipayAccount();
+        alipayAccount.setAvatar(request.getAvatar());
+        alipayAccount.setCity(request.getCity());
+        alipayAccount.setGender(request.getGender());
+        alipayAccount.setCode(request.getCode());
+        alipayAccount.setNickName(request.getNickName());
+        alipayAccount.setCountryCode(request.getCountryCode());
+        alipayAccount.setProvince(request.getProvince());
         userRepository.save(me);
 
-        return getAlipayResponse(miniProgramUser);
+        return getAlipayResponse(alipayAccount);
     }
 
     public MeResponse getAlipayMe() {
         final var me = authContext.getMe();
-        final var miniProgramUser = me.getMiniProgramUser();
+        final var miniProgramUser = me.getAlipayAccount();
 
         return getAlipayResponse(miniProgramUser);
     }
 
-    private MeResponse getAlipayResponse(MiniProgramUser miniProgramUser) {
+    private MeResponse getAlipayResponse(AlipayAccount miniProgramUser) {
         return MeResponse.builder()
             .id(miniProgramUser.getUser().getId())
-            .avatar(miniProgramUser.getAlipayAvatar())
-            .nickName(miniProgramUser.getAlipayNickName())
-            .city(miniProgramUser.getAlipayCity())
-            .code(miniProgramUser.getAlipayCode())
-            .countryCode(miniProgramUser.getAlipayCountryCode())
-            .gender(miniProgramUser.getAlipayGender())
-            .province(miniProgramUser.getAlipayProvince())
-            .isNewUser(miniProgramUser.getAlipayNickName() == null)
-            .phone(miniProgramUser.getAlipayPhone())
+            .avatar(miniProgramUser.getAvatar())
+            .nickName(miniProgramUser.getNickName())
+            .city(miniProgramUser.getCity())
+            .code(miniProgramUser.getCode())
+            .countryCode(miniProgramUser.getCountryCode())
+            .gender(miniProgramUser.getGender())
+            .province(miniProgramUser.getProvince())
+            .isNewUser(miniProgramUser.getNickName() == null)
+            .phone(miniProgramUser.getPhone())
             .build();
     }
 }

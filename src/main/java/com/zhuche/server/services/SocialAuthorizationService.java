@@ -15,10 +15,10 @@ import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.authorizatioins.CreateSocialAuthorizationTokenRequest;
 import com.zhuche.server.dto.response.social.authorization.CreateAuthorizationTokenResponse;
-import com.zhuche.server.model.MiniProgramUser;
+import com.zhuche.server.model.AlipayAccount;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.model.User;
-import com.zhuche.server.repositories.MiniProgramRepository;
+import com.zhuche.server.repositories.AlipayAccountRepository;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,7 +38,7 @@ public class SocialAuthorizationService {
     private AlipayClient alipayClient;
 
     @Autowired
-    private MiniProgramRepository miniProgramRepository;
+    private AlipayAccountRepository alipayAccountRepository;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -51,31 +53,32 @@ public class SocialAuthorizationService {
         alipayRequest.setCode(request.getAuthorizationCode());
         AlipaySystemOauthTokenResponse response = alipayClient.execute(alipayRequest);
         log.info("{}", response);
-        var miniProgramUser = miniProgramRepository.findByAlipayUserid(response.getUserId());
-        if (miniProgramUser == null) {
-            miniProgramUser = MiniProgramUser.builder()
-                .alipayAccessToken(response.getAccessToken())
-                .alipayExpiresIn(response.getExpiresIn())
-                .alipayReExpiresIn(response.getReExpiresIn())
-                .alipayUserId(response.getUserId())
-                .alipayRefreshToken(response.getRefreshToken())
+        var alipayAccount = alipayAccountRepository.findByAlipayUserid(response.getUserId());
+        if (alipayAccount == null) {
+            alipayAccount = AlipayAccount.builder()
+                .accessToken(response.getAccessToken())
+                .expiresIn(response.getExpiresIn())
+                .createdAt( Timestamp.valueOf( LocalDateTime.now() ).toInstant().toEpochMilli() )
+                .reExpiresIn(response.getReExpiresIn())
+                .userId(response.getUserId())
+                .refreshToken(response.getRefreshToken())
                 .build();
             var newUser = User.builder()
                 .roles(List.of(Role.ROLE_USER))
-                .miniProgramUser(miniProgramUser)
+                .alipayAccount(alipayAccount)
                 .build();
             newUser.setIsEnabled(true);
             userRepository.save(newUser);
-            miniProgramUser.setUser(newUser);
+            alipayAccount.setUser(newUser);
         }
 
-        final var res = jwtUtil.generateToken(miniProgramUser.getUser(), SocialType.ALIPAY);
+        final var res = jwtUtil.generateToken(alipayAccount.getUser(), SocialType.ALIPAY);
         return CreateAuthorizationTokenResponse.builder()
             .accessToken(res.getAccessToken())
-            .roles(miniProgramUser.getUser().getRoles())
+            .roles(alipayAccount.getUser().getRoles())
             .expiration(res.getExpiration())
             .tokenType(res.getTokenType())
-            .isNewUser(miniProgramUser.getAlipayNickName() == null)
+            .isNewUser(alipayAccount.getNickName() == null)
             .build();
     }
 }

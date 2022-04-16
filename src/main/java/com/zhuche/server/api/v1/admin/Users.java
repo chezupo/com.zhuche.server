@@ -2,14 +2,17 @@ package com.zhuche.server.api.v1.admin;
 
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.user.UpdateUserPasswordRequest;
+import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
+import com.zhuche.server.model.User;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.services.UserService;
 import com.zhuche.server.validators.user.CheckUserIdMustBeExist;
 import com.zhuche.server.validators.user.HasUserValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,4 +69,50 @@ public class Users {
             .build();
     }
 
+    @Permission(roles = {Role.ROLE_ADMIN})
+    @GetMapping("/alipay/users")
+    public UnityResponse getAlipayUsers(
+        @Param("page") Integer page,
+        @Param("size") Integer size
+    ) {
+        final PageFormat userPage = userService.getAlipayUsers(page, size);
+
+        return UnityResponse.builder()
+            .data(userPage)
+            .build();
+    }
+
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "设定业务员",
+        type = LogType.UPDATED
+    )
+    @PatchMapping("/{id}/roles/ROLE_PROMOTER")
+    public UnityResponse setUserRolePromoter(
+        @PathVariable("id") @CheckUserIdMustBeExist Long uid
+    ) {
+       final User newUser = userService.setUserRolePromoter(uid);
+
+        return UnityResponse.builder()
+            .data(newUser)
+            .build();
+    }
+
+    @Permission(
+        roles = {Role.ROLE_ADMIN},
+        isLog = true,
+        title = "取消业务员",
+        type = LogType.UPDATED
+    )
+    @DeleteMapping("/{id}/roles/ROLE_PROMOTER")
+    public UnityResponse deleteUserRolePromoter(
+        @PathVariable("id") @CheckUserIdMustBeExist Long uid
+    ) {
+        final User newUser = userService.unsetUserRolePromoter(uid);
+
+        return UnityResponse.builder()
+            .data(newUser)
+            .build();
+    }
 }

@@ -80,7 +80,7 @@ public class Comments extends BaseEntity{
     @JsonIgnoreProperties({
         "store",
         "comments",
-        "miniProgramUser"
+        "alipayAccount"
     })
     private User user;
 

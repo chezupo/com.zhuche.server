@@ -3,13 +3,10 @@ package com.zhuche.server.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.zhuche.server.util.PasswordEncodeUtil;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -47,7 +44,8 @@ public class User extends BaseEntity {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private MiniProgramUser miniProgramUser;
+    @JsonIgnoreProperties({ "hibernateLazyInitializer" })
+    private AlipayAccount alipayAccount;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"admin", "comments", "password"})

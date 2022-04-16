@@ -9,6 +9,7 @@
 package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,40 +26,47 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @SuperBuilder
-@SQLDelete(sql = "UPDATE mini_program_user SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE alipay_account SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
-public class MiniProgramUser extends BaseEntity{
+public class AlipayAccount extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
 
-    private String alipayAccessToken;
+    private String accessToken;
 
-    private String alipayRefreshToken;
+    private String refreshToken;
 
-    private String alipayUserId;
+    private String userId;
 
-    private String alipayReExpiresIn;
+    private String reExpiresIn;
 
-    private String alipayExpiresIn;
+    private String expiresIn;
 
-    private String alipayAvatar;
+    private String avatar;
 
-    private String alipayCity;
+    private String city;
 
-    private String alipayNickName;
+    private String nickName;
 
-    private String alipayPhone;
+    private String phone;
 
-    private String alipayProvince;
+    private String province;
 
-    private String alipayGender;
+    private String gender;
 
-    private String alipayCountryCode;
+    private String countryCode;
 
-    private String alipayCode;
+    private String code;
 
-    @OneToOne(mappedBy = "miniProgramUser")
+    @OneToOne(mappedBy = "alipayAccount")
+    @JsonIgnoreProperties({
+        "roles",
+        "password",
+        "alipayAccount",
+        "store",
+        "comments",
+    })
    private User user;
 }

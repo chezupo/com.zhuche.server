@@ -3457,35 +3457,36 @@ INSERT INTO `com_zhuche_server`.`configuration` (`id`, `app_name`, `logo`, `noti
 COMMIT;
 
 -- ----------------------------
--- Table structure for mini_program_user
+-- Table structure for alipay_account
 -- ----------------------------
-DROP TABLE IF EXISTS `mini_program_user`;
-CREATE TABLE `mini_program_user` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` bigint DEFAULT NULL,
-  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `alipay_access_token` varchar(255) DEFAULT NULL,
-  `alipay_avatar` varchar(255) DEFAULT NULL,
-  `alipay_city` varchar(255) DEFAULT NULL,
-  `alipay_code` varchar(255) DEFAULT NULL,
-  `alipay_country_code` varchar(255) DEFAULT NULL,
-  `alipay_expires_in` varchar(255) DEFAULT NULL,
-  `alipay_gender` varchar(255) DEFAULT NULL,
-  `alipay_nick_name` varchar(255) DEFAULT NULL,
-  `alipay_phone` varchar(255) DEFAULT NULL,
-  `alipay_province` varchar(255) DEFAULT NULL,
-  `alipay_re_expires_in` varchar(255) DEFAULT NULL,
-  `alipay_refresh_token` varchar(255) DEFAULT NULL,
-  `alipay_user_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+DROP TABLE IF EXISTS `alipay_account`;
+CREATE TABLE `alipay_account` (
+                                  `id` bigint NOT NULL AUTO_INCREMENT,
+                                  `created_at` bigint DEFAULT NULL,
+                                  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                                  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                                  `access_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `country_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `expires_in` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `nick_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `re_expires_in` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `refresh_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
--- Records of mini_program_user
+-- Records of alipay_account
 -- ----------------------------
 BEGIN;
-INSERT INTO `mini_program_user` VALUES (1, NULL, NULL, NULL, 'authbseB71cafc443bef48429df6711bb8860C59', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB7700b11a5f3546519a42c785b839bX59', '2088241974604591');
+INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`) VALUES (1, NULL, NULL, NULL, 'authbseB71cafc443bef48429df6711bb8860C59', 'https://tfs.alipayobjects.com/images/partner/ATMv8TTZKDzsQAAAAAAAAAAAAADtl2AA', '惠州市', '10000', 'CN', '31536000', NULL, NULL, NULL, '广东省', '31536000', 'authbseB7700b11a5f3546519a42c785b839bX59', '2088241974604591');
+INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`) VALUES (2, NULL, NULL, NULL, 'authbseB72f3ecfca13a4deeb4d1c5ab8303dA08', 'https://tfs.alipayobjects.com/images/partner/T1J_8fXdFuXXXXXXXX', '惠州市', '10000', 'CN', '31536000', 'm', '楚衡', NULL, '广东省', '31536000', 'authbseBd77a32a493f64f66987c3330cadbcX08', '2088012728643085');
 COMMIT;
 
 -- ----------------------------
@@ -3655,7 +3656,7 @@ CREATE TABLE `user` (
   `is_enabled` bit(1) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `mini_program_user_id` bigint DEFAULT NULL,
+  `alipay_account_id` bigint DEFAULT NULL,
   `store_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;

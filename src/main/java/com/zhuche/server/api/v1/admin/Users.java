@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 
 @RestController
@@ -73,9 +74,10 @@ public class Users {
     @GetMapping("/alipay/users")
     public UnityResponse getAlipayUsers(
         @Param("page") Integer page,
-        @Param("size") Integer size
+        @Param("size") Integer size,
+        @Param("nickname") String nickname
     ) {
-        final PageFormat userPage = userService.getAlipayUsers(page, size);
+        final PageFormat userPage = userService.getAlipayUsers(page, size, nickname);
 
         return UnityResponse.builder()
             .data(userPage)

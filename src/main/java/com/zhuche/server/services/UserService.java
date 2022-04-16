@@ -41,7 +41,7 @@ public class UserService {
         }
     }
 
-    public PageFormat getAlipayUsers(Integer page, Integer size) {
+    public PageFormat getAlipayUsers(Integer page, Integer size, String nickname) {
         page = page != null ? --page : 0;
         size = size != null ? size : 10;
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
@@ -49,6 +49,10 @@ public class UserService {
         Specification<Store> sf = (root, query, builder) -> {
             List<Predicate> maps = new ArrayList<>();
             maps.add(builder.isNotNull(root.get("alipayAccount")));
+            if (nickname != null && nickname.length() > 0) {
+                maps.add(builder.like(root.get("alipayAccount").get("nickName").as(String.class), "%" + nickname + "%"));
+            }
+
             Predicate[] pre = new Predicate[maps.size()];
             Predicate and = builder.and(maps.toArray(pre));
             query.where(and);

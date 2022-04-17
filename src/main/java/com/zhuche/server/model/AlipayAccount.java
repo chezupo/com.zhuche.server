@@ -60,6 +60,8 @@ public class AlipayAccount extends BaseEntity{
 
     private String code;
 
+    private Boolean isAuthorizeBaseInfo;
+
     @OneToOne(mappedBy = "alipayAccount")
     @JsonIgnoreProperties({
         "roles",

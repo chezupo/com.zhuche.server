@@ -34,7 +34,7 @@ public class MeResponse {
 
     private String province;
 
-    private Boolean isNewUser;
-
     private String phone;
+
+    private Boolean isAuthorizeBaseInfo;
 }

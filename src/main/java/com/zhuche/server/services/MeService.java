@@ -9,6 +9,7 @@
 package com.zhuche.server.services;
 
 import com.zhuche.server.contexts.AuthContext;
+import com.zhuche.server.dto.mapper.MeMapper;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.response.me.MeResponse;
 import com.zhuche.server.model.AlipayAccount;
@@ -18,11 +19,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MeService {
-    @Autowired
-    private AuthContext authContext;
-
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private AuthContext authContext;
+    @Autowired private UserRepository userRepository;
+    @Autowired private MeMapper meMapper;
 
     public MeResponse updateAlipayMe(UpdateMeRequest request) {
         final var me = authContext.getMe();
@@ -34,30 +33,15 @@ public class MeService {
         alipayAccount.setNickName(request.getNickName());
         alipayAccount.setCountryCode(request.getCountryCode());
         alipayAccount.setProvince(request.getProvince());
+        alipayAccount.setIsAuthorizeBaseInfo(true);
         userRepository.save(me);
 
-        return getAlipayResponse(alipayAccount);
+        return meMapper.AlipayAccountToMeResponse(alipayAccount);
     }
 
     public MeResponse getAlipayMe() {
         final var me = authContext.getMe();
-        final var miniProgramUser = me.getAlipayAccount();
 
-        return getAlipayResponse(miniProgramUser);
-    }
-
-    private MeResponse getAlipayResponse(AlipayAccount miniProgramUser) {
-        return MeResponse.builder()
-            .id(miniProgramUser.getUser().getId())
-            .avatar(miniProgramUser.getAvatar())
-            .nickName(miniProgramUser.getNickName())
-            .city(miniProgramUser.getCity())
-            .code(miniProgramUser.getCode())
-            .countryCode(miniProgramUser.getCountryCode())
-            .gender(miniProgramUser.getGender())
-            .province(miniProgramUser.getProvince())
-            .isNewUser(miniProgramUser.getNickName() == null)
-            .phone(miniProgramUser.getPhone())
-            .build();
+        return meMapper.AlipayAccountToMeResponse(me.getAlipayAccount());
     }
 }

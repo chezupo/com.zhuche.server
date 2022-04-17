@@ -32,16 +32,16 @@ import java.util.Objects;
 @Validated
 public class Me {
     @Autowired
-    private AuthContext authContext;
-
-    @Autowired
     private MeService meService;
 
     @Permission(
         roles = {Role.ROLE_USER, Role.ROLE_AGENT}
     )
     @PutMapping("/{social}/me")
-    public UnityResponse updateMe(@PathVariable @AccessSocialType String social , @RequestBody UpdateMeRequest request) {
+    public UnityResponse updateMe(
+        @PathVariable @AccessSocialType String social,
+        @RequestBody UpdateMeRequest request
+    ) {
         MeResponse res = null;
         if (Objects.equals(social, SocialType.ALIPAY.toString())) {
             res =  meService.updateAlipayMe(request);

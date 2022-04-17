@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
@@ -44,7 +45,10 @@ public class User extends BaseEntity {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({ "hibernateLazyInitializer" })
+    @JsonIgnoreProperties({
+        "hibernateLazyInitializer",
+        "user"
+    })
     private AlipayAccount alipayAccount;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -54,4 +58,12 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Comments> comments;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({
+        "hibernateLazyInitializer",
+        "user"
+    })
+    private List<UserCoupon> userCoupons;
 }

@@ -46,6 +46,7 @@ public class StoreCarConfig extends BaseEntity{
         "comments",
         "area",
         "city",
+        "userCoupons",
         "province",
         "brands",
         "cars",

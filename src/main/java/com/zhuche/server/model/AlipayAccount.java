@@ -67,6 +67,7 @@ public class AlipayAccount extends BaseEntity{
         "alipayAccount",
         "store",
         "comments",
+        "userCoupons"
     })
    private User user;
 }

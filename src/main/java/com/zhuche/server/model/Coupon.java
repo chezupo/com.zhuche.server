@@ -1,5 +1,6 @@
 package com.zhuche.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ import javax.persistence.Id;
 @SuperBuilder
 @SQLDelete(sql = "UPDATE coupon SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class Coupon extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

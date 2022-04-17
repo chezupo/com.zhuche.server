@@ -66,6 +66,7 @@ public class Brand extends BaseEntity {
         "province",
         "brands",
         "cars",
+        "userCoupons"
     })
     private Store store;
 

@@ -33,18 +33,11 @@ import java.util.List;
 @Service
 @Slf4j
 public class SocialAuthorizationService {
-
-    @Autowired
-    private AlipayClient alipayClient;
-
-    @Autowired
-    private AlipayAccountRepository alipayAccountRepository;
-
-    @Autowired
-    private JWTUtil jwtUtil;
-
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private AlipayClient alipayClient;
+    @Autowired private AlipayAccountRepository alipayAccountRepository;
+    @Autowired private JWTUtil jwtUtil;
+    @Autowired private UserRepository userRepository;
+    @Autowired private UserCouponService userCouponService;
 
     @Transactional
     public CreateAuthorizationTokenResponse alipayAuthorize(CreateSocialAuthorizationTokenRequest request) throws AlipayApiException {
@@ -69,6 +62,7 @@ public class SocialAuthorizationService {
                 .build();
             newUser.setIsEnabled(true);
             userRepository.save(newUser);
+            userCouponService.takeCouponToNewUser(newUser);
             alipayAccount.setUser(newUser);
         }
 

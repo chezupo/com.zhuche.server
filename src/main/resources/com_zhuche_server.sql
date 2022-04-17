@@ -3927,3 +3927,15 @@ INSERT INTO `coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `
 INSERT INTO `coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `content`, `is_auto_dispatching_to_new_user`, `amount`, `meet_amount`, `expired`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (3, NULL, NULL, NULL, '普卡生日优惠', '<h3 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h3><p><span style=\"line-height:2\">1 .生日优惠券使用有效期为生日之日起60天有 效； </span></p><p><span style=\"line-height:2\">2 .仅对车辆租赁费及门店服务费部分进行减免， 其他费用正常收取； </span></p><p><span style=\"line-height:2\">3 .一年内仅可享受一次生日优惠，不可与其他优 惠同享，租期包含任意法定节假日（含公休及调 休）及前一天不能使用； </span></p><p><span style=\"line-height:2\">4 .仅限一嗨国内自驾业务使用。</span></p>', 0, 50, 0, 60, 0, 1, 1);
 COMMIT;
 
+DROP TABLE IF EXISTS `user_coupon`;
+CREATE TABLE `user_coupon` (
+                               `id` bigint NOT NULL AUTO_INCREMENT,
+                               `created_at` bigint DEFAULT NULL,
+                               `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                               `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                               `expired` bigint DEFAULT NULL,
+                               `user_id` int DEFAULT NULL,
+                               `coupon_id` int DEFAULT NULL,
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb3;
+

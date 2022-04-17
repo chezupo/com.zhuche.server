@@ -1,8 +1,8 @@
 package com.zhuche.server.services;
 
 import com.zhuche.server.dto.response.PageFormat;
-import com.zhuche.server.model.Role;
 import com.zhuche.server.model.Store;
+import com.zhuche.server.model.User;
 import com.zhuche.server.model.UserCoupon;
 import com.zhuche.server.repositories.CouponRepository;
 import com.zhuche.server.repositories.UserCouponRepository;
@@ -80,5 +80,23 @@ public class UserCouponService {
             .currentPage(page + 1)
             .size(size)
             .build();
+    }
+
+    /**
+     * 为用户添加新用户自动赠送优惠卷
+     * @param newUser
+     */
+    public void takeCouponToNewUser(User newUser) {
+        final var coupons = couponRepository.findAllByIsAutoDispatchingToNewUser();
+        final var userCoupons = coupons.stream().map( coupon ->
+            UserCoupon.builder()
+                .user(newUser)
+                .expired(coupon.getExpired().longValue())
+                .coupon(coupon)
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                .build()
+        ).toList();
+
+        userCouponRepository.saveAll(userCoupons);
     }
 }

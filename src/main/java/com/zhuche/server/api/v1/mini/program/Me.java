@@ -18,6 +18,8 @@ import com.zhuche.server.dto.response.me.MeResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.MeService;
+import com.zhuche.server.services.UserCouponService;
+import com.zhuche.server.util.JWTUtil;
 import com.zhuche.server.validators.social.AccessSocialType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +29,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @RestController("miniProgramMe")
-@RequestMapping("/api/v1/miniProgram/socials")
+@RequestMapping("/api/v1/miniProgram")
 @Slf4j
 @Validated
 public class Me {
     @Autowired
     private MeService meService;
+    @Autowired UserCouponService userCouponService;
+
+    @Autowired JWTUtil jwtUtil;
 
     @Permission(
         roles = {Role.ROLE_USER, Role.ROLE_AGENT}
     )
-    @PutMapping("/{social}/me")
+    @PutMapping("/socials/{social}/me")
     public UnityResponse updateMe(
         @PathVariable @AccessSocialType String social,
         @RequestBody UpdateMeRequest request
@@ -55,7 +60,7 @@ public class Me {
     @Permission(
         roles = {Role.ROLE_USER, Role.ROLE_AGENT}
     )
-    @GetMapping("/{social}/me")
+    @GetMapping("/socials/{social}/me")
     public UnityResponse getMe(@PathVariable @AccessSocialType String social ) {
         MeResponse res = null;
         if (Objects.equals(social, SocialType.ALIPAY.toString())) {
@@ -66,4 +71,16 @@ public class Me {
             .data(res)
             .build();
     }
+
+    @Permission( roles = { Role.ROLE_USER } )
+    @GetMapping("/me/userCoupons")
+    public UnityResponse getMyCoupons() {
+        final var me = jwtUtil.getUser();
+        final var userCoupons = userCouponService.getUserCouponsByUserid(me.getId());
+
+        return UnityResponse.builder()
+            .data(userCoupons)
+            .build();
+    }
+
 }

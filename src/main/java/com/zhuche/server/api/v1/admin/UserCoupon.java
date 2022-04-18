@@ -22,6 +22,12 @@ import javax.validation.Valid;
 public class UserCoupon {
     private final UserCouponService userCouponService;
 
+    /**
+     * 赠送用户优惠卷
+     * @param userId
+     * @param request
+     * @return
+     */
     @PostMapping("/{id}/coupons")
     @Permission(
         roles = {Role.ROLE_ADMIN},

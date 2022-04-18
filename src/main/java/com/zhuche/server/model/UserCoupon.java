@@ -29,6 +29,20 @@ public class UserCoupon extends BaseEntity{
     @JsonProperty
     private Long id;
 
+    private String title;
+
+    private String content;
+
+    private Float amount; // 额度
+
+    private Float meetAmount; // 满足的额度
+
+    private Boolean isWithHoliday; // 节假日能否使用
+
+    private Boolean isWithRent; // 可用于减免车辆租赁费用
+
+    private Boolean isWithServiceAmount; // 可用于减免服务费
+
     private Long expired;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -38,13 +52,21 @@ public class UserCoupon extends BaseEntity{
     @Transient
     private Boolean isValid;
 
-    public Boolean getIsValid() {
-        if (this.expired == null) return false;
-        final var expiredTimestamp =  this.expired * 60 * 60 * 24 * 1000 + Timestamp.valueOf(this.getCreatedAt()).toInstant().toEpochMilli();
-        final var nowTimeStamp = Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli();
+    @Transient
+    private String reason;
 
-        return expiredTimestamp > nowTimeStamp;
+    public String getReason() {
+        return reason == null ? "" : reason;
     }
+
+    public void setReason(String newReason) {
+        reason = newReason;
+    }
+
+//    public Boolean getIsValid() {
+//
+//        return true;
+//    }
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

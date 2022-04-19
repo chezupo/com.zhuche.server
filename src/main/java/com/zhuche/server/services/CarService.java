@@ -18,6 +18,7 @@ import com.zhuche.server.model.Store;
 import com.zhuche.server.repositories.BrandSeriesRepository;
 import com.zhuche.server.repositories.CarRepository;
 import com.zhuche.server.repositories.StoreRepository;
+import com.zhuche.server.util.AuthUtil;
 import com.zhuche.server.util.JWTUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -43,6 +44,7 @@ public class CarService {
     private final CarMapper carMapper;
     private final CarRepository carRepository;
     private final StoreRepository storeRepository;
+    private final AuthUtil authUtil;
 
     public Car createCar(@Valid CreateCarRequest request)  {
         final var meyStore = jwtUtil.getUser().getStore();
@@ -114,10 +116,10 @@ public class CarService {
     }
 
     public Car update(Long id, UpdateCarRequest request) {
-        final var meyStore = jwtUtil.getUser().getStore();
+        final var store = carRepository.findById(id).get().getStore();
         Car newCar = carMapper.updateCarRequestToCar(request);
         newCar.setCreatedAt(LocalDateTime.now());
-        newCar.setStore(meyStore);
+        newCar.setStore(store);
         newCar.setId(id);
         newCar.setUpdatedAt(LocalDateTime.now());
         newCar.setCover(newCar.getCover());

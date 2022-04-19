@@ -84,7 +84,7 @@ public class Car {
         roles = {Role.ROLE_BUSINESS, Role.ROLE_ADMIN},
         isLog = true,
         title = "修改汽车",
-        type = LogType.DELETED
+        type = LogType.UPDATED
     )
     public UnityResponse updateCar(
         @PathVariable("id") @CheckUpdateCarId Long id,

@@ -73,7 +73,7 @@ public class CreateCarRequest {
     private Long seriesId;
 
     @NotNull
-    private Float price;
+    private Float rent;
 
     @NotNull
     private List<Long> configIds;
@@ -91,7 +91,7 @@ public class CreateCarRequest {
     @NotNull
     @Min(0)
     @Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
-    private Float serviceFee;
+    private Float insuranceFee;
 
     @NotNull
     @Min(0)

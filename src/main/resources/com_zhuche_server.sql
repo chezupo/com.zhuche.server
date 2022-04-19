@@ -3772,11 +3772,11 @@ CREATE TABLE `car` (
                        `store_id` bigint DEFAULT NULL,
                        `brand_series_id` int DEFAULT NULL,
                        `number` varchar(255) DEFAULT NULL,
-                       `price` float NOT NULL,
+                       `sent` float NOT NULL,
                        `deposit` float NOT NULL,
+                       `insurance_fee` float NOT NULL,
                        `is_online` int DEFAULT NULL,
                        `car_category_id` int DEFAULT NULL,
-                       `service_fee` float NOT NULL,
                        `handling_fee` float NOT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

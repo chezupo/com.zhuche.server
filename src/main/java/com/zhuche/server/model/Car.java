@@ -85,11 +85,11 @@ public class Car extends BaseEntity{
 
     private String number; // 车牌号
 
-    private Float price; // 价格 / 天
+    private Float rent; // 价格 / 天
 
     private Float deposit; // 押金
 
-    private Float serviceFee; // 服务费 / 天
+    private Float insuranceFee; //驾无忧费(天)
 
     private Float handlingFee; // 手续费
 

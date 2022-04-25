@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 
 @Component
 @AllArgsConstructor
-public class CheckCarIdMustBeExistWiring implements ConstraintValidator<CheckAgreementIdMustBeExist, Long> {
+public class CheckCarIdMustBeExistWiring implements ConstraintValidator<CheckCarIdMustBeExist, Long> {
     private final CarRepository carRepository;
 
     @Override

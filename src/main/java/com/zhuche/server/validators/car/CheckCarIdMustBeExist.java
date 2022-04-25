@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint( validatedBy = CheckCarIdMustBeExistWiring.class)
-@Target({ElementType.PARAMETER})
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckCarIdMustBeExist {
     String message() default "汽车id: ${validatedValue} 不存在.";

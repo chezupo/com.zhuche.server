@@ -3940,3 +3940,32 @@ CREATE TABLE `user_coupon` (
                                PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb3;
 
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+                          `id` bigint NOT NULL AUTO_INCREMENT,
+                          `created_at` bigint DEFAULT NULL,
+                          `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                          `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                          `alipay_token` varchar(255) DEFAULT NULL,
+                          `alipay_trade_no` varchar(255) DEFAULT NULL,
+                          `alipay_out_trade_no` varchar(255) DEFAULT NULL,
+                          `title` varchar(255) DEFAULT NULL,
+                          `amount` double DEFAULT NULL,
+                          `cover`  varchar(255) DEFAULT NULL,
+                          `create_alipay_at` datetime(6) DEFAULT NULL,
+                          `deposit` float DEFAULT NULL,
+                          `end_time_stamp` bigint DEFAULT NULL,
+                          `handling_fee` float DEFAULT NULL,
+                          `insurance_fee` float DEFAULT NULL,
+                          `is_insurance` bit(1) DEFAULT NULL,
+                          `pay_type` varchar(255) DEFAULT NULL,
+                          `rent` float DEFAULT NULL,
+                          `start_time_stamp` bigint DEFAULT NULL,
+                          `status` int DEFAULT NULL,
+                          `waiver_amount` float DEFAULT NULL,
+                          `car_id` bigint DEFAULT NULL,
+                          `end_store_id` bigint DEFAULT NULL,
+                          `start_store_id` bigint DEFAULT NULL,
+                          `user_id` bigint DEFAULT NULL,
+                          PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

@@ -17,6 +17,8 @@ alipay:
     serverUrl: "https://openapi.alipay.com/gateway.do"
     appid: ""
     alipayPublicKey: ""
+    alipayAESKey: ""
+    alipayNoticeUrl: ""
 
 disk:
     qiniu:

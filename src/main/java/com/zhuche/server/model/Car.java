@@ -8,7 +8,6 @@
 
 package com.zhuche.server.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuche.server.services.ConfigurationService;
@@ -33,6 +32,7 @@ import java.util.Set;
 @SuperBuilder
 @SQLDelete(sql = "UPDATE car SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Car extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,6 +10,7 @@ package com.zhuche.server.config.exception;
 
 import com.zhuche.server.exceptions.MyRuntimeException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

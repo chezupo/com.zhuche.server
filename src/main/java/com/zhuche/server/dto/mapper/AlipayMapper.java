@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
 @Component
-public abstract class MeMapper {
+public abstract class AlipayMapper {
     @Mappings({
         @Mapping(source = "user.id", target = "id")
     })

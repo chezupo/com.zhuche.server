@@ -10,12 +10,11 @@ package com.zhuche.server.api.v1.mini.program;
 
 
 import com.zhuche.server.config.interceptors.Permission;
-import com.zhuche.server.contexts.AuthContext;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
+import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.dto.response.me.MeResponse;
-import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.MeService;
 import com.zhuche.server.services.UserCouponService;
@@ -26,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 @RestController("miniProgramMe")
@@ -83,4 +83,24 @@ public class Me {
             .build();
     }
 
+    /**
+     *  更新手机号
+     * @param social
+     * @param request
+     * @return
+     */
+    @PutMapping("/socials/{social}/me/phoneNumber")
+    public UnityResponse updateMyPhoneNumber(
+        @PathVariable @AccessSocialType String social,
+        @RequestBody @Valid UpdateMyPhoneNumberRequest request
+    ) throws Exception {
+        MeResponse res = null;
+        if (Objects.equals(social, SocialType.ALIPAY.toString())) {
+            res =  meService.updateAlipayPhoneNumber(request);
+        }
+
+        return UnityResponse.builder()
+            .data(res)
+            .build();
+    }
 }

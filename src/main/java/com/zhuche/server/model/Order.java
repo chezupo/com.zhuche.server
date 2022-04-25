@@ -100,7 +100,6 @@ public class Order extends BaseEntity{
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     @JsonIgnoreProperties({
-        "store",
         "configs",
         "brandSeries",
         "carCategory",
@@ -112,7 +111,6 @@ public class Order extends BaseEntity{
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({
-         "alipayAccount",
          "store",
          "comments",
          "userCoupons",

@@ -7,18 +7,26 @@ import com.alipay.api.request.AlipayTradeCreateRequest;
 import com.alipay.api.response.AlipayTradeCreateResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
+import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.*;
 import com.zhuche.server.repositories.CarRepository;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.StoreRepository;
+import com.zhuche.server.util.AuthUtil;
 import com.zhuche.server.util.JWTUtil;
+import com.zhuche.server.util.PaginationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -34,16 +42,20 @@ public class OrderService {
     private String alipayTimeoutExpress  = "15d";
     private final CarRepository carRepository;
     private final StoreRepository storeRepository;
+    private final AuthUtil authUtil;
+    private final PaginationUtil paginationUtil;
 
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
 
-    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository) {
+    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
         this.jwtUtil = jwtUtil;
         this.storeRepository = storeRepository;
+        this.authUtil = authUtil;
+        this.paginationUtil = paginationUtil;
     }
 
     public Order createAlipayOrder(CreateOrderRequest query) throws AlipayApiException {
@@ -92,6 +104,9 @@ public class OrderService {
                 .car(car)
                 .amount(amount)
                 .createAlipayAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
+                .createdAt(
+                    Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli()
+                )
                 .alipayToken(response.getBody())
                 .startTimeStamp(query.getStartTimeStamp())
                 .endTimeStamp(query.getEndTimeStamp())
@@ -140,5 +155,46 @@ public class OrderService {
         final var order = orderRepository.findByAlipayOutTradeNo(out_trade_no);
         order.setStatus(OrderStatus.CAR_PICKUP_IN_PROGRESS);
         this.orderRepository.save(order);
+    }
+
+    /**
+     * 获取订单分页数据
+     * @param page
+     * @param size
+     * @return
+     */
+    public PageFormat getOrderPageData(Integer page, Integer size) {
+        page = page != null ? --page : 0;
+        size = size != null ? size : 10;
+        Pageable pagingSort = PageRequest.of(page, size, Sort.by("id").descending());
+        Specification<Store> sf = (root, query, builder) -> {
+            List<Predicate> maps = new ArrayList<>();
+            // 不是管理员
+            if (!authUtil.isAdmin()) {
+                final var me = jwtUtil.getUser();
+                maps.add(
+                    builder.equal(root.get("startStore").get("admin").get("id").as(Long.class), me.getId())
+                );
+                maps.add(
+                    builder.equal(root.get("endStore").get("admin").get("id").as(Long.class), me.getId())
+                );
+            }
+
+            Predicate[] pre = new Predicate[maps.size()];
+            Predicate or = builder.or(maps.toArray(pre));
+            query.where(or);
+            List<javax.persistence.criteria.Order> orders = new ArrayList<>();
+            orders.add(builder.desc(root.get("id")));
+
+            return query.orderBy(orders).getRestriction();
+        };
+        Page pageDate;
+        if (authUtil.isAdmin())  {
+            pageDate = orderRepository.findAll(pagingSort);
+        } else {
+             pageDate = orderRepository.findAll(sf, pagingSort);
+        }
+
+         return this.paginationUtil.covertPageFormat(pageDate);
     }
 }

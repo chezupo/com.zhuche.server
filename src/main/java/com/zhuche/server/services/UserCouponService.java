@@ -9,6 +9,7 @@ import com.zhuche.server.repositories.CouponRepository;
 import com.zhuche.server.repositories.HolidayRepository;
 import com.zhuche.server.repositories.UserCouponRepository;
 import com.zhuche.server.repositories.UserRepository;
+import com.zhuche.server.util.CouponUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class UserCouponService {
     private final CouponRepository couponRepository;
     private final UserRepository userRepository;
     private final UserCouponRepository userCouponRepository;
-    private final HolidayRepository holidayRepository;
+    private final CouponUtil couponUtil;
 
     public List<? extends UserCoupon> createUserCoupon(Long userId, List<Long> couponIds) {
         final var couponList = couponRepository.findAllById(couponIds);
@@ -42,6 +43,7 @@ public class UserCouponService {
 
         return userCouponRepository.saveAll(newUserCoupons);
     }
+
     public List<UserCoupon> getUserCouponsByUserid(Long userId) {
         Specification<Store> sf = (root, query, builder) -> {
             List<Predicate> maps = new ArrayList<>();
@@ -107,7 +109,6 @@ public class UserCouponService {
     }
 
     private UserCoupon userAndCouponMapUserCoupon(User user, Coupon coupon) {
-
         return UserCoupon.builder()
             .user(user)
             .expired(coupon.getExpired().longValue())
@@ -128,33 +129,20 @@ public class UserCouponService {
      * @param userCoupons
      * @return
      */
-    private List<UserCoupon> covertInvalidReason(List<UserCoupon> userCoupons) {
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        var nowTimeStamp = today.getTimeInMillis();
-        final var isHoliday =  holidayRepository.findByDay(nowTimeStamp) != null;
-
+    public List<UserCoupon> covertInvalidReason(List<UserCoupon> userCoupons) {
         return userCoupons.stream().map(userCoupon -> {
             if (userCoupon.getExpired() == null) {
                 userCoupon.setIsValid(false);
                 return userCoupon;
             }
-            final var expiredTimestamp = userCoupon.getExpired()* 60 * 60 * 24 * 1000 + Timestamp.valueOf(userCoupon.getCreatedAt()).toInstant().toEpochMilli();
-            boolean valid = expiredTimestamp > nowTimeStamp;
-            if (!valid) {
-                userCoupon.setReason("已过期");
+            final var err = couponUtil.getErrorReason(userCoupon);
+            if (err.length() != 0) {
                 userCoupon.setIsValid(false);
-                return userCoupon;
+                userCoupon.setReason(err);
             } else {
                 userCoupon.setIsValid(true);
             }
-            if (!userCoupon.getCoupon().getIsWithHoliday() && isHoliday && userCoupon.getIsValid()) {
-                userCoupon.setIsValid(false);
-                userCoupon.setReason("节假日不可用");
-            }
+
             return userCoupon;
             }).toList();
     }

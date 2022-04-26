@@ -48,19 +48,21 @@ public class Order extends BaseEntity{
         cover = newCover.replace(prefix, "");
     }
 
-    private Float insuranceFee; // 驾无成费用
-    private Float rent; // 租金
-    private Float deposit; // 押金
-    private Float handlingFee; // 手续费
-    private Float waiverAmount; // 减免的费用
-    private double amount; // 总费用
     private String alipayToken; // 支付宝 支付时用的token
     private String alipayTradeNo; // 支付宝订单号
     private String alipayOutTradeNo; // 支付宝商家自定义订单号
 
+    private double insuranceFee; // 驾无成费用
+    private double rent; // 租金
+    private double deposit; // 押金
+    private double handlingFee; // 手续费
+    private double amount; // 总费用
+    private double waiverHandlingFee; // 减免手续费
+    private double waiverRent; // 减免的租金
+
+    private String remark; // 备注
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAlipayAt; // 创建支付宝订单的时间
-
     private OrderStatus status; // 订单状态
     private String title; // 商品名
 

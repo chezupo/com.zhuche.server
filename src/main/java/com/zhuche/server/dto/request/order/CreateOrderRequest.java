@@ -40,4 +40,6 @@ public class CreateOrderRequest {
 
     @NotNull
     private Long endTimeStamp;
+
+   private String remark;
 }

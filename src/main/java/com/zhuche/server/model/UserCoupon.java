@@ -63,11 +63,6 @@ public class UserCoupon extends BaseEntity{
         reason = newReason;
     }
 
-//    public Boolean getIsValid() {
-//
-//        return true;
-//    }
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({

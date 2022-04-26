@@ -13,7 +13,9 @@ import com.zhuche.server.model.*;
 import com.zhuche.server.repositories.CarRepository;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.StoreRepository;
+import com.zhuche.server.repositories.UserCouponRepository;
 import com.zhuche.server.util.AuthUtil;
+import com.zhuche.server.util.CouponUtil;
 import com.zhuche.server.util.JWTUtil;
 import com.zhuche.server.util.PaginationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -44,11 +47,13 @@ public class OrderService {
     private final StoreRepository storeRepository;
     private final AuthUtil authUtil;
     private final PaginationUtil paginationUtil;
+    private final UserCouponRepository userCouponRepository;
+    private final CouponUtil couponUtil;
 
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
 
-    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil) {
+    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, CouponUtil couponUtil) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
@@ -56,8 +61,11 @@ public class OrderService {
         this.storeRepository = storeRepository;
         this.authUtil = authUtil;
         this.paginationUtil = paginationUtil;
+        this.userCouponRepository = userCouponRepository;
+        this.couponUtil = couponUtil;
     }
 
+    @Transactional
     public Order createAlipayOrder(CreateOrderRequest query) throws AlipayApiException {
         final var alipayUserId = jwtUtil.getUser().getAlipayAccount().getUserId();
         final var now = LocalDateTime.now();
@@ -72,18 +80,53 @@ public class OrderService {
             now.getSecond(),
             now.getNano()
         );
-        double amount;
-        amount = 0.01;
+        final var dayCount = (query.getEndTimeStamp() - query.getStartTimeStamp() ) / 60 / 60 / 24 / 1000;
+        double insuranceFee = query.getIsInsurance() ? car.getInsuranceFee() * dayCount : 0;// 驾无成费用
+        double rent = car.getRent() * dayCount;// 租金
+        double deposit = car.getDeposit(); // 押金
+        double handlingFee = car.getHandlingFee(); // 手续费
+        double amount = rent + handlingFee; // 总费用
+        double waiverHandlingFee = 0; // 减免手续费
+        double waiverRent = 0; // 减免的租金
+        // 优惠卷减免
+        if (query.getUserCouponId() != null) {
+            final var userCoupon = userCouponRepository.findById(query.getUserCouponId()).get();
+            final var err = couponUtil.getErrorReason(userCoupon);
+            if (amount >= userCoupon.getMeetAmount() && err.length() == 0 ) {
+                double couponAmount = userCoupon.getAmount();
+                // 减免手续费用
+                if (userCoupon.getIsWithServiceAmount()) {
+                    if (couponAmount > handlingFee) {
+                        couponAmount = couponAmount - handlingFee;
+                        waiverHandlingFee = handlingFee;
+                        handlingFee = 0;
+                    } else {
+                        waiverHandlingFee = handlingFee - couponAmount;
+                        handlingFee = handlingFee - couponAmount;
+                        couponAmount = 0;
+                    }
+                }
+                // 减免租金
+                if (userCoupon.getIsWithRent() && couponAmount > 0) {
+                    if (couponAmount > rent) {
+                        couponAmount = couponAmount - rent;
+                        waiverRent = rent;
+                        rent = 0;
+                    } else {
+                        waiverRent = couponAmount;
+                        rent = rent - couponAmount;
+                        couponAmount = 0;
+                    }
+                }
+                userCouponRepository.deleteById(userCoupon.getId()); // 删除优惠删除
+            }
+        }
+        // 合计
+        amount = (Math.round( (rent + handlingFee) *100)/100.0);
         String title = car.getName();
-        var getDeposit= car.getDeposit();
-        var rent = car.getRent();
-        var handlingFee = car.getHandlingFee();
-        Float waiverAmount = (float) 0;
-        var insuranceFee = car.getInsuranceFee();
         Boolean isInsuranceFee = query.getIsInsurance();
         Store starStore = storeRepository.findById(query.getStartStoreId()).get();
         Store endStore = storeRepository.findById(query.getEndStoreId()).get();
-
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
         request.setNotifyUrl(alipayNoticeUrl);
         JSONObject bizContent = new JSONObject();
@@ -102,7 +145,13 @@ public class OrderService {
                 .alipayTradeNo(response.getTradeNo())
                 .title(title)
                 .car(car)
+                .insuranceFee(Math.round(insuranceFee * 100) / 100.0 )
+                .rent(Math.round(rent * 100) / 100.0 )
+                .deposit(Math.round(deposit * 100) / 100.0)
+                .handlingFee(Math.round(handlingFee * 100) / 100.0)
                 .amount(amount)
+                .waiverHandlingFee(Math.round(waiverHandlingFee * 100) / 100.0)
+                .waiverRent(Math.round(waiverRent * 100) / 100.0)
                 .createAlipayAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
                 .createdAt(
                     Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli()
@@ -110,16 +159,12 @@ public class OrderService {
                 .alipayToken(response.getBody())
                 .startTimeStamp(query.getStartTimeStamp())
                 .endTimeStamp(query.getEndTimeStamp())
-                .deposit(getDeposit)
-                .rent(rent)
+                .remark(query.getRemark())
                 .status(OrderStatus.PAYING)
                 .startStore(starStore)
                 .endStore(endStore)
                 .user(me)
-                .handlingFee(handlingFee)
-                .waiverAmount(waiverAmount)
                 .isInsurance(isInsuranceFee)
-                .insuranceFee(insuranceFee)
                 .payType(PayType.ALIPAY)
                 .build();
             newOrder.setCover(car.getCover());
@@ -192,9 +237,9 @@ public class OrderService {
         if (authUtil.isAdmin())  {
             pageDate = orderRepository.findAll(pagingSort);
         } else {
-             pageDate = orderRepository.findAll(sf, pagingSort);
+            pageDate = orderRepository.findAll(sf, pagingSort);
         }
 
-         return this.paginationUtil.covertPageFormat(pageDate);
+        return this.paginationUtil.covertPageFormat(pageDate);
     }
 }

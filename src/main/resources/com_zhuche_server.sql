@@ -3734,6 +3734,11 @@ CREATE TABLE `store_car_config` (
                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
+INSERT INTO `car_configs` (`car_id`, `configs_id`) VALUES (1, 5);
+INSERT INTO `car_configs` (`car_id`, `configs_id`) VALUES (1, 6);
+INSERT INTO `car_configs` (`car_id`, `configs_id`) VALUES (1, 7);
+INSERT INTO `car_configs` (`car_id`, `configs_id`) VALUES (1, 8);
+
 BEGIN;
 INSERT INTO `store_car_config` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (1, NULL, NULL, NULL, '倒车雷达', 1);
 INSERT INTO `store_car_config` (`id`, `created_at`, `deleted_at`, `updated_at`, `name`, `store_id`) VALUES (2, NULL, NULL, NULL, '倒车影像', 1);
@@ -3772,7 +3777,7 @@ CREATE TABLE `car` (
                        `store_id` bigint DEFAULT NULL,
                        `brand_series_id` int DEFAULT NULL,
                        `number` varchar(255) DEFAULT NULL,
-                       `sent` float NOT NULL,
+                       `rent` float NOT NULL,
                        `deposit` float NOT NULL,
                        `insurance_fee` float NOT NULL,
                        `is_online` int DEFAULT NULL,
@@ -3780,6 +3785,7 @@ CREATE TABLE `car` (
                        `handling_fee` float NOT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+INSERT INTO `car` (`id`, `created_at`, `deleted_at`, `updated_at`, `cover`, `displacement`, `engine_type`, `gas_volume`, `is_self_help`, `name`, `power_type`, `seats`, `shift`, `tags`, `type`, `store_id`, `brand_series_id`, `number`, `rent`, `deposit`, `insurance_fee`, `is_online`, `car_category_id`, `handling_fee`) VALUES (1, 1650900986926, NULL, '2022-04-25 23:36:27', '2022-4-25-23-35-14-1650900914689-cover.jpg', 2, 'SUPERCHARGED', 2, b'0', '日产轩逸', 'GAS', 1, 'AUTO', '蓝牙', '六座', 2, 1, '浙A12555A', 0.01, 0.02, 0.04, 1, 14, 0.03);
 
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
@@ -3796,6 +3802,7 @@ CREATE TABLE `log` (
                        `request_path` varchar(255) DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+insert into `log` (created_at, deleted_at, updated_at, class_name, description, params, request_path, title, type, user_id) values (1650900987041, NULL, NULL, 'com.zhuche.server.api.v1.admin.Car.createCar', '', '[{"carCategoryId":14,"configIds":[8,7,6,5],"cover":"2022-4-25-23-35-14-1650900914689-cover.jpg","deposit":0.02,"displacement":2.0,"engineType":"SUPERCHARGED","gasVolume":2.0,"handlingFee":0.03,"insuranceFee":0.04,"isOnline":true,"isSelfHelp":false,"name":"日产轩逸","number":"浙A12555A","powerType":"GAS","rent":0.01,"seats":1,"seriesId":1,"shift":"AUTO","tags":["蓝牙"],"type":"六座"}]', '/api/v1/cars', '添加汽车', 'CREATED', 4);
 
 DROP TABLE IF EXISTS `brand_series`;
 CREATE TABLE `brand_series` (
@@ -3928,6 +3935,9 @@ INSERT INTO `coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `
 INSERT INTO `coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `content`, `is_auto_dispatching_to_new_user`, `amount`, `meet_amount`, `expired`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (3, NULL, NULL, NULL, '普卡生日优惠', '<h3 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h3><p><span style=\"font-size:12px\"><span style=\"line-height:2\"><span style=\"color:#999999\">1 .生日优惠券使用有效期为生日之日起60天有 效； </span></span></span></p><p><span style=\"font-size:12px\"><span style=\"line-height:2\"><span style=\"color:#999999\">2 .仅对车辆租赁费及门店服务费部分进行减免， 其他费用正常收取； </span></span></span></p><p><span style=\"font-size:12px\"><span style=\"line-height:2\"><span style=\"color:#999999\">3 .一年内仅可享受一次生日优惠，不可与其他优 惠同享，租期包含任意法定节假日（含公休及调 休）及前一天不能使用； </span></span></span></p><p><span style=\"font-size:12px\"><span style=\"line-height:2\"><span style=\"color:#999999\">4 .仅限一嗨国内自驾业务使用。</span></span></span></p><p></p>', 0, 50, 0, 60, 0, 1, 1);
 COMMIT;
 
+-- ----------------------------
+-- Table structure for user_coupon
+-- ----------------------------
 DROP TABLE IF EXISTS `user_coupon`;
 CREATE TABLE `user_coupon` (
                                `id` bigint NOT NULL AUTO_INCREMENT,
@@ -3937,8 +3947,15 @@ CREATE TABLE `user_coupon` (
                                `expired` bigint DEFAULT NULL,
                                `user_id` int DEFAULT NULL,
                                `coupon_id` int DEFAULT NULL,
+                               `title` varchar(255) DEFAULT NULL,
+                               `content` text,
+                               `amount` float DEFAULT NULL,
+                               `meet_amount` float DEFAULT NULL,
+                               `is_with_holiday` int DEFAULT NULL,
+                               `is_with_rent` int DEFAULT NULL,
+                               `is_with_service_amount` int DEFAULT NULL,
                                PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8mb3;
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
@@ -3946,26 +3963,28 @@ CREATE TABLE `orders` (
                           `created_at` bigint DEFAULT NULL,
                           `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
                           `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `alipay_token` varchar(255) DEFAULT NULL,
+                          `alipay_token` varchar(2000) DEFAULT NULL,
                           `alipay_trade_no` varchar(255) DEFAULT NULL,
                           `alipay_out_trade_no` varchar(255) DEFAULT NULL,
                           `title` varchar(255) DEFAULT NULL,
                           `amount` double DEFAULT NULL,
                           `cover`  varchar(255) DEFAULT NULL,
                           `create_alipay_at` datetime(6) DEFAULT NULL,
-                          `deposit` float DEFAULT NULL,
+                          `deposit` double DEFAULT NULL,
                           `end_time_stamp` bigint DEFAULT NULL,
-                          `handling_fee` float DEFAULT NULL,
-                          `insurance_fee` float DEFAULT NULL,
+                          `handling_fee`  double DEFAULT NULL,
+                          `insurance_fee` double DEFAULT NULL,
                           `is_insurance` bit(1) DEFAULT NULL,
                           `pay_type` varchar(255) DEFAULT NULL,
-                          `rent` float DEFAULT NULL,
+                          `rent` double DEFAULT NULL,
                           `start_time_stamp` bigint DEFAULT NULL,
                           `status` int DEFAULT NULL,
-                          `waiver_amount` float DEFAULT NULL,
                           `car_id` bigint DEFAULT NULL,
                           `end_store_id` bigint DEFAULT NULL,
                           `start_store_id` bigint DEFAULT NULL,
                           `user_id` bigint DEFAULT NULL,
+                          `remark` varchar(255) DEFAULT NULL,
+                          `waiver_rent` double default  null ,
+                          `waiver_handling_fee` double default null ,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

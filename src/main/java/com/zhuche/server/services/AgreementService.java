@@ -25,4 +25,17 @@ public class AgreementService {
 
         return agreementRepository.save(agreement);
     }
+
+    public List<Agreement> getLoginAgreements() {
+        return agreementRepository.getCheckoutOrderAgreements(AgreementType.LOGIN);
+    }
+
+    /**
+     * 获取协议详情
+     * @param id
+     * @return
+     */
+    public Agreement getArgumentById(Long id) {
+        return agreementRepository.findById(id).get();
+    }
 }

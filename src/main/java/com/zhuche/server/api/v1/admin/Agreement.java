@@ -29,6 +29,18 @@ public class Agreement {
             .build();
     }
 
+    /**
+     * 获取登录相关说明协议
+     * @return
+     */
+    @GetMapping("/loginAgreements")
+    public UnityResponse getLoginAgreements() {
+        final List<com.zhuche.server.model.Agreement> agreementList = agreementService.getLoginAgreements();
+        return UnityResponse.builder()
+            .data(agreementList)
+            .build();
+    }
+
 
     @PatchMapping("/{id}")
     @Permission(

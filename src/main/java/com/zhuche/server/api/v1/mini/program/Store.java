@@ -46,4 +46,15 @@ public class Store {
             .data(cars)
             .build();
     }
+
+    @GetMapping("/{id}")
+    public UnityResponse store(
+        @PathVariable("id") @HasStoreValidator Long id
+    ) {
+        final com.zhuche.server.model.Store store =  carService.getStoreById(id);
+
+        return UnityResponse.builder()
+            .data(store)
+            .build();
+    }
 }

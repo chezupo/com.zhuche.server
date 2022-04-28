@@ -3990,3 +3990,19 @@ CREATE TABLE `orders` (
                           `waiver_handling_fee` double default null ,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- ----------------------------
+-- Table structure for user_contact
+-- ----------------------------
+DROP TABLE IF EXISTS `user_contact`;
+CREATE TABLE `user_contact` (
+                                `id` bigint NOT NULL AUTO_INCREMENT,
+                                `created_at` bigint DEFAULT NULL,
+                                `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                                `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                                `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                `relation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                                `user_id` bigint DEFAULT NULL,
+                                PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;

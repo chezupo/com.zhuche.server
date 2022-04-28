@@ -32,7 +32,7 @@ public class CouponUtil {
         if (!valid) {
             return "已过期";
         }
-        if (!userCoupon.getCoupon().getIsWithHoliday() && isHoliday && userCoupon.getIsValid()) {
+        if (!userCoupon.getCoupon().getIsWithHoliday() && isHoliday) {
             return "节假日不可用";
         }
 

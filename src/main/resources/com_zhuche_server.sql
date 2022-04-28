@@ -3659,6 +3659,7 @@ CREATE TABLE `user` (
   `username` varchar(255) DEFAULT NULL,
   `alipay_account_id` bigint DEFAULT NULL,
   `store_id` bigint DEFAULT NULL,
+  `balance` double default 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
@@ -4005,4 +4006,22 @@ CREATE TABLE `user_contact` (
                                 `relation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                                 `user_id` bigint DEFAULT NULL,
                                 PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;
+
+-- ----------------------------
+-- Table structure for transaction
+-- ----------------------------
+DROP TABLE IF EXISTS `transaction`;
+CREATE TABLE `transaction` (
+                               `id` bigint NOT NULL AUTO_INCREMENT,
+                               `created_at` bigint DEFAULT NULL,
+                               `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                               `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                               `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                               `amount` double DEFAULT NULL,
+                               `user_id` bigint DEFAULT NULL,
+                               `pay_type` varchar(255) default NULL,
+                               `alipay_out_trade_no` varchar(255) default NULL,
+                               `trade_no` varchar(255) default NULL,
+                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;

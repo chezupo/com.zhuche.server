@@ -14,10 +14,7 @@ import com.zhuche.server.repositories.CarRepository;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.StoreRepository;
 import com.zhuche.server.repositories.UserCouponRepository;
-import com.zhuche.server.util.AuthUtil;
-import com.zhuche.server.util.CouponUtil;
-import com.zhuche.server.util.JWTUtil;
-import com.zhuche.server.util.PaginationUtil;
+import com.zhuche.server.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -70,16 +67,7 @@ public class OrderService {
         final var alipayUserId = jwtUtil.getUser().getAlipayAccount().getUserId();
         final var now = LocalDateTime.now();
         final Car car = carRepository.findById(query.getCarId()).get();
-        final String outTradeNo = String.format(
-            "%d%d%d%d%d%d%d",
-            now.getYear(),
-            now.getMonth().getValue(),
-            now.getDayOfMonth(),
-            now.getHour(),
-            now.getMinute(),
-            now.getSecond(),
-            now.getNano()
-        );
+        final String outTradeNo = TradeUtil.generateOutTradeNo();
         final var dayCount = (query.getEndTimeStamp() - query.getStartTimeStamp() ) / 60 / 60 / 24 / 1000;
         double insuranceFee = query.getIsInsurance() ? car.getInsuranceFee() * dayCount : 0;// 驾无成费用
         double rent = car.getRent() * dayCount;// 租金

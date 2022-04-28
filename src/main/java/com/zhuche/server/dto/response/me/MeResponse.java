@@ -37,4 +37,6 @@ public class MeResponse {
     private String phone;
 
     private Boolean isAuthorizeBaseInfo;
+
+    private Double balance;
 }

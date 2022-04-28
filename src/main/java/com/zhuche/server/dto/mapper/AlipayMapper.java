@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public abstract class AlipayMapper {
     @Mappings({
-        @Mapping(source = "user.id", target = "id")
+        @Mapping(source = "user.id", target = "id"),
+        @Mapping(source = "user.balance", target = "balance")
     })
     public abstract MeResponse AlipayAccountToMeResponse(AlipayAccount alipayAccount);
 }

@@ -25,6 +25,8 @@ public class Transaction extends BaseEntity{
 
     private Double amount;
 
+    private Double balance; // 余额
+
     private String title;
 
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
@@ -38,7 +40,6 @@ public class Transaction extends BaseEntity{
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({
         "roles",
-        "alipayAccount",
         "store",
         "comments",
         "userCoupons"

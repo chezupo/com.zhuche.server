@@ -75,9 +75,10 @@ public class Users {
     public UnityResponse getAlipayUsers(
         @Param("page") Integer page,
         @Param("size") Integer size,
-        @Param("nickname") String nickname
+        @Param("nickname") String nickname,
+        @Param("id") Long id
     ) {
-        final PageFormat userPage = userService.getAlipayUsers(page, size, nickname);
+        final PageFormat userPage = userService.getAlipayUsers(page, size, nickname, id);
 
         return UnityResponse.builder()
             .data(userPage)

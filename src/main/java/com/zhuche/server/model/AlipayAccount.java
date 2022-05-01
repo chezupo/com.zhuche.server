@@ -31,7 +31,6 @@ import javax.persistence.*;
 public class AlipayAccount extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
 
     private String accessToken;

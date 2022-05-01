@@ -41,7 +41,7 @@ public class UserService {
         }
     }
 
-    public PageFormat getAlipayUsers(Integer page, Integer size, String nickname) {
+    public PageFormat getAlipayUsers(Integer page, Integer size, String nickname, Long id) {
         page = page != null ? --page : 0;
         size = size != null ? size : 10;
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
@@ -51,6 +51,9 @@ public class UserService {
             maps.add(builder.isNotNull(root.get("alipayAccount")));
             if (nickname != null && nickname.length() > 0) {
                 maps.add(builder.like(root.get("alipayAccount").get("nickName").as(String.class), "%" + nickname + "%"));
+            }
+            if (id != null) {
+                maps.add(builder.equal(root.get("alipayAccount").get("id").as(Long.class), id));
             }
 
             Predicate[] pre = new Predicate[maps.size()];

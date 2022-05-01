@@ -4019,6 +4019,7 @@ CREATE TABLE `transaction` (
                                `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
                                `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
                                `amount` double DEFAULT NULL,
+                               `balance` double DEFAULT NULL,
                                `user_id` bigint DEFAULT NULL,
                                `pay_type` varchar(255) default NULL,
                                `alipay_out_trade_no` varchar(255) default NULL,

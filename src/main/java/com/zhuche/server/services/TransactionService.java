@@ -7,6 +7,7 @@ import com.alipay.api.request.AlipayTradeCreateRequest;
 import com.alipay.api.response.AlipayTradeCreateResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.dto.request.transaction.CreateTopUpRequest;
+import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.PayType;
 import com.zhuche.server.model.Transaction;
@@ -14,11 +15,18 @@ import com.zhuche.server.model.User;
 import com.zhuche.server.repositories.TransactionRepository;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.util.JWTUtil;
+import com.zhuche.server.util.PaginationUtil;
 import com.zhuche.server.util.TradeUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TransactionService {
@@ -27,15 +35,17 @@ public class TransactionService {
     private String alipayTimeoutExpress  = "15d";
     private final JWTUtil jwtUtil;
     private final UserRepository userRepository;
+    private final PaginationUtil paginationUtil;
 
     @Value("${alipay.alipayTopUpNoticeUrl}")
     private String alipayTopUpNoticeUrl;
 
-    public TransactionService(TransactionRepository transactionRepository, AlipayClient alipayClient, JWTUtil jwtUtil, UserRepository userRepository) {
+    public TransactionService(TransactionRepository transactionRepository, AlipayClient alipayClient, JWTUtil jwtUtil, UserRepository userRepository, PaginationUtil paginationUtil) {
         this.transactionRepository = transactionRepository;
         this.alipayClient = alipayClient;
         this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
+        this.paginationUtil = paginationUtil;
     }
 
     /**
@@ -75,11 +85,29 @@ public class TransactionService {
                     .user(user)
                     .alipayOutTradeNo(out_trade_no)
                     .title(subject)
+                    .balance(user.getBalance())
                     .payType(PayType.ALIPAY)
+                    .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
                     .tradeNo(trade_no)
                     .amount(receipt_amount)
                     .build()
             );
         }
+    }
+
+    public PageFormat getPageData(Integer page, Integer size) {
+        page = page != null ? --page : 0;
+        size = size != null ? size : 10;
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pagingSort = PageRequest.of(page, size, sort);
+        final var pageData = transactionRepository.findAll(pagingSort);
+
+        return paginationUtil.covertPageFormat(pageData);
+    }
+
+    public List<Transaction> getMyTransactions() {
+        final User me = jwtUtil.getUser();
+        final List<Transaction> transactionList  = transactionRepository.findAllByUserId(me.getId());
+        return transactionList;
     }
 }

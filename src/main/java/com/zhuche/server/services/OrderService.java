@@ -124,7 +124,7 @@ public class OrderService {
         bizContent.put("buyer_id", alipayUserId);
         bizContent.put("timeout_express", alipayTimeoutExpress);
         request.setBizContent(bizContent.toString());
-        AlipayTradeCreateResponse response = alipayClient.execute(request);
+        AlipayTradeCreateResponse response = alipayClient.certificateExecute(request);
         if(response.isSuccess()){
             final User me = jwtUtil.getUser();
             log.info("{}", response);

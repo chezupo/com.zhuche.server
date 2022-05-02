@@ -29,12 +29,23 @@ public class Transaction extends BaseEntity{
 
     private String title;
 
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status; // 状态
+
+    private String remark; // 备注
+
+    private String failedReason; // 失败原因
+
+    private boolean isWithDraw; // 是否提现申请
+
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
     private PayType payType;
 
     private String alipayOutTradeNo;
 
     private String tradeNo;
+
+    private String outBizNo; // 转账商家支付宝订单号
 
     @OneToOne
     @JoinColumn(name = "user_id")

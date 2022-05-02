@@ -9,9 +9,7 @@ import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.dto.request.transaction.CreateTopUpRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
-import com.zhuche.server.model.PayType;
-import com.zhuche.server.model.Transaction;
-import com.zhuche.server.model.User;
+import com.zhuche.server.model.*;
 import com.zhuche.server.repositories.TransactionRepository;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.util.JWTUtil;
@@ -21,11 +19,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,7 +67,7 @@ public class TransactionService {
         bizContent.put("timeout_express", alipayTimeoutExpress);
         bizContent.put("body", me.getId());
         request.setBizContent(bizContent.toString());
-        AlipayTradeCreateResponse response = alipayClient.execute(request);
+        AlipayTradeCreateResponse response = alipayClient.certificateExecute(request);
         if (response.isSuccess()) {
             return response.getTradeNo();
         } else {
@@ -85,6 +87,8 @@ public class TransactionService {
                     .user(user)
                     .alipayOutTradeNo(out_trade_no)
                     .title(subject)
+                    .isWithDraw(false)
+                    .status(TransactionStatus.FINISHED)
                     .balance(user.getBalance())
                     .payType(PayType.ALIPAY)
                     .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
@@ -109,5 +113,29 @@ public class TransactionService {
         final User me = jwtUtil.getUser();
         final List<Transaction> transactionList  = transactionRepository.findAllByUserId(me.getId());
         return transactionList;
+    }
+
+    public PageFormat getWithdrawData(Integer page, Integer size) {
+        page = page != null ? --page : 0;
+        size = size != null ? size : 10;
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pagingSort = PageRequest.of(page, size, sort);
+
+        Specification<Store> sf = (root, query, builder) -> {
+            List<Predicate> maps = new ArrayList<>();
+            maps.add( builder.equal(root.get("status").as(TransactionStatus.class), TransactionStatus.PROCESSING) );
+            Predicate[] pre = new Predicate[maps.size()];
+            Predicate and = builder.and(maps.toArray(pre));
+            query.where(and);
+            List<Order> orders = new ArrayList<>();
+            orders.add(builder.desc(root.get("id")));
+
+            return query.orderBy(orders).getRestriction();
+        };
+
+
+        final var pageData = transactionRepository.findAll(sf, pagingSort );
+
+        return paginationUtil.covertPageFormat(pageData);
     }
 }

@@ -44,7 +44,7 @@ public class SocialAuthorizationService {
         AlipaySystemOauthTokenRequest alipayRequest = new AlipaySystemOauthTokenRequest();
         alipayRequest.setGrantType("authorization_code");
         alipayRequest.setCode(request.getAuthorizationCode());
-        AlipaySystemOauthTokenResponse response = alipayClient.execute(alipayRequest);
+        AlipaySystemOauthTokenResponse response = alipayClient.certificateExecute(alipayRequest);
         log.info("{}", response);
         var alipayAccount = alipayAccountRepository.findByAlipayUserid(response.getUserId());
         if (alipayAccount == null) {

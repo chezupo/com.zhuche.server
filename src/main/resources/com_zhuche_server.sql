@@ -4024,5 +4024,10 @@ CREATE TABLE `transaction` (
                                `pay_type` varchar(255) default NULL,
                                `alipay_out_trade_no` varchar(255) default NULL,
                                `trade_no` varchar(255) default NULL,
+                               `status` varchar(255) default NULL,
+                               `remark` varchar(255) default NULL,
+                               `out_biz_no` varchar(255) default NULL,
+                               `failed_reason` varchar(255) default NULL,
+                               `is_with_draw` bit(1) DEFAULT NULL,
                                PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;

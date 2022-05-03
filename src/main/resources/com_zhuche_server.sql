@@ -3981,7 +3981,7 @@ CREATE TABLE `orders` (
                           `pay_type` varchar(255) DEFAULT NULL,
                           `rent` double DEFAULT NULL,
                           `start_time_stamp` bigint DEFAULT NULL,
-                          `status` int DEFAULT NULL,
+                          `status` varchar(255) DEFAULT NULL,
                           `car_id` bigint DEFAULT NULL,
                           `end_store_id` bigint DEFAULT NULL,
                           `start_store_id` bigint DEFAULT NULL,
@@ -3989,6 +3989,13 @@ CREATE TABLE `orders` (
                           `remark` varchar(255) DEFAULT NULL,
                           `waiver_rent` double default  null ,
                           `waiver_handling_fee` double default null ,
+                          `unfreeze_amount` double default null ,
+                          `auth_no` varchar(255) DEFAULT NULL,
+                          `out_request_no` varchar(255) DEFAULT NULL,
+                          `auth_body` varchar(2000) DEFAULT NULL,
+                          `freeze_type` varchar(255) DEFAULT NULL,
+                          `is_unfreeze`bit(1) DEFAULT NULL,
+                          `is_refund`bit(1) DEFAULT NULL,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 

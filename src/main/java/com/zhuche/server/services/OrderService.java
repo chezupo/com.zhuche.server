@@ -3,8 +3,15 @@ package com.zhuche.server.services;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
+import com.alipay.api.domain.AlipayFundAuthOrderAppFreezeModel;
+import com.alipay.api.request.AlipayFundAuthOrderAppFreezeRequest;
+import com.alipay.api.request.AlipayFundAuthOrderUnfreezeRequest;
 import com.alipay.api.request.AlipayTradeCreateRequest;
+import com.alipay.api.request.AlipayTradeRefundRequest;
+import com.alipay.api.response.AlipayFundAuthOrderAppFreezeResponse;
+import com.alipay.api.response.AlipayFundAuthOrderUnfreezeResponse;
 import com.alipay.api.response.AlipayTradeCreateResponse;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
 import com.zhuche.server.dto.response.PageFormat;
@@ -50,6 +57,9 @@ public class OrderService {
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
 
+    @Value("${alipay.alipayFreezeNoticeUrl}")
+    private String alipayFreezeNoticeUrl;
+
     public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, CouponUtil couponUtil) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
@@ -86,32 +96,30 @@ public class OrderService {
                 if (userCoupon.getIsWithServiceAmount()) {
                     if (couponAmount > handlingFee) {
                         couponAmount = couponAmount - handlingFee;
-                        waiverHandlingFee = handlingFee;
+                        waiverHandlingFee += handlingFee;
                         handlingFee = 0;
                     } else {
-                        waiverHandlingFee = handlingFee - couponAmount;
                         handlingFee = handlingFee - couponAmount;
+                        waiverHandlingFee += couponAmount;
                         couponAmount = 0;
                     }
                 }
                 // 减免租金
                 if (userCoupon.getIsWithRent() && couponAmount > 0) {
                     if (couponAmount > rent) {
-                        couponAmount = couponAmount - rent;
                         waiverRent = rent;
                         rent = 0;
                     } else {
                         waiverRent = couponAmount;
                         rent = rent - couponAmount;
-                        couponAmount = 0;
                     }
                 }
                 userCouponRepository.deleteById(userCoupon.getId()); // 删除优惠删除
             }
         }
         // 合计
-        amount = (Math.round( (rent + handlingFee) *100)/100.0);
-        String title = car.getName();
+        amount = (Math.round( (rent + handlingFee) * 100 ) / 100.0);
+        String title = car.getName() + "费用";
         Boolean isInsuranceFee = query.getIsInsurance();
         Store starStore = storeRepository.findById(query.getStartStoreId()).get();
         Store endStore = storeRepository.findById(query.getEndStoreId()).get();
@@ -148,14 +156,17 @@ public class OrderService {
                 .startTimeStamp(query.getStartTimeStamp())
                 .endTimeStamp(query.getEndTimeStamp())
                 .remark(query.getRemark())
-                .status(OrderStatus.PAYING)
+                .status(OrderStatus.CREDITING)
                 .startStore(starStore)
                 .endStore(endStore)
                 .user(me)
                 .isInsurance(isInsuranceFee)
                 .payType(PayType.ALIPAY)
+                .isRefund(true)
                 .build();
             newOrder.setCover(car.getCover());
+            // 生存预授权资金
+            newOrder = createFreezeAlipayOrderForOrder(newOrder);
             return orderRepository.save(newOrder);
         } else {
             throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, response.getMsg());
@@ -187,6 +198,7 @@ public class OrderService {
     public void alipayOrderFinished(String out_trade_no) {
         final var order = orderRepository.findByAlipayOutTradeNo(out_trade_no);
         order.setStatus(OrderStatus.CAR_PICKUP_IN_PROGRESS);
+        order.setIsRefund(false);
         this.orderRepository.save(order);
     }
 
@@ -229,5 +241,125 @@ public class OrderService {
         }
 
         return this.paginationUtil.covertPageFormat(pageDate);
+    }
+
+    /**
+     * 创建冻结订单
+     * @param order
+     * @return
+     * @throws AlipayApiException
+     */
+    public Order createFreezeAlipayOrderForOrder(Order order) throws AlipayApiException {
+        order.setUnfreezeAmount(order.getDeposit());
+        AlipayFundAuthOrderAppFreezeRequest request = new AlipayFundAuthOrderAppFreezeRequest();
+        AlipayFundAuthOrderAppFreezeModel model = new AlipayFundAuthOrderAppFreezeModel();
+        model.setOrderTitle("保证金预授权冻结");
+        var outRequestNo = TradeUtil.generateOutTradeNo();
+        order.setOutRequestNo(outRequestNo);
+        model.setOutOrderNo(outRequestNo);//替换为实际订单号
+        model.setOutRequestNo(outRequestNo);//替换为实际请求单号，保证每次请求都是唯一的
+        model.setPayeeUserId("2088241974604591");//payee_user_id,Payee_logon_id不能同时为空
+        model.setProductCode("PRE_AUTH_ONLINE");//PRE_AUTH_ONLINE为固定值，不要替换
+        model.setAmount(String.valueOf(order.getDeposit()));
+        model.setPayTimeout("15d");
+        request.setBizModel(model);
+        request.setNotifyUrl(alipayFreezeNoticeUrl);//异步通知地址，必填，该接口只通过该参数进行异步通知
+        AlipayFundAuthOrderAppFreezeResponse response = alipayClient.sdkExecute(request);//注意这里是sdkExecute，可以获取签名参数
+        if(response.isSuccess()){
+            order.setAuthBody(response.getBody());
+            order.setAuthNo(response.getAuthNo());
+            order.setIsUnfreeze(true);
+            return order;
+        } else {
+            throw  new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "租金预授权生成失败");
+        }
+    }
+
+    /**
+     * 支付宝冻结
+     */
+    public void alipayFreezeOrderFinished(String outRequestNo, String authNo) {
+        final Order order = orderRepository.findByOutRequestNo(outRequestNo);
+        if (order == null) {
+            return ;
+        }
+        if (order.getStatus() == OrderStatus.CREDITING) {
+            order.setAuthNo(authNo);
+            order.setStatus(OrderStatus.PAYING);
+            order.setFreezeType(PayType.ALIPAY);
+            order.setIsUnfreeze(false);
+            orderRepository.save(order);
+        }
+    }
+
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id).get();
+    }
+
+    /**
+     * 取消订单
+     * @param id
+     * @return
+     */
+    public Order cancelOrderById(Long id) throws AlipayApiException {
+        final Order order = orderRepository.findById(id).get();
+        // 未取车状态且可取消状态
+        List<OrderStatus> notPickedUpCarStatus = List.of(OrderStatus.CREDITING, OrderStatus.PAYING, OrderStatus.CAR_PICKUP_IN_PROGRESS);
+        if (notPickedUpCarStatus.contains(order.getStatus())) {
+            // 支付宝解冻
+            if (order.getFreezeType() == PayType.ALIPAY && !order.getIsUnfreeze()) {
+                unfreezeAlipayOrder(order);
+                order.setIsUnfreeze(true);
+                orderRepository.save(order);
+            }
+            // 支付宝退款
+            if (order.getPayType() == PayType.ALIPAY && !order.getIsRefund()) {
+                alipayRefund(order);
+                order.setIsRefund(true);
+                orderRepository.save(order);
+            }
+            // 标记订单为取消
+            if (order.getIsRefund() && order.getIsUnfreeze()) {
+                order.setStatus(OrderStatus.CANCELED);
+                return orderRepository.save(order);
+            }
+        }
+        throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "不能取消");
+    }
+
+    // 解冻支付宝订单
+    private void unfreezeAlipayOrder(Order order) throws AlipayApiException {
+        AlipayFundAuthOrderUnfreezeRequest request = new AlipayFundAuthOrderUnfreezeRequest();
+        JSONObject bizContent = new JSONObject();
+        bizContent.put("auth_no",order.getAuthNo());
+        bizContent.put("out_request_no", order.getOutRequestNo());
+        bizContent.put("amount", order.getUnfreezeAmount() );
+        bizContent.put("remark","订单取消解冻全部资金");
+        JSONObject extraParam = new JSONObject();
+        JSONObject unfreezeBizInfo = new JSONObject();
+        unfreezeBizInfo.put("bizComplete",true);
+        extraParam.put("unfreezeBizInfo",unfreezeBizInfo);
+        bizContent.put("extra_param",extraParam);
+        request.setBizContent(bizContent.toString());
+        AlipayFundAuthOrderUnfreezeResponse response = alipayClient.certificateExecute(request);
+        if (!response.isSuccess()) {
+            throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "解冻资金失败");
+        }
+    }
+
+    /**
+     * 支付宝退款
+     * @param order
+     */
+    private void alipayRefund(Order order) throws AlipayApiException {
+        AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+        JSONObject bizContent = new JSONObject();
+        bizContent.put("trade_no", order.getAlipayTradeNo());
+        bizContent.put("refund_amount", order.getAmount());
+        request.setBizContent(bizContent.toString());
+        AlipayTradeRefundResponse response = alipayClient.certificateExecute(request);
+        if(!response.isSuccess()){
+            throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "支付宝退款失败");
+        }
     }
 }

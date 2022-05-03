@@ -63,8 +63,17 @@ public class Order extends BaseEntity{
     private String remark; // 备注
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAlipayAt; // 创建支付宝订单的时间
+    @Enumerated(EnumType.STRING)
     private OrderStatus status; // 订单状态
     private String title; // 商品名
+    private String outRequestNo; // 预授权资金操作的请求流水号
+    private String authNo; // 预授权流水号
+    private double unfreezeAmount; // 已解冻的资金
+    private String authBody; // 授权请求字符
+    @Enumerated(EnumType.STRING)
+    private PayType freezeType; // 冻结方式
+    private Boolean isUnfreeze; // 是否解冻
+    private Boolean isRefund; // 是否退款
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "start_store_id")

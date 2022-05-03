@@ -134,11 +134,54 @@ public class AlipayNotice {
     ) {
         // todo 支付宝支付验签
         if (Objects.equals(trade_status, "TRADE_SUCCESS") || Objects.equals(trade_status, "TRADE_FINISHED")) {
-            log.info("{}", trade_status);
-//            this.orderService.alipayOrderFinished(out_trade_no);
             final var userId = Long.valueOf(body);
             transactionService.createAlipayTransaction(out_trade_no, userId,trade_no, receipt_amount.doubleValue(), subject);
 
+        }
+        return "success";
+    }
+
+    @PostMapping("/freeze")
+    public String freezeNotice(
+        @PathParam("notify_type") String notify_type,
+        @PathParam("notify_id") String notify_id,
+        @PathParam("notify_time") String notify_time,
+        @PathParam("sign_type") String sign_type,
+        @PathParam("sign") String sign,
+        @PathParam("auth_no") String auth_no,
+        @PathParam("out_order_no") String out_order_no,
+        @PathParam("operation_id") String operation_id,
+        @PathParam("out_request_no") String out_request_no,
+        @PathParam("operation_type") String operation_type,
+        @PathParam("amount") String amount,
+        @PathParam("status") String status,
+        @PathParam("gmt_create") String gmt_create,
+        @PathParam("gmt_trans") String gmt_trans,
+        @PathParam("payer_logon_id") String payer_logon_id,
+        @PathParam("payer_user_id") String payer_user_id,
+        @PathParam("payee_logon_id") String payee_logon_id,
+        @PathParam("payee_user_id") String payee_user_id,
+        @PathParam("total_freeze_amount") String total_freeze_amount,
+        @PathParam("total_unfreeze_amount") String total_unfreeze_amount,
+        @PathParam("total_pay_amount") String total_pay_amount,
+        @PathParam("rest_amount") String rest_amount,
+        @PathParam("credit_amount") String credit_amount,
+        @PathParam("fund_amount") String fund_amount,
+        @PathParam("total_freeze_credit_amount") String total_freeze_credit_amount,
+        @PathParam("total_freeze_fund_amount") String total_freeze_fund_amount,
+        @PathParam("total_unfreeze_credit_amount") String total_unfreeze_credit_amount,
+        @PathParam("total_unfreeze_fund_amount") String total_unfreeze_fund_amount,
+        @PathParam("total_pay_credit_amount") String total_pay_credit_amount,
+        @PathParam("total_pay_fund_amount") String total_pay_fund_amount,
+        @PathParam("rest_credit_amount") String rest_credit_amount,
+        @PathParam("rest_fund_amount") String rest_fund_amount,
+        @PathParam("pre_auth_type") String pre_auth_type,
+        @PathParam("trans_currency") String trans_currency,
+        @PathParam("credit_merchant_ext") String credit_merchant_ext,
+        @PathParam("enterprise_pay_info") String enterprise_pay_info
+    ) {
+        if (Objects.equals(notify_type, "fund_auth_freeze")) {
+            orderService.alipayFreezeOrderFinished(out_request_no, auth_no);
         }
         return "success";
     }

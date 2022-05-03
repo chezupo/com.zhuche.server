@@ -11,4 +11,10 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecificationExecutor {
     @Query("select o from Order o where o.alipayOutTradeNo = :alipayOutTradeNo")
     Order findByAlipayOutTradeNo(@Param("alipayOutTradeNo") String alipayOutTradeNo );
+
+    @Query("select o from Order o where o.authNo = :authNo")
+    Order findByAuthNo(@Param("authNo") String authNo);
+
+    @Query("select o from Order o where o.outRequestNo = :outRequestNo")
+    Order findByOutRequestNo(@Param("outRequestNo") String outRequestNo);
 }

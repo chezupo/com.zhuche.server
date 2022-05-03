@@ -7,7 +7,7 @@
 | 能力 | 说明                           | 
 |---|------------------------------|
 | 小程序支付  | 用于支付功能                       |
-| 支付宝预授权 | 用于信用免押                       |
+| 支付宝预授权 | 用于信用免押, 需要申请[信用服务号](https://zhima.alipay.com/admin/creditservice/index.htm#/detail/riskRule?mode=edit&creditServiceId=2022011700000000000086925900&version=1&creditScene=rent_online)        |
 | 转账到支付宝账户 | 用于会员提现                       |
 | 转账到支付宝账户 | 用于获取会员的信息                    |
 | 获取会员手机号 | 用于获取用户的手机号, 这个需要主动提交审核通过才能使用 |

@@ -1,6 +1,5 @@
 package com.zhuche.server.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuche.server.services.ConfigurationService;
@@ -8,15 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -127,4 +122,13 @@ public class Order extends BaseEntity{
          "userCoupons",
     })
     private User user;
+
+    @OneToOne(mappedBy = "order")
+    @JsonIgnoreProperties({
+        "store",
+        "comments",
+        "order",
+        "userCoupons",
+    })
+    private Comment comment;
 }

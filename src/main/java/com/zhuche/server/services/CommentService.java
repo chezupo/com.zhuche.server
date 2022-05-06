@@ -1,5 +1,6 @@
 package com.zhuche.server.services;
 
+import com.zhuche.server.model.Comment;
 import com.zhuche.server.model.Store;
 import com.zhuche.server.repositories.CommentRepository;
 import lombok.AllArgsConstructor;
@@ -29,5 +30,9 @@ public class CommentService {
         };
 
         return commentRepository.findAll(sf);
+    }
+
+    public List<Comment> getCommentsByStoreId(Long storeId) {
+        return commentRepository.findAllByStoreId(storeId);
     }
 }

@@ -14,8 +14,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -85,7 +83,7 @@ public class Store extends BaseEntity{
 
     @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Comments> comments;
+    private List<Comment> comments;
 
     @OneToOne
     @JoinColumn(name = "area_code")

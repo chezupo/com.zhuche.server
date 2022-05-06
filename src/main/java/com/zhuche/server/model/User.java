@@ -59,7 +59,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Comments> comments;
+    private Set<Comment> comments;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

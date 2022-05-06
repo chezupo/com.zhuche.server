@@ -2,7 +2,9 @@ package com.zhuche.server.api.v1.mini.program;
 
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Car;
+import com.zhuche.server.model.Comment;
 import com.zhuche.server.services.CarService;
+import com.zhuche.server.services.CommentService;
 import com.zhuche.server.services.MiniProgramStoreService;
 import com.zhuche.server.validators.store.HasStoreValidator;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,7 @@ import java.util.List;
 public class Store {
     private final MiniProgramStoreService miniProgramStoreService;
     private final CarService carService;
+    private final CommentService commentService;
 
     @GetMapping
     public UnityResponse getStores(
@@ -55,6 +58,17 @@ public class Store {
 
         return UnityResponse.builder()
             .data(store)
+            .build();
+    }
+
+    @GetMapping("/{id}/comments")
+    public UnityResponse storeComments(
+        @PathVariable("id") @HasStoreValidator Long id
+    ) {
+        final List<Comment> comments = commentService.getCommentsByStoreId(id);
+
+        return UnityResponse.builder()
+            .data(comments)
             .build();
     }
 }

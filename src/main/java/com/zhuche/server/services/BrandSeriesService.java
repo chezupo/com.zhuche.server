@@ -13,6 +13,7 @@ import com.zhuche.server.model.BrandSeries;
 import com.zhuche.server.model.Store;
 import com.zhuche.server.repositories.BrandRepository;
 import com.zhuche.server.repositories.BrandSeriesRepository;
+import com.zhuche.server.util.JWTUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ import java.util.List;
 public class BrandSeriesService {
     private final BrandSeriesRepository brandSeriesRepository;
     private final BrandRepository brandRepository;
+    private final JWTUtil jwtUtil;
 
     public BrandSeries createBrandSeries(Integer brandId, CreateSeriesRequest request) {
         final var brand = brandRepository.findById(brandId.longValue()).get();
@@ -65,5 +67,9 @@ public class BrandSeriesService {
         };
 
         return brandRepository.findAll(sf);
+    }
+
+    public Store getMyStore() {
+        return jwtUtil.getUser().getStore();
     }
 }

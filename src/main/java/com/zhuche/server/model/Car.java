@@ -120,5 +120,5 @@ public class Car extends BaseEntity{
         "user",
         "store",
     })
-    private List<Comments> comments;
+    private List<Comment> comments;
 }

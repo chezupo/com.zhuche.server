@@ -3410,16 +3410,14 @@ COMMIT;
 -- ----------------------------
 -- Table structure for comments
 -- ----------------------------
-DROP TABLE IF EXISTS `comments`;
+DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comments` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `created_at` bigint DEFAULT NULL,
   `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(255) DEFAULT NULL,
-  `images` varchar(255) DEFAULT NULL,
-  `flag` varchar(255) DEFAULT NULL,
-  `rating` int DEFAULT NULL,
+  `rate` int DEFAULT NULL,
   `store_id` bigint DEFAULT NULL,
   `order_id` bigint DEFAULT NULL,
   `car_id` bigint DEFAULT NULL,

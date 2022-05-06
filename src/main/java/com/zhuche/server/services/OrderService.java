@@ -14,13 +14,11 @@ import com.alipay.api.response.AlipayTradeCreateResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
+import com.zhuche.server.dto.request.order.command.CreateOrderCommandRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.*;
-import com.zhuche.server.repositories.CarRepository;
-import com.zhuche.server.repositories.OrderRepository;
-import com.zhuche.server.repositories.StoreRepository;
-import com.zhuche.server.repositories.UserCouponRepository;
+import com.zhuche.server.repositories.*;
 import com.zhuche.server.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,6 +51,7 @@ public class OrderService {
     private final PaginationUtil paginationUtil;
     private final UserCouponRepository userCouponRepository;
     private final CouponUtil couponUtil;
+    private final CommentRepository commentRepository;
 
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
@@ -60,7 +59,7 @@ public class OrderService {
     @Value("${alipay.alipayFreezeNoticeUrl}")
     private String alipayFreezeNoticeUrl;
 
-    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, CouponUtil couponUtil) {
+    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, CouponUtil couponUtil, CommentRepository commentRepository) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
@@ -70,6 +69,7 @@ public class OrderService {
         this.paginationUtil = paginationUtil;
         this.userCouponRepository = userCouponRepository;
         this.couponUtil = couponUtil;
+        this.commentRepository = commentRepository;
     }
 
     /**
@@ -392,5 +392,63 @@ public class OrderService {
         } else {
             throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, response.getMsg());
         }
+    }
+
+    /**
+     * 确定取车
+     * @param id
+     * @return
+     */
+    public Order confirmPickUpCarOrder(Long id) {
+        final Order order = orderRepository.findById(id).get();
+        order.setStatus(OrderStatus.USING);
+
+        return orderRepository.save(order);
+    }
+
+    /**
+     * 设置订单状态为还车中
+     * @param id
+     * @return
+     */
+    public Order setOrderStatusToReturning(Long id) {
+        final Order order = orderRepository.findById(id).get();
+        order.setStatus(OrderStatus.RETURNING);
+
+        return orderRepository.save(order);
+    }
+
+    /**
+     * 完成订单
+     * @param id
+     * @return
+     */
+    public Order finishedOrder(Long id) {
+        final Order order = orderRepository.findById(id).get();
+        order.setStatus(OrderStatus.FINISHED);
+
+        return orderRepository.save(order);
+    }
+
+    /**
+     * 创建订单评价
+     * @param id
+     * @param request
+     * @return
+     */
+    public Comment createCommand(Long id, CreateOrderCommandRequest request) {
+        final Order order = orderRepository.findById(id).get();
+        final User me = jwtUtil.getUser();
+        return commentRepository.save(
+            Comment.builder()
+                .order(order)
+                .car(order.getCar())
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                .store(order.getStartStore())
+                .content(request.getContent())
+                .user(me)
+                .rate(request.getRate())
+                .build()
+        );
     }
 }

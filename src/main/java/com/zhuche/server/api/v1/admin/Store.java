@@ -133,4 +133,17 @@ public class Store {
             .data(brands)
             .build();
     }
+
+    @Permission(
+        roles = {Role.ROLE_BUSINESS}
+    )
+    @GetMapping("/myStore")
+    public UnityResponse getMyStore( ) {
+        final com.zhuche.server.model.Store store = brandSeriesService.getMyStore();
+
+        return UnityResponse
+            .builder()
+            .data(store)
+            .build();
+    }
 }

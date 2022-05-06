@@ -10,7 +10,9 @@ import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.OrderService;
 import com.zhuche.server.validators.order.CheckOrderMustBelongMeById;
+import com.zhuche.server.validators.order.CheckOrderStatusMustBeUsing;
 import com.zhuche.server.validators.social.AccessSocialType;
+import com.zhuche.server.validators.store.HasStoreValidator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -90,4 +92,21 @@ public class Order {
         }
         throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "取消订单错误");
     }
+
+    /**
+     * 还车
+     * @param id
+     * @return
+     */
+    @PutMapping("/{id}/status/returning")
+    public UnityResponse carReturning(
+        @PathVariable("id") @CheckOrderMustBelongMeById @CheckOrderStatusMustBeUsing Long id
+    ) {
+        final com.zhuche.server.model.Order  order = orderService.setOrderStatusToReturning(id);
+
+        return UnityResponse.builder()
+            .data(order)
+            .build();
+    }
+
 }

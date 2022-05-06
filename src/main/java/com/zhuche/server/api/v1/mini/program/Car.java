@@ -1,7 +1,7 @@
 package com.zhuche.server.api.v1.mini.program;
 
 import com.zhuche.server.dto.response.UnityResponse;
-import com.zhuche.server.model.Comments;
+import com.zhuche.server.model.Comment;
 import com.zhuche.server.services.CommentService;
 import com.zhuche.server.validators.car.CheckCarIdMustBeExist;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class Car {
     public UnityResponse getCarComments(
         @PathVariable("id") @CheckCarIdMustBeExist Long id
     ) {
-       final List<Comments> comments = commentService.getCarsCommentsById(id);
+       final List<Comment> comments = commentService.getCarsCommentsById(id);
        return UnityResponse.builder()
            .data(comments)
            .build();

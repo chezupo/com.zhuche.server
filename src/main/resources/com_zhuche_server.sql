@@ -4036,3 +4036,19 @@ CREATE TABLE `transaction` (
                                `is_with_draw` bit(1) DEFAULT NULL,
                                PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;
+
+-- ----------------------------
+-- Table structure for feedback
+-- ----------------------------
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE `feedback` (
+                            `id` bigint NOT NULL AUTO_INCREMENT,
+                            `created_at` bigint DEFAULT NULL,
+                            `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                            `flag` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `content` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+                            `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `email` varchar(255) DEFAULT NULL,
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;

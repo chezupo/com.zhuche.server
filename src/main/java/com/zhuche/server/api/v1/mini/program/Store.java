@@ -1,5 +1,6 @@
 package com.zhuche.server.api.v1.mini.program;
 
+import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Car;
 import com.zhuche.server.model.Comment;
@@ -8,6 +9,7 @@ import com.zhuche.server.services.CommentService;
 import com.zhuche.server.services.MiniProgramStoreService;
 import com.zhuche.server.validators.store.HasStoreValidator;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,9 +65,11 @@ public class Store {
 
     @GetMapping("/{id}/comments")
     public UnityResponse storeComments(
-        @PathVariable("id") @HasStoreValidator Long id
+        @PathVariable("id") @HasStoreValidator Long id,
+        @Param("page") Integer page,
+        @Param("size") Integer size
     ) {
-        final List<Comment> comments = commentService.getCommentsByStoreId(id);
+        final PageFormat comments = commentService.getCommentsByStoreId(id, page, size);
 
         return UnityResponse.builder()
             .data(comments)

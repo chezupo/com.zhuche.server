@@ -70,7 +70,7 @@ public class Users {
             .build();
     }
 
-    @Permission(roles = {Role.ROLE_ADMIN})
+    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
     @GetMapping("/alipay/users")
     public UnityResponse getAlipayUsers(
         @Param("page") Integer page,

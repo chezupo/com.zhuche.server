@@ -17,4 +17,10 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 
     @Query("select o from Order o where o.outRequestNo = :outRequestNo")
     Order findByOutRequestNo(@Param("outRequestNo") String outRequestNo);
+
+    @Query("SELECT COUNT(o) FROM Order o WHERE o.createdAt BETWEEN :startTimeStamp AND :endTimeStamp")
+    Long getOrderCountBetweenTimeStamp(
+        @Param("startTimeStamp") Long startTimeStamp,
+        @Param("endTimeStamp") Long endTimeStamp
+    );
 }

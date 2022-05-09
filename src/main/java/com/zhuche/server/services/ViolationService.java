@@ -7,11 +7,13 @@ import com.alipay.api.request.AlipayTradePayRequest;
 import com.alipay.api.response.AlipayTradePayResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.dto.request.violation.CreateViolationRequest;
+import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.Order;
 import com.zhuche.server.model.Violation;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.ViolationRepository;
+import com.zhuche.server.util.PaginationUtil;
 import com.zhuche.server.util.TradeUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,19 @@ public class ViolationService {
     private final OrderRepository orderRepository;
     private final AlipayClient alipayClient;
     private final String alipayViolationNoticeUrl;
+    private final PaginationUtil paginationUtil;
 
     public ViolationService(
         ViolationRepository violationRepository,
         OrderRepository orderRepository,
         AlipayClient alipayClient,
-        @Value("${alipay.alipayViolationNoticeUrl}") String alipayViolationNoticeUrl
-    ) {
+        @Value("${alipay.alipayViolationNoticeUrl}") String alipayViolationNoticeUrl,
+        PaginationUtil paginationUtil) {
         this.violationRepository = violationRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
         this.alipayViolationNoticeUrl = alipayViolationNoticeUrl;
+        this.paginationUtil = paginationUtil;
     }
 
 
@@ -82,5 +86,14 @@ public class ViolationService {
         } else {
             throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "调用失败");
         }
+    }
+
+    /**
+     * 获取违章分页记录
+     * @param page
+     * @param size
+     */
+    public PageFormat getPageData(Integer page, Integer size) {
+        return paginationUtil.getPageFormat(violationRepository, page, size);
     }
 }

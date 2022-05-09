@@ -42,7 +42,7 @@ public class Violation extends BaseEntity{
             .stream()
             .peek(i -> i.replace(prefix, "") )
             .toList();
-        images = (new JSONArray(Collections.singletonList(newValue))).toString();
+        images = JSON.toJSONString(newImages);
     }
 
     public List<String> getImages() {

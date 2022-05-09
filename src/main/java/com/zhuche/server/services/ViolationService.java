@@ -10,9 +10,11 @@ import com.zhuche.server.dto.request.violation.CreateViolationRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.Order;
+import com.zhuche.server.model.User;
 import com.zhuche.server.model.Violation;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.ViolationRepository;
+import com.zhuche.server.util.JWTUtil;
 import com.zhuche.server.util.PaginationUtil;
 import com.zhuche.server.util.TradeUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ViolationService {
@@ -28,18 +31,20 @@ public class ViolationService {
     private final AlipayClient alipayClient;
     private final String alipayViolationNoticeUrl;
     private final PaginationUtil paginationUtil;
+    private final JWTUtil jwtUtil;
 
     public ViolationService(
         ViolationRepository violationRepository,
         OrderRepository orderRepository,
         AlipayClient alipayClient,
         @Value("${alipay.alipayViolationNoticeUrl}") String alipayViolationNoticeUrl,
-        PaginationUtil paginationUtil) {
+        PaginationUtil paginationUtil, JWTUtil jwtUtil) {
         this.violationRepository = violationRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
         this.alipayViolationNoticeUrl = alipayViolationNoticeUrl;
         this.paginationUtil = paginationUtil;
+        this.jwtUtil = jwtUtil;
     }
 
 
@@ -95,5 +100,11 @@ public class ViolationService {
      */
     public PageFormat getPageData(Integer page, Integer size) {
         return paginationUtil.getPageFormat(violationRepository, page, size);
+    }
+
+    public List<Violation> getMyViolations() {
+        final User me = jwtUtil.getUser();
+
+        return violationRepository.findAllByUserId(me.getId());
     }
 }

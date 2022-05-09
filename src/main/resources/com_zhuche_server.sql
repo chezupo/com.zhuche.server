@@ -4052,3 +4052,23 @@ CREATE TABLE `feedback` (
                             `email` varchar(255) DEFAULT NULL,
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;
+
+-- ----------------------------
+-- Table structure for violation
+-- ----------------------------
+DROP TABLE IF EXISTS `violation`;
+CREATE TABLE `violation` (
+                             `id` bigint NOT NULL AUTO_INCREMENT,
+                             `created_at` bigint DEFAULT NULL,
+                             `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                             `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                             `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                             `description` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+                             `images` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+                             `amount` double DEFAULT NULL,
+                             `freeze_amount` double DEFAULT NULL,
+                             `user_id` bigint DEFAULT NULL,
+                             `order_id` bigint DEFAULT NULL,
+                             `alipay_out_trade_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;

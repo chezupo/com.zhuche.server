@@ -1,11 +1,13 @@
 package com.zhuche.server.api.v1.admin;
 
+import com.alipay.api.AlipayApiException;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.OrderService;
 import com.zhuche.server.validators.order.CheckOrderBelongsToMeForStartStore;
+import com.zhuche.server.validators.order.CheckOrderStatusMustBeFinished;
 import com.zhuche.server.validators.order.CheckOrderStatusMustBePickUp;
 import com.zhuche.server.validators.order.CheckOrderStatusMustBeReturning;
 import lombok.AllArgsConstructor;
@@ -56,6 +58,7 @@ public class Order {
             .data(order)
             .build();
     }
+
     @PutMapping("/{id}/status/finished")
     @Permission(roles = {
         Role.ROLE_BUSINESS,
@@ -69,6 +72,25 @@ public class Order {
         @PathVariable("id") @CheckOrderStatusMustBeReturning @CheckOrderBelongsToMeForStartStore Long id
     ) {
         final com.zhuche.server.model.Order order = orderService.finishedOrder(id);
+
+        return UnityResponse.builder()
+            .data(order)
+            .build();
+    }
+
+    @PutMapping("/{id}/status/unfreeze")
+    @Permission(roles = {
+        Role.ROLE_BUSINESS,
+        Role.ROLE_ADMIN,
+    },
+        isLog = true,
+        title = "解冻订单",
+        type = LogType.UPDATED
+    )
+    public UnityResponse unfreezeOrder(
+        @PathVariable("id") @CheckOrderStatusMustBeFinished @CheckOrderBelongsToMeForStartStore Long id
+    ) throws AlipayApiException {
+        final com.zhuche.server.model.Order order = orderService.unfreezeOrder(id);
 
         return UnityResponse.builder()
             .data(order)

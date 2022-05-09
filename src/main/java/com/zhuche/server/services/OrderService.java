@@ -451,4 +451,32 @@ public class OrderService {
                 .build()
         );
     }
+
+    /**
+     * 解冻订单
+     * @param id
+     * @return
+     */
+    public Order unfreezeOrder(Long id) throws AlipayApiException {
+        final Order order = orderRepository.findById(id).get();
+        AlipayFundAuthOrderUnfreezeRequest request = new AlipayFundAuthOrderUnfreezeRequest();
+        JSONObject bizContent = new JSONObject();
+        bizContent.put("auth_no",order.getAuthNo());
+        bizContent.put("out_request_no", order.getOutRequestNo());
+        bizContent.put("amount", order.getUnfreezeAmount() );
+        bizContent.put("remark", String.format("%s订单成功-解冻余下全部资金", order.getTitle()));
+        JSONObject extraParam = new JSONObject();
+        JSONObject unfreezeBizInfo = new JSONObject();
+        unfreezeBizInfo.put("bizComplete",true);
+        extraParam.put("unfreezeBizInfo",unfreezeBizInfo);
+        bizContent.put("extra_param",extraParam);
+        request.setBizContent(bizContent.toString());
+        AlipayFundAuthOrderUnfreezeResponse response = alipayClient.certificateExecute(request);
+        if (!response.isSuccess()) {
+            throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "解冻资金失败");
+        }
+        order.setUnfreezeAmount(0);
+
+        return orderRepository.save(order);
+    }
 }

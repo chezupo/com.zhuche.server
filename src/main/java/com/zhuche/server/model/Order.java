@@ -7,16 +7,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Slf4j
 @SuperBuilder
 @SQLDelete(sql = "UPDATE orders SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
@@ -60,6 +64,25 @@ public class Order extends BaseEntity{
     private Date createAlipayAt; // 创建支付宝订单的时间
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 订单状态
+
+    @Transient
+    private double expiredDays; // 超天数
+
+    public OrderStatus getStatus(){
+        if (status.equals(OrderStatus.USING)) {
+            var now =Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli();
+            if (now > endTimeStamp) {
+                expiredDays = Math.round((now - endTimeStamp) / (60 * 60 * 24 * 1000) * 100) / 100.0 ;
+                final double fee = expiredDays * car.getRent();
+                if (fee > 0.01) {
+                    expiredFee = fee;
+                    return OrderStatus.OVERTIME;
+                }
+            }
+        }
+        return status;
+    }
+
     private String title; // 商品名
     private String outRequestNo; // 预授权资金操作的请求流水号
     private String authNo; // 预授权流水号
@@ -69,6 +92,9 @@ public class Order extends BaseEntity{
     private PayType freezeType; // 冻结方式
     private Boolean isUnfreeze; // 是否解冻
     private Boolean isRefund; // 是否退款
+
+    @Transient
+    private Double expiredFee; // 过期费用
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "start_store_id")

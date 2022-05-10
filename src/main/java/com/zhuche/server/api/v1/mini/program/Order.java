@@ -10,6 +10,7 @@ import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.OrderService;
 import com.zhuche.server.validators.order.CheckOrderMustBelongMeById;
+import com.zhuche.server.validators.order.CheckOrderStatusMustBeExpired;
 import com.zhuche.server.validators.order.CheckOrderStatusMustBeUsing;
 import com.zhuche.server.validators.social.AccessSocialType;
 import com.zhuche.server.validators.store.HasStoreValidator;
@@ -108,5 +109,22 @@ public class Order {
             .data(order)
             .build();
     }
+
+    /**
+     * 补交订单超时费用
+     * @param id
+     * @return
+     */
+    @PostMapping("/{id}/trade/overtime")
+    @Permission(roles = {Role.ROLE_USER})
+    public UnityResponse payExpiredFee(
+        @PathVariable("id") @CheckOrderMustBelongMeById @CheckOrderStatusMustBeExpired Long id
+    ) throws AlipayApiException {
+        final String trade = orderService.createAlipayExpiredTrade(id);
+        return UnityResponse.builder()
+            .data(trade)
+            .build();
+    }
+
 
 }

@@ -1,18 +1,14 @@
 package com.zhuche.server.services;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.domain.AlipayFundAuthOrderAppFreezeModel;
-import com.alipay.api.request.AlipayFundAuthOrderAppFreezeRequest;
-import com.alipay.api.request.AlipayFundAuthOrderUnfreezeRequest;
-import com.alipay.api.request.AlipayTradeCreateRequest;
-import com.alipay.api.request.AlipayTradeRefundRequest;
-import com.alipay.api.response.AlipayFundAuthOrderAppFreezeResponse;
-import com.alipay.api.response.AlipayFundAuthOrderUnfreezeResponse;
-import com.alipay.api.response.AlipayTradeCreateResponse;
-import com.alipay.api.response.AlipayTradeRefundResponse;
+import com.alipay.api.request.*;
+import com.alipay.api.response.*;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
+import com.zhuche.server.dto.request.order.AlipayOvertimeTradeBody;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
 import com.zhuche.server.dto.request.order.command.CreateOrderCommandRequest;
 import com.zhuche.server.dto.response.PageFormat;
@@ -50,16 +46,21 @@ public class OrderService {
     private final AuthUtil authUtil;
     private final PaginationUtil paginationUtil;
     private final UserCouponRepository userCouponRepository;
+    private final UserRepository userRepository;
     private final CouponUtil couponUtil;
     private final CommentRepository commentRepository;
+    private final TransactionRepository transactionRepository;
 
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
 
+    @Value("${alipay.alipayOvertimeNoticeUrl}")
+    private String alipayOvertimeNoticeUrl;
+
     @Value("${alipay.alipayFreezeNoticeUrl}")
     private String alipayFreezeNoticeUrl;
 
-    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, CouponUtil couponUtil, CommentRepository commentRepository) {
+    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, UserRepository userRepository, CouponUtil couponUtil, CommentRepository commentRepository, TransactionRepository transactionRepository) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
@@ -68,8 +69,10 @@ public class OrderService {
         this.authUtil = authUtil;
         this.paginationUtil = paginationUtil;
         this.userCouponRepository = userCouponRepository;
+        this.userRepository = userRepository;
         this.couponUtil = couponUtil;
         this.commentRepository = commentRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     /**
@@ -478,5 +481,71 @@ public class OrderService {
         order.setUnfreezeAmount(0);
 
         return orderRepository.save(order);
+    }
+
+    /**
+     * 补交超时费用
+     * @param id
+     * @return
+     */
+    public String createAlipayExpiredTrade(Long id) throws AlipayApiException {
+        final Order order = orderRepository.findById(id).get();
+        final User me = jwtUtil.getUser();
+        final var amount = Math.round(order.getExpiredFee() * 100 ) / 100.0;
+        final var title = String.format("%s-用车超时费用", order.getTitle());
+        AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
+        request.setNotifyUrl(alipayOvertimeNoticeUrl);
+        JSONObject bizContent = new JSONObject();
+        bizContent.put("out_trade_no", TradeUtil.generateOutTradeNo());
+        bizContent.put("total_amount", amount);
+        bizContent.put("subject", title);
+        bizContent.put("buyer_id", me.getAlipayAccount().getUserId());
+        bizContent.put("timeout_express", alipayTimeoutExpress);
+        bizContent.put("body", JSON.toJSONString(
+            AlipayOvertimeTradeBody
+                .builder()
+                .orderId(order.getId())
+                .days(order.getExpiredDays())
+                .userId(me.getId())
+                .build()
+        ));
+        request.setBizContent(bizContent.toString());
+        AlipayTradeCreateResponse response = alipayClient.certificateExecute(request);
+        if (response.isSuccess()) {
+            return response.getTradeNo();
+        } else {
+            throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "支付宝调用失败");
+        }
+    }
+
+    /**
+     * 支付超时费用并还车
+     * @param total_amount
+     * @param subject
+     * @param trade_no
+     */
+    @Transactional
+    public void payOvertimeFeeAndReturning(AlipayOvertimeTradeBody body, Number total_amount, String subject, String out_trade_no, String trade_no) {
+        final Order order = orderRepository.findById(body.getOrderId()).get();
+        if (order.getStatus() == OrderStatus.OVERTIME) {
+            setOrderStatusToReturning(body.getOrderId());
+            final User user = userRepository.findById(body.getUserId()).get();
+            var transaction = transactionRepository.save(
+                Transaction
+                    .builder()
+                    .title(subject)
+                    .balance(user.getBalance())
+                    .amount(-total_amount.doubleValue())
+                    .payType(PayType.ALIPAY)
+                    .isWithDraw(false)
+                    .status(TransactionStatus.FINISHED)
+                    .alipayOutTradeNo(out_trade_no)
+                    .tradeNo(trade_no)
+                    .user(order.getUser())
+                    .remark("")
+                    .build()
+            );
+            log.info("overtime transaction: {}", transaction);
+        }
     }
 }

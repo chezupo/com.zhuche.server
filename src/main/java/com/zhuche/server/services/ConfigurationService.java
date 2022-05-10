@@ -10,6 +10,7 @@ package com.zhuche.server.services;
 
 import com.zhuche.server.dto.request.configuration.UpdateConfigurationRequest;
 import com.zhuche.server.dto.request.configuration.UpdateOrderAgreementRequest;
+import com.zhuche.server.dto.request.configuration.UpdatePromotionConfigurationRequest;
 import com.zhuche.server.dto.response.configuration.Configuration;
 import com.zhuche.server.repositories.ConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,8 @@ public class ConfigurationService {
             .insurance(configuration.getInsurance())
             .amapSearchKey(mapSearchKey)
             .notice(configuration.getNotice())
+            .promotionLevel1(configuration.getPromotionLevel1())
+            .promotionLevel2(configuration.getPromotionLevel2())
             .build();
     }
     public Configuration getConfiguration() {
@@ -91,5 +94,14 @@ public class ConfigurationService {
         configuration.setOrderAgreement(request.getOrderAgreement());
 
         return configurationRepository.save(configuration);
+    }
+
+    public Configuration updatePromotionConfiguration(UpdatePromotionConfigurationRequest request) {
+        final var configuration = configurationRepository.findById(id).get();
+        configuration.setPromotionLevel1(request.getPromotionLevel1());
+        configuration.setPromotionLevel2(request.getPromotionLevel2());
+        configurationRepository.save(configuration);
+
+        return formatResponse( configuration);
     }
 }

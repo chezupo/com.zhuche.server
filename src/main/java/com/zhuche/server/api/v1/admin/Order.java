@@ -23,7 +23,6 @@ import javax.websocket.server.PathParam;
 @AllArgsConstructor
 public class Order {
     private final OrderService orderService;
-
     @GetMapping
     @Permission(roles = {
         Role.ROLE_BUSINESS,

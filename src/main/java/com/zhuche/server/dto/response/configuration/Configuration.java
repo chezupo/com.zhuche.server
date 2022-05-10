@@ -37,4 +37,8 @@ public class Configuration {
     private String insuranceAgreement;
 
     private String orderAgreement;
+
+    private Double promotionLevel1;
+
+    private Double promotionLevel2;
 }

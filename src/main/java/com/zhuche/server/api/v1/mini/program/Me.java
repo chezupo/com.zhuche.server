@@ -9,6 +9,7 @@
 package com.zhuche.server.api.v1.mini.program;
 
 
+import com.alipay.api.AlipayApiException;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
@@ -101,6 +102,20 @@ public class Me {
 
         return UnityResponse.builder()
             .data(res)
+            .build();
+    }
+
+    /**
+     *  我的推广二维码
+     * @return
+     */
+    @GetMapping("QR")
+    @Permission(roles = {Role.ROLE_USER})
+    public UnityResponse getMyQR( ) throws AlipayApiException {
+         String qr = meService.getMyQR();
+
+        return UnityResponse.builder()
+            .data(qr)
             .build();
     }
 }

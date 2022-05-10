@@ -43,4 +43,8 @@ public class Configuration{
     private String insuranceAgreement; // 驾无忧声明
 
     private String orderAgreement; // 下单声明
+
+    private Double promotionLevel1; // 推广一级分润点 %
+
+    private Double promotionLevel2; // 推广二级分润点 %
 }

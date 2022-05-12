@@ -5,8 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.domain.AlipayFundAuthOrderAppFreezeModel;
-import com.alipay.api.request.*;
-import com.alipay.api.response.*;
+import com.alipay.api.request.AlipayFundAuthOrderAppFreezeRequest;
+import com.alipay.api.request.AlipayFundAuthOrderUnfreezeRequest;
+import com.alipay.api.request.AlipayTradeCreateRequest;
+import com.alipay.api.request.AlipayTradeRefundRequest;
+import com.alipay.api.response.AlipayFundAuthOrderAppFreezeResponse;
+import com.alipay.api.response.AlipayFundAuthOrderUnfreezeResponse;
+import com.alipay.api.response.AlipayTradeCreateResponse;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.dto.request.order.AlipayOvertimeTradeBody;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
@@ -27,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -50,6 +57,7 @@ public class OrderService {
     private final CouponUtil couponUtil;
     private final CommentRepository commentRepository;
     private final TransactionRepository transactionRepository;
+    private final ConfigurationService configurationService;
 
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
@@ -60,7 +68,7 @@ public class OrderService {
     @Value("${alipay.alipayFreezeNoticeUrl}")
     private String alipayFreezeNoticeUrl;
 
-    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, UserRepository userRepository, CouponUtil couponUtil, CommentRepository commentRepository, TransactionRepository transactionRepository) {
+    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, UserRepository userRepository, CouponUtil couponUtil, CommentRepository commentRepository, TransactionRepository transactionRepository, ConfigurationService configurationService) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
@@ -73,6 +81,7 @@ public class OrderService {
         this.couponUtil = couponUtil;
         this.commentRepository = commentRepository;
         this.transactionRepository = transactionRepository;
+        this.configurationService = configurationService;
     }
 
     /**
@@ -156,7 +165,18 @@ public class OrderService {
             .payType(PayType.ALIPAY)
             .isRefund(true)
             .build();
-
+        // 返点计算
+        final User level1User = me.getUser();
+        if (level1User != null) {
+            var config = configurationService.getConfiguration();
+            newOrder.setPromotionLevel1(config.getPromotionLevel1());
+            newOrder.setPromotionLevel1User(level1User);
+            final User level2User = level1User.getUser();
+            if (level2User != null) {
+                newOrder.setPromotionLevel2(config.getPromotionLevel2());
+                newOrder.setPromotionLevel2User(level2User);
+            }
+        }
         final String outTradeNo = TradeUtil.generateOutTradeNo();
         newOrder.setAlipayOutTradeNo(outTradeNo);
         // 支付资金
@@ -426,12 +446,62 @@ public class OrderService {
      * @param id
      * @return
      */
+    @Transactional
     public Order finishedOrder(Long id) {
         final Order order = orderRepository.findById(id).get();
         order.setStatus(OrderStatus.FINISHED);
+        // 订单佣金结算
+        if (order.getPromotionLevel1User() != null) {
+            calculateOrderCommission(order.getPromotionLevel1User(), order.getPromotionLevel1(), order.getAmount(), "订单一级反佣");
+        }
+        if (order.getPromotionLevel2User() != null) {
+            calculateOrderCommission(order.getPromotionLevel2User(), order.getPromotionLevel2(), order.getAmount(), "订单二级反佣");
+        }
 
         return orderRepository.save(order);
     }
+
+    /**
+     * 计算订单佣金
+     * @param user
+     * @param rate
+     */
+    private void calculateOrderCommission(User user, BigDecimal rate, Double amount, String subject) {
+        BigDecimal commission = new BigDecimal(amount);
+        commission = commission.multiply(rate);
+        commission = commission.divide(BigDecimal.valueOf(100));
+        if (user.getCommission() == null) {
+            user.setCommission(BigDecimal.valueOf(0));
+        }
+        user.setCommission(
+            user.getCommission().add(commission)
+        );
+        if (commission.doubleValue() > 0) {
+            if (user.getBalance() == null) {
+                user.setBalance(0d);
+            }
+            user.setBalance(user.getBalance() + commission.doubleValue());
+            transactionRepository.save(
+                Transaction
+                    .builder()
+                    .title(subject)
+                    .balance(user.getBalance())
+                    .amount(commission.doubleValue())
+                    .payType(PayType.ALIPAY)
+                    .isWithDraw(false)
+                    .status(TransactionStatus.FINISHED)
+                    .transactionType(TransactionType.COMMISSION)
+                    .alipayOutTradeNo("")
+                    .tradeNo("")
+                    .user(user)
+                    .remark("")
+                    .build()
+            );
+        }
+
+        userRepository.save(user);
+    }
+
 
     /**
      * 创建订单评价

@@ -3444,8 +3444,8 @@ CREATE TABLE `configuration` (
   `service_phone` varchar(255) DEFAULT NULL,
   `insurance_agreement` longtext DEFAULT NULL,
   `order_agreement`  longtext DEFAULT NULL,
-  `promotion_level1` double default Null,
-  `promotion_level2` double default Null,
+  `promotion_level1` decimal(10, 2) default Null,
+  `promotion_level2` decimal(10, 2) default Null,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
@@ -3650,18 +3650,23 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `created_at` bigint DEFAULT NULL,
-  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_enabled` bit(1) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `alipay_account_id` bigint DEFAULT NULL,
-  `store_id` bigint DEFAULT NULL,
-  `balance` double default 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+                        `id` bigint NOT NULL AUTO_INCREMENT,
+                        `created_at` bigint DEFAULT NULL,
+                        `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                        `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+                        `is_enabled` bit(1) DEFAULT NULL,
+                        `password` varchar(255) DEFAULT NULL,
+                        `username` varchar(255) DEFAULT NULL,
+                        `alipay_account_id` bigint DEFAULT NULL,
+                        `store_id` bigint DEFAULT NULL,
+                        `balance` double DEFAULT '0',
+                        `alipay_qr` varchar(255) DEFAULT NULL,
+                        `commission` decimal(10,2) DEFAULT NULL,
+                        `withdrawn_commission` decimal(10,2) DEFAULT NULL,
+                        `withdrawal_in_progress_commission` decimal(10,2) DEFAULT NULL,
+                        `p_id` bigint DEFAULT NULL,
+                        PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Records of user
@@ -3996,6 +4001,10 @@ CREATE TABLE `orders` (
                           `freeze_type` varchar(255) DEFAULT NULL,
                           `is_unfreeze`bit(1) DEFAULT NULL,
                           `is_refund`bit(1) DEFAULT NULL,
+                          `promotion_level1_user_id` bigint DEFAULT NULL,
+                          `promotion_level2_user_id` bigint DEFAULT NULL,
+                          `promotion_Level1` decimal(10,2) DEFAULT NULL,
+                          `promotion_Level2` decimal(10,2) DEFAULT NULL,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -4036,6 +4045,7 @@ CREATE TABLE `transaction` (
                                `out_biz_no` varchar(255) default NULL,
                                `failed_reason` varchar(255) default NULL,
                                `is_with_draw` bit(1) DEFAULT NULL,
+                               `transaction_type` varchar(255) default null
                                PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;
 

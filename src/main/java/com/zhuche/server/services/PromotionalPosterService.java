@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -45,5 +46,9 @@ public class PromotionalPosterService {
 
     public void deletePoster(Long id) {
         promotionalPosterRepository.deleteById(id);
+    }
+
+    public List<PromotionalPoster> getPageData() {
+       return  promotionalPosterRepository.findAll();
     }
 }

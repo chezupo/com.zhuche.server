@@ -5,13 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdatePromotionConfigurationRequest {
-    private double promotionLevel1;
+    private BigDecimal promotionLevel1;
 
-    private double promotionLevel2;
+    private BigDecimal promotionLevel2;
 
 }

@@ -13,6 +13,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import java.math.BigDecimal;
+
 @Builder
 @Data
 @NoArgsConstructor
@@ -39,4 +42,8 @@ public class MeResponse {
     private Boolean isAuthorizeBaseInfo;
 
     private Double balance;
+
+    private BigDecimal commission; // 佣金
+    private BigDecimal withdrawnCommission; // 已提现佣金
+    private BigDecimal withdrawalInProgressCommission; // 提现中佣金
 }

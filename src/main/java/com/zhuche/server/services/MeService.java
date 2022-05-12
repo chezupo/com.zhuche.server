@@ -18,14 +18,19 @@ import com.zhuche.server.dto.mapper.AlipayMapper;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
 import com.zhuche.server.dto.response.me.MeResponse;
+import com.zhuche.server.dto.response.me.promotion.PromotionInfoResponse;
+import com.zhuche.server.model.Order;
 import com.zhuche.server.model.User;
 import com.zhuche.server.repositories.AlipayAccountRepository;
+import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.util.AlipayUtil;
 import com.zhuche.server.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -37,6 +42,7 @@ public class MeService {
     @Autowired private AlipayUtil alipayUtil;
     @Autowired private AlipayAccountRepository alipayAccountRepository;
     @Autowired private AlipayClient alipayClient;
+    @Autowired private OrderRepository orderRepository;
 
     public MeResponse updateAlipayMe(UpdateMeRequest request) {
         final var me = authContext.getMe();
@@ -75,18 +81,50 @@ public class MeService {
 
     public String getMyQR() throws AlipayApiException {
         final User me = jwtUtil.getUser();
+        if (me.getAlipayQr() != null) {
+            return me.getAlipayQr();
+        }
+
         AlipayOpenAppQrcodeCreateRequest request = new AlipayOpenAppQrcodeCreateRequest();
         request.setBizContent("{" +
-            "\"url_param\":\"/pages/index/index?name=ali&loc=hz\"," +
+            "\"url_param\":\"/pages/index/index?userId=" + me.getId() + "\"," +
             "\"query_param\":\"userId="+ me.getId() +"\"," +
             "\"describe\":\"我的推广二维码\"" +
             "}");
         AlipayOpenAppQrcodeCreateResponse response = alipayClient.certificateExecute(request);
         if(response.isSuccess()){
-            return response.getQrCodeUrl();
+            me.setAlipayQr(response.getQrCodeUrl());
+            userRepository.save(me);
+            return me.getAlipayQr();
         } else {
             System.out.println("调用失败");
         }
         return "{";
+    }
+
+    public PromotionInfoResponse getPromotionInfo() {
+        final User me = jwtUtil.getUser();
+        List<Long> ids = new java.util.ArrayList<Long>(List.of(me.getId()));
+        List<User> promotionLevel1Users  = userRepository.findPromotionUsers(ids);
+        ids.clear();
+        for(User user : promotionLevel1Users) {
+            ids.add(user.getId());
+        }
+        long userCount =  ids.size() > 0 ? userRepository.countPromotionUser(ids) : 0;
+        userCount += ids.size();
+       final var result = PromotionInfoResponse.builder()
+            .downLineCount(userCount)
+            .build();
+      List<User> promotionLevel2Users = userRepository.findPromotionUsers(ids);
+      promotionLevel2Users.forEach(user -> ids.add(user.getId()));
+        // 获取前3的订单
+        List<Order> orders = orderRepository.findByPromotionUserId(me.getId());
+        result.setOrders(orders);
+        // 一级下线
+        result.setPromotionLevel1Users(promotionLevel1Users);
+        // 二级下线
+        result.setPromotionLevel2Users(promotionLevel2Users);
+
+       return result;
     }
 }

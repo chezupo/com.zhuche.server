@@ -22,4 +22,6 @@ import javax.validation.constraints.NotBlank;
 public class CreateSocialAuthorizationTokenRequest {
     @NotBlank
     private String authorizationCode;
+
+    private Long pid;
 }

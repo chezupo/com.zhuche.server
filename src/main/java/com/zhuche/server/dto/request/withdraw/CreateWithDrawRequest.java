@@ -17,4 +17,6 @@ public class CreateWithDrawRequest {
     private Double amount;
 
     private String remark;
+
+    private Boolean isCommission;
 }

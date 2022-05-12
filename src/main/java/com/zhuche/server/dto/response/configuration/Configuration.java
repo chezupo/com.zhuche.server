@@ -13,6 +13,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -38,7 +40,7 @@ public class Configuration {
 
     private String orderAgreement;
 
-    private Double promotionLevel1;
+    private BigDecimal promotionLevel1;
 
-    private Double promotionLevel2;
+    private BigDecimal promotionLevel2;
 }

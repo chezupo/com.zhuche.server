@@ -80,7 +80,7 @@ public class PromotionalPoster {
         type = LogType.DELETED
     )
     public UnityResponse deletePoster( @PathVariable("id") Long id ) {
-            promotionalPosterService.deletePoster(id);
+        promotionalPosterService.deletePoster(id);
         return UnityResponse
             .builder()
             .build();

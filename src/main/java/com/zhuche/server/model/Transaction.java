@@ -43,6 +43,9 @@ public class Transaction extends BaseEntity{
 
     private String alipayOutTradeNo;
 
+    @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
+    private TransactionType transactionType;
+
     private String tradeNo;
 
     private String outBizNo; // 转账商家支付宝订单号

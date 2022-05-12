@@ -9,6 +9,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +37,16 @@ public class User extends BaseEntity {
     private Boolean isEnabled;
 
     private Double balance;
+
+    @Column(name="commission", columnDefinition = "decimal", precision = 2, scale = 0)
+    private BigDecimal commission; // 佣金
+    @Column(name="withdrawn_commission", columnDefinition = "decimal", precision = 2, scale = 0)
+    private BigDecimal withdrawnCommission; // 已提现佣金
+    @Column(name="withdrawal_in_progress_commission", columnDefinition = "decimal", precision = 2, scale = 0)
+    private BigDecimal withdrawalInProgressCommission; // 提现中佣金
+
+    @Column(name = "alipay_qr")
+    private String alipayQr; //支付宝推广二维码
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
@@ -68,4 +79,9 @@ public class User extends BaseEntity {
         "user"
     })
     private List<UserCoupon> userCoupons;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "p_id")
+    @JsonIgnore
+    private User user;
 }

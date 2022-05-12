@@ -14,10 +14,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -44,7 +42,9 @@ public class Configuration{
 
     private String orderAgreement; // 下单声明
 
-    private Double promotionLevel1; // 推广一级分润点 %
+    @Column(name="promotion_Level1", columnDefinition = "decimal", precision = 2, scale = 0)
+    private BigDecimal promotionLevel1; // 推广一级分润点 %
 
-    private Double promotionLevel2; // 推广二级分润点 %
+    @Column(name="promotion_Level2", columnDefinition = "decimal", precision = 2, scale = 0)
+    private BigDecimal promotionLevel2; // 推广二级分润点 %
 }

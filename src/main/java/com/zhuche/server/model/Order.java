@@ -1,6 +1,7 @@
 package com.zhuche.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuche.server.services.ConfigurationService;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -93,6 +95,12 @@ public class Order extends BaseEntity{
     private Boolean isUnfreeze; // 是否解冻
     private Boolean isRefund; // 是否退款
 
+    @Column(name="promotion_Level1", columnDefinition = "decimal", precision = 2, scale = 0)
+    private BigDecimal promotionLevel1; // 一级返利点
+
+    @Column(name="promotion_Level2", columnDefinition = "decimal", precision = 2, scale = 0)
+    private BigDecimal promotionLevel2; // 二级返利点
+
     @Transient
     private Double expiredFee; // 过期费用
 
@@ -157,4 +165,14 @@ public class Order extends BaseEntity{
         "userCoupons",
     })
     private Comment comment;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "promotion_level1_user_id")
+    @JsonIncludeProperties({"id"})
+    private User promotionLevel1User; //  反佣用户1
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "promotion_level2_user_id")
+    @JsonIncludeProperties({"id"})
+    private User promotionLevel2User; //  反佣用户2
 }

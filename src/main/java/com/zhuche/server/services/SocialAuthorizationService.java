@@ -61,6 +61,13 @@ public class SocialAuthorizationService {
                 .alipayAccount(alipayAccount)
                 .build();
             newUser.setIsEnabled(true);
+            if ( request.getPid() != null ) {
+                User pUser = userRepository.findUserById(request.getPid());
+                if (pUser != null) {
+                    newUser.setUser(pUser);
+                }
+            }
+
             userRepository.save(newUser);
             userCouponService.takeCouponToNewUser(newUser);
             alipayAccount.setUser(newUser);

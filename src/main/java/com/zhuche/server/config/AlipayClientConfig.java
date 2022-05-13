@@ -41,9 +41,9 @@ public class AlipayClientConfig {
     @Bean
     public AlipayClient alipayClient() throws AlipayApiException {
         AlipayConfig certAlipayRequest = new AlipayConfig();
-        final String CERT_PATH = ClassLoader.getSystemResource(appCertPath).getPath();
-        final String ALIPAY_PUBLIC_CERT_PATH = ClassLoader.getSystemResource(alipayPublicCertPath).getPath();
-        final String ALIPAY_ROOT_CERT_PATH = ClassLoader.getSystemResource(rootCertPath).getPath();
+        final String CERT_PATH = appCertPath;
+        final String ALIPAY_PUBLIC_CERT_PATH = alipayPublicCertPath;
+        final String ALIPAY_ROOT_CERT_PATH = rootCertPath;
         certAlipayRequest.setServerUrl(serverUrl);
         certAlipayRequest.setAppId(appid);
         certAlipayRequest.setPrivateKey(privateKey);

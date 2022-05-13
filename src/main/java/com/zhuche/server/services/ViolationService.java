@@ -17,6 +17,7 @@ import com.zhuche.server.repositories.ViolationRepository;
 import com.zhuche.server.util.JWTUtil;
 import com.zhuche.server.util.PaginationUtil;
 import com.zhuche.server.util.TradeUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -26,27 +27,12 @@ import java.util.List;
 
 @Service
 public class ViolationService {
-    private final ViolationRepository violationRepository;
-    private final OrderRepository orderRepository;
-    private final AlipayClient alipayClient;
-    private final String alipayViolationNoticeUrl;
-    private final PaginationUtil paginationUtil;
-    private final JWTUtil jwtUtil;
-
-    public ViolationService(
-        ViolationRepository violationRepository,
-        OrderRepository orderRepository,
-        AlipayClient alipayClient,
-        @Value("${alipay.alipayViolationNoticeUrl}") String alipayViolationNoticeUrl,
-        PaginationUtil paginationUtil, JWTUtil jwtUtil) {
-        this.violationRepository = violationRepository;
-        this.orderRepository = orderRepository;
-        this.alipayClient = alipayClient;
-        this.alipayViolationNoticeUrl = alipayViolationNoticeUrl;
-        this.paginationUtil = paginationUtil;
-        this.jwtUtil = jwtUtil;
-    }
-
+   @Autowired private  ViolationRepository violationRepository;
+   @Autowired private  OrderRepository orderRepository;
+   @Autowired private  AlipayClient alipayClient;
+   @Value("${alipay.alipayViolationNoticeUrl}") private  String alipayViolationNoticeUrl;
+   @Autowired private  PaginationUtil paginationUtil;
+   @Autowired private  JWTUtil jwtUtil;
 
     @Transactional
     public Violation createViolation(Long id, CreateViolationRequest request) throws AlipayApiException {

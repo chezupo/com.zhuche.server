@@ -6,6 +6,11 @@ public enum SocialType {
             return "alipay";
         }
     },
+    TT {
+        public String toString() {
+            return "tt";
+        }
+    },
     WECHAT{
         public String toString() {
             return "wechat";

@@ -18,6 +18,8 @@ public class AccessSocialTypeWiring implements ConstraintValidator<AccessSocialT
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return Objects.equals(value, SocialType.WECHAT.toString()) || Objects.equals(value, SocialType.ALIPAY.toString());
+        return Objects.equals(value, SocialType.WECHAT.toString()) ||
+            Objects.equals(value, SocialType.ALIPAY.toString()) ||
+            Objects.equals(value, SocialType.TT.toString());
     }
 }

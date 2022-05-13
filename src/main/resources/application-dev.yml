@@ -1,22 +1,87 @@
-graphql:
-  playground:
-    enabled: true
-
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/com_zhuche_server?characterEncoding=utf-8&serverTimezone=GMT%2B8
-    username: root
-    password: 12345678
-  jpa:
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    hibernate:
-      ddl-auto: none
+    datasource:
+        url: jdbc:mysql://192.168.0.101:3306/com_zhuche_server?characterEncoding=utf-8&serverTimezone=GMT%2B8&createDatabaseIfNotExist=true
+        username: root
+        password: 12345678
+        driver-class-name: com.mysql.jdbc.Driver
+    jpa:
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
+        hibernate:
+            ddl-auto: none
 
 alipay:
-  privateKey: "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCIGdX9tFe11VGyMJD7hZuxnnhkmk9497G4+MoT08zO+tB+K8SOtivJ+vYsh3qxzNeZuJIIMbw5AfGlAa1PTXWhxvgb3XxozbBIKf9Ub6QmeGh5m/9wJHVFVpoVZGuZlcG3MuTnUhCXC7xqjGHwZp3uBuyTi9ttCmqT7lKbBWRZrV6ZFW4U+FfHG6mLOhphZm611IJ9tczYT7EkDAjh1OPQ2Yyt6xmXPeK6A8WgoREz7nyC1dBo6e3ZtgTfZ/MmBcu2Ik7zIVujgXe1+Gk3cANvIGsGAPFgLr8U6/v8WpoFO8UpC9e53WA76+/nqoh2/Z/oZhmVvwIYKfxWB5h1J6X1AgMBAAECggEAcaMgyXSKx4gVbnKem2QzW1q1q0oskRQ/j/Iqx+NQXoGNE8v3kjEI3txsL0HvcAVY/0DcrXrZbb/xw5Ri4JQMY8d94cZM2jTju11Vk2qj5HskwGVAIqJOSFbG0JXIQbSIyi30cjBTKcrixxPvson704J0hb2AuMq5skqLLmSSJU0i+0A0zNSTrZTywTBFRD5Sf8cngimy8FZBRKyt/fhH9g5vXCegUjPTWZdwJPmCvbZwJVa0zSmy1cvb4PJ+sr746eV9xLzwAK+ajtoSYU8/VnoJfZVZpyk+yAZfkpktOY3/MP2WXWQladu6kf3baOX4TuXgoFnweSsxcL1gI06dAQKBgQDPfPivqE+xTsMZBvwodasKO7ogvo5k3JmCAYCttE7eZ5fGgulNr8IPN0vwpCe3f8Uw9mnuIapVyOcnwdBWYbygepNC9QJzRTXMR+QG0hxaabULatQvaH9QU5R2z9wvSVPkBBQKqbWja7mn3BkwZSLx3/zZs0/XGX+J+MqF2NVMmwKBgQCn7AqN27KtpV4aJN00JTPzTpFdguQWuEzbeNxCucUrhP9tpCminSJsv5k+/vlQdoOBA45+Z73yfc0iXswpUVI/Gi5zF+UsWMIcURbscqSmJmLXHK1lw5LPiQcXeJRGaslfgJqmA05ZV4bYcubDrYst72sfhL4ihZKX9bim97lYrwKBgEXsccqQyDqStoEKr5PbA8cxFarPTSGEjl8XrovbhfDBrI6Ds6gwoQ+LrRXt3EykzImRoWVVBxhd2ji1wkY6Ld1PMa2Q8EB0hIrRd3EtAc0ebproZ5WKe81QPWpE5okxBwqCrVZilwn51dlR/VMn4jztJUMggLmWqDqRE39D8a4dAoGAG11j+uoqnBGu3CPVyIGnjaboGY0TDoDKRZnUiysq7oSl+4AdKNrimUY/+vwiNPKbS5MAzaiqU7Ick9VPAAy4kn/5wdfLCQcN2v979NxZ6Jmo0dVijIrqideSyEhmIXOVjXKvwQ4Y3oZc+zj+UjUd0UaK9n/zXDzYPttUVCFamxECgYAFM9jpZg603tdONJdTdmdXa4izihd0siBhZTsa+dnN5YSQMdkPDT5JlfyhkR/vh186FlIEfW7fhl3AfbOwq7/UuFriawhZ9Z5czR/pOKDwjJ8+YUTNgj1Witt8jOv5Bd6kL6hzYa4f1OYSSZbzlI6NxsgJ0VmAjvSHiz7FMIAqmg=="
-  serverUrl: "https://openapi.alipay.com/gateway.do"
-  appid: "2021002192683282"
-  alipayPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwpEWAL/43cDAsqVaAHS92eCY6B6A0AmCzks9oRzpJQv4XC/xgup0J4fxycuJn8s3VkTahcFRqHFvjsYKME0lTqJslM7a6zT3lCEaWp9aTmaA+H9lE7ZoRlgbU9vcAvVPsx33J1quRg4ML3Zh8IBkaB9T/o762rUuivEAzORTgqB36opXf49CbKK0hXSh6MY9uvfJ0Ren6iRw8wVMRca5cHwVRqV/jBvmtEf2j0oDidtDMxr+G1AlMt+HmgJgmI9Ny0RJhR2z3Wnes4ti+O3MRkQipZARHvfl88jyE0oA+Oo1J9nSOLp37wj5NaaS9KpE7sysz/BRIgKla2ZZ+ltRMwIDAQAB"
+    serverUrl: "https://openapi.alipay.com/gateway.do"
+    # 本地私钥
+    privateKey: "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDKkPbDYi/0oDjBfFCMZfvOT78ZM8aBN+6v8rvAxrOR3kiPN/IUE3odV+WBpXqwTAIWzRincJjsLpk+f8aHbUaSI5XfdMYgreqfZqXsdtDoDljDwV+psjlR+U6IBsvTLJYqHfhBQsvwnXsxFNeuGwDsZJ/z7UVQuH9QMw2bZKc6xvzUWIOyNu5Eg2w56FGpVlHxlbmu1sQT3e6focu6G+h6XdbjFjXdx7zjsNYpU25uuqG9SooKKc0DOP5pRaUqkdIJS0e21wbkhiAHQQxCFmvyG3D0bcRGmy1MfPtPdh6z513s2Sfk/GndPuIxJVnmxYELqlvp+KN+DEiFh7SkvA5hAgMBAAECggEAJ+Goo8kmFeyhn/6AwVOm4vSydBzMfU5s0PliW88DNbnk4UWrhKZdCX/vsLnK0QD1/FU/AGBby0xVYYe4p5stJMKa1FbiVzbGlcGY81hlQvroIQpmcjujq28BNijYYmhJ3FrwMLEdA++NfJlU6XNpmCErmNPjLMRWVIzopeqIPjrrf57YfPLOUHei/lwT7qHiZEx+BO3DAeouJqjhgnwF26NOwwG2uilUMQt8BWGRiqD3EyJR3bsUYp0U3+/Z6Go0nzMxk4DeGgrbWhWm5P1HcCz+pABjlSROZxdgetZ2bUmmvxQPT9IhlvrZvX7bzwrWAh6A3Q9OEX+Cavq40RYx0QKBgQDq+dQMuFKWK8TbQHoxorpz/N+W789NsmWXiZx4ulE2YNCNvlfucXi8JbJ6uzXTGGryz1TaOUAAwzbSox7GIFez5SKw6Ix3Ta3cMcceGOyXVqJV0E/576PYQplnw3SyaM7TNcZfoijCI8ylMPH13M3okxqXtTWtwgL7VQMmHZGETQKBgQDcsMlPAH4zaAwX3nIlm1Deud4HQkwXaVK4uToTiuHDYzIrwPTsshYDsOKyyjPtwAK1alS96+rEickUo8s2QLnon7AutaQHYxUHM/S4/ut70A+tlS+YbkLLR3pP3gHBS1osTN8wi1WfAyT3NyWJQup//ST8bCcINbSqDW/yWTxMZQKBgFA/jinh8WKUBCEU/iZheugN3pZ/w/63BHciaivZBc9adR9TeFhYrHElNrUvpow3dJ8EK+hzUOZxxRFe4C2t8gXgJV7hrMc54jynS2d9/58X2U0RXZ7wNrau2BFV8U7U+H2tidgzW1QiQcvQ0XG0PSZGxvg0zOZQsg//0pl706ypAoGACp4SwVNDvxNlaYyRL0/+nwiQLwc4g/PUQADhU2leHTlbg5Ff9zdGKd1LutBRmUGgn7vC4fREsjnyy6RptW19xDxSjJy+jIBu1Y7hWjkheS50YqSHyqybWA5TSx5iNTt71h/IqRw6/VB4adBkZOssPwYdzmshoZp726aT2TQD26UCgYA/lhJ5ImIwFfr9zt3wwBbJ24l1Mf4F7HDCK+JPpNs3uazZ3CYcNJVF/nhFSts5vc6/LygW/+P2kVvP4kA6E7m9QF8P32l167O31HNujxEEapH7BIqEFj1Zv7dl7tMdBjQtq8D0rkYJCev+D5kuaGkfCqlGWFaADTO8UEeI0LVCiQ=="
+    # 应用公钥证书路径
+    appCertPath: "certificates/appCertPublicKey_2021002192682271.cer"
+    # 支付宝公钥证书文件路径
+    alipayPublicCertPath: "certificates/alipayCertPublicKey_RSA2.cer"
+    # 支付宝CA根证书文件路径
+    rootCertPath: "certificates/alipayRootCert.cer"
+    appid: "2021002192682271"
+    # 接口内容加密，用于解密手机号
+    alipayAESKey: "+S+vywjRukcn0vrcYFAdvA=="
+    alipayNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice"
+    # 支付宝充值异步通知
+    alipayTopUpNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/topUp"
+    # 支付宝违章扣款异步通知
+    alipayViolationNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/violation"
+    # 交结订单
+    alipayFreezeNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/freeze"
+    # 订单超时订单
+    alipayOvertimeNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/overTime"
+    # 收单账号 用于冻结订单时使用 https://b.alipay.com/page/store-management/infomanage 在这里查看
+    pid: "2088241974604591"
+
+tt:
+    # 字节appid
+    appId: "tt536025ddcc5ea81101"
+    #字节 appSecret
+    secret: "d4aca2280f2398fbe9635b80f40ab38ca807640c"
+
+disk:
+    qiniu:
+        accessKey: "ZKQryAVX-9dfvZhNizfA2AcTBX9R8uT-2QtdCEI1"
+        secretKey: "pByDhw5dc6eh734UbycFeTogT6gUc54f2ySNffeL"
+        bucket: "zhuche-a1001"
+        prefixUrl: "https://zhuche-a1001.qiniu.wuchuheng.com"
+
+springbootwebfluxjjwt:
+    password:
+        encoder:
+            secret: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+            iteration: 33
+            keylength: 256
+    jjwt:
+        secret: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+        expiration: 604800000
+logging:
+    level:
+        jdbc:
+            resultsettable: info
+            sqltiming: info
+            sqlonly: fatal
+            audit: fatal
+            resultset: fatal
+            connection: fatal
+
+log4jdbc:
+    dump:
+        sql:
+            addsemicolon: true
+            maxlinelength: 0
+    trim:
+        sql:
+            extrablanklines: true
+
+initAppName: "车租婆"
+initLogo: "2022-2-20-1-27-36-1645291656873-logo.png"
+
+amap:
+    key: "f3e1159fa8f8ca61d08ef96412a9c172"
+    searchKey: "1fe634997b7a344ec1d8a1acd047ae32"

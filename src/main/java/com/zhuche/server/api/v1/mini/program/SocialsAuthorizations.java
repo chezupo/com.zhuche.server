@@ -20,6 +20,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 @RestController("miniProgramSocialsAuthorizations")
@@ -34,10 +36,13 @@ public class SocialsAuthorizations {
     public UnityResponse createToken(
         @PathVariable("socialType") @AccessSocialType String socialType,
         @Valid @RequestBody CreateSocialAuthorizationTokenRequest request
-    ) throws AlipayApiException {
+    ) throws AlipayApiException, IOException, URISyntaxException, InterruptedException {
         Object token = null;
         if (Objects.equals(SocialType.ALIPAY.toString(), socialType)) {
             token = authorizationService.alipayAuthorize(request);
+        }
+        if (Objects.equals(SocialType.TT.toString(), socialType)) {
+            token = authorizationService.ttAuthorize(request);
         }
 
         return UnityResponse.builder()

@@ -26,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,6 +40,7 @@ public class SocialAuthorizationService {
     @Autowired private JWTUtil jwtUtil;
     @Autowired private UserRepository userRepository;
     @Autowired private UserCouponService userCouponService;
+    @Autowired private TTClientService ttClientService;
 
     @Transactional
     public CreateAuthorizationTokenResponse alipayAuthorize(CreateSocialAuthorizationTokenRequest request) throws AlipayApiException {
@@ -81,5 +84,16 @@ public class SocialAuthorizationService {
             .tokenType(res.getTokenType())
             .isNewUser(alipayAccount.getNickName() == null)
             .build();
+    }
+
+    /**
+     * 字节授权
+     * @param request
+     * @return
+     */
+    public CreateAuthorizationTokenResponse ttAuthorize(CreateSocialAuthorizationTokenRequest request) throws IOException, URISyntaxException, InterruptedException {
+        ttClientService.auth(request.getAuthorizationCode());
+
+        return CreateAuthorizationTokenResponse.builder().build();
     }
 }

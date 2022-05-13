@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("miniProgramViolation")
+@RestController("miniProgramViolations")
 @RequestMapping("/api/v1/miniProgram/violations")
 @Slf4j
 @Validated

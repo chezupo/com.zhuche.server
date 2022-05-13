@@ -20,14 +20,11 @@ public class AlipayUtil {
     @Value("${alipay.alipayAESKey}")
     private String decryptKey;
 
-    @Autowired
-    AlipayClient alipayClient;
-
     @Value("${alipay.alipayPublicCertPath}")
     private String alipayPublicCertPath;
 
    public String decryptContentPhoneNumber(String encryptContent) throws Exception {
-       final String ALIPAY_PUBLIC_CERT_PATH = ClassLoader.getSystemResource(alipayPublicCertPath).getPath();
+       final String ALIPAY_PUBLIC_CERT_PATH = alipayPublicCertPath;
        String alipayPublicKey = AlipaySignature.getAlipayPublicKey(ALIPAY_PUBLIC_CERT_PATH);
        String signType = "RSA2";
        String charset = "UTF-8";

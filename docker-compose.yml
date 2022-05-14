@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    springBoot:
+        image: wuchuheng/a1001-zhuche:0.0.4
+        build: "./"
+        ports:
+            -   "6000:8080"
+        volumes:
+            - "./src/main/resources/certificates:/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates"
+        command:
+            - /bin/sh
+            - -c
+            - |
+                ls -ahl /Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates/ &&
+                java -jar /app.jar

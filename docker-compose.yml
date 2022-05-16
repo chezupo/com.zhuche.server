@@ -2,7 +2,7 @@ version: '3'
 
 services:
     springBoot:
-        image: wuchuheng/a1001-zhuche:0.0.9
+        image: wuchuheng/a1001-zhuche:0.0.10
         build: "./"
         ports:
             -   "6000:8080"

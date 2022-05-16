@@ -2,7 +2,7 @@ version: '3'
 
 services:
     springBoot:
-        image: wuchuheng/a1001-zhuche:0.0.4
+        image: wuchuheng/a1001-zhuche:0.0.9
         build: "./"
         ports:
             -   "6000:8080"
@@ -13,4 +13,4 @@ services:
             - -c
             - |
                 ls -ahl /Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates/ &&
-                java -jar /app.jar
+                java -Duser.timezone="Asia/Shanghai" -jar /app.jar

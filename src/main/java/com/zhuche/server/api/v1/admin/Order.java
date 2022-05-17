@@ -12,6 +12,7 @@ import com.zhuche.server.validators.order.CheckOrderStatusMustBePickUp;
 import com.zhuche.server.validators.order.CheckOrderStatusMustBeReturning;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +31,10 @@ public class Order {
     })
     public UnityResponse getOrders(
         @PathParam("page") Integer page,
-        @PathParam("size") Integer size
+        @PathParam("size") Integer size,
+        @Param("tradeNo") String tradeNo
     ) {
-        final var data = this.orderService.getOrderPageData(page, size);
+        final var data = this.orderService.getOrderPageData(page, size, tradeNo);
 
         return UnityResponse.builder()
             .data(data)

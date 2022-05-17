@@ -16,6 +16,7 @@ import com.zhuche.server.validators.social.AccessSocialType;
 import com.zhuche.server.validators.store.HasStoreValidator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

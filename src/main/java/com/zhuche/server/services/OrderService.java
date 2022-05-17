@@ -24,7 +24,6 @@ import com.zhuche.server.repositories.*;
 import com.zhuche.server.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -61,6 +60,9 @@ public class OrderService {
 
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
+
+    @Value("${alipay.pid}")
+    private String alipayPid;
 
     @Value("${alipay.alipayOvertimeNoticeUrl}")
     private String alipayOvertimeNoticeUrl;
@@ -229,9 +231,10 @@ public class OrderService {
      * 获取订单分页数据
      * @param page
      * @param size
+     * @param tradeNo
      * @return
      */
-    public PageFormat getOrderPageData(Integer page, Integer size) {
+    public PageFormat getOrderPageData(Integer page, Integer size, String tradeNo) {
         page = page != null ? --page : 0;
         size = size != null ? size : 10;
         Pageable pagingSort = PageRequest.of(page, size, Sort.by("id").descending());
@@ -241,27 +244,26 @@ public class OrderService {
             if (!authUtil.isAdmin()) {
                 final var me = jwtUtil.getUser();
                 maps.add(
-                    builder.equal(root.get("startStore").get("admin").get("id").as(Long.class), me.getId())
-                );
-                maps.add(
-                    builder.equal(root.get("endStore").get("admin").get("id").as(Long.class), me.getId())
+                    builder.or(
+                        builder.equal(root.get("startStore").get("admin").get("id").as(Long.class), me.getId()),
+                        builder.equal(root.get("endStore").get("admin").get("id").as(Long.class), me.getId())
+                    )
                 );
             }
-
+            if(tradeNo != null) {
+                maps.add( builder.like(root.get("alipayOutTradeNo").as(String.class), "%" + tradeNo +  "%"));
+            }
+            maps.add( builder.isNotNull(root.get("id").as(Long.class)) );
             Predicate[] pre = new Predicate[maps.size()];
-            Predicate or = builder.or(maps.toArray(pre));
-            query.where(or);
+            Predicate and = builder.and(maps.toArray(pre));
+            query.where(and);
+
             List<javax.persistence.criteria.Order> orders = new ArrayList<>();
             orders.add(builder.desc(root.get("id")));
 
             return query.orderBy(orders).getRestriction();
         };
-        Page pageDate;
-        if (authUtil.isAdmin())  {
-            pageDate = orderRepository.findAll(pagingSort);
-        } else {
-            pageDate = orderRepository.findAll(sf, pagingSort);
-        }
+        var pageDate = orderRepository.findAll(sf, pagingSort);
 
         return this.paginationUtil.covertPageFormat(pageDate);
     }
@@ -281,7 +283,7 @@ public class OrderService {
         order.setOutRequestNo(outRequestNo);
         model.setOutOrderNo(outRequestNo);//替换为实际订单号
         model.setOutRequestNo(outRequestNo);//替换为实际请求单号，保证每次请求都是唯一的
-        model.setPayeeUserId("2088241974604591");//payee_user_id,Payee_logon_id不能同时为空
+        model.setPayeeUserId(alipayPid);//payee_user_id,Payee_logon_id不能同时为空
         model.setProductCode("PRE_AUTH_ONLINE");//PRE_AUTH_ONLINE为固定值，不要替换
         model.setAmount(String.valueOf(order.getDeposit()));
         model.setPayTimeout("15d");

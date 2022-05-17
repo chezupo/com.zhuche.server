@@ -140,4 +140,8 @@ public class CarService {
     public Store getStoreById(Long id) {
         return storeRepository.findById(id).get();
     }
+
+    public Car getCarsById(Long id) {
+        return carRepository.findById(id).get();
+    }
 }

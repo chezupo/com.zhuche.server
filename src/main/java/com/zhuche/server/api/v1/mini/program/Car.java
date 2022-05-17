@@ -2,6 +2,7 @@ package com.zhuche.server.api.v1.mini.program;
 
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.Comment;
+import com.zhuche.server.services.CarService;
 import com.zhuche.server.services.CommentService;
 import com.zhuche.server.validators.car.CheckCarIdMustBeExist;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 @Validated
 public class Car {
     private final CommentService commentService;
-
+    private final CarService carService;
 
     @GetMapping("/{id}/comments")
     public UnityResponse getCarComments(
@@ -29,5 +30,15 @@ public class Car {
        return UnityResponse.builder()
            .data(comments)
            .build();
+    }
+
+    @GetMapping("/{id}")
+    public UnityResponse getCar(
+        @PathVariable("id") @CheckCarIdMustBeExist Long id
+    ) {
+        final com.zhuche.server.model.Car car = carService.getCarsById(id);
+        return UnityResponse.builder()
+            .data(car)
+            .build();
     }
 }

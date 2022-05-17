@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,4 +39,7 @@ public class MiniProgramStoreService {
         return storeRepository.findAll(sf);
     }
 
+    public Store getStoreByLocation(@NotNull float lat, @NotNull float lng) {
+        return storeRepository.findByLocation(lat, lng);
+    }
 }

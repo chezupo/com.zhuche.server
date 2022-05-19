@@ -14,8 +14,10 @@ import com.alipay.api.response.AlipayFundAuthOrderUnfreezeResponse;
 import com.alipay.api.response.AlipayTradeCreateResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
+import com.zhuche.server.dto.request.order.AlipayOrderRelatBody;
 import com.zhuche.server.dto.request.order.AlipayOvertimeTradeBody;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
+import com.zhuche.server.dto.request.order.UpdateOrderReletRequest;
 import com.zhuche.server.dto.request.order.command.CreateOrderCommandRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
@@ -66,6 +68,9 @@ public class OrderService {
 
     @Value("${alipay.alipayOvertimeNoticeUrl}")
     private String alipayOvertimeNoticeUrl;
+
+    @Value("${alipay.alipayReletNoticeUrl}")
+    private String alipayReletNoticeUrl;
 
     @Value("${alipay.alipayFreezeNoticeUrl}")
     private String alipayFreezeNoticeUrl;
@@ -619,5 +624,57 @@ public class OrderService {
             );
             log.info("overtime transaction: {}", transaction);
         }
+    }
+
+    public String createReletTrade(Long id, UpdateOrderReletRequest updateOrderReletRequest) throws AlipayApiException {
+        final Order order = orderRepository.findById(id).get();
+        final User me = jwtUtil.getUser();
+        final var amount = Math.round(order.getCar().getRent() * updateOrderReletRequest.getDays() * 100 ) / 100.0;
+        final var title = String.format("%s-租车续费(%s天)", order.getTitle(), updateOrderReletRequest.getDays());
+        AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
+        request.setNotifyUrl(alipayReletNoticeUrl);
+        JSONObject bizContent = new JSONObject();
+        bizContent.put("out_trade_no", TradeUtil.generateOutTradeNo());
+        bizContent.put("total_amount", amount);
+        bizContent.put("subject", title);
+        bizContent.put("buyer_id", me.getAlipayAccount().getUserId());
+        bizContent.put("timeout_express", alipayTimeoutExpress);
+        bizContent.put("body", JSON.toJSONString(
+            AlipayOrderRelatBody
+                .builder()
+                .orderId(order.getId())
+                .days(updateOrderReletRequest.getDays())
+                .amount(amount)
+                .build()
+        ));
+        request.setBizContent(bizContent.toString());
+        AlipayTradeCreateResponse response = alipayClient.certificateExecute(request);
+        if (response.isSuccess()) {
+            return response.getTradeNo();
+        } else {
+            throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "支付宝调用失败");
+        }
+    }
+
+    @Transactional
+    public void relateOrder(String body, String subject, String trade_no, String out_trade_no) {
+        var data = JSON.parseObject(body, AlipayOrderRelatBody.class);
+        var order = orderRepository.findById(data.getOrderId()).get();
+        order.setEndTimeStamp( order.getEndTimeStamp() + data.getDays() * 60 * 60 * 24 * 1000 );
+        orderRepository.save(order);
+        transactionRepository.save(
+            Transaction.builder()
+                .remark("")
+                .user(order.getUser())
+                .status( TransactionStatus.FINISHED )
+                .balance(order.getUser().getBalance())
+                .amount(-data.getAmount())
+                .title(subject)
+                .payType(PayType.ALIPAY)
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                .alipayOutTradeNo(out_trade_no)
+                .tradeNo(trade_no)
+                .build()
+        );
     }
 }

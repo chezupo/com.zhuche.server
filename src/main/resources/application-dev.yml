@@ -1,8 +1,8 @@
 spring:
     datasource:
-        url: jdbc:mysql://192.168.0.101:3306/com_zhuche_server?characterEncoding=utf-8&serverTimezone=GMT%2B8&createDatabaseIfNotExist=true
-        username: root
-        password: 12345678
+        url: jdbc:mysql://42.193.248.205:3306/zhuche?characterEncoding=utf-8&serverTimezone=GMT%2B8&createDatabaseIfNotExist=true
+        username: zhuche
+        password: com_zhuche_server
         driver-class-name: com.mysql.jdbc.Driver
     jpa:
         show-sql: true
@@ -18,23 +18,26 @@ alipay:
     # 本地私钥
     privateKey: "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDKkPbDYi/0oDjBfFCMZfvOT78ZM8aBN+6v8rvAxrOR3kiPN/IUE3odV+WBpXqwTAIWzRincJjsLpk+f8aHbUaSI5XfdMYgreqfZqXsdtDoDljDwV+psjlR+U6IBsvTLJYqHfhBQsvwnXsxFNeuGwDsZJ/z7UVQuH9QMw2bZKc6xvzUWIOyNu5Eg2w56FGpVlHxlbmu1sQT3e6focu6G+h6XdbjFjXdx7zjsNYpU25uuqG9SooKKc0DOP5pRaUqkdIJS0e21wbkhiAHQQxCFmvyG3D0bcRGmy1MfPtPdh6z513s2Sfk/GndPuIxJVnmxYELqlvp+KN+DEiFh7SkvA5hAgMBAAECggEAJ+Goo8kmFeyhn/6AwVOm4vSydBzMfU5s0PliW88DNbnk4UWrhKZdCX/vsLnK0QD1/FU/AGBby0xVYYe4p5stJMKa1FbiVzbGlcGY81hlQvroIQpmcjujq28BNijYYmhJ3FrwMLEdA++NfJlU6XNpmCErmNPjLMRWVIzopeqIPjrrf57YfPLOUHei/lwT7qHiZEx+BO3DAeouJqjhgnwF26NOwwG2uilUMQt8BWGRiqD3EyJR3bsUYp0U3+/Z6Go0nzMxk4DeGgrbWhWm5P1HcCz+pABjlSROZxdgetZ2bUmmvxQPT9IhlvrZvX7bzwrWAh6A3Q9OEX+Cavq40RYx0QKBgQDq+dQMuFKWK8TbQHoxorpz/N+W789NsmWXiZx4ulE2YNCNvlfucXi8JbJ6uzXTGGryz1TaOUAAwzbSox7GIFez5SKw6Ix3Ta3cMcceGOyXVqJV0E/576PYQplnw3SyaM7TNcZfoijCI8ylMPH13M3okxqXtTWtwgL7VQMmHZGETQKBgQDcsMlPAH4zaAwX3nIlm1Deud4HQkwXaVK4uToTiuHDYzIrwPTsshYDsOKyyjPtwAK1alS96+rEickUo8s2QLnon7AutaQHYxUHM/S4/ut70A+tlS+YbkLLR3pP3gHBS1osTN8wi1WfAyT3NyWJQup//ST8bCcINbSqDW/yWTxMZQKBgFA/jinh8WKUBCEU/iZheugN3pZ/w/63BHciaivZBc9adR9TeFhYrHElNrUvpow3dJ8EK+hzUOZxxRFe4C2t8gXgJV7hrMc54jynS2d9/58X2U0RXZ7wNrau2BFV8U7U+H2tidgzW1QiQcvQ0XG0PSZGxvg0zOZQsg//0pl706ypAoGACp4SwVNDvxNlaYyRL0/+nwiQLwc4g/PUQADhU2leHTlbg5Ff9zdGKd1LutBRmUGgn7vC4fREsjnyy6RptW19xDxSjJy+jIBu1Y7hWjkheS50YqSHyqybWA5TSx5iNTt71h/IqRw6/VB4adBkZOssPwYdzmshoZp726aT2TQD26UCgYA/lhJ5ImIwFfr9zt3wwBbJ24l1Mf4F7HDCK+JPpNs3uazZ3CYcNJVF/nhFSts5vc6/LygW/+P2kVvP4kA6E7m9QF8P32l167O31HNujxEEapH7BIqEFj1Zv7dl7tMdBjQtq8D0rkYJCev+D5kuaGkfCqlGWFaADTO8UEeI0LVCiQ=="
     # 应用公钥证书路径
-    appCertPath: "certificates/appCertPublicKey_2021002192682271.cer"
+    appCertPath: "/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates/appCertPublicKey_2021002192682271.cer"
     # 支付宝公钥证书文件路径
-    alipayPublicCertPath: "certificates/alipayCertPublicKey_RSA2.cer"
+
+    alipayPublicCertPath: "/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates/alipayCertPublicKey_RSA2.cer"
     # 支付宝CA根证书文件路径
-    rootCertPath: "certificates/alipayRootCert.cer"
+    rootCertPath: "/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates/alipayRootCert.cer"
     appid: "2021002192682271"
     # 接口内容加密，用于解密手机号
     alipayAESKey: "+S+vywjRukcn0vrcYFAdvA=="
-    alipayNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice"
+    alipayNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice"
     # 支付宝充值异步通知
-    alipayTopUpNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/topUp"
+    alipayTopUpNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/topUp"
     # 支付宝违章扣款异步通知
-    alipayViolationNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/violation"
+    alipayViolationNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/violation"
     # 交结订单
-    alipayFreezeNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/freeze"
+    alipayFreezeNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/freeze"
     # 订单超时订单
-    alipayOvertimeNoticeUrl: "https://a1001zhuche.jds.wuchuheng.com/api/v1/miniProgram/alipayNotice/overTime"
+    alipayOvertimeNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/overTime"
+    # 续费订单通知
+    alipayReletNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/relet"
     # 收单账号 用于冻结订单时使用 https://b.alipay.com/page/store-management/infomanage 在这里查看
     pid: "2088241974604591"
 
@@ -85,3 +88,4 @@ initLogo: "2022-2-20-1-27-36-1645291656873-logo.png"
 amap:
     key: "f3e1159fa8f8ca61d08ef96412a9c172"
     searchKey: "1fe634997b7a344ec1d8a1acd047ae32"
+

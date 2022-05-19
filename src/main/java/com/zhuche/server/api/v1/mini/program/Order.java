@@ -5,13 +5,12 @@ import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
+import com.zhuche.server.dto.request.order.UpdateOrderReletRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.OrderService;
-import com.zhuche.server.validators.order.CheckOrderMustBelongMeById;
-import com.zhuche.server.validators.order.CheckOrderStatusMustBeExpired;
-import com.zhuche.server.validators.order.CheckOrderStatusMustBeUsing;
+import com.zhuche.server.validators.order.*;
 import com.zhuche.server.validators.social.AccessSocialType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -122,6 +121,25 @@ public class Order {
         final String trade = orderService.createAlipayExpiredTrade(id);
         return UnityResponse.builder()
             .data(trade)
+            .build();
+    }
+
+
+    /**
+     * 订单续租
+     * @param id
+     * @return
+     * @throws AlipayApiException
+     */
+    @PutMapping("/{id}/expired")
+    public UnityResponse relet(
+        @PathVariable("id") @CheckOrderMustBelongMeById Long id,
+        @RequestBody @Valid UpdateOrderReletRequest updateOrderReletRequest
+    ) throws AlipayApiException {
+        final String tradeNo = orderService.createReletTrade(id, updateOrderReletRequest);
+
+        return UnityResponse.builder()
+            .data(tradeNo)
             .build();
     }
 

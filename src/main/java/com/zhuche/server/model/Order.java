@@ -67,6 +67,20 @@ public class Order extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 订单状态
 
+    private String contract;
+
+    public void setContract(String url) {
+        final String prefix = ConfigurationService.getPrefixUrl() + "/";
+        contract = url.replace(prefix, "");
+    }
+
+    public String getContract() {
+        if (contract == null) {
+            return "";
+        }
+        return ConfigurationService.getPrefixUrl() + "/" + contract;
+    }
+
     @Transient
     private double expiredDays; // 超天数
 

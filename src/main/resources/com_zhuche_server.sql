@@ -3987,6 +3987,7 @@ CREATE TABLE `orders` (
                           `rent` double DEFAULT NULL,
                           `start_time_stamp` bigint DEFAULT NULL,
                           `status` varchar(255) DEFAULT NULL,
+                          `contract` varchar(255) DEFAULT NULL,
                           `car_id` bigint DEFAULT NULL,
                           `end_store_id` bigint DEFAULT NULL,
                           `start_store_id` bigint DEFAULT NULL,

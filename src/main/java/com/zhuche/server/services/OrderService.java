@@ -14,10 +14,7 @@ import com.alipay.api.response.AlipayFundAuthOrderUnfreezeResponse;
 import com.alipay.api.response.AlipayTradeCreateResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
-import com.zhuche.server.dto.request.order.AlipayOrderRelatBody;
-import com.zhuche.server.dto.request.order.AlipayOvertimeTradeBody;
-import com.zhuche.server.dto.request.order.CreateOrderRequest;
-import com.zhuche.server.dto.request.order.UpdateOrderReletRequest;
+import com.zhuche.server.dto.request.order.*;
 import com.zhuche.server.dto.request.order.command.CreateOrderCommandRequest;
 import com.zhuche.server.dto.response.PageFormat;
 import com.zhuche.server.exceptions.MyRuntimeException;
@@ -34,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -427,11 +425,13 @@ public class OrderService {
     /**
      * 确定取车
      * @param id
+     * @param request
      * @return
      */
-    public Order confirmPickUpCarOrder(Long id) {
+    public Order confirmPickUpCarOrder(Long id, @Valid ConfirmOrderRequest request) {
         final Order order = orderRepository.findById(id).get();
         order.setStatus(OrderStatus.USING);
+        order.setContract(request.getContract());
 
         return orderRepository.save(order);
     }

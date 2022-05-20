@@ -2,6 +2,7 @@ package com.zhuche.server.api.v1.admin;
 
 import com.alipay.api.AlipayApiException;
 import com.zhuche.server.config.interceptors.Permission;
+import com.zhuche.server.dto.request.order.ConfirmOrderRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.Role;
@@ -16,6 +17,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 @RestController
@@ -51,9 +53,10 @@ public class Order {
         type = LogType.UPDATED
     )
     public UnityResponse confirmPickUpCarOrder(
-        @PathVariable("id") @CheckOrderStatusMustBePickUp @CheckOrderBelongsToMeForStartStore Long id
+        @PathVariable("id") @CheckOrderStatusMustBePickUp @CheckOrderBelongsToMeForStartStore Long id,
+        @RequestBody @Valid ConfirmOrderRequest request
     ) {
-        final com.zhuche.server.model.Order order = orderService.confirmPickUpCarOrder(id);
+        final com.zhuche.server.model.Order order = orderService.confirmPickUpCarOrder(id, request);
 
         return UnityResponse.builder()
             .data(order)

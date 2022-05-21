@@ -46,4 +46,10 @@ public class MeResponse {
     private BigDecimal commission; // 佣金
     private BigDecimal withdrawnCommission; // 已提现佣金
     private BigDecimal withdrawalInProgressCommission; // 提现中佣金
+
+    private String idCarFrontal;
+
+    private String idCarBack;
+
+    private String driverLicense;
 }

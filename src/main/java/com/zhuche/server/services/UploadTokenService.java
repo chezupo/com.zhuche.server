@@ -26,10 +26,14 @@ public class UploadTokenService {
     private String bucket;
 
     @Value("${disk.qiniu.prefixUrl}")
-    private String prefixUrl;
+    public String prefixUrl;
+
+    public String getToken() {
+         return Auth.create(accessKey, secretkey).uploadToken(bucket);
+    }
 
     public CreateTokenResponse createToken() {
-        var token = Auth.create(accessKey, secretkey).uploadToken(bucket);
+        String token = getToken();
         return CreateTokenResponse.builder()
             .accessToken(token)
             .prefixUrl(prefixUrl)

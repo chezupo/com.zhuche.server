@@ -14,6 +14,7 @@ import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
+import com.zhuche.server.dto.request.me.UploadLicenseRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.dto.response.me.MeResponse;
 import com.zhuche.server.model.Role;
@@ -116,6 +117,22 @@ public class Me {
 
         return UnityResponse.builder()
             .data(qr)
+            .build();
+    }
+
+    /**
+     * 上传证件
+     * @return
+     */
+    @PutMapping("/me/license")
+    @Permission(roles = {Role.ROLE_USER})
+    public UnityResponse updateLicense(
+        @RequestBody UploadLicenseRequest request
+    ) {
+        var me = meService.updateLicense(request);
+
+        return UnityResponse.builder()
+            .data(me)
             .build();
     }
 }

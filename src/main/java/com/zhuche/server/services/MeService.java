@@ -17,6 +17,7 @@ import com.zhuche.server.contexts.AuthContext;
 import com.zhuche.server.dto.mapper.AlipayMapper;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
+import com.zhuche.server.dto.request.me.UploadLicenseRequest;
 import com.zhuche.server.dto.response.me.MeResponse;
 import com.zhuche.server.dto.response.me.promotion.PromotionInfoResponse;
 import com.zhuche.server.model.Order;
@@ -126,5 +127,21 @@ public class MeService {
         result.setPromotionLevel2Users(promotionLevel2Users);
 
        return result;
+    }
+
+    public MeResponse updateLicense(UploadLicenseRequest request) {
+        var me = jwtUtil.getUser();
+        if (request.getIdCarFrontal() != null) {
+            me.setIdCarFrontal(request.getIdCarFrontal());
+        }
+        if (request.getIdCarBack() != null) {
+            me.setIdCarBack(request.getIdCarBack());
+        }
+        if (request.getDriverLicense() != null) {
+            me.setDriverLicense(request.getDriverLicense());
+        }
+        userRepository.save(me);
+
+        return alipayMapper.AlipayAccountToMeResponse(me.getAlipayAccount());
     }
 }

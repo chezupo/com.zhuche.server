@@ -3665,6 +3665,10 @@ CREATE TABLE `user` (
                         `withdrawn_commission` decimal(10,2) DEFAULT NULL,
                         `withdrawal_in_progress_commission` decimal(10,2) DEFAULT NULL,
                         `p_id` bigint DEFAULT NULL,
+                        `id_car_frontal` varchar(255) DEFAULT NULL,
+                        `id_car_back` varchar(255) DEFAULT NULL,
+                        `id_car_back` varchar(255) DEFAULT NULL,
+                        `driver_license` varchar(255) DEFAULT NULL,
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb3;
 

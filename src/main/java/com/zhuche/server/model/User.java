@@ -3,6 +3,7 @@ package com.zhuche.server.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zhuche.server.util.ConfigurationUtil;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
@@ -37,6 +38,36 @@ public class User extends BaseEntity {
     private Boolean isEnabled;
 
     private Double balance;
+
+    private String idCarFrontal; // 身份证正面
+
+    public void setIdCarFrontal(String newIdCarFrontal) {
+        idCarFrontal = ConfigurationUtil.fullUrlConvertKey(newIdCarFrontal);
+    }
+
+    public String getIdCarFrontal() {
+        return ConfigurationUtil.fullUrl(idCarFrontal);
+    }
+
+    private String idCarBack; // 身份背面
+
+    public void setIdCarBack(String url) {
+        idCarBack = ConfigurationUtil.fullUrlConvertKey(url);
+    }
+
+    public String getIdCarBack() {
+        return ConfigurationUtil.fullUrl(idCarBack);
+    }
+
+    private String driverLicense; // 驾驶证
+
+    public void setDriverLicense(String url) {
+        driverLicense = ConfigurationUtil.fullUrlConvertKey(url);
+    }
+
+    public String getDriverLicense() {
+        return ConfigurationUtil.fullUrl(driverLicense);
+    }
 
     @Column(name="commission", columnDefinition = "decimal", precision = 2, scale = 0)
     private BigDecimal commission; // 佣金

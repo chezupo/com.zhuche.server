@@ -15,7 +15,10 @@ public abstract class AlipayMapper {
         @Mapping(source = "user.balance", target = "balance"),
         @Mapping(source = "user.commission", target = "commission"),
         @Mapping(source = "user.withdrawnCommission", target = "withdrawnCommission"),
-        @Mapping(source = "user.withdrawalInProgressCommission", target = "withdrawalInProgressCommission")
+        @Mapping(source = "user.withdrawalInProgressCommission", target = "withdrawalInProgressCommission"),
+        @Mapping(source = "user.idCarFrontal", target = "idCarFrontal"),
+        @Mapping(source = "user.idCarBack", target = "idCarBack"),
+        @Mapping(source = "user.driverLicense", target = "driverLicense")
     })
     public abstract MeResponse AlipayAccountToMeResponse(AlipayAccount alipayAccount);
 }

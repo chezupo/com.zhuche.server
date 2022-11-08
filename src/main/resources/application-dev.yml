@@ -27,17 +27,17 @@ alipay:
     appid: "2021002192682271"
     # 接口内容加密，用于解密手机号
     alipayAESKey: "+S+vywjRukcn0vrcYFAdvA=="
-    alipayNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice"
+    alipayNoticeUrl: "https://a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice"
     # 支付宝充值异步通知
-    alipayTopUpNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/topUp"
+    alipayTopUpNoticeUrl: "https://a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/topUp"
     # 支付宝违章扣款异步通知
-    alipayViolationNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/violation"
+    alipayViolationNoticeUrl: "https://a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/violation"
     # 交结订单
-    alipayFreezeNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/freeze"
+    alipayFreezeNoticeUrl: "https://a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/freeze"
     # 订单超时订单
-    alipayOvertimeNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/overTime"
+    alipayOvertimeNoticeUrl: "https://a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/overTime"
     # 续费订单通知
-    alipayReletNoticeUrl: "https://dev.a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/relet"
+    alipayReletNoticeUrl: "https://a1001zhuche.wuchuheng.com/api/v1/miniProgram/alipayNotice/relet"
     # 收单账号 用于冻结订单时使用 https://b.alipay.com/page/store-management/infomanage 在这里查看
     pid: "2088241974604591"
 

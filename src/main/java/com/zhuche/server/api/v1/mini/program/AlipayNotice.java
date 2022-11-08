@@ -23,6 +23,41 @@ public class AlipayNotice {
     private final OrderService orderService;
     private final TransactionService transactionService;
 
+    /**
+     * 订单支付通知
+     * @param notify_time
+     * @param notify_type
+     * @param notify_id
+     * @param app_id
+     * @param charset
+     * @param version
+     * @param sign_type
+     * @param sign
+     * @param trade_no
+     * @param out_trade_no
+     * @param out_biz_no
+     * @param buyer_id
+     * @param buyer_logon_id
+     * @param seller_id
+     * @param seller_email
+     * @param trade_status
+     * @param total_amount
+     * @param receipt_amount
+     * @param invoice_amount
+     * @param buyer_pay_amount
+     * @param point_amount
+     * @param refund_fee
+     * @param subject
+     * @param body
+     * @param gmt_create
+     * @param gmt_payment
+     * @param gmt_refund
+     * @param gmt_close
+     * @param fund_bill_list
+     * @param passback_params
+     * @param voucher_detail_list
+     * @return
+     */
     @PostMapping
     public String orderNotice(
         @PathParam("notify_time") String notify_time, // 通知的发送时间。格式为yyyy-MM-dd HH:mm:ss 2018-08-17 15:45:32

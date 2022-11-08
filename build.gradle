@@ -8,8 +8,13 @@ group = 'com.zhuche'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+//repositories {
+//    mavenCentral()
+//}
 repositories {
-    mavenCentral()
+    maven{ url 'https://maven.aliyun.com/repository/central' }
+    maven{ url 'https://maven.aliyun.com/repository/public' }
+    maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
 }
 
 dependencies {

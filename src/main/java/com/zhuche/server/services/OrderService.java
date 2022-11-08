@@ -162,7 +162,7 @@ public class OrderService {
             .startTimeStamp(query.getStartTimeStamp())
             .endTimeStamp(query.getEndTimeStamp())
             .remark(query.getRemark())
-            .status(OrderStatus.CREDITING)
+            .status(OrderStatus.PAYING)
             .startStore(starStore)
             .endStore(endStore)
             .user(me)

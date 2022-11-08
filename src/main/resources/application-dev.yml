@@ -47,6 +47,13 @@ tt:
     #字节 appSecret
     secret: "d4aca2280f2398fbe9635b80f40ab38ca807640c"
 
+wx:
+    appid: "wx6c5b672991b4f00a"
+    secret: "44977f14c1a90a5483ffac1da3bfee86"
+    token: ""
+    aesKey: ""
+    msgDataFormat: JSON
+
 disk:
     qiniu:
         accessKey: "ZKQryAVX-9dfvZhNizfA2AcTBX9R8uT-2QtdCEI1"

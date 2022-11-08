@@ -15,6 +15,7 @@ import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.services.SocialAuthorizationService;
 import com.zhuche.server.validators.social.AccessSocialType;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +37,15 @@ public class SocialsAuthorizations {
     public UnityResponse createToken(
         @PathVariable("socialType") @AccessSocialType String socialType,
         @Valid @RequestBody CreateSocialAuthorizationTokenRequest request
-    ) throws AlipayApiException, IOException, URISyntaxException, InterruptedException {
+    ) throws AlipayApiException, IOException, URISyntaxException, InterruptedException, WxErrorException {
         Object token = null;
+
         if (Objects.equals(SocialType.ALIPAY.toString(), socialType)) {
             token = authorizationService.alipayAuthorize(request);
-        }
-        if (Objects.equals(SocialType.TT.toString(), socialType)) {
+        } else if (Objects.equals(SocialType.TT.toString(), socialType)) {
             token = authorizationService.ttAuthorize(request);
+        } else if (Objects.equals(SocialType.WECHAT.toString(), socialType)) {
+            token = authorizationService.wechatAuthorize(request);
         }
 
         return UnityResponse.builder()

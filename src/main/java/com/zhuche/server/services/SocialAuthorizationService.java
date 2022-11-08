@@ -8,6 +8,9 @@
 
 package com.zhuche.server.services;
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipaySystemOauthTokenRequest;
@@ -18,10 +21,13 @@ import com.zhuche.server.dto.response.social.authorization.CreateAuthorizationTo
 import com.zhuche.server.model.AlipayAccount;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.model.User;
+import com.zhuche.server.model.WechatAccount;
 import com.zhuche.server.repositories.AlipayAccountRepository;
 import com.zhuche.server.repositories.UserRepository;
+import com.zhuche.server.repositories.WechatAccountRepository;
 import com.zhuche.server.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,10 +43,12 @@ import java.util.List;
 public class SocialAuthorizationService {
     @Autowired private AlipayClient alipayClient;
     @Autowired private AlipayAccountRepository alipayAccountRepository;
+    @Autowired private WechatAccountRepository wechatAccountRepository;
     @Autowired private JWTUtil jwtUtil;
     @Autowired private UserRepository userRepository;
     @Autowired private UserCouponService userCouponService;
     @Autowired private TTClientService ttClientService;
+    @Autowired private WxMaService wxMaService;
 
     @Transactional
     public CreateAuthorizationTokenResponse alipayAuthorize(CreateSocialAuthorizationTokenRequest request) throws AlipayApiException {
@@ -95,5 +103,50 @@ public class SocialAuthorizationService {
         ttClientService.auth(request.getAuthorizationCode());
 
         return CreateAuthorizationTokenResponse.builder().build();
+    }
+
+    /**
+     * 微信授权
+     * @param request
+     * @return
+     */
+    @Transactional
+    public Object wechatAuthorize(CreateSocialAuthorizationTokenRequest request) throws WxErrorException {
+        WxMaJscode2SessionResult response = wxMaService.getUserService().getSessionInfo(request.getAuthorizationCode());
+        log.info("{}", response);
+        WechatAccount wechatAccount = wechatAccountRepository.findByWechatUserid(response.getOpenid());
+        User user;
+        if (wechatAccount == null) {
+                wechatAccount = WechatAccount.builder()
+                .openId(response.getOpenid())
+                .build();
+            var newUser = User.builder()
+                .roles(List.of(Role.ROLE_USER))
+                .wechatAccount(wechatAccount)
+                .build();
+            newUser.setIsEnabled(true);
+            if ( request.getPid() != null ) {
+                User pUser = userRepository.findUserById(request.getPid());
+                if (pUser != null) {
+                    newUser.setUser(pUser);
+                }
+            }
+            userRepository.save(newUser);
+            user = newUser;
+            userCouponService.takeCouponToNewUser(newUser);
+            wechatAccount = user.getWechatAccount();
+        } else {
+            user = wechatAccount.getUser();
+        }
+
+
+        final var res = jwtUtil.generateToken(user, SocialType.WECHAT);
+        return CreateAuthorizationTokenResponse.builder()
+            .accessToken(res.getAccessToken())
+            .roles(user.getRoles())
+            .expiration(res.getExpiration())
+            .tokenType(res.getTokenType())
+            .isNewUser(wechatAccount.getNickName() == null)
+            .build();
     }
 }

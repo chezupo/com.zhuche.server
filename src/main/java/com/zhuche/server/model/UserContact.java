@@ -44,7 +44,8 @@ public class UserContact extends BaseEntity{
         "alipayAccount",
         "store",
         "comments",
-        "userCoupons"
+        "userCoupons",
+        "wechatAccount"
     })
    User user;
 }

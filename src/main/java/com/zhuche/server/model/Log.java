@@ -51,6 +51,11 @@ public class Log extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"alipayAccount", "store", "comments"})
+    @JsonIgnoreProperties({
+        "alipayAccount",
+        "store",
+        "comments",
+        "wechatAccount",
+    })
     private User user;
 }

@@ -95,6 +95,13 @@ public class User extends BaseEntity {
     })
     private AlipayAccount alipayAccount;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({
+        "hibernateLazyInitializer",
+        "user"
+    })
+    private WechatAccount wechatAccount;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"admin", "comments", "password"})
     private Store  store;

@@ -37,6 +37,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
     implementation 'org.springframework.boot:spring-boot-starter-aop:2.6.5'
     implementation 'com.qiniu:qiniu-java-sdk:7.10.3'
+    implementation 'com.github.binarywang:weixin-java-miniapp:4.4.4.B'
 }
 
 tasks.named('test') {

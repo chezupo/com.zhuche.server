@@ -25,22 +25,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @SuperBuilder
-@SQLDelete(sql = "UPDATE alipay_account SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE wechat_account SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
-public class AlipayAccount extends BaseEntity{
+public class WechatAccount extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accessToken;
-
-    private String refreshToken;
-
-    private String userId;
-
-    private String reExpiresIn;
-
-    private String expiresIn;
+    private String openId;
 
     private String avatar;
 
@@ -60,14 +52,15 @@ public class AlipayAccount extends BaseEntity{
 
     private Boolean isAuthorizeBaseInfo;
 
-    @OneToOne(mappedBy = "alipayAccount")
+    @OneToOne(mappedBy = "wechatAccount")
     @JsonIgnoreProperties({
         "roles",
         "password",
         "alipayAccount",
         "store",
         "comments",
-        "userCoupons"
+        "userCoupons",
+        "wechatAccount"
     })
    private User user;
 }

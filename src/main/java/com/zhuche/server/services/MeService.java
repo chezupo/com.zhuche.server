@@ -15,6 +15,7 @@ import com.alipay.api.response.AlipayOpenAppQrcodeCreateResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhuche.server.contexts.AuthContext;
 import com.zhuche.server.dto.mapper.AlipayMapper;
+import com.zhuche.server.dto.mapper.WechatMapper;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
 import com.zhuche.server.dto.request.me.UploadLicenseRequest;
@@ -22,6 +23,7 @@ import com.zhuche.server.dto.response.me.MeResponse;
 import com.zhuche.server.dto.response.me.promotion.PromotionInfoResponse;
 import com.zhuche.server.model.Order;
 import com.zhuche.server.model.User;
+import com.zhuche.server.model.WechatAccount;
 import com.zhuche.server.repositories.AlipayAccountRepository;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.UserRepository;
@@ -40,6 +42,7 @@ public class MeService {
     @Autowired private JWTUtil jwtUtil;
     @Autowired private UserRepository userRepository;
     @Autowired private AlipayMapper alipayMapper;
+    @Autowired private WechatMapper wechatMapper;
     @Autowired private AlipayUtil alipayUtil;
     @Autowired private AlipayAccountRepository alipayAccountRepository;
     @Autowired private AlipayClient alipayClient;
@@ -143,5 +146,28 @@ public class MeService {
         userRepository.save(me);
 
         return alipayMapper.AlipayAccountToMeResponse(me.getAlipayAccount());
+    }
+
+    public MeResponse getWechatMe() {
+        final User me = authContext.getMe();
+        WechatAccount wechatAccount =me.getWechatAccount();
+
+        return wechatMapper.wechatAccountToMeResponse(wechatAccount);
+    }
+
+    public MeResponse updateWechatMe(UpdateMeRequest request) {
+        final var me = authContext.getMe();
+        WechatAccount wechatAccount = me.getWechatAccount();
+        wechatAccount.setAvatar(request.getAvatar());
+        wechatAccount.setCity(request.getCity());
+        wechatAccount.setGender(request.getGender());
+        wechatAccount.setCode(request.getCode());
+        wechatAccount.setNickName(request.getNickName());
+        wechatAccount.setCountryCode(request.getCountryCode());
+        wechatAccount.setProvince(request.getProvince());
+        wechatAccount.setIsAuthorizeBaseInfo(true);
+        userRepository.save(me);
+
+        return wechatMapper.wechatAccountToMeResponse(wechatAccount);
     }
 }

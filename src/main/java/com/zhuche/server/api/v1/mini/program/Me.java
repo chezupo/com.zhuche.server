@@ -52,6 +52,8 @@ public class Me {
         MeResponse res = null;
         if (Objects.equals(social, SocialType.ALIPAY.toString())) {
             res =  meService.updateAlipayMe(request);
+        } else if (Objects.equals(social, SocialType.WECHAT.toString())) {
+            res =  meService.updateWechatMe(request);
         }
 
         return UnityResponse.builder()
@@ -67,6 +69,8 @@ public class Me {
         MeResponse res = null;
         if (Objects.equals(social, SocialType.ALIPAY.toString())) {
             res =  meService.getAlipayMe();
+        } else if (Objects.equals(social, SocialType.WECHAT.toString())) {
+            res =  meService.getWechatMe();
         }
 
         return UnityResponse.builder()

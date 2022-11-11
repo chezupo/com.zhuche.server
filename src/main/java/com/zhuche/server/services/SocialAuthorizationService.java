@@ -119,6 +119,7 @@ public class SocialAuthorizationService {
         if (wechatAccount == null) {
                 wechatAccount = WechatAccount.builder()
                 .openId(response.getOpenid())
+                .sessionKey(response.getSessionKey())
                 .build();
             var newUser = User.builder()
                 .roles(List.of(Role.ROLE_USER))
@@ -136,6 +137,8 @@ public class SocialAuthorizationService {
             userCouponService.takeCouponToNewUser(newUser);
             wechatAccount = user.getWechatAccount();
         } else {
+            wechatAccount.setSessionKey(response.getSessionKey());
+            wechatAccountRepository.save(wechatAccount);
             user = wechatAccount.getUser();
         }
 

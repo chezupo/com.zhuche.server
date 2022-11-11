@@ -34,6 +34,8 @@ public class WechatAccount extends BaseEntity{
 
     private String openId;
 
+    private String sessionKey;
+
     private String avatar;
 
     private String city;

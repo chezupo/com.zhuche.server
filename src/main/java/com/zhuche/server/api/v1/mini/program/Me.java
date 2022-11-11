@@ -14,6 +14,7 @@ import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
+import com.zhuche.server.dto.request.me.UpdateWechatPhoneNumberRequest;
 import com.zhuche.server.dto.request.me.UploadLicenseRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.dto.response.me.MeResponse;
@@ -90,20 +91,29 @@ public class Me {
     }
 
     /**
-     *  更新手机号
-     * @param social
+     *  更新支付宝手机号
      * @param request
      * @return
      */
     @PutMapping("/socials/{social}/me/phoneNumber")
-    public UnityResponse updateMyPhoneNumber(
-        @PathVariable @AccessSocialType String social,
+    public UnityResponse updateAlipayPhoneNumber(
         @RequestBody @Valid UpdateMyPhoneNumberRequest request
     ) throws Exception {
-        MeResponse res = null;
-        if (Objects.equals(social, SocialType.ALIPAY.toString())) {
-            res =  meService.updateAlipayPhoneNumber(request);
-        }
+        MeResponse res =  meService.updateAlipayPhoneNumber(request);
+
+        return UnityResponse.builder().data(res).build();
+    }
+
+    /**
+     *  更新微信手机号
+     * @param request
+     * @return
+     */
+    @PutMapping("/socials/wechat/me/phoneNumber")
+    public UnityResponse updateWchatPhoneNumber(
+        @RequestBody @Valid UpdateWechatPhoneNumberRequest request
+    ) {
+        MeResponse res =  meService.updateWechatPhoneNumber(request);
 
         return UnityResponse.builder()
             .data(res)

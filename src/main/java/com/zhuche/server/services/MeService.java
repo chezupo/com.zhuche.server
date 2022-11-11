@@ -8,6 +8,8 @@
 
 package com.zhuche.server.services;
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayOpenAppQrcodeCreateRequest;
@@ -18,6 +20,7 @@ import com.zhuche.server.dto.mapper.AlipayMapper;
 import com.zhuche.server.dto.mapper.WechatMapper;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
 import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
+import com.zhuche.server.dto.request.me.UpdateWechatPhoneNumberRequest;
 import com.zhuche.server.dto.request.me.UploadLicenseRequest;
 import com.zhuche.server.dto.response.me.MeResponse;
 import com.zhuche.server.dto.response.me.promotion.PromotionInfoResponse;
@@ -27,6 +30,7 @@ import com.zhuche.server.model.WechatAccount;
 import com.zhuche.server.repositories.AlipayAccountRepository;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.UserRepository;
+import com.zhuche.server.repositories.WechatAccountRepository;
 import com.zhuche.server.util.AlipayUtil;
 import com.zhuche.server.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +51,8 @@ public class MeService {
     @Autowired private AlipayAccountRepository alipayAccountRepository;
     @Autowired private AlipayClient alipayClient;
     @Autowired private OrderRepository orderRepository;
+    @Autowired private WxMaService wxMaService;
+    @Autowired private WechatAccountRepository wechatAccountRepository;
 
     public MeResponse updateAlipayMe(UpdateMeRequest request) {
         final var me = authContext.getMe();
@@ -169,5 +175,22 @@ public class MeService {
         userRepository.save(me);
 
         return wechatMapper.wechatAccountToMeResponse(wechatAccount);
+    }
+
+    /***
+     * 更新微信手机号
+     * @param request
+     * @return
+     */
+    public MeResponse updateWechatPhoneNumber(UpdateWechatPhoneNumberRequest request) {
+        final WechatAccount wechatAccount = authContext.getMe().getWechatAccount();
+        WxMaPhoneNumberInfo phoneNoInfo = wxMaService.getUserService().getPhoneNoInfo(wechatAccount.getSessionKey(),
+            request.getEncryptData(),
+            request.getIv()
+        );
+        wechatAccount.setPhone(phoneNoInfo.getPhoneNumber());
+        wechatAccountRepository.save(wechatAccount);
+
+        return  wechatMapper.wechatAccountToMeResponse(wechatAccount);
     }
 }

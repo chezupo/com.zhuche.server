@@ -62,8 +62,6 @@ public class WeChatPayOrderService {
      */
     @Value("${wx.pay.wechatPayCertificatePath}")
     public String wechatPayCertificatePath;
-    @Value("${wx.pay.apiV3Key}")
-    public String apiV3Key;
     @Value("${wx.appid}")
     public String appId;
 
@@ -137,12 +135,12 @@ public class WeChatPayOrderService {
      */
     public static String CreateNoncestr() {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for (int i = 0; i < 16; i++) {
             Random rd = new Random();
-            res += chars.charAt(rd.nextInt(chars.length() - 1));
+            res.append(chars.charAt(rd.nextInt(chars.length() - 1)));
         }
-        return res;
+        return res.toString();
     }
 
 

@@ -203,7 +203,6 @@ public class OrderService {
         if (newOrder.getDeposit() == 0 && newOrder.getAmount() == 0) {
             newOrder.setStatus(OrderStatus.CAR_PICKUP_IN_PROGRESS);
         }
-
         return newOrder;
     }
 
@@ -248,7 +247,7 @@ public class OrderService {
      * @param out_trade_no
      */
     public void alipayOrderFinished(String out_trade_no) {
-        final var order = orderRepository.findByAlipayOutTradeNo(out_trade_no);
+        final var order = orderRepository.findByOutTradeNo(out_trade_no);
         order.setStatus(OrderStatus.CAR_PICKUP_IN_PROGRESS);
         order.setIsRefund(false);
         this.orderRepository.save(order);
@@ -426,8 +425,7 @@ public class OrderService {
      */
     private void generateAlipayTrade(Order order, Car car) throws AlipayApiException {
         final var alipayUserId = jwtUtil.getUser().getAlipayAccount().getUserId();
-        String title = car.getName() + "费用";
-        order.setTitle(car.getName());
+        String title = order.getTitle() + "费用";
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
         request.setNotifyUrl(alipayNoticeUrl);
         JSONObject bizContent = new JSONObject();

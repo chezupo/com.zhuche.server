@@ -18,6 +18,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,8 +45,15 @@ public class Order {
     public UnityResponse createOrder(
         @PathVariable("socialType") @AccessSocialType String socialType,
         @Valid @RequestBody CreateOrderRequest request
-    ) throws AlipayApiException {
-        final var newOrder = orderService.createAlipayOrder(request);
+    ) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+        com.zhuche.server.model.Order newOrder = null;
+        if (Objects.equals(socialType, SocialType.ALIPAY.toString())) {
+           newOrder = orderService.createAlipayOrder(request);
+        } else if (Objects.equals(socialType, SocialType.WECHAT.toString())) {
+            newOrder = orderService.createWechatOrder(request);
+        }
+
+
        return UnityResponse.builder()
            .data(newOrder)
            .build();

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-public class WxClient {
+public class WechatMiniClient {
     @Value("${wx.appid}")
     private String appid;
 

@@ -38,6 +38,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop:2.6.5'
     implementation 'com.qiniu:qiniu-java-sdk:7.10.3'
     implementation 'com.github.binarywang:weixin-java-miniapp:4.4.4.B'
+    implementation 'com.github.wechatpay-apiv3:wechatpay-apache-httpclient:0.4.8'
 }
 
 tasks.named('test') {

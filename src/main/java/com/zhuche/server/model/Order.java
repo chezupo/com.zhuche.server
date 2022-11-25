@@ -49,9 +49,12 @@ public class Order extends BaseEntity{
         cover = newCover.replace(prefix, "");
     }
 
+    private String outTradeNo; // 商家自定义订单号
+
     private String alipayToken; // 支付宝 支付时用的token
     private String alipayTradeNo; // 支付宝订单号
-    private String alipayOutTradeNo; // 支付宝商家自定义订单号
+
+    private String wechatPayToken; // 微信支付token
 
     private double insuranceFee; // 驾无成费用
     private double rent; // 租金

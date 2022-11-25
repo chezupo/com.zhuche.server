@@ -32,13 +32,18 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 @Service
 @Slf4j
@@ -58,6 +63,8 @@ public class OrderService {
     private final TransactionRepository transactionRepository;
     private final ConfigurationService configurationService;
 
+    private final WeChatPayOrderService weChatPayOrderService;
+
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
 
@@ -73,7 +80,21 @@ public class OrderService {
     @Value("${alipay.alipayFreezeNoticeUrl}")
     private String alipayFreezeNoticeUrl;
 
-    public OrderService(CarRepository carRepository, OrderRepository orderRepository, AlipayClient alipayClient, JWTUtil jwtUtil, StoreRepository storeRepository, AuthUtil authUtil, PaginationUtil paginationUtil, UserCouponRepository userCouponRepository, UserRepository userRepository, CouponUtil couponUtil, CommentRepository commentRepository, TransactionRepository transactionRepository, ConfigurationService configurationService) {
+    public OrderService(
+        CarRepository carRepository,
+        OrderRepository orderRepository,
+        AlipayClient alipayClient,
+        JWTUtil jwtUtil,
+        StoreRepository storeRepository,
+        AuthUtil authUtil,
+        PaginationUtil paginationUtil,
+        UserCouponRepository userCouponRepository,
+        UserRepository userRepository,
+        CouponUtil couponUtil,
+        CommentRepository commentRepository,
+        TransactionRepository transactionRepository,
+        ConfigurationService configurationService,
+        WeChatPayOrderService weChatPayOrderService) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
@@ -87,16 +108,10 @@ public class OrderService {
         this.commentRepository = commentRepository;
         this.transactionRepository = transactionRepository;
         this.configurationService = configurationService;
+        this.weChatPayOrderService = weChatPayOrderService;
     }
 
-    /**
-     * 创建支付宝支付订单
-     * @param query
-     * @return
-     * @throws AlipayApiException
-     */
-    @Transactional
-    public Order createAlipayOrder(CreateOrderRequest query) throws AlipayApiException {
+    private Order createNewOrder(CreateOrderRequest query) {
         final var now = LocalDateTime.now();
         final Car car = carRepository.findById(query.getCarId()).get();
         final var dayCount = (query.getEndTimeStamp() - query.getStartTimeStamp() ) / 60 / 60 / 24 / 1000;
@@ -145,6 +160,7 @@ public class OrderService {
         Store starStore = storeRepository.findById(query.getStartStoreId()).get();
         Store endStore = storeRepository.findById(query.getEndStoreId()).get();
         final User me = jwtUtil.getUser();
+        final String outTradeNo = TradeUtil.generateOutTradeNo();
         Order newOrder = Order.builder()
             .title(title)
             .car(car)
@@ -159,6 +175,7 @@ public class OrderService {
             .createdAt(
                 Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli()
             )
+            .outTradeNo(outTradeNo)
             .startTimeStamp(query.getStartTimeStamp())
             .endTimeStamp(query.getEndTimeStamp())
             .remark(query.getRemark())
@@ -167,7 +184,6 @@ public class OrderService {
             .endStore(endStore)
             .user(me)
             .isInsurance(isInsuranceFee)
-            .payType(PayType.ALIPAY)
             .isRefund(true)
             .build();
         // 返点计算
@@ -182,20 +198,28 @@ public class OrderService {
                 newOrder.setPromotionLevel2User(level2User);
             }
         }
-        final String outTradeNo = TradeUtil.generateOutTradeNo();
-        newOrder.setAlipayOutTradeNo(outTradeNo);
-        // 支付资金
-        if (amount > 0) {
-            generateAlipayTrade(newOrder, car);
-        }
-        // 生存预授权资金
-        if (newOrder.getDeposit() > 0) {
-            newOrder = createFreezeAlipayOrderForOrder(newOrder);
-        }
-        newOrder.setCover(car.getCover());
+        newOrder.setCover(newOrder.getCar().getCover());
         // 如果租金为0，费用为0则直接标记为取车状态
         if (newOrder.getDeposit() == 0 && newOrder.getAmount() == 0) {
             newOrder.setStatus(OrderStatus.CAR_PICKUP_IN_PROGRESS);
+        }
+
+        return newOrder;
+    }
+
+    /**
+     * 创建支付宝支付订单
+     * @param query
+     * @return
+     * @throws AlipayApiException
+     */
+    @Transactional
+    public Order createAlipayOrder(CreateOrderRequest query) throws AlipayApiException {
+        Order newOrder = createNewOrder(query);
+        // 支付宝订单号生成
+        if (newOrder.getAmount() > 0) {
+            generateAlipayTrade(newOrder, newOrder.getCar());
+            newOrder.setPayType(PayType.ALIPAY);
         }
 
         return orderRepository.save(newOrder);
@@ -407,7 +431,7 @@ public class OrderService {
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
         request.setNotifyUrl(alipayNoticeUrl);
         JSONObject bizContent = new JSONObject();
-        bizContent.put("out_trade_no", order.getAlipayOutTradeNo());
+        bizContent.put("out_trade_no", order.getOutTradeNo());
         bizContent.put("total_amount", order.getAmount());
         bizContent.put("subject", title);
         bizContent.put("buyer_id", alipayUserId);
@@ -508,7 +532,6 @@ public class OrderService {
 
         userRepository.save(user);
     }
-
 
     /**
      * 创建订单评价
@@ -676,5 +699,24 @@ public class OrderService {
                 .tradeNo(trade_no)
                 .build()
         );
+    }
+
+    /**
+     * 生成微信订单
+     * @param query
+     * @return
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+    public Order createWechatOrder(CreateOrderRequest query) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+        Order newOrder = createNewOrder(query);
+        // 支付宝订单号生成
+        if (newOrder.getAmount() > 0) {
+            weChatPayOrderService.createWechatOrder(newOrder, query);
+            newOrder.setPayType(PayType.WECHAT);
+        }
+
+        return orderRepository.save(newOrder);
     }
 }

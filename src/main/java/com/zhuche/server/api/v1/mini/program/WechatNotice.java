@@ -46,6 +46,7 @@ public class WechatNotice {
             var order = orderRepository.findByOutTradeNo(clipertext.out_trade_no);
             if (order.getStatus() == OrderStatus.PAYING ) {
                 order.setStatus(OrderStatus.CAR_PICKUP_IN_PROGRESS);
+                order.setWechatTransactionId(clipertext.transaction_id);
                 orderRepository.save(order);
                 log.info("Changed order status: {}, data: {}", order.getStatus(), order);
             }

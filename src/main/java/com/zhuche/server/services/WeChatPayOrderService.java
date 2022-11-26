@@ -29,11 +29,12 @@ import java.nio.file.Path;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Random;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -96,7 +97,8 @@ public class WeChatPayOrderService {
             .put("appid", appId)
             .put("description", newOrder.getTitle())
             .put("notify_url", notifyUrl)
-            .put("out_trade_no", newOrder.getOutTradeNo());
+            .put("out_trade_no", newOrder.getOutTradeNo())
+        .put("time_expire", getNextWeekTimestamp());
         int total = (int) (newOrder.getAmount() * 100);
         rootNode.putObject("amount")
             .put("total", total);
@@ -129,6 +131,19 @@ public class WeChatPayOrderService {
         long epochSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8"));
         return String.valueOf(epochSecond);
     }
+
+    /**
+     * 下周时长
+     * @return
+     */
+    public String getNextWeekTimestamp() {
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+        final String result = ZonedDateTime.now().plusDays(7).format(FORMATTER);
+        log.info("{}", result);
+
+        return result;
+    }
+
     /**
      * 字符串
      * @return

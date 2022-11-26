@@ -29,12 +29,14 @@ import java.nio.file.Path;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Date;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -71,20 +73,28 @@ public class WeChatPayOrderService {
 
     @Autowired private JWTUtil jwtUtil;
 
-    public Order createWechatOrder(Order newOrder, CreateOrderRequest request) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
-        final User me = jwtUtil.getUser();
-        final String openId = me.getWechatAccount().getOpenId();
+    PrivateKey getPrivateKey() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         Path fileName = Path.of(privateKeyPath);
         String privateKeyContent = Files.readString(fileName);
         privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
         KeyFactory kf = KeyFactory.getInstance("RSA");
         PKCS8EncodedKeySpec keySpecPKCS8 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKeyContent));
-        PrivateKey privateKey = kf.generatePrivate(keySpecPKCS8);
+
+        return kf.generatePrivate(keySpecPKCS8);
+    }
+    CloseableHttpClient getWechatClient() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         CloseableHttpClient httpClient = WechatPayHttpClientBuilder.create()
-            .withMerchant(merchantId, merchantSerialNumber, privateKey)
+            .withMerchant(merchantId, merchantSerialNumber, getPrivateKey())
             .withValidator(response -> true)
             .build();
         System.out.println(httpClient);
+
+        return httpClient;
+    }
+
+    public Order createWechatOrder(Order newOrder, CreateOrderRequest request) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+        final User me = jwtUtil.getUser();
+        final String openId = me.getWechatAccount().getOpenId();
 
         HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi");
         httpPost.addHeader("Accept", "application/json");
@@ -106,7 +116,7 @@ public class WeChatPayOrderService {
             .put("openid", openId);
         objectMapper.writeValue(bos, rootNode);
         httpPost.setEntity(new StringEntity(bos.toString("UTF-8"), "UTF-8"));
-        CloseableHttpResponse response = httpClient.execute(httpPost);
+        CloseableHttpResponse response = getWechatClient().execute(httpPost);
         String bodyAsString = EntityUtils.toString(response.getEntity());
         System.out.println(bodyAsString);
         String prepayId =  JSON.parseObject(bodyAsString, WechatPrepayResponse.class).prepay_id;
@@ -114,7 +124,7 @@ public class WeChatPayOrderService {
         String nonceStr = CreateNoncestr();
         String packageStr = "prepay_id=" + prepayId;
         // 签名
-        String paySign = doRequestSign(privateKey,appId, timestamp, nonceStr, packageStr);
+        String paySign = doRequestSign(getPrivateKey(),appId, timestamp, nonceStr, packageStr);
         String jsonString = String.format( "{ \"timeStamp\" : \"%s\", \"signType\" : \"%s\", \"package\" : \"%s\", \"nonceStr\": \"%s\", \"paySign\": \"%s\" }",
             timestamp,
             "RSA",
@@ -188,6 +198,34 @@ public class WeChatPayOrderService {
         String suffix = newLine ? "\n" : "";
         return Arrays.stream(components).collect(Collectors.joining("\n", "", suffix));
 
+    }
+
+    /**
+     * 微信支付退款
+     * @param order
+     */
+    public void refund(Order order) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/v3/refund/domestic/refunds");
+        httpPost.addHeader("Accept", "application/json");
+        httpPost.addHeader("Content-type","application/json; charset=utf-8");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String wechat_out_refund_no = ((Long) new Date().getTime()).toString();
+        ObjectNode rootNode = objectMapper.createObjectNode();
+        rootNode.put("transaction_id", order.getWechatTransactionId())
+            .put("out_refund_no", wechat_out_refund_no);
+        int total = (int) (order.getAmount() * 100);
+        rootNode.putObject("amount")
+            .put("refund", total) // 退款金额
+            .put("total", total) // 原订单金额
+            .put("currency", "CNY"); // 币种：人民币
+        objectMapper.writeValue(bos, rootNode);
+        httpPost.setEntity(new StringEntity(bos.toString("UTF-8"), "UTF-8"));
+        CloseableHttpResponse response = getWechatClient().execute(httpPost);
+        String bodyAsString = EntityUtils.toString(response.getEntity());
+        System.out.println(bodyAsString);
+        order.setWechatOutRefundNo(wechat_out_refund_no);
     }
 }
 

@@ -184,7 +184,7 @@ public class OrderService {
             .endStore(endStore)
             .user(me)
             .isInsurance(isInsuranceFee)
-            .isRefund(true)
+            .isRefund(false)
             .build();
         // 返点计算
         final User level1User = me.getUser();
@@ -356,28 +356,38 @@ public class OrderService {
      * @param id
      * @return
      */
-    public Order cancelOrderById(Long id) throws AlipayApiException {
+    public Order cancelOrderById(Long id) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         final Order order = orderRepository.findById(id).get();
         // 未取车状态且可取消状态
         List<OrderStatus> notPickedUpCarStatus = List.of(OrderStatus.CREDITING, OrderStatus.PAYING, OrderStatus.CAR_PICKUP_IN_PROGRESS);
         if (notPickedUpCarStatus.contains(order.getStatus())) {
             // 支付宝解冻
-            if (order.getFreezeType() == PayType.ALIPAY && !order.getIsUnfreeze()) {
-                unfreezeAlipayOrder(order);
-                order.setIsUnfreeze(true);
-                orderRepository.save(order);
-            }
-            // 支付宝退款
-            if (order.getPayType() == PayType.ALIPAY && !order.getIsRefund()) {
-                alipayRefund(order);
+//            if (order.getFreezeType() == PayType.ALIPAY && !order.getIsUnfreeze()) {
+//                unfreezeAlipayOrder(order);
+//                order.setIsUnfreeze(true);
+//                orderRepository.save(order);
+//            }
+            if (!order.getIsRefund()) {
+                switch (order.getPayType()) {
+                    case ALIPAY :
+                        // 支付宝退款
+                        alipayRefund(order);
+                        break;
+                    case WECHAT:
+                        // 微信退款
+                        weChatPayOrderService.refund(order);
+                        break;
+                }
                 order.setIsRefund(true);
                 orderRepository.save(order);
             }
             // 标记订单为取消
-            if (order.getIsRefund() && order.getIsUnfreeze()) {
-                order.setStatus(OrderStatus.CANCELED);
-                return orderRepository.save(order);
-            }
+            order.setStatus(OrderStatus.CANCELED);
+            return orderRepository.save(order);
+//            if (order.getIsRefund() && order.getIsUnfreeze()) {
+//                order.setStatus(OrderStatus.CANCELED);
+//                return orderRepository.save(order);
+//            }
         }
         throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "不能取消");
     }

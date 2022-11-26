@@ -64,6 +64,7 @@ public class Order extends BaseEntity{
     private double waiverHandlingFee; // 减免手续费
     private double waiverRent; // 减免的租金
     private String wechatTransactionId; // 微信支付id号
+    private String wechatOutRefundNo; // 微信支付退款订单号
 
     private String remark; // 备注
     @Temporal(TemporalType.TIMESTAMP)

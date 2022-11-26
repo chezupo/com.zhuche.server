@@ -92,15 +92,12 @@ public class Order {
     public UnityResponse cancelOrder(
         @PathVariable("socialType") @AccessSocialType String socialType,
         @PathVariable("id") @CheckOrderMustBelongMeById Long id
-    ) throws AlipayApiException {
-        if (Objects.equals(socialType, SocialType.ALIPAY.toString())) {
-            final com.zhuche.server.model.Order order = orderService.cancelOrderById(id);
+    ) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        com.zhuche.server.model.Order order = orderService.cancelOrderById(id);
 
-            return UnityResponse.builder()
-                .data(order)
-                .build();
-        }
-        throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "取消订单错误");
+        return UnityResponse.builder()
+            .data(order)
+            .build();
     }
 
     /**

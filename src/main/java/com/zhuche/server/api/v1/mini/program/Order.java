@@ -143,11 +143,11 @@ public class Order {
     public UnityResponse relet(
         @PathVariable("id") @CheckOrderMustBelongMeById Long id,
         @RequestBody @Valid UpdateOrderReletRequest updateOrderReletRequest
-    ) throws AlipayApiException {
-        final String tradeNo = orderService.createReletTrade(id, updateOrderReletRequest);
+    ) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        final String payInfo = orderService.createReletTrade(id, updateOrderReletRequest);
 
         return UnityResponse.builder()
-            .data(tradeNo)
+            .data(payInfo)
             .build();
     }
 

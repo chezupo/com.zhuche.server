@@ -51,7 +51,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final AlipayClient alipayClient;
     private final JWTUtil jwtUtil;
-    private String alipayTimeoutExpress  = "15d";
     private final CarRepository carRepository;
     private final StoreRepository storeRepository;
     private final AuthUtil authUtil;
@@ -79,6 +78,9 @@ public class OrderService {
 
     @Value("${alipay.alipayFreezeNoticeUrl}")
     private String alipayFreezeNoticeUrl;
+
+    @Value("${orderPayExpiredDays}")
+    private int orderPayExpiredDays;
 
     public OrderService(
         CarRepository carRepository,
@@ -168,7 +170,7 @@ public class OrderService {
             .rent(Math.round(rent * 100) / 100.0 )
             .deposit(Math.round(deposit * 100) / 100.0)
             .handlingFee(Math.round(handlingFee * 100) / 100.0)
-            .amount(amount)
+            .amount((int)(amount * 100))
             .waiverHandlingFee(Math.round(waiverHandlingFee * 100) / 100.0)
             .waiverRent(Math.round(waiverRent * 100) / 100.0)
             .createAlipayAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))
@@ -443,7 +445,7 @@ public class OrderService {
         bizContent.put("total_amount", order.getAmount());
         bizContent.put("subject", title);
         bizContent.put("buyer_id", alipayUserId);
-        bizContent.put("timeout_express", alipayTimeoutExpress);
+        bizContent.put("timeout_express", orderPayExpiredDays + "d");
         request.setBizContent(bizContent.toString());
         AlipayTradeCreateResponse response = alipayClient.certificateExecute(request);
         if (response.isSuccess()) {
@@ -491,10 +493,10 @@ public class OrderService {
         order.setStatus(OrderStatus.FINISHED);
         // 订单佣金结算
         if (order.getPromotionLevel1User() != null) {
-            calculateOrderCommission(order.getPromotionLevel1User(), order.getPromotionLevel1(), order.getAmount(), "订单一级反佣");
+            calculateOrderCommission(order.getPromotionLevel1User(), order.getPromotionLevel1(), order.getAmount() * 0.01 , "订单一级反佣");
         }
         if (order.getPromotionLevel2User() != null) {
-            calculateOrderCommission(order.getPromotionLevel2User(), order.getPromotionLevel2(), order.getAmount(), "订单二级反佣");
+            calculateOrderCommission(order.getPromotionLevel2User(), order.getPromotionLevel2(), order.getAmount() * 0.01, "订单二级反佣");
         }
 
         return orderRepository.save(order);
@@ -515,22 +517,19 @@ public class OrderService {
         user.setCommission(
             user.getCommission().add(commission)
         );
-        if (commission.doubleValue() > 0) {
-            if (user.getBalance() == null) {
-                user.setBalance(0d);
-            }
-            user.setBalance(user.getBalance() + commission.doubleValue());
+        if (amount > 0) {
+            user.setBalance(user.getBalance() + (int)(amount * 100) );
             transactionRepository.save(
                 Transaction
                     .builder()
                     .title(subject)
                     .balance(user.getBalance())
-                    .amount(commission.doubleValue())
+                    .amount(amount )
                     .payType(PayType.ALIPAY)
                     .isWithDraw(false)
                     .status(TransactionStatus.FINISHED)
                     .transactionType(TransactionType.COMMISSION)
-                    .alipayOutTradeNo("")
+                    .outTradeNo("")
                     .tradeNo("")
                     .user(user)
                     .remark("")
@@ -608,7 +607,7 @@ public class OrderService {
         bizContent.put("total_amount", amount);
         bizContent.put("subject", title);
         bizContent.put("buyer_id", me.getAlipayAccount().getUserId());
-        bizContent.put("timeout_express", alipayTimeoutExpress);
+        bizContent.put("timeout_express", orderPayExpiredDays + "d");
         bizContent.put("body", JSON.toJSONString(
             AlipayOvertimeTradeBody
                 .builder()
@@ -647,7 +646,7 @@ public class OrderService {
                     .payType(PayType.ALIPAY)
                     .isWithDraw(false)
                     .status(TransactionStatus.FINISHED)
-                    .alipayOutTradeNo(out_trade_no)
+                    .outTradeNo(out_trade_no)
                     .tradeNo(trade_no)
                     .user(order.getUser())
                     .remark("")
@@ -657,11 +656,32 @@ public class OrderService {
         }
     }
 
-    public String createReletTrade(Long id, UpdateOrderReletRequest updateOrderReletRequest) throws AlipayApiException {
+    /**
+     * 续租
+     * @param id
+     * @param updateOrderReletRequest
+     * @return
+     * @throws AlipayApiException
+     */
+    public String createReletTrade(Long id, UpdateOrderReletRequest updateOrderReletRequest) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         final Order order = orderRepository.findById(id).get();
-        final User me = jwtUtil.getUser();
-        final var amount = Math.round(order.getCar().getRent() * updateOrderReletRequest.getDays() * 100 ) / 100.0;
+        final double amount = Math.round(
+            order.getCar().getRent() * updateOrderReletRequest.getDays() * 100
+        ) / 100.0;
         final var title = String.format("%s-租车续费(%s天)", order.getTitle(), updateOrderReletRequest.getDays());
+        final RenewalOrder renewalOrder = RenewalOrder.builder()
+            .orderId(order.getId())
+            .days(updateOrderReletRequest.getDays())
+            .outTradeNo(TradeUtil.generateOutTradeNo())
+            .isOk(false)
+            .total((int)(amount * 100))
+            .build();
+        final User me = jwtUtil.getUser();
+        if (order.getPayType() == PayType.WECHAT ) {
+            // 微信续租
+            return weChatPayOrderService.renewalOrder(renewalOrder, title, me);
+        }
+
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
         request.setNotifyUrl(alipayReletNoticeUrl);
         JSONObject bizContent = new JSONObject();
@@ -669,7 +689,7 @@ public class OrderService {
         bizContent.put("total_amount", amount);
         bizContent.put("subject", title);
         bizContent.put("buyer_id", me.getAlipayAccount().getUserId());
-        bizContent.put("timeout_express", alipayTimeoutExpress);
+        bizContent.put("timeout_express", orderPayExpiredDays + "d");
         bizContent.put("body", JSON.toJSONString(
             AlipayOrderRelatBody
                 .builder()
@@ -703,7 +723,7 @@ public class OrderService {
                 .title(subject)
                 .payType(PayType.ALIPAY)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
-                .alipayOutTradeNo(out_trade_no)
+                .outTradeNo(out_trade_no)
                 .tradeNo(trade_no)
                 .build()
         );

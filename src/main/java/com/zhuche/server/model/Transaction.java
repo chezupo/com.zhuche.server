@@ -41,7 +41,7 @@ public class Transaction extends BaseEntity{
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
     private PayType payType;
 
-    private String alipayOutTradeNo;
+    private String outTradeNo; // 订单号
 
     @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
     private TransactionType transactionType;

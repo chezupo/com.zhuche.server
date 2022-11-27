@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long>, JpaSpecificationExecutor {
-    @Query("select t from Transaction t where t.alipayOutTradeNo = :outTradeNo")
+    @Query("select t from Transaction t where t.outTradeNo = :outTradeNo")
     Transaction findByOutTradeNo(@Param("outTradeNo") String out_trade_no);
 
     @Query("select t from Transaction t where t.user.id = :id order by t.id desc ")

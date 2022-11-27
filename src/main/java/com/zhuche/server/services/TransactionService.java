@@ -85,7 +85,7 @@ public class TransactionService {
             transactionRepository.save(
                 Transaction.builder()
                     .user(user)
-                    .alipayOutTradeNo(out_trade_no)
+                    .outTradeNo(out_trade_no)
                     .title(subject)
                     .isWithDraw(false)
                     .status(TransactionStatus.FINISHED)

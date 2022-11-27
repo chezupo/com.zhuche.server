@@ -7,7 +7,10 @@ import com.wechat.pay.contrib.apache.httpclient.WechatPayHttpClientBuilder;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
 import com.zhuche.server.dto.response.store.WechatPrepayResponse;
 import com.zhuche.server.model.Order;
+import com.zhuche.server.model.PayType;
+import com.zhuche.server.model.RenewalOrder;
 import com.zhuche.server.model.User;
+import com.zhuche.server.repositories.RenewalOrderRepository;
 import com.zhuche.server.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -43,6 +46,11 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class WeChatPayOrderService {
+    /**
+     * 支付支付期限
+      */
+    @Value("${orderPayExpiredDays}")
+    private int orderPayExpiredDays;
 
     /**
      * 商户号
@@ -71,7 +79,12 @@ public class WeChatPayOrderService {
     @Value("${wx.pay.notifyUrl}")
     public String notifyUrl;
 
+    @Value("${wx.pay.renewalNotifyUrl}")
+    public String renewalNotifyUrl;
+
     @Autowired private JWTUtil jwtUtil;
+
+    @Autowired private RenewalOrderRepository renewalOrderRepository;
 
     PrivateKey getPrivateKey() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         Path fileName = Path.of(privateKeyPath);
@@ -108,7 +121,7 @@ public class WeChatPayOrderService {
             .put("description", newOrder.getTitle())
             .put("notify_url", notifyUrl)
             .put("out_trade_no", newOrder.getOutTradeNo())
-        .put("time_expire", getNextWeekTimestamp());
+        .put("time_expire", getExpiredDatetime());
         int total = (int) (newOrder.getAmount() * 100);
         rootNode.putObject("amount")
             .put("total", total);
@@ -143,12 +156,12 @@ public class WeChatPayOrderService {
     }
 
     /**
-     * 下周时长
+     * 过期时长
      * @return
      */
-    public String getNextWeekTimestamp() {
+    public String getExpiredDatetime() {
         DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-        final String result = ZonedDateTime.now().plusDays(7).format(FORMATTER);
+        final String result = ZonedDateTime.now().plusDays(orderPayExpiredDays).format(FORMATTER);
         log.info("{}", result);
 
         return result;
@@ -226,6 +239,55 @@ public class WeChatPayOrderService {
         String bodyAsString = EntityUtils.toString(response.getEntity());
         System.out.println(bodyAsString);
         order.setWechatOutRefundNo(wechat_out_refund_no);
+    }
+
+    /**
+     * 微信支付续费
+     *
+     * @param order
+     * @param title
+     * @param me
+     * @return
+     */
+    public String renewalOrder(RenewalOrder order, String title, User me) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        order.setPayType(PayType.WECHAT);
+        HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi");
+        httpPost.addHeader("Accept", "application/json");
+        httpPost.addHeader("Content-type","application/json; charset=utf-8");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode rootNode = objectMapper.createObjectNode();
+        rootNode.put("mchid",merchantId)
+            .put("appid", appId)
+            .put("description", title)
+            .put("notify_url", renewalNotifyUrl)
+            .put("out_trade_no", order.getOutTradeNo())
+            .put("time_expire", getExpiredDatetime());
+        rootNode.putObject("amount")
+            .put("total", order.getTotal());
+        rootNode.putObject("payer")
+            .put("openid", me.getWechatAccount().getOpenId());
+        objectMapper.writeValue(bos, rootNode);
+        httpPost.setEntity(new StringEntity(bos.toString("UTF-8"), "UTF-8"));
+        CloseableHttpResponse response = getWechatClient().execute(httpPost);
+        String bodyAsString = EntityUtils.toString(response.getEntity());
+        System.out.println(bodyAsString);
+        String prepayId =  JSON.parseObject(bodyAsString, WechatPrepayResponse.class).prepay_id;
+        String timestamp = getTimestamp();
+        String nonceStr = CreateNoncestr();
+        String packageStr = "prepay_id=" + prepayId;
+        // 签名
+        String paySign = doRequestSign(getPrivateKey(),appId, timestamp, nonceStr, packageStr);
+        String jsonString = String.format( "{ \"timeStamp\" : \"%s\", \"signType\" : \"%s\", \"package\" : \"%s\", \"nonceStr\": \"%s\", \"paySign\": \"%s\" }",
+            timestamp,
+            "RSA",
+            packageStr,
+            nonceStr,
+            paySign
+        );
+        order.setPayToken(jsonString);
+        renewalOrderRepository.save(order);
+        return order.getPayToken();
     }
 }
 

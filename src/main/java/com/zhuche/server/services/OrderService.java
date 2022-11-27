@@ -595,12 +595,25 @@ public class OrderService {
      * @param id
      * @return
      */
-    public String createAlipayExpiredTrade(Long id) throws AlipayApiException {
+    public String createExpiredTrade(Long id) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         final Order order = orderRepository.findById(id).get();
         final User me = jwtUtil.getUser();
-        final var amount = Math.round(order.getExpiredFee() * 100 ) / 100.0;
+        final Double amount = Math.round(order.getExpiredFee() * 100 ) / 100.0;
         final var title = String.format("%s-用车超时费用", order.getTitle());
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
+        double days = order.getExpiredFee() / order.getCar().getRent();
+        final RenewalOrder renewalOrder = RenewalOrder.builder()
+            .orderId(order.getId())
+            .isOk(false)
+            .days(Double.valueOf(days).longValue())
+            .total((int )(amount * 100))
+            .outTradeNo(TradeUtil.generateOutTradeNo())
+            .build();
+
+        if (order.getPayType() == PayType.WECHAT) {
+            return weChatPayOrderService.createExpiredTrade(renewalOrder);
+        }
+
         request.setNotifyUrl(alipayOvertimeNoticeUrl);
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", TradeUtil.generateOutTradeNo());

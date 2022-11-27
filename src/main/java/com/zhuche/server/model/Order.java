@@ -93,7 +93,9 @@ public class Order extends BaseEntity{
         if (status.equals(OrderStatus.USING)) {
             var now =Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli();
             if (now > endTimeStamp) {
-                expiredDays = Math.round((now - endTimeStamp) / (60 * 60 * 24 * 1000) * 100) / 100.0 ;
+                var moreHours = 1; // 多加一个小时用于结算时缓冲时间
+                var dayMicroseconds = 60 * 60 * 24 * 1000;
+                expiredDays = Math.round((now - endTimeStamp + moreHours / 24 * dayMicroseconds) / dayMicroseconds * 100) / 100.0 ;
                 final double fee = expiredDays * car.getRent();
                 if (fee > 0.01) {
                     expiredFee = fee;

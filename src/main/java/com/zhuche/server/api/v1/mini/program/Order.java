@@ -1,13 +1,11 @@
 package com.zhuche.server.api.v1.mini.program;
 
 import com.alipay.api.AlipayApiException;
-import com.zhuche.server.config.exception.ExceptionCodeConfig;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.order.CreateOrderRequest;
 import com.zhuche.server.dto.request.order.UpdateOrderReletRequest;
 import com.zhuche.server.dto.response.UnityResponse;
-import com.zhuche.server.exceptions.MyRuntimeException;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.services.OrderService;
 import com.zhuche.server.validators.order.*;
@@ -125,8 +123,8 @@ public class Order {
     @Permission(roles = {Role.ROLE_USER})
     public UnityResponse payExpiredFee(
         @PathVariable("id") @CheckOrderMustBelongMeById @CheckOrderStatusMustBeExpired Long id
-    ) throws AlipayApiException {
-        final String trade = orderService.createAlipayExpiredTrade(id);
+    ) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        final String trade = orderService.createExpiredTrade(id);
         return UnityResponse.builder()
             .data(trade)
             .build();

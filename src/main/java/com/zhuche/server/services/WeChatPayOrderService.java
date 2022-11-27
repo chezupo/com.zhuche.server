@@ -82,6 +82,9 @@ public class WeChatPayOrderService {
     @Value("${wx.pay.renewalNotifyUrl}")
     public String renewalNotifyUrl;
 
+    @Value("${wx.pay.overtimeNoticeUrl}")
+    public String overtimeNoticeUrl;
+
     @Autowired private JWTUtil jwtUtil;
 
     @Autowired private RenewalOrderRepository renewalOrderRepository;
@@ -127,25 +130,7 @@ public class WeChatPayOrderService {
             .put("total", total);
         rootNode.putObject("payer")
             .put("openid", openId);
-        objectMapper.writeValue(bos, rootNode);
-        httpPost.setEntity(new StringEntity(bos.toString("UTF-8"), "UTF-8"));
-        CloseableHttpResponse response = getWechatClient().execute(httpPost);
-        String bodyAsString = EntityUtils.toString(response.getEntity());
-        System.out.println(bodyAsString);
-        String prepayId =  JSON.parseObject(bodyAsString, WechatPrepayResponse.class).prepay_id;
-        String timestamp = getTimestamp();
-        String nonceStr = CreateNoncestr();
-        String packageStr = "prepay_id=" + prepayId;
-        // 签名
-        String paySign = doRequestSign(getPrivateKey(),appId, timestamp, nonceStr, packageStr);
-        String jsonString = String.format( "{ \"timeStamp\" : \"%s\", \"signType\" : \"%s\", \"package\" : \"%s\", \"nonceStr\": \"%s\", \"paySign\": \"%s\" }",
-            timestamp,
-            "RSA",
-            packageStr,
-            nonceStr,
-            paySign
-        );
-
+        String jsonString = wechatRequest(objectMapper, bos, rootNode, httpPost);
         newOrder.setWechatPayToken(jsonString);
         return newOrder;
     }
@@ -267,6 +252,59 @@ public class WeChatPayOrderService {
             .put("total", order.getTotal());
         rootNode.putObject("payer")
             .put("openid", me.getWechatAccount().getOpenId());
+        String jsonString = wechatRequest(objectMapper, bos, rootNode, httpPost);
+        order.setPayToken(jsonString);
+        renewalOrderRepository.save(order);
+        return order.getPayToken();
+    }
+
+    /**
+     * 订单逾期补交
+     * @param renewalOrder
+     * @return
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+    public String createExpiredTrade(RenewalOrder renewalOrder) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        final User me = jwtUtil.getUser();
+        renewalOrder.setPayType(PayType.WECHAT);
+        HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi");
+        httpPost.addHeader("Accept", "application/json");
+        httpPost.addHeader("Content-type","application/json; charset=utf-8");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode rootNode = objectMapper.createObjectNode();
+        rootNode.put("mchid",merchantId)
+            .put("appid", appId)
+            .put("description", "过期费用补交")
+            .put("notify_url", overtimeNoticeUrl)
+            .put("out_trade_no",renewalOrder.getOutTradeNo())
+            .put("time_expire", getExpiredDatetime());
+        rootNode.putObject("amount")
+            .put("total",renewalOrder.getTotal());
+        rootNode.putObject("payer")
+            .put("openid", me.getWechatAccount().getOpenId());
+        String jsonString = wechatRequest(objectMapper, bos, rootNode, httpPost);
+        renewalOrder.setPayToken(jsonString);
+        renewalOrderRepository.save(renewalOrder);
+
+        return jsonString;
+    }
+
+
+    /**
+     * 发起请求
+     * @param objectMapper
+     * @param bos
+     * @param rootNode
+     * @param httpPost
+     * @return
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+    private String wechatRequest(ObjectMapper objectMapper, ByteArrayOutputStream bos, ObjectNode rootNode, HttpPost httpPost) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         objectMapper.writeValue(bos, rootNode);
         httpPost.setEntity(new StringEntity(bos.toString("UTF-8"), "UTF-8"));
         CloseableHttpResponse response = getWechatClient().execute(httpPost);
@@ -285,9 +323,8 @@ public class WeChatPayOrderService {
             nonceStr,
             paySign
         );
-        order.setPayToken(jsonString);
-        renewalOrderRepository.save(order);
-        return order.getPayToken();
+
+        return jsonString;
     }
 }
 

@@ -115,4 +115,55 @@ public class WechatNotice {
         }
         return "";
     }
+
+    /**
+     * 逾期费用补交通知
+     * @param requestBody
+     * @return
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    @PostMapping("/overtimeNotify")
+    @Transactional
+    public String overtimeNotify(
+        @RequestBody String requestBody
+    ) throws GeneralSecurityException, IOException {
+        final WechatNotifyRequestBody request =JSON.parseObject(requestBody, WechatNotifyRequestBody.class);
+        if (Objects.equals(request.event_type, "TRANSACTION.SUCCESS")) {
+            log.info("wechat notify: {}", request);
+            final AesUtil aesUtil = new AesUtil(apiV3Key.getBytes());
+            final String resourceStr =  aesUtil.decryptToString(
+                request.resource.associated_data.getBytes(),
+                request.resource.getNonce().getBytes(),
+                request.resource.getCiphertext()
+            );
+            final WechatPayResourceCiphertext clipertext = JSON.parseObject(resourceStr, WechatPayResourceCiphertext.class);
+            final RenewalOrder renewalOrder = renewalOrderRepository.findByOutTradeNo(clipertext.out_trade_no);
+            log.info("{}", renewalOrder);
+            if (!renewalOrder.isOk()) {
+                renewalOrder.setOk(true);
+                var order = orderRepository.findById(renewalOrder.getOrderId()).get();
+                order.setEndTimeStamp( order.getEndTimeStamp() + renewalOrder.getDays() * 60 * 60 * 24 * 1000 );
+                orderRepository.save(order);
+                renewalOrderRepository.save(renewalOrder);
+                transactionRepository.save(
+                    com.zhuche.server.model.Transaction.
+                        builder()
+                        .remark("")
+                        .user(order.getUser())
+                        .status( TransactionStatus.FINISHED )
+                        .balance(order.getUser().getBalance())
+                        .amount(-(renewalOrder.getTotal() * .01 ))
+                        .title("过期费用补交")
+                        .payType(PayType.WECHAT)
+                        .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                        .outTradeNo(renewalOrder.getOutTradeNo())
+                        .tradeNo("")
+                        .build()
+                );
+                log.info("Changed order status: {}, data: {}", order.getStatus(), order);
+            }
+        }
+        return "";
+    }
 }

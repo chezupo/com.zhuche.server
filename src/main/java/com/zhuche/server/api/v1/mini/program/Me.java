@@ -134,6 +134,18 @@ public class Me {
             .build();
     }
 
+    @GetMapping("/socials/{social}/QR")
+    @Permission(roles = {Role.ROLE_USER})
+    public UnityResponse getMyQRV2(
+        @PathVariable @AccessSocialType String social
+    ) throws AlipayApiException {
+        String qr = meService.getMyQR();
+
+        return UnityResponse.builder()
+            .data(qr)
+            .build();
+    }
+
     /**
      * 上传证件
      * @return

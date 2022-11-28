@@ -10,11 +10,13 @@ package com.zhuche.server.services;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayOpenAppQrcodeCreateRequest;
 import com.alipay.api.response.AlipayOpenAppQrcodeCreateResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wechat.pay.contrib.apache.httpclient.exception.NotFoundException;
 import com.zhuche.server.contexts.AuthContext;
 import com.zhuche.server.dto.mapper.AlipayMapper;
 import com.zhuche.server.dto.mapper.WechatMapper;
@@ -23,6 +25,7 @@ import com.zhuche.server.dto.request.me.UpdateMyPhoneNumberRequest;
 import com.zhuche.server.dto.request.me.UpdateWechatPhoneNumberRequest;
 import com.zhuche.server.dto.request.me.UploadLicenseRequest;
 import com.zhuche.server.dto.response.me.MeResponse;
+import com.zhuche.server.dto.response.me.WechatTokenInfo;
 import com.zhuche.server.dto.response.me.promotion.PromotionInfoResponse;
 import com.zhuche.server.model.Order;
 import com.zhuche.server.model.User;
@@ -32,16 +35,29 @@ import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.UserRepository;
 import com.zhuche.server.repositories.WechatAccountRepository;
 import com.zhuche.server.util.AlipayUtil;
+import com.zhuche.server.util.HttpUtil;
 import com.zhuche.server.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.zhuche.server.util.HttpUtil.getParamsString;
 
 @Slf4j
 @Service
 public class MeService {
+    @Value("${QRResourceDirectory}")
+    String qrResourceDirectory;
+    @Value("${httpDomain}")
+    String httpDomain;
     @Autowired private AuthContext authContext;
     @Autowired private JWTUtil jwtUtil;
     @Autowired private UserRepository userRepository;
@@ -53,6 +69,12 @@ public class MeService {
     @Autowired private OrderRepository orderRepository;
     @Autowired private WxMaService wxMaService;
     @Autowired private WechatAccountRepository wechatAccountRepository;
+
+    @Value("${QRResourceRoutePrefix}")
+    String qrResourceRoutePrefix;
+
+    @Value("${wx.secret}") String secret;
+    @Value("${wx.appid}") String appid;
 
     public MeResponse updateAlipayMe(UpdateMeRequest request) {
         final var me = authContext.getMe();
@@ -89,7 +111,12 @@ public class MeService {
         return alipayMapper.AlipayAccountToMeResponse(alipayAccountRepository.save(alipayAccount));
     }
 
-    public String getMyQR() throws AlipayApiException {
+    /**
+     * 获取支付宝二维码
+     * @return
+     * @throws AlipayApiException
+     */
+    public String getAlipayQR() throws AlipayApiException {
         final User me = jwtUtil.getUser();
         if (me.getAlipayQr() != null) {
             return me.getAlipayQr();
@@ -192,5 +219,80 @@ public class MeService {
         wechatAccountRepository.save(wechatAccount);
 
         return  wechatMapper.wechatAccountToMeResponse(wechatAccount);
+    }
+
+    public String getWechatQR() throws NotFoundException, IOException {
+        final User me = jwtUtil.getUser();
+        WechatAccount wechatAccount = me.getWechatAccount();
+        final String token = getToken();
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("access_token", token);
+        Map<String, String> requestData= new HashMap<>();
+        requestData.put("path", "/?userId=1");
+        String fileName = saveFile(me.getId(), "https://api.weixin.qq.com/wxa/getwxacode", parameters, requestData);
+
+        return  String.format("%s%s%s", httpDomain ,qrResourceRoutePrefix,  fileName);
+    }
+
+    String getToken() throws IOException, NotFoundException {
+        URL url = new URL("https://api.weixin.qq.com/cgi-bin/token");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("grant_type", "client_credential");
+        parameters.put("appid", appid);
+        parameters.put("secret", secret);
+        String response = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/token", parameters);
+        WechatTokenInfo tokenInfo = JSON.parseObject(response, WechatTokenInfo.class);
+
+        return tokenInfo.getAccess_token();
+    }
+
+
+    /**
+     * 保存文件 请求
+     *
+     * @param url
+     * @param params
+     * @param requestData
+     * @return
+     * @throws IOException
+     * @throws NotFoundException
+     */
+    public String saveFile(long userId ,String url, Map<String, String> params, Map<String, String> requestData) throws IOException, NotFoundException {
+        // 1 请求参数url序列化
+        String paramsUrlStr = getParamsString(params);
+        URL obj = new URL(url + "?" + paramsUrlStr);
+        // 2 TCP 连接handler
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setDoOutput(true);
+        // 3 GET 请求方式
+        con.setRequestMethod("POST");
+        con.setDoInput(true);
+        con.setRequestProperty("Content-Type", "application/json");
+        // 3.1 设置请求体参数
+        String requestBodyJson = JSON.toJSONString(requestData);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes(requestBodyJson);
+        out.flush();
+        out.close();
+        con.connect();
+        BufferedInputStream bis = new BufferedInputStream(con.getInputStream());
+        // 6 获取响应内容
+        String fileName =String.format("wechat-qr-user-%d.png",  userId);
+        String file = String.format("%s%s",  qrResourceDirectory, fileName);
+        File dir = new File( new File(file).getParent());
+        if (!dir.exists()) dir.mkdirs();
+        OutputStream os = new FileOutputStream(file);
+        int len;
+        byte[] arr = new byte[1024];
+        while ((len = bis.read(arr)) != -1) {
+            os.write(arr, 0, len);
+            os.flush();
+        }
+        os.close();
+        con.disconnect();
+
+        return fileName;
     }
 }

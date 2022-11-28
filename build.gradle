@@ -30,7 +30,7 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     implementation 'com.qiniu:qiniu-java-sdk:7.2.1'
     testAnnotationProcessor "org.projectlombok:lombok"
-    implementation 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.projectlombok:lombok'
     implementation 'com.integralblue:log4jdbc-spring-boot-starter:2.0.0'
     implementation 'com.alipay.sdk:alipay-sdk-java:4.22.37.ALL'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'

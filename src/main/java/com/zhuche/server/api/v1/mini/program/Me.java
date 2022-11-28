@@ -10,6 +10,7 @@ package com.zhuche.server.api.v1.mini.program;
 
 
 import com.alipay.api.AlipayApiException;
+import com.wechat.pay.contrib.apache.httpclient.exception.NotFoundException;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.me.UpdateMeRequest;
@@ -29,6 +30,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Objects;
 
 @RestController("miniProgramMe")
@@ -127,7 +129,7 @@ public class Me {
     @GetMapping("QR")
     @Permission(roles = {Role.ROLE_USER})
     public UnityResponse getMyQR( ) throws AlipayApiException {
-         String qr = meService.getMyQR();
+         String qr = meService.getAlipayQR();
 
         return UnityResponse.builder()
             .data(qr)
@@ -138,8 +140,13 @@ public class Me {
     @Permission(roles = {Role.ROLE_USER})
     public UnityResponse getMyQRV2(
         @PathVariable @AccessSocialType String social
-    ) throws AlipayApiException {
-        String qr = meService.getMyQR();
+    ) throws AlipayApiException, NotFoundException, IOException {
+        String qr = "";
+        if (SocialType.WECHAT.toString().equals(social)) {
+            qr = meService.getWechatQR();
+        } else if(SocialType.ALIPAY.toString().equals(social)) {
+            qr = meService.getAlipayQR();
+        }
 
         return UnityResponse.builder()
             .data(qr)

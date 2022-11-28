@@ -519,11 +519,12 @@ public class OrderService {
         );
         if (amount > 0) {
             user.setBalance(user.getBalance() + (int)(amount * 100) );
+            int balance = (int)(user.getBalance()* 100);
             transactionRepository.save(
                 Transaction
                     .builder()
                     .title(subject)
-                    .balance(user.getBalance())
+                    .balance(balance)
                     .amount(amount )
                     .payType(PayType.ALIPAY)
                     .isWithDraw(false)
@@ -650,11 +651,12 @@ public class OrderService {
         if (order.getStatus() == OrderStatus.OVERTIME) {
             setOrderStatusToReturning(body.getOrderId());
             final User user = userRepository.findById(body.getUserId()).get();
+            int balance = (int)(user.getBalance()* 100);
             var transaction = transactionRepository.save(
                 Transaction
                     .builder()
                     .title(subject)
-                    .balance(user.getBalance())
+                    .balance(balance)
                     .amount(-total_amount.doubleValue())
                     .payType(PayType.ALIPAY)
                     .isWithDraw(false)
@@ -726,12 +728,13 @@ public class OrderService {
         var order = orderRepository.findById(data.getOrderId()).get();
         order.setEndTimeStamp( order.getEndTimeStamp() + data.getDays() * 60 * 60 * 24 * 1000 );
         orderRepository.save(order);
+        int balance = (int)(order.getUser().getBalance() * 100);
         transactionRepository.save(
             Transaction.builder()
                 .remark("")
                 .user(order.getUser())
                 .status( TransactionStatus.FINISHED )
-                .balance(order.getUser().getBalance())
+                .balance(balance)
                 .amount(-data.getAmount())
                 .title(subject)
                 .payType(PayType.ALIPAY)

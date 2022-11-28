@@ -82,6 +82,7 @@ public class TransactionService {
             final User user = userRepository.findById(userId).get();
             user.setBalance(user.getBalance() + receipt_amount);
             userRepository.save(user);
+            int balance = (int)(user.getBalance()* 100);
             transactionRepository.save(
                 Transaction.builder()
                     .user(user)
@@ -89,7 +90,7 @@ public class TransactionService {
                     .title(subject)
                     .isWithDraw(false)
                     .status(TransactionStatus.FINISHED)
-                    .balance(user.getBalance())
+                    .balance(balance)
                     .payType(PayType.ALIPAY)
                     .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
                     .tradeNo(trade_no)

@@ -38,6 +38,7 @@ public class WithdrawService {
         final User me = jwtUtil.getUser();
         me.setBalance( me.getBalance() - request.getAmount() );
         userRepository.save(me);
+        int balance = (int)(me.getBalance()* 100);
         var t = Transaction.builder()
             .user(me)
             .amount(-request.getAmount())
@@ -47,7 +48,7 @@ public class WithdrawService {
             .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
             .title("余额提现申请")
             .payType(PayType.ALIPAY)
-            .balance(me.getBalance())
+            .balance(balance)
             .build();
         if (request.getIsCommission()) {
             // 提现中金额

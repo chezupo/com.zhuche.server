@@ -25,7 +25,7 @@ public class Transaction extends BaseEntity{
 
     private Double amount;
 
-    private Double balance; // 余额
+    private int balance; // 余额，单位: 分
 
     private String title;
 

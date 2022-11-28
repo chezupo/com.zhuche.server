@@ -37,7 +37,7 @@ public class User extends BaseEntity {
 
     private Boolean isEnabled;
 
-    private Double balance;
+    private Double balance; // 余额
 
     private String idCarFrontal; // 身份证正面
 

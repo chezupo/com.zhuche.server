@@ -95,13 +95,14 @@ public class WechatNotice {
                 order.setEndTimeStamp( order.getEndTimeStamp() + renewalOrder.getDays() * 60 * 60 * 24 * 1000 );
                 orderRepository.save(order);
                 renewalOrderRepository.save(renewalOrder);
+                int balance = (int)( order.getUser().getBalance()* 100);
                 transactionRepository.save(
                     com.zhuche.server.model.Transaction.
                         builder()
                         .remark("")
                         .user(order.getUser())
                         .status( TransactionStatus.FINISHED )
-                        .balance(order.getUser().getBalance())
+                        .balance(balance)
                         .amount(-(renewalOrder.getTotal() * .01 ))
                         .title("续租")
                         .payType(PayType.WECHAT)
@@ -146,13 +147,14 @@ public class WechatNotice {
                 order.setEndTimeStamp( order.getEndTimeStamp() + renewalOrder.getDays() * 60 * 60 * 24 * 1000 );
                 orderRepository.save(order);
                 renewalOrderRepository.save(renewalOrder);
+                int balance = (int)(order.getUser().getBalance()* 100);
                 transactionRepository.save(
                     com.zhuche.server.model.Transaction.
                         builder()
                         .remark("")
                         .user(order.getUser())
                         .status( TransactionStatus.FINISHED )
-                        .balance(order.getUser().getBalance())
+                        .balance(balance)
                         .amount(-(renewalOrder.getTotal() * .01 ))
                         .title("过期费用补交")
                         .payType(PayType.WECHAT)

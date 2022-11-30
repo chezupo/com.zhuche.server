@@ -85,6 +85,21 @@ public class Users {
             .build();
     }
 
+    @Permission(roles = {Role.ROLE_ADMIN, Role.ROLE_BUSINESS})
+    @GetMapping("/wechat/users")
+    public UnityResponse getWechatUsers(
+        @Param("page") Integer page,
+        @Param("size") Integer size,
+        @Param("nickname") String nickname,
+        @Param("id") Long id
+    ) {
+        final PageFormat userPage = userService.getWechatUsers(page, size, nickname, id);
+
+        return UnityResponse.builder()
+            .data(userPage)
+            .build();
+    }
+
     @Permission(
         roles = {Role.ROLE_ADMIN},
         isLog = true,

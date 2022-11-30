@@ -5,6 +5,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayFundTransUniTransferRequest;
 import com.alipay.api.response.AlipayFundTransUniTransferResponse;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
+import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.withdraw.CreateWithDrawRequest;
 import com.zhuche.server.dto.request.withdraw.RejectWithDrawRequest;
 import com.zhuche.server.exceptions.MyRuntimeException;
@@ -33,8 +34,11 @@ public class WithdrawService {
     private final TransactionService transactionService;
     private final AlipayClient alipayClient;
 
+    /**
+     * 提现申请
+     */
     @Transactional
-    public List<Transaction> createAlipayWithdrawTransaction(CreateWithDrawRequest request) throws AlipayApiException {
+    public List<Transaction> createAlipayWithdrawTransaction(CreateWithDrawRequest request, PayType payType) {
         final User me = jwtUtil.getUser();
         me.setBalance( me.getBalance() - request.getAmount() );
         userRepository.save(me);
@@ -47,7 +51,7 @@ public class WithdrawService {
             .remark(request.getRemark())
             .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
             .title("余额提现申请")
-            .payType(PayType.ALIPAY)
+            .payType(payType)
             .balance(balance)
             .build();
         if (request.getIsCommission()) {

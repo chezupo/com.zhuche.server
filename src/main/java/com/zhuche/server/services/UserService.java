@@ -96,4 +96,38 @@ public class UserService {
 
         return user;
     }
+
+    public PageFormat getWechatUsers(Integer page, Integer size, String nickname, Long id) {
+                page = page != null ? --page : 0;
+        size = size != null ? size : 10;
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable pagingSort = PageRequest.of(page, size, sort);
+        Specification<Store> sf = (root, query, builder) -> {
+            List<Predicate> maps = new ArrayList<>();
+            maps.add(builder.isNotNull(root.get("wechatAccount")));
+            if (nickname != null && nickname.length() > 0) {
+                maps.add(builder.like(root.get("wechatAccount").get("nickName").as(String.class), "%" + nickname + "%"));
+            }
+            if (id != null) {
+                maps.add(builder.equal(root.get("wechatAccount").get("id").as(Long.class), id));
+            }
+
+            Predicate[] pre = new Predicate[maps.size()];
+            Predicate and = builder.and(maps.toArray(pre));
+            query.where(and);
+            List<Order> orders = new ArrayList<>();
+            orders.add(builder.desc(root.get("id")));
+
+            return query.orderBy(orders).getRestriction();
+        };
+
+        final var userPage = userRepository.findAll(sf, pagingSort);
+
+        return PageFormat.builder()
+            .currentPage(page + 1)
+            .size(size)
+            .list(userPage.getContent())
+            .total(userPage.getTotalElements())
+            .build();
+    }
 }

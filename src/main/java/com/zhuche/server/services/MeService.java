@@ -228,7 +228,7 @@ public class MeService {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("access_token", token);
         Map<String, String> requestData= new HashMap<>();
-        requestData.put("path", "/?userId=1");
+        requestData.put("path", "/?userId=" + me.getId());
         String fileName = saveFile(me.getId(), "https://api.weixin.qq.com/wxa/getwxacode", parameters, requestData);
 
         return  String.format("%s%s%s", httpDomain ,qrResourceRoutePrefix,  fileName);

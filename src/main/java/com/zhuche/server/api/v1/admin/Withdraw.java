@@ -18,6 +18,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @RestController
 @RequestMapping("/api/v1/withdraws")
@@ -49,7 +52,7 @@ public class Withdraw {
     )
     public UnityResponse withDrawUpdate(
         @PathVariable("id") @CheckTransactionIdMustBeExist @CheckWithdrawMustBeProcessing Long id
-    ) throws AlipayApiException {
+    ) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         final Transaction pageData = withdrawService.accessWithdraw(id);
         return UnityResponse
             .builder()

@@ -1,11 +1,13 @@
 package com.zhuche.server.services;
 
+import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayFundTransUniTransferRequest;
 import com.alipay.api.response.AlipayFundTransUniTransferResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.zhuche.server.config.exception.ExceptionCodeConfig;
-import com.zhuche.server.dto.path.variable.SocialType;
 import com.zhuche.server.dto.request.withdraw.CreateWithDrawRequest;
 import com.zhuche.server.dto.request.withdraw.RejectWithDrawRequest;
 import com.zhuche.server.exceptions.MyRuntimeException;
@@ -16,23 +18,35 @@ import com.zhuche.server.util.JWTUtil;
 import com.zhuche.server.util.TradeUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
-@AllArgsConstructor
 @Slf4j
 public class WithdrawService {
-    private final TransactionRepository transactionRepository;
-    private final JWTUtil jwtUtil;
-    private final UserRepository userRepository;
-    private final TransactionService transactionService;
-    private final AlipayClient alipayClient;
+    @Autowired TransactionRepository transactionRepository;
+    @Autowired JWTUtil jwtUtil;
+    @Autowired UserRepository userRepository;
+    @Autowired TransactionService transactionService;
+    @Autowired AlipayClient alipayClient;
 
     /**
      * 提现申请
@@ -86,8 +100,95 @@ public class WithdrawService {
      * @return
      * @throws AlipayApiException
      */
+    public Transaction accessWithdraw(Long id) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        final Transaction transaction = transactionRepository.findById(id).get();
+        switch (transaction.getPayType()) {
+            case ALIPAY -> {
+                accessAlipayWithdraw(id);
+            }
+            case WECHAT -> {
+                accessWechatWithdraw(id);
+            }
+        }
+
+        return transaction;
+    }
+
+    /**
+     * 商户号
+     */
+    @Value("${wx.pay.merchantId}")
+    public String merchantId;
+
+    @Value("${wx.appid}")
+    public String appId;
+
+    @Autowired WeChatPayOrderService weChatPayOrderService;
+
     @Transactional
-    public Transaction accessWithdraw(Long id) throws AlipayApiException {
+    public Transaction accessWechatWithdraw(Long id) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        final Transaction transaction = transactionRepository.findById(id).get();
+        String openid = transaction.getUser().getWechatAccount().getOpenId();
+        HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/v3/transfer/batches");
+        httpPost.addHeader("Accept", "application/json");
+        httpPost.addHeader("Content-type","application/json; charset=utf-8");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode rootNode = objectMapper.createObjectNode();
+        // 订单批次号
+        String out_batch_no = TradeUtil.generateOutTradeNo();
+        int total_amount = (int) (transaction.getAmount() * 100);
+        rootNode.put("batch_name", "微信提现")
+            .put("appid", appId)
+            .put("out_batch_no", out_batch_no)
+            .put("batch_remark", "微信提现")
+            .put("total_amount", total_amount)
+            .put("total_num", 1);
+
+        String out_detail_no = TradeUtil.generateOutTradeNo();
+
+        Map<String, Object> postMap = new HashMap<String, Object>();
+        postMap.put("appid", appId);
+        postMap.put("out_batch_no", out_batch_no);
+        //该笔批量转账的名称
+        postMap.put("batch_name", "测试转账");
+        //转账说明，UTF8编码，最多允许32个字符
+        postMap.put("batch_remark", "测试转账");
+        //转账金额单位为“分”。 总金额
+        postMap.put("total_amount", 100);
+        //。转账总笔数
+        postMap.put("total_num", 1);
+
+
+        List<Map> list = new ArrayList<>();
+        Map<String, Object> subMap = new HashMap<>(4);
+        //商家明细单号
+        subMap.put("out_detail_no",  out_detail_no);
+        //转账金额
+        subMap.put("transfer_amount", 100);
+        //转账备注
+        subMap.put("transfer_remark", "明细备注1");
+        //用户在直连商户应用下的用户标示
+        subMap.put("openid", openid);
+//    subMap.put("user_name", RsaCryptoUtil.encryptOAEP(userName, x509Certificate));
+        list.add(subMap);
+        postMap.put("transfer_detail_list", list);
+        String dataJson = JSON.toJSONString(postMap);
+        httpPost.setEntity(new StringEntity(dataJson, "UTF-8"));
+        CloseableHttpResponse response = weChatPayOrderService.getWechatClient().execute(httpPost);
+        String bodyAsString = EntityUtils.toString(response.getEntity());
+
+        return null;
+    }
+
+    /**
+     * 同意支付宝提现申请
+     * @param id
+     * @return
+     * @throws AlipayApiException
+     */
+    @Transactional
+    public Transaction accessAlipayWithdraw(Long id) throws AlipayApiException {
         final Transaction transaction = transactionRepository.findById(id).get();
         final String outBizNo = TradeUtil.generateOutTradeNo();
         final var amount = Math.round( Math.abs(transaction.getAmount()) * 100) / 100.0;
@@ -115,7 +216,7 @@ public class WithdrawService {
         transactionRepository.save(transaction);
         if (transaction.getTransactionType() == TransactionType.COMMISSION) {
             final User me = transaction.getUser();
-             var commissionAmount = BigDecimal.valueOf(Math.abs(transaction.getAmount()));
+            var commissionAmount = BigDecimal.valueOf(Math.abs(transaction.getAmount()));
             // 提现中现金
             me.setWithdrawalInProgressCommission(
                 BigDecimal.valueOf( me.getWithdrawalInProgressCommission().doubleValue() - commissionAmount.doubleValue() )

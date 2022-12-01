@@ -95,7 +95,7 @@ public class WechatNotice {
                 order.setEndTimeStamp( order.getEndTimeStamp() + renewalOrder.getDays() * 60 * 60 * 24 * 1000 );
                 orderRepository.save(order);
                 renewalOrderRepository.save(renewalOrder);
-                int balance = (int)( order.getUser().getBalance()* 100);
+                int balance = (int)( order.getUser().getBalance() * 100);
                 transactionRepository.save(
                     com.zhuche.server.model.Transaction.
                         builder()

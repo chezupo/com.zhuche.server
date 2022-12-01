@@ -170,7 +170,7 @@ public class OrderService {
             .rent(Math.round(rent * 100) / 100.0 )
             .deposit(Math.round(deposit * 100) / 100.0)
             .handlingFee(Math.round(handlingFee * 100) / 100.0)
-            .amount((int)(amount * 100))
+            .amount(amount)
             .waiverHandlingFee(Math.round(waiverHandlingFee * 100) / 100.0)
             .waiverRent(Math.round(waiverRent * 100) / 100.0)
             .createAlipayAt(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()))

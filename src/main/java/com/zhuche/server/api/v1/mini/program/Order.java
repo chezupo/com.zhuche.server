@@ -149,4 +149,23 @@ public class Order {
             .build();
     }
 
+
+    /**
+     * 删除订单
+     * @param id
+     * @return
+     * @throws AlipayApiException
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     * @throws URISyntaxException
+     */
+    @DeleteMapping("/orders/{id}")
+    @Permission( roles = {Role.ROLE_USER} )
+    public UnityResponse destroyOrder(
+        @PathVariable("id") @CheckOrderMustBelongMeById @CheckOrderStatusAllowDelete Long id
+    ) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+        orderService.deleteOrderById(id);
+        return UnityResponse.builder().build();
+    }
 }

@@ -232,6 +232,8 @@ public class OrderService {
             List<Predicate> maps = new ArrayList<>();
             final var me = jwtUtil.getUser();
             maps.add( builder.equal(root.get("user").get("id").as(Long.class), me.getId()));
+            maps.add( builder.equal(root.get("user").get("id").as(Long.class), me.getId()));
+            maps.add(builder.isNull(root.get("deletedAt")));
             Predicate[] pre = new Predicate[maps.size()];
             Predicate and = builder.and(maps.toArray(pre));
             query.where(and);
@@ -762,5 +764,11 @@ public class OrderService {
         }
 
         return orderRepository.save(newOrder);
+    }
+
+    public void deleteOrderById(Long id) {
+        Order order = orderRepository.findById(id).get();
+        order.setDeletedAt(LocalDateTime.now());
+        orderRepository.save(order);
     }
 }

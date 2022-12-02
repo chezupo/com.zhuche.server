@@ -516,11 +516,14 @@ public class OrderService {
         if (user.getCommission() == null) {
             user.setCommission(BigDecimal.valueOf(0));
         }
+        if (user.getBalance() == null) {
+            user.setBalance(0.00);
+        }
         user.setCommission(
             user.getCommission().add(commission)
         );
         if (amount > 0) {
-            user.setBalance(user.getBalance() + (int)(amount * 100) );
+            user.setBalance(user.getBalance() + amount);
             int balance = (int)(user.getBalance()* 100);
             transactionRepository.save(
                 Transaction

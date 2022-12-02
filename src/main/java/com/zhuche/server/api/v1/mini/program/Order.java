@@ -160,11 +160,11 @@ public class Order {
      * @throws InvalidKeySpecException
      * @throws URISyntaxException
      */
-    @DeleteMapping("/orders/{id}")
+    @DeleteMapping("/{id}")
     @Permission( roles = {Role.ROLE_USER} )
     public UnityResponse destroyOrder(
         @PathVariable("id") @CheckOrderMustBelongMeById @CheckOrderStatusAllowDelete Long id
-    ) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+    ) {
         orderService.deleteOrderById(id);
         return UnityResponse.builder().build();
     }

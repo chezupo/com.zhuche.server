@@ -121,7 +121,7 @@ public class OrderService {
         double rent = car.getRent() * dayCount;// 租金
         double deposit = car.getDeposit(); // 押金
         double handlingFee = car.getHandlingFee(); // 手续费
-        double amount = rent + handlingFee; // 总费用
+        double amount = rent + handlingFee + insuranceFee; // 总费用
         double waiverHandlingFee = 0; // 减免手续费
         double waiverRent = 0; // 减免的租金
         // 优惠卷减免

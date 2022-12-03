@@ -166,6 +166,7 @@ public class OrderService {
         Order newOrder = Order.builder()
             .title(title)
             .car(car)
+            .isDelete(false)
             .insuranceFee(Math.round(insuranceFee * 100) / 100.0 )
             .rent(Math.round(rent * 100) / 100.0 )
             .deposit(Math.round(deposit * 100) / 100.0)
@@ -246,8 +247,10 @@ public class OrderService {
 
             return query.orderBy(orders).getRestriction();
         };
+        List<Order> orders = orderRepository.findAll(sf);
+        log.info("{}", orders);
 
-        return  orderRepository.findAll(sf);
+        return orders;
     }
 
     /**

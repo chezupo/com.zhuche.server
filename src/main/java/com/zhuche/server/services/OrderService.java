@@ -692,9 +692,12 @@ public class OrderService {
      */
     public String createReletTrade(Long id, UpdateOrderReletRequest updateOrderReletRequest) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         final Order order = orderRepository.findById(id).get();
-        final double amount = Math.round(
+        double amount = Math.round(
             order.getCar().getRent() * updateOrderReletRequest.getDays() * 100
         ) / 100.0;
+        if (order.getIsInsurance()) {
+            amount += order.getCar().getInsuranceFee() * updateOrderReletRequest.getDays() ;
+        }
         final var title = String.format("%s-租车续费(%s天)", order.getTitle(), updateOrderReletRequest.getDays());
         final RenewalOrder renewalOrder = RenewalOrder.builder()
             .orderId(order.getId())

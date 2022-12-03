@@ -718,7 +718,7 @@ public class OrderService {
         request.setNotifyUrl(alipayReletNoticeUrl);
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", TradeUtil.generateOutTradeNo());
-        bizContent.put("total_amount", amount);
+        bizContent.put("total_amount", amount * .01);
         bizContent.put("subject", title);
         bizContent.put("buyer_id", me.getAlipayAccount().getUserId());
         bizContent.put("timeout_express", orderPayExpiredDays + "d");

@@ -47,7 +47,8 @@ public class Comment extends BaseEntity{
     @JsonIncludeProperties({
         "id",
         "startStore",
-        "user"
+        "user",
+        "payType"
     })
     private Order order;
 

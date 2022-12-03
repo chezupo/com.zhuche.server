@@ -40,6 +40,9 @@ public class Order extends BaseEntity{
 
     private Boolean isInsurance; // 是否启用驾无忧
 
+    private Boolean isDelete; // 是否删除
+
+
     private String cover; // 汽车封面
     public String getCover() {
         return ConfigurationService.getPrefixUrl() + "/" + cover;

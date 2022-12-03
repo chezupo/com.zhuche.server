@@ -226,6 +226,10 @@ public class OrderService {
         return orderRepository.save(newOrder);
     }
 
+    /**
+     * 获取用户的订单
+     * @return
+     */
     public List<Order> getMyOrders() {
         jwtUtil.getUser();
         Specification<Store> sf = (root, query, builder) -> {
@@ -233,7 +237,7 @@ public class OrderService {
             final var me = jwtUtil.getUser();
             maps.add( builder.equal(root.get("user").get("id").as(Long.class), me.getId()));
             maps.add( builder.equal(root.get("user").get("id").as(Long.class), me.getId()));
-            maps.add(builder.isNull(root.get("deletedAt")));
+            maps.add( builder.equal(root.get("isDelete").as(Boolean.class), false));
             Predicate[] pre = new Predicate[maps.size()];
             Predicate and = builder.and(maps.toArray(pre));
             query.where(and);
@@ -771,7 +775,7 @@ public class OrderService {
 
     public void deleteOrderById(Long id) {
         Order order = orderRepository.findById(id).get();
-        order.setDeletedAt(LocalDateTime.now());
+        order.setIsDelete(true);
         orderRepository.save(order);
     }
 

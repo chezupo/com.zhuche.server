@@ -62,4 +62,28 @@ public class HttpUtil {
         return data;
     }
 
+    /**
+     * 格式费用
+     * @param fee
+     * @return
+     */
+    static public Double feeFormat(Double fee) {
+        Double person = (fee * 100);
+
+        return person.intValue() * 0.01;
+    }
+
+    /**
+     * 费用转化为分
+     * @param fee
+     * @return
+     */
+    static public int feeToPerson(Double fee) {
+        Double person = fee * 100;
+
+        return person.intValue();
+    }
+
+
+
 }

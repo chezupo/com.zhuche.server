@@ -44,6 +44,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.zhuche.server.util.HttpUtil.feeFormat;
+import static com.zhuche.server.util.HttpUtil.feeToPerson;
+
 
 @Service
 @Slf4j
@@ -502,10 +505,10 @@ public class OrderService {
         order.setStatus(OrderStatus.FINISHED);
         // 订单佣金结算
         if (order.getPromotionLevel1User() != null) {
-            calculateOrderCommission(order.getPromotionLevel1User(), order.getPromotionLevel1(), order.getAmount() * 0.01 , "订单一级反佣");
+            calculateOrderCommission(order.getPromotionLevel1User(), order.getPromotionLevel1(), order.getAmount(), "订单一级反佣");
         }
         if (order.getPromotionLevel2User() != null) {
-            calculateOrderCommission(order.getPromotionLevel2User(), order.getPromotionLevel2(), order.getAmount() * 0.01, "订单二级反佣");
+            calculateOrderCommission(order.getPromotionLevel2User(), order.getPromotionLevel2(), order.getAmount(), "订单二级反佣");
         }
 
         return orderRepository.save(order);
@@ -530,8 +533,9 @@ public class OrderService {
             user.getCommission().add(commission)
         );
         if (amount > 0) {
-            user.setBalance(user.getBalance() + amount);
-            int balance = (int)(user.getBalance()* 100);
+            user.setBalance(feeFormat( user.getBalance() + commission.doubleValue()) );
+            int balance = feeToPerson(user.getBalance());
+            userRepository.save(user);
             transactionRepository.save(
                 Transaction
                     .builder()

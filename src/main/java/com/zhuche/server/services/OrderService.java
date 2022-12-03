@@ -156,7 +156,6 @@ public class OrderService {
             }
         }
         // 合计
-        amount = (Math.round( (rent + handlingFee) * 100 ) / 100.0);
         String title = car.getName() + "费用";
         Boolean isInsuranceFee = query.getIsInsurance();
         Store starStore = storeRepository.findById(query.getStartStoreId()).get();
@@ -692,11 +691,13 @@ public class OrderService {
      */
     public String createReletTrade(Long id, UpdateOrderReletRequest updateOrderReletRequest) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         final Order order = orderRepository.findById(id).get();
-        double amount = Math.round(
-            order.getCar().getRent() * updateOrderReletRequest.getDays() * 100
-        ) / 100.0;
+        int rent = (int) (order.getCar().getRent() * 100);
+        Long days = updateOrderReletRequest.getDays();
+        int amount = rent * days.intValue();
         if (order.getIsInsurance()) {
-            amount += order.getCar().getInsuranceFee() * updateOrderReletRequest.getDays() ;
+            int insuranceFee = (int)(order.getCar().getInsuranceFee() * 100);
+            insuranceFee =  insuranceFee * days.intValue();
+            amount += insuranceFee;
         }
         final var title = String.format("%s-租车续费(%s天)", order.getTitle(), updateOrderReletRequest.getDays());
         final RenewalOrder renewalOrder = RenewalOrder.builder()
@@ -704,7 +705,7 @@ public class OrderService {
             .days(updateOrderReletRequest.getDays())
             .outTradeNo(TradeUtil.generateOutTradeNo())
             .isOk(false)
-            .total((int)(amount * 100))
+            .total(amount)
             .build();
         final User me = jwtUtil.getUser();
         if (order.getPayType() == PayType.WECHAT ) {
@@ -725,7 +726,7 @@ public class OrderService {
                 .builder()
                 .orderId(order.getId())
                 .days(updateOrderReletRequest.getDays())
-                .amount(amount)
+                .amount( amount * 0.01)
                 .build()
         ));
         request.setBizContent(bizContent.toString());

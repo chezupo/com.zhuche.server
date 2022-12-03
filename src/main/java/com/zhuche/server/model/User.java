@@ -80,10 +80,24 @@ public class User extends BaseEntity {
 
     @Column(name="commission", columnDefinition = "decimal", precision = 2, scale = 0)
     private BigDecimal commission; // 佣金
+
+    public BigDecimal getCommission() {
+        if (commission == null)  {
+            return BigDecimal.valueOf(0);
+        }
+        return commission;
+    }
     @Column(name="withdrawn_commission", columnDefinition = "decimal", precision = 2, scale = 0)
     private BigDecimal withdrawnCommission; // 已提现佣金
     @Column(name="withdrawal_in_progress_commission", columnDefinition = "decimal", precision = 2, scale = 0)
     private BigDecimal withdrawalInProgressCommission; // 提现中佣金
+
+    public BigDecimal getWithdrawalInProgressCommission() {
+        if (withdrawalInProgressCommission == null) {
+            return BigDecimal.valueOf(0);
+        }
+        return withdrawalInProgressCommission;
+    }
 
     @Column(name = "alipay_qr")
     private String alipayQr; //支付宝推广二维码

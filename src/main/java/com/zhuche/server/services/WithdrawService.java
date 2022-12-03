@@ -39,6 +39,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.zhuche.server.util.HttpUtil.feeFormat;
+import static com.zhuche.server.util.HttpUtil.feeToPerson;
+
 @Service
 @Slf4j
 public class WithdrawService {
@@ -56,7 +59,7 @@ public class WithdrawService {
         final User me = jwtUtil.getUser();
         me.setBalance( me.getBalance() - request.getAmount() );
         userRepository.save(me);
-        int balance = (int)(me.getBalance()* 100);
+        int balance = feeToPerson(me.getBalance());
         var t = Transaction.builder()
             .user(me)
             .amount(-request.getAmount())
@@ -72,19 +75,13 @@ public class WithdrawService {
             // 提现中金额
             t.setTitle("佣金提现申请");
             t.setTransactionType(TransactionType.COMMISSION);
-            if (me.getWithdrawalInProgressCommission() == null) {
-                me.setWithdrawalInProgressCommission(BigDecimal.valueOf(0));
-            }
             var withdrawalInProgressCommission= me.getWithdrawalInProgressCommission();
             withdrawalInProgressCommission = new BigDecimal( withdrawalInProgressCommission.doubleValue() + request.getAmount() );
             me.setWithdrawalInProgressCommission(withdrawalInProgressCommission);
             // 佣金金额
-            if (me.getCommission() == null ){
-                me.setCommission(BigDecimal.valueOf(0));
-            }
             me.setCommission(
                 BigDecimal.valueOf(
-                    me.getCommission().doubleValue() - request.getAmount()
+                    feeFormat(me.getCommission().doubleValue() - request.getAmount())
                 )
             );
             userRepository.save(me);

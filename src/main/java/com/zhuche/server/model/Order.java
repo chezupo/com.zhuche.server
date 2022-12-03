@@ -36,7 +36,7 @@ public class Order extends BaseEntity{
 
     private Long startTimeStamp;
 
-    private Long endTimeStamp;
+    private Long endTimeStamp; // 租期期限,单位/毫秒
 
     private Boolean isInsurance; // 是否启用驾无忧
 

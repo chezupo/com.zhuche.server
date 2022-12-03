@@ -774,4 +774,18 @@ public class OrderService {
         order.setDeletedAt(LocalDateTime.now());
         orderRepository.save(order);
     }
+
+    /**
+     * 续租
+     * @param id
+     * @param updateOrderReletRequest
+     * @return
+     */
+    public Order renewingOrder(Long id, UpdateOrderReletRequest updateOrderReletRequest) {
+        Order order = orderRepository.findById(id).get();
+        order.setEndTimeStamp( order.getEndTimeStamp() + updateOrderReletRequest.getDays() * 24 * 60 * 60 * 1000);
+        orderRepository.save(order);
+
+        return order;
+    }
 }

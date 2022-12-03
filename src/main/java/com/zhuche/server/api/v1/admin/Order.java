@@ -3,6 +3,7 @@ package com.zhuche.server.api.v1.admin;
 import com.alipay.api.AlipayApiException;
 import com.zhuche.server.config.interceptors.Permission;
 import com.zhuche.server.dto.request.order.ConfirmOrderRequest;
+import com.zhuche.server.dto.request.order.UpdateOrderReletRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
 import com.zhuche.server.model.OrderStatus;
@@ -94,6 +95,26 @@ public class Order {
         @PathVariable("id") @CheckOrderStatusMustBeFinished @CheckOrderBelongsToMeForStartStore Long id
     ) throws AlipayApiException {
         final com.zhuche.server.model.Order order = orderService.unfreezeOrder(id);
+
+        return UnityResponse.builder()
+            .data(order)
+            .build();
+    }
+
+    @PutMapping("/{id}/status/renewing")
+    @Permission(roles = {
+        Role.ROLE_BUSINESS,
+        Role.ROLE_ADMIN,
+    },
+        isLog = true,
+        title = "续租订单",
+        type = LogType.UPDATED
+    )
+    public UnityResponse renewingOrder(
+        @PathVariable("id") @CheckOrderStatusMustBeUsingOrOverTime @CheckOrderBelongsToMeForStartStore Long id,
+        @RequestBody @Valid UpdateOrderReletRequest updateOrderReletRequest
+    ) {
+        final com.zhuche.server.model.Order order = orderService.renewingOrder(id, updateOrderReletRequest);
 
         return UnityResponse.builder()
             .data(order)

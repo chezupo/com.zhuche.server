@@ -39,7 +39,16 @@ public class User extends BaseEntity {
 
     private Double balance; // 余额
 
+    public Double getBalance() {
+        if (balance == null) {
+            return 0.00;
+        }
+
+        return balance;
+    }
+
     private String idCarFrontal; // 身份证正面
+
 
     public void setIdCarFrontal(String newIdCarFrontal) {
         idCarFrontal = ConfigurationUtil.fullUrlConvertKey(newIdCarFrontal);

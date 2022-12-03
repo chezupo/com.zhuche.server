@@ -450,7 +450,8 @@ public class OrderService {
         request.setNotifyUrl(alipayNoticeUrl);
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", order.getOutTradeNo());
-        bizContent.put("total_amount", order.getAmount());
+        Double amount = order.getAmount() * 100;
+        bizContent.put("total_amount",  amount.intValue() * .01 );
         bizContent.put("subject", title);
         bizContent.put("buyer_id", alipayUserId);
         bizContent.put("timeout_express", orderPayExpiredDays + "d");

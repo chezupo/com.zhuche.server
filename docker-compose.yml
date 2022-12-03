@@ -2,15 +2,17 @@ version: '3'
 
 services:
     springBoot:
-        image: wuchuheng/a1001-zhuche:0.0.13
+        image: wuchuheng/a1001-zhuche:0.0.14
         build: "./"
         ports:
             -   "6000:8080"
         volumes:
             - "./src/main/resources/certificates:/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates"
+            - "./src/main/resources/images:/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/images"
+            - "./src/main/resources/application-prod.yml:/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/application-prod.yml"
         command:
             - /bin/sh
             - -c
             - |
                 ls -ahl /Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/certificates/ &&
-                java -Duser.timezone="Asia/Shanghai" -jar /app.jar
+                java -Duser.timezone="Asia/Shanghai" -jar -Dfile.encoding=utf-8 -Dspring.config.location=/Users/wuchuheng/Desktop/myprojects/a1001-zhuche/com.zhuche.server/src/main/resources/application-prod.yml /app.jar

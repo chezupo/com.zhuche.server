@@ -1,31 +1,91 @@
 spring:
     datasource:
-        url: jdbc:mysql://localhost:3306/com_zhuche_server?characterEncoding=utf-8&serverTimezone=GMT%2B8
-        username: root
-        password: 12345678
+        url: jdbc:mysql://<IP>:<port>/<database>?characterEncoding=utf-8&serverTimezone=GMT%2B8&createDatabaseIfNotExist=true
+        username: <db_username>
+        password: <db_password>
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        hikari:
+            minimum-idle: 10
+            maximum-pool-size: 20
+            validation-timeout : 1000
     jpa:
-        show-sql: true
-        properties:
-            hibernate:
-                format_sql: true
-                show_sql: true
         hibernate:
-            ddl-auto: update
+            ddl-auto: none
 
 alipay:
-    privateKey: ""
     serverUrl: "https://openapi.alipay.com/gateway.do"
+    # 本地私钥
+    privateKey: ""
+    # 应用公钥证书路径
+    appCertPath: ""
+    # 支付宝公钥证书文件路径
+    alipayPublicCertPath: ""
+    # 支付宝CA根证书文件路径
+    rootCertPath: ""
     appid: ""
-    alipayPublicKey: ""
+    # 接口内容加密，用于解密手机号
     alipayAESKey: ""
-    alipayNoticeUrl: ""
+    alipayNoticeUrl: "<domain>/api/v1/miniProgram/alipayNotice"
+    # 支付宝充值异步通知
+    alipayTopUpNoticeUrl: "<domain>/api/v1/miniProgram/alipayNotice/topUp"
+    # 支付宝违章扣款异步通知
+    alipayViolationNoticeUrl: "<domain>/api/v1/miniProgram/alipayNotice/violation"
+    # 交结订单
+    alipayFreezeNoticeUrl: "<domain>/api/v1/miniProgram/alipayNotice/freeze"
+    # 订单超时订单
+    alipayOvertimeNoticeUrl: "<domain>/api/v1/miniProgram/alipayNotice/overTime"
+    # 续费订单通知
+    alipayReletNoticeUrl: "<domain>/api/v1/miniProgram/alipayNotice/relet"
+    # 收单账号 用于冻结订单时使用 https://b.alipay.com/page/store-management/infomanage 在这里查看
+    pid: "2088241974604591"
 
+# 未支付订单过期时长
+orderPayExpiredDays: 15
+
+# 二维码保存图片目录
+QRResourceDirectory: ""
+# 二维码访问路由
+QRResourceRoutePrefix: "/images/"
+
+# 系统域名 用于静态资源访问链接拼接使用
+httpDomain: "<domain>"
+
+tt:
+    # 字节appid
+    appId: ""
+    #字节 appSecret
+    secret: ""
+
+wx:
+    # 小程序应用ID
+    appid: ""
+    # 小程序开发者secret
+    secret: ""
+    token: ""
+    aesKey: ""
+    msgDataFormat: JSON
+    pay:
+        # 微信支付商户号
+        merchantId: ""
+        # 微信支付私钥
+        privateKeyPath: ""
+        # 微信支付公钥
+        wechatPayCertificatePath: ""
+        # 微信支付平台证书编号
+        merchantSerialNumber:  ""
+        # 微信支付apiv3Key 用于解密微信支付回调
+        apiV3Key: ""
+        notifyUrl: "<domain>/api/v1/miniProgram/wechatNotice"
+        # 续费通知
+        renewalNotifyUrl: "<domain>/api/v1/miniProgram/wechatNotice/renewalNotify"
+        # 逾期补交通知
+        overtimeNoticeUrl: "<domain>/api/v1/miniProgram/wechatNotice/overtimeNotify"
 disk:
     qiniu:
         accessKey: ""
         secretKey: ""
-        bucket: "zhuche-a1001"
-        prefixUrl: "https://zhuche-a1001.qiniu.wuchuheng.com"
+        bucket: ""
+        prefixUrl: ""
 
 springbootwebfluxjjwt:
     password:
@@ -36,24 +96,7 @@ springbootwebfluxjjwt:
     jjwt:
         secret: ""
         expiration: 604800000
-logging:
-    level:
-        jdbc:
-            resultsettable: info
-            sqltiming: info
-            sqlonly: fatal
-            audit: fatal
-            resultset: fatal
-            connection: fatal
 
-log4jdbc:
-    dump:
-        sql:
-            addsemicolon: true
-            maxlinelength: 0
-    trim:
-        sql:
-            extrablanklines: true
 
 initAppName: "车租婆"
 initLogo: "2022-2-20-1-27-36-1645291656873-logo.png"

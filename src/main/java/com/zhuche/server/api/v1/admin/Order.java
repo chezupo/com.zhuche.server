@@ -6,19 +6,18 @@ import com.zhuche.server.dto.request.order.ConfirmOrderRequest;
 import com.zhuche.server.dto.request.order.UpdateOrderReletRequest;
 import com.zhuche.server.dto.response.UnityResponse;
 import com.zhuche.server.model.LogType;
-import com.zhuche.server.model.OrderStatus;
 import com.zhuche.server.model.Role;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.services.OrderService;
 import com.zhuche.server.validators.order.*;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -26,6 +25,8 @@ import javax.websocket.server.PathParam;
 @AllArgsConstructor
 public class Order {
     private final OrderService orderService;
+    private final OrderRepository orderRepository;
+
     @GetMapping
     @Permission(roles = {
         Role.ROLE_BUSINESS,
@@ -115,6 +116,27 @@ public class Order {
         @RequestBody @Valid UpdateOrderReletRequest updateOrderReletRequest
     ) {
         final com.zhuche.server.model.Order order = orderService.renewingOrder(id, updateOrderReletRequest);
+
+        return UnityResponse.builder()
+            .data(order)
+            .build();
+    }
+
+    @DeleteMapping("/{id}")
+    @Permission(roles = {
+        Role.ROLE_BUSINESS,
+        Role.ROLE_ADMIN,
+    },
+        isLog = true,
+        title = "删除订单",
+        type = LogType.DELETED
+    )
+    public UnityResponse deleteOrder(
+        @PathVariable("id") @CheckOrderStatusMustBeCancel @CheckOrderBelongsToMeForStartStore Long id
+    ) {
+        com.zhuche.server.model.Order order = orderRepository.findById(id).get();
+        order.setDeletedAt(LocalDateTime.now());
+        orderRepository.save(order);
 
         return UnityResponse.builder()
             .data(order)

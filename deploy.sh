@@ -2,7 +2,7 @@
 
 ./gradlew bootJar
 # 迭代docker-compose的springBoot服务的镜像版本号
-version="0.0.15"
+version="0.0.16"
 packName=wuchuheng/a1001-zhuche
 packNamePatten="${packName/\//\/}"
 set -f                      # avoid globbing (expansion of *).

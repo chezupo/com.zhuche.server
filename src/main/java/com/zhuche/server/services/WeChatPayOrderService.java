@@ -145,12 +145,27 @@ public class WeChatPayOrderService {
      * @return
      */
     public String getExpiredDatetime() {
-        DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-        final String result = ZonedDateTime.now().plusDays(orderPayExpiredDays).format(FORMATTER);
+//        DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+//        final String result = ZonedDateTime.now().plusDays(orderPayExpiredDays).format(FORMATTER);
+        final var dateTime = ZonedDateTime.now().plusDays(orderPayExpiredDays);
+
+        final String result = String.format("%s-%s-%sT%s:%s:%s+08:00",
+            dateTime.getYear(),
+            formDateTimeNumberToString(dateTime.getMonthValue()),
+            formDateTimeNumberToString(dateTime.getDayOfMonth()),
+            formDateTimeNumberToString(dateTime.getHour()),
+            formDateTimeNumberToString(dateTime.getMonthValue()),
+            formDateTimeNumberToString(dateTime.getSecond())
+        );
         log.info("{}", result);
 
         return result;
     }
+
+    private String formDateTimeNumberToString(int value) {
+        return value >= 10 ? value + "" : String.format("0%d", value);
+    }
+
 
     /**
      * 字符串

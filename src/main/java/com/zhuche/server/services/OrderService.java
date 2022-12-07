@@ -290,7 +290,7 @@ public class OrderService {
                 );
             }
             if(tradeNo != null) {
-                maps.add( builder.like(root.get("alipayOutTradeNo").as(String.class), "%" + tradeNo +  "%"));
+                maps.add( builder.like(root.get("outTradeNo").as(String.class), "%" + tradeNo +  "%"));
             }
             maps.add( builder.isNotNull(root.get("id").as(Long.class)) );
             Predicate[] pre = new Predicate[maps.size()];

@@ -6,10 +6,10 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint( validatedBy = CheckWithdrawMustBeProcessingWiring.class )
-@Target({ ElementType.PARAMETER})
+@Target({ ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CheckWithdrawMustBeProcessing {
-    String message() default "提现单: ${validatedValue} 状态错误.";
+public @interface CheckWithdrawBalance {
+    String message() default "账户余额不足";
 
     Class<?>[] groups() default {};
 

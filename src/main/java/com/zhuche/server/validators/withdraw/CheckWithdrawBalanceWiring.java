@@ -1,9 +1,7 @@
 package com.zhuche.server.validators.withdraw;
 
-import com.zhuche.server.model.Transaction;
-import com.zhuche.server.model.TransactionStatus;
-import com.zhuche.server.repositories.TransactionRepository;
-import com.zhuche.server.repositories.UserRepository;
+import com.zhuche.server.model.User;
+import com.zhuche.server.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -14,17 +12,13 @@ import javax.validation.ConstraintValidatorContext;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CheckWithdrawMustBeProcessingWiring implements ConstraintValidator<CheckWithdrawMustBeProcessing, Long> {
-    private final TransactionRepository transactionRepository;
+public class CheckWithdrawBalanceWiring implements ConstraintValidator<CheckWithdrawBalance, Double> {
+    private final JWTUtil jwtUtil;
 
     @Override
-    public boolean isValid(Long id, ConstraintValidatorContext context) {
-        var option = transactionRepository.findById(id);
-        if (option.isEmpty()) {
-            return false;
-        }
-        final Transaction transaction = option.get();
+    public boolean isValid(Double amount, ConstraintValidatorContext context) {
+        final User me = jwtUtil.getUser();
 
-        return transaction.isWithDraw() && transaction.getStatus() == TransactionStatus.PROCESSING && transaction.getAmount() < 0;
+         return me.getBalance() > amount;
     }
 }

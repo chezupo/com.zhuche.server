@@ -723,26 +723,35 @@ public class OrderService {
         if (order.getPayType() == PayType.WECHAT ) {
             // 微信续租
             return weChatPayOrderService.renewalOrder(renewalOrder, title, me);
+            // 支付宝续租
+        } else if(order.getPayType() == PayType.ALIPAY) {
+            return createAlipayRenewalOrder(renewalOrder, title, me);
         }
+        throw new MyRuntimeException(ExceptionCodeConfig.INTERIOR_ERROR_TYPE, "支付宝调用失败");
+    }
 
+
+    /**
+     * 创建支付宝续费订单
+     * @param renewalOrder
+     * @param title
+     * @param me
+     * @return
+     * @throws AlipayApiException
+     */
+    public String createAlipayRenewalOrder(RenewalOrder renewalOrder, String title, User me) throws AlipayApiException {
+        renewalOrder.setPayType(PayType.ALIPAY);
         AlipayTradeCreateRequest request = new AlipayTradeCreateRequest();
         request.setNotifyUrl(alipayReletNoticeUrl);
         JSONObject bizContent = new JSONObject();
-        bizContent.put("out_trade_no", TradeUtil.generateOutTradeNo());
-        bizContent.put("total_amount", amount * .01);
+        bizContent.put("out_trade_no", renewalOrder.getOutTradeNo());
+        bizContent.put("total_amount",  renewalOrder.getTotal() * .01);
         bizContent.put("subject", title);
         bizContent.put("buyer_id", me.getAlipayAccount().getUserId());
         bizContent.put("timeout_express", orderPayExpiredDays + "d");
-        bizContent.put("body", JSON.toJSONString(
-            AlipayOrderRelatBody
-                .builder()
-                .orderId(order.getId())
-                .days(updateOrderReletRequest.getDays())
-                .amount( amount * 0.01)
-                .build()
-        ));
         request.setBizContent(bizContent.toString());
         AlipayTradeCreateResponse response = alipayClient.certificateExecute(request);
+        renewalOrderRepository.save(renewalOrder);
         if (response.isSuccess()) {
             return response.getTradeNo();
         } else {
@@ -750,27 +759,11 @@ public class OrderService {
         }
     }
 
-    @Transactional
     public void relateOrder(String body, String subject, String trade_no, String out_trade_no) {
-        var data = JSON.parseObject(body, AlipayOrderRelatBody.class);
-        var order = orderRepository.findById(data.getOrderId()).get();
-        order.setEndTimeStamp( order.getEndTimeStamp() + data.getDays() * 60 * 60 * 24 * 1000 );
-        orderRepository.save(order);
-        int balance = (int)(order.getUser().getBalance() * 100);
-        transactionRepository.save(
-            Transaction.builder()
-                .remark("")
-                .user(order.getUser())
-                .status( TransactionStatus.FINISHED )
-                .balance(balance)
-                .amount(-data.getAmount())
-                .title(subject)
-                .payType(PayType.ALIPAY)
-                .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
-                .outTradeNo(out_trade_no)
-                .tradeNo(trade_no)
-                .build()
-        );
+        RenewalOrder renewalOrder = renewalOrderRepository.findByOutTradeNo(out_trade_no);
+        if (!renewalOrder.isOk()) {
+            onRenewalOrderNotice(renewalOrder);
+        }
     }
 
 

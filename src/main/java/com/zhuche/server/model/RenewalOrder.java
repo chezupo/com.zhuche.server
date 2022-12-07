@@ -37,5 +37,7 @@ public class RenewalOrder extends BaseEntity{
     private String payToken; //'支付信息',
     private boolean isOk; // 是否支付
     private long orderId; // 订单id
-    private int total; // 分
+    private int insuranceFee; // 保险费
+    private int total; // 总费用 单位/分
+    private int rent; // 租金,单位/分
 }

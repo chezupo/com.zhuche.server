@@ -696,11 +696,13 @@ public class OrderService {
      */
     public String createReletTrade(Long id, UpdateOrderReletRequest updateOrderReletRequest) throws AlipayApiException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         final Order order = orderRepository.findById(id).get();
-        int rent = (int) (order.getCar().getRent() * 100);
+        int rent =  (int) (order.getCar().getRent() * 100);
         Long days = updateOrderReletRequest.getDays();
-        int amount = rent * days.intValue();
+        rent = rent * days.intValue();
+        int amount = rent;
+        int insuranceFee  = 0;
         if (order.getIsInsurance()) {
-            int insuranceFee = (int)(order.getCar().getInsuranceFee() * 100);
+            insuranceFee = (int)(order.getCar().getInsuranceFee() * 100);
             insuranceFee =  insuranceFee * days.intValue();
             amount += insuranceFee;
         }
@@ -711,6 +713,8 @@ public class OrderService {
             .outTradeNo(TradeUtil.generateOutTradeNo())
             .isOk(false)
             .total(amount)
+            .insuranceFee(insuranceFee)
+            .rent(rent)
             .build();
         final User me = jwtUtil.getUser();
         if (order.getPayType() == PayType.WECHAT ) {

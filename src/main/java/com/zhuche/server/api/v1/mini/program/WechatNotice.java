@@ -10,9 +10,9 @@ import com.zhuche.server.model.TransactionStatus;
 import com.zhuche.server.repositories.OrderRepository;
 import com.zhuche.server.repositories.RenewalOrderRepository;
 import com.zhuche.server.repositories.TransactionRepository;
+import com.zhuche.server.services.OrderService;
 import com.zhuche.server.util.AesUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.id.uuid.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
@@ -28,8 +28,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static com.zhuche.server.util.HttpUtil.feeToPerson;
-
 @RestController("miniProgramWechatNotice")
 @RequestMapping("/api/v1/miniProgram/wechatNotice")
 @Validated
@@ -42,6 +40,8 @@ public class WechatNotice {
 
     @Autowired RenewalOrderRepository renewalOrderRepository;
     @Autowired TransactionRepository transactionRepository;
+
+    @Autowired OrderService orderService;
 
     @PostMapping
     public String payNotify(
@@ -75,7 +75,6 @@ public class WechatNotice {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    @PostMapping("/renewalNotify")
     @Transactional
     public String renewalNotify(
         @RequestBody String requestBody
@@ -93,37 +92,7 @@ public class WechatNotice {
             final RenewalOrder renewalOrder = renewalOrderRepository.findByOutTradeNo(clipertext.out_trade_no);
             log.info("{}", renewalOrder);
             if (!renewalOrder.isOk()) {
-                renewalOrder.setOk(true);
-                var order = orderRepository.findById(renewalOrder.getOrderId()).get();
-                order.setEndTimeStamp( order.getEndTimeStamp() + renewalOrder.getDays() * 60 * 60 * 24 * 1000 );
-                int totalFee = feeToPerson( order.getAmount());
-                totalFee += renewalOrder.getTotal();
-                order.setAmount(totalFee * .01);
-                int rent = feeToPerson( order.getRent() );
-                rent += renewalOrder.getRent();
-                order.setRent(rent * .01);
-                int insuranceFee = feeToPerson( order.getInsuranceFee());
-                insuranceFee += renewalOrder.getInsuranceFee();
-                order.setInsuranceFee(insuranceFee * .01);
-                orderRepository.save(order);
-                renewalOrderRepository.save(renewalOrder);
-                int balance = (int)( order.getUser().getBalance() * 100);
-                transactionRepository.save(
-                    com.zhuche.server.model.Transaction.
-                        builder()
-                        .remark("")
-                        .user(order.getUser())
-                        .status( TransactionStatus.FINISHED )
-                        .balance(balance)
-                        .amount(-(renewalOrder.getTotal() * .01 ))
-                        .title("续租")
-                        .payType(PayType.WECHAT)
-                        .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
-                        .outTradeNo(renewalOrder.getOutTradeNo())
-                        .tradeNo("")
-                        .build()
-                );
-                log.info("Changed order status: {}, data: {}", order.getStatus(), order);
+                orderService.onRenewalOrderNotice(renewalOrder);
             }
         }
         return "";

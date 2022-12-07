@@ -67,6 +67,8 @@ public class OrderService {
 
     private final WeChatPayOrderService weChatPayOrderService;
 
+   private final RenewalOrderRepository renewalOrderRepository;
+
     @Value("${alipay.alipayNoticeUrl}")
     private String alipayNoticeUrl;
 
@@ -99,7 +101,7 @@ public class OrderService {
         CommentRepository commentRepository,
         TransactionRepository transactionRepository,
         ConfigurationService configurationService,
-        WeChatPayOrderService weChatPayOrderService) {
+        WeChatPayOrderService weChatPayOrderService, RenewalOrderRepository renewalOrderRepository) {
         this.carRepository = carRepository;
         this.orderRepository = orderRepository;
         this.alipayClient = alipayClient;
@@ -114,6 +116,7 @@ public class OrderService {
         this.transactionRepository = transactionRepository;
         this.configurationService = configurationService;
         this.weChatPayOrderService = weChatPayOrderService;
+        this.renewalOrderRepository = renewalOrderRepository;
     }
 
     private Order createNewOrder(CreateOrderRequest query) {
@@ -768,6 +771,45 @@ public class OrderService {
                 .tradeNo(trade_no)
                 .build()
         );
+    }
+
+
+    /**
+     * 续费通知处理
+     * @param renewalOrder
+     */
+    public void onRenewalOrderNotice(RenewalOrder renewalOrder) {
+        renewalOrder.setOk(true);
+        var order = orderRepository.findById(renewalOrder.getOrderId()).get();
+        order.setEndTimeStamp( order.getEndTimeStamp() + renewalOrder.getDays() * 60 * 60 * 24 * 1000 );
+        int totalFee = feeToPerson( order.getAmount());
+        totalFee += renewalOrder.getTotal();
+        order.setAmount(totalFee * .01);
+        int rent = feeToPerson( order.getRent() );
+        rent += renewalOrder.getRent();
+        order.setRent(rent * .01);
+        int insuranceFee = feeToPerson( order.getInsuranceFee());
+        insuranceFee += renewalOrder.getInsuranceFee();
+        order.setInsuranceFee(insuranceFee * .01);
+        orderRepository.save(order);
+        renewalOrderRepository.save(renewalOrder);
+        int balance = (int)( order.getUser().getBalance() * 100);
+        transactionRepository.save(
+            com.zhuche.server.model.Transaction.
+                builder()
+                .remark("")
+                .user(order.getUser())
+                .status( TransactionStatus.FINISHED )
+                .balance(balance)
+                .amount(-(renewalOrder.getTotal() * .01 ))
+                .title("续租")
+                .payType(PayType.WECHAT)
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli())
+                .outTradeNo(renewalOrder.getOutTradeNo())
+                .tradeNo("")
+                .build()
+        );
+        log.info("Changed order status: {}, data: {}", order.getStatus(), order);
     }
 
     /**

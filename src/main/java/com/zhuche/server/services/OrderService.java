@@ -761,7 +761,7 @@ public class OrderService {
 
     public void relateOrder(String body, String subject, String trade_no, String out_trade_no) {
         RenewalOrder renewalOrder = renewalOrderRepository.findByOutTradeNo(out_trade_no);
-        if (!renewalOrder.isOk()) {
+        if (renewalOrder != null && !renewalOrder.isOk()) {
             onRenewalOrderNotice(renewalOrder);
         }
     }

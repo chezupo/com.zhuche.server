@@ -11,7 +11,7 @@
  Target Server Version : 50650
  File Encoding         : 65001
 
- Date: 03/12/2022 22:52:54
+ Date: 07/12/2022 16:00:37
 */
 
 SET NAMES utf8mb4;
@@ -22,14 +22,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `agreement`;
 CREATE TABLE `agreement` (
-                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                             `created_at` bigint(20) DEFAULT NULL,
-                             `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                             `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                             `title` varchar(255) DEFAULT NULL,
-                             `content` text,
-                             `type` varchar(255) DEFAULT NULL,
-                             PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -50,26 +50,26 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `alipay_account`;
 CREATE TABLE `alipay_account` (
-                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                  `created_at` bigint(20) DEFAULT NULL,
-                                  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                  `access_token` varchar(255) DEFAULT NULL,
-                                  `avatar` varchar(255) DEFAULT NULL,
-                                  `city` varchar(255) DEFAULT NULL,
-                                  `code` varchar(255) DEFAULT NULL,
-                                  `country_code` varchar(255) DEFAULT NULL,
-                                  `expires_in` varchar(255) DEFAULT NULL,
-                                  `gender` varchar(255) DEFAULT NULL,
-                                  `nick_name` varchar(255) DEFAULT NULL,
-                                  `phone` varchar(255) DEFAULT NULL,
-                                  `province` varchar(255) DEFAULT NULL,
-                                  `re_expires_in` varchar(255) DEFAULT NULL,
-                                  `refresh_token` varchar(255) DEFAULT NULL,
-                                  `user_id` varchar(255) DEFAULT NULL,
-                                  `is_authorize_base_info` int(11) DEFAULT NULL,
-                                  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `access_token` varchar(255) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `country_code` varchar(255) DEFAULT NULL,
+  `expires_in` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `nick_name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `re_expires_in` varchar(255) DEFAULT NULL,
+  `refresh_token` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `is_authorize_base_info` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of alipay_account
@@ -122,7 +122,7 @@ INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `a
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (64, 1653020420749, NULL, NULL, 'authbseB7741a751947247c4a19367e3d4580X08', 'https://tfs.alipayobjects.com/images/partner/ATlzibQ6_rywQAAAAAAAAAAAAADtl2AA', '杭州市', '10000', 'CN', '31536000', 'f', '蛋某人', '18684702615', '浙江省', '31536000', 'authbseBcf5308ba6ade49c9b02773f2a0290X08', '2088342237892080', 1);
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (65, 1653023152852, NULL, NULL, 'authbseBd1e6e6b653224f37833193ecd2d0aX30', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB976a7052dae1403fa4b858cb9acd5A30', '2088342169747304', NULL);
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (66, 1653028908105, NULL, NULL, 'authbseB1f2d6153652e4f4ba21efcad5dd87X09', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB4a4bf77fb50b46b29eda61690b844X09', '2088142903674093', NULL);
-INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (67, 1653132290209, NULL, NULL, 'authbseB0e9224e826d64c329e1f86b787b89X88', 'https://tfs.alipayobjects.com/images/partner/TB18y3VcJdFDuNkUuLAXXXvvFXa', '杭州市', '10000', 'CN', '31536000', 'f', '测试勿扰', '17612288619', '浙江省', '31536000', 'authbseB4577e9921a2c4ad38ce5c8c69da0aF88', '2088042501247881', 1);
+INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (67, 1653132290209, NULL, NULL, 'authbseB0e9224e826d64c329e1f86b787b89X88', 'https://tfs.alipayobjects.com/images/partner/TB18y3VcJdFDuNkUuLAXXXvvFXa', '', '10000', '', '31536000', '', '测试勿扰', '17612288619', '', '31536000', 'authbseB4577e9921a2c4ad38ce5c8c69da0aF88', '2088042501247881', 1);
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (68, 1653228765605, NULL, NULL, 'authbseB76bc7f249fe548f382476f1df1f3bC53', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB551117b05193492dbb3e34d39c362X53', '2088142817438532', NULL);
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (69, 1653460356814, NULL, NULL, 'authbseB86b294e15e7d466e958021d617ec3X22', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB3289bcfd5fc24505806e434bd7df1D22', '2088022471200222', NULL);
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (70, 1654136320741, NULL, NULL, 'authbseBaa68e55622314f5faf982b854b126X74', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB23562da0033143da854d1764e56aeX74', '2088022516550743', NULL);
@@ -168,6 +168,9 @@ INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `a
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (110, 1669866988269, NULL, NULL, 'authbseB3651af501d604c0ead48b433d5440X28', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseBa980a94d14354ecd86bc270e26337X28', '2088442091103280', NULL);
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (111, 1669869717498, NULL, NULL, 'authbseBbb6e029b06d449c19e7b041061a9eX53', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseBc80ca23f411a43d0a02356a2d078aX53', '2088442483643538', NULL);
 INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (112, 1669873829086, NULL, NULL, 'authbseB018de040c824495e96456c33fcfefX74', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB686fd831f3b640d1b49fadf724218F74', '2088142903401749', NULL);
+INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (113, 1670080895120, NULL, NULL, 'authbseB19235f68856d402e81194138e6bbbX14', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseBec8e11806e604bf984d7b3d841391X14', '2088442597410141', NULL);
+INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (114, 1670211614359, NULL, NULL, 'authbseB7236f3662d4c4d23bfd63eed216afX37', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseBdcb085e96ded4ce48b1a3407b7725X37', '2088342558769373', NULL);
+INSERT INTO `alipay_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `access_token`, `avatar`, `city`, `code`, `country_code`, `expires_in`, `gender`, `nick_name`, `phone`, `province`, `re_expires_in`, `refresh_token`, `user_id`, `is_authorize_base_info`) VALUES (115, 1670231211850, NULL, NULL, 'authbseBee90a231f76e4b3bb5686bf3eaf75X47', NULL, NULL, NULL, NULL, '31536000', NULL, NULL, NULL, NULL, '31536000', 'authbseB13dd282870614d48a64225a8eacb7D47', '2088422690445475', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -175,11 +178,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
-                        `code` varchar(255) NOT NULL,
-                        `name` varchar(255) DEFAULT NULL,
-                        `city_code` varchar(255) DEFAULT NULL,
-                        `province_code` varchar(255) DEFAULT NULL,
-                        PRIMARY KEY (`code`)
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `city_code` varchar(255) DEFAULT NULL,
+  `province_code` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3183,14 +3186,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
-                          `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                          `created_at` bigint(20) DEFAULT NULL,
-                          `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `content` longtext,
-                          `img_key` varchar(255) DEFAULT NULL,
-                          `title` varchar(255) DEFAULT NULL,
-                          PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `content` longtext,
+  `img_key` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3206,14 +3209,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `brand`;
 CREATE TABLE `brand` (
-                         `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                         `created_at` bigint(20) DEFAULT NULL,
-                         `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                         `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                         `img_key` varchar(3000) DEFAULT NULL,
-                         `name` varchar(255) DEFAULT NULL,
-                         `store_id` bigint(20) DEFAULT NULL,
-                         PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `img_key` varchar(3000) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3255,13 +3258,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `brand_series`;
 CREATE TABLE `brand_series` (
-                                `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                `created_at` bigint(20) DEFAULT NULL,
-                                `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `name` varchar(255) DEFAULT NULL,
-                                `brand_id` bigint(20) DEFAULT NULL,
-                                PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) DEFAULT NULL,
+  `brand_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3339,31 +3342,31 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `car`;
 CREATE TABLE `car` (
-                       `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                       `created_at` bigint(20) DEFAULT NULL,
-                       `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                       `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                       `cover` varchar(255) DEFAULT NULL,
-                       `displacement` float DEFAULT NULL,
-                       `engine_type` varchar(255) DEFAULT NULL,
-                       `gas_volume` float NOT NULL,
-                       `is_self_help` bit(1) DEFAULT NULL,
-                       `name` varchar(255) DEFAULT NULL,
-                       `power_type` varchar(255) DEFAULT NULL,
-                       `seats` int(11) DEFAULT NULL,
-                       `shift` varchar(255) DEFAULT NULL,
-                       `tags` varchar(255) DEFAULT NULL,
-                       `type` varchar(255) DEFAULT NULL,
-                       `store_id` bigint(20) DEFAULT NULL,
-                       `brand_series_id` int(11) DEFAULT NULL,
-                       `number` varchar(255) DEFAULT NULL,
-                       `rent` float NOT NULL,
-                       `deposit` float NOT NULL,
-                       `insurance_fee` float NOT NULL,
-                       `is_online` int(11) DEFAULT NULL,
-                       `car_category_id` int(11) DEFAULT NULL,
-                       `handling_fee` float NOT NULL,
-                       PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `cover` varchar(255) DEFAULT NULL,
+  `displacement` float DEFAULT NULL,
+  `engine_type` varchar(255) DEFAULT NULL,
+  `gas_volume` float NOT NULL,
+  `is_self_help` bit(1) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  `seats` int(11) DEFAULT NULL,
+  `shift` varchar(255) DEFAULT NULL,
+  `tags` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  `brand_series_id` int(11) DEFAULT NULL,
+  `number` varchar(255) DEFAULT NULL,
+  `rent` float NOT NULL,
+  `deposit` float NOT NULL,
+  `insurance_fee` float NOT NULL,
+  `is_online` int(11) DEFAULT NULL,
+  `car_category_id` int(11) DEFAULT NULL,
+  `handling_fee` float NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3381,13 +3384,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `car_category`;
 CREATE TABLE `car_category` (
-                                `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                `created_at` bigint(20) DEFAULT NULL,
-                                `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `name` varchar(255) DEFAULT NULL,
-                                `store_id` bigint(20) DEFAULT NULL,
-                                PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3423,9 +3426,9 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `car_configs`;
 CREATE TABLE `car_configs` (
-                               `car_id` bigint(20) NOT NULL,
-                               `configs_id` bigint(20) NOT NULL,
-                               PRIMARY KEY (`car_id`,`configs_id`)
+  `car_id` bigint(20) NOT NULL,
+  `configs_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`car_id`,`configs_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3451,11 +3454,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `city`;
 CREATE TABLE `city` (
-                        `code` varchar(255) NOT NULL,
-                        `name` varchar(255) DEFAULT NULL,
-                        `province_code` varchar(255) DEFAULT NULL,
-                        `pinyin` varchar(255) DEFAULT NULL,
-                        PRIMARY KEY (`code`)
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `province_code` varchar(255) DEFAULT NULL,
+  `pinyin` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3811,17 +3814,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-                           `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                           `created_at` bigint(20) DEFAULT NULL,
-                           `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                           `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                           `content` varchar(255) DEFAULT NULL,
-                           `rate` int(11) DEFAULT NULL,
-                           `store_id` bigint(20) DEFAULT NULL,
-                           `order_id` bigint(20) DEFAULT NULL,
-                           `car_id` bigint(20) DEFAULT NULL,
-                           `user_id` bigint(20) DEFAULT NULL,
-                           PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `content` varchar(255) DEFAULT NULL,
+  `rate` int(11) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  `order_id` bigint(20) DEFAULT NULL,
+  `car_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3838,17 +3841,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `configuration`;
 CREATE TABLE `configuration` (
-                                 `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                 `app_name` varchar(255) DEFAULT NULL,
-                                 `logo` varchar(255) DEFAULT NULL,
-                                 `notice` varchar(255) DEFAULT NULL,
-                                 `insurance` float DEFAULT NULL,
-                                 `service_phone` varchar(255) DEFAULT NULL,
-                                 `insurance_agreement` longtext,
-                                 `order_agreement` longtext,
-                                 `promotion_level1` decimal(10,2) DEFAULT NULL,
-                                 `promotion_level2` decimal(10,2) DEFAULT NULL,
-                                 PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `app_name` varchar(255) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `notice` varchar(255) DEFAULT NULL,
+  `insurance` float DEFAULT NULL,
+  `service_phone` varchar(255) DEFAULT NULL,
+  `insurance_agreement` longtext,
+  `order_agreement` longtext,
+  `promotion_level1` decimal(10,2) DEFAULT NULL,
+  `promotion_level2` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3863,20 +3866,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `coupon`;
 CREATE TABLE `coupon` (
-                          `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                          `created_at` bigint(20) DEFAULT NULL,
-                          `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `title` varchar(255) DEFAULT NULL,
-                          `content` text,
-                          `is_auto_dispatching_to_new_user` int(11) DEFAULT NULL,
-                          `amount` float DEFAULT NULL,
-                          `meet_amount` float DEFAULT NULL,
-                          `expired` bigint(20) DEFAULT NULL,
-                          `is_with_holiday` int(11) DEFAULT NULL,
-                          `is_with_rent` int(11) DEFAULT NULL,
-                          `is_with_service_amount` int(11) DEFAULT NULL,
-                          PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `is_auto_dispatching_to_new_user` int(11) DEFAULT NULL,
+  `amount` float DEFAULT NULL,
+  `meet_amount` float DEFAULT NULL,
+  `expired` bigint(20) DEFAULT NULL,
+  `is_with_holiday` int(11) DEFAULT NULL,
+  `is_with_rent` int(11) DEFAULT NULL,
+  `is_with_service_amount` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3894,15 +3897,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
-                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                            `created_at` bigint(20) DEFAULT NULL,
-                            `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                            `flag` varchar(255) DEFAULT NULL,
-                            `content` text,
-                            `phone` varchar(255) DEFAULT NULL,
-                            `email` varchar(255) DEFAULT NULL,
-                            PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `flag` varchar(255) DEFAULT NULL,
+  `content` text,
+  `phone` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3941,13 +3944,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `holiday`;
 CREATE TABLE `holiday` (
-                           `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                           `created_at` bigint(20) DEFAULT NULL,
-                           `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                           `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                           `mark` varchar(255) DEFAULT NULL,
-                           `day` bigint(20) DEFAULT NULL,
-                           PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `mark` varchar(255) DEFAULT NULL,
+  `day` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3963,19 +3966,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
-                       `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                       `created_at` bigint(20) DEFAULT NULL,
-                       `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                       `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                       `title` varchar(255) DEFAULT NULL,
-                       `type` varchar(255) DEFAULT NULL,
-                       `user_id` bigint(20) DEFAULT NULL,
-                       `params` text,
-                       `description` varchar(255) DEFAULT NULL,
-                       `class_name` varchar(255) DEFAULT NULL,
-                       `request_path` varchar(255) DEFAULT NULL,
-                       PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=277 DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `title` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `params` text,
+  `description` varchar(255) DEFAULT NULL,
+  `class_name` varchar(255) DEFAULT NULL,
+  `request_path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=309 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of log
@@ -4257,6 +4260,38 @@ INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `typ
 INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (274, 1670075846308, NULL, NULL, '确认还车', 'UPDATED', 1, '[127]', '', 'com.zhuche.server.api.v1.admin.Order.finishedOrder', '/api/v1/orders/127/status/finished');
 INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (275, 1670076139563, NULL, NULL, '确认还车', 'UPDATED', 1, '[127]', '', 'com.zhuche.server.api.v1.admin.Order.finishedOrder', '/api/v1/orders/127/status/finished');
 INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (276, 1670076625648, NULL, NULL, '确认还车', 'UPDATED', 1, '[127]', '', 'com.zhuche.server.api.v1.admin.Order.finishedOrder', '/api/v1/orders/127/status/finished');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (277, 1670236348651, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (278, 1670236348756, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (279, 1670236363942, NULL, NULL, '确认取车', 'UPDATED', 1, '[154,{\"contract\":\"2022-12-5-18-32-28-1670236348737-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/154/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (280, 1670392126283, NULL, NULL, '删除订单', 'DELETED', 1, '[60]', '', 'com.zhuche.server.api.v1.admin.Order.deleteOrder', '/api/v1/orders/60');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (281, 1670394889211, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (282, 1670394889432, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (283, 1670394893844, NULL, NULL, '确认取车', 'UPDATED', 1, '[155,{\"contract\":\"2022-12-7-14-34-49-1670394889523-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/155/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (284, 1670395311905, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (285, 1670395312151, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (286, 1670395318731, NULL, NULL, '确认取车', 'UPDATED', 1, '[156,{\"contract\":\"2022-12-7-14-41-52-1670395312258-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/156/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (287, 1670395610357, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (288, 1670395610569, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (289, 1670395613245, NULL, NULL, '确认取车', 'UPDATED', 1, '[157,{\"contract\":\"2022-12-7-14-46-50-1670395610665-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/157/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (290, 1670396108676, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (291, 1670396108902, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (292, 1670396113634, NULL, NULL, '确认取车', 'UPDATED', 1, '[158,{\"contract\":\"2022-12-7-14-55-8-1670396108995-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/158/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (293, 1670396409446, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (294, 1670396409697, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (295, 1670396416329, NULL, NULL, '确认取车', 'UPDATED', 1, '[159,{\"contract\":\"2022-12-7-15-0-9-1670396409795-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/159/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (296, 1670397164032, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (297, 1670397164265, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (298, 1670397169051, NULL, NULL, '确认取车', 'UPDATED', 1, '[161,{\"contract\":\"2022-12-7-15-12-44-1670397164359-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/161/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (299, 1670397379989, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (300, 1670397380240, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (301, 1670397397013, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (302, 1670397397251, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (303, 1670397414455, NULL, NULL, '确认取车', 'UPDATED', 1, '[162,{\"contract\":\"2022-12-7-15-16-20-1670397380331-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/162/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (304, 1670398284563, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (305, 1670398284822, NULL, NULL, '创建token', 'CREATED', 1, '[]', '', 'com.zhuche.server.api.v1.admin.UploadToken.createToken', '/api/v1/uploadToken');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (306, 1670398289012, NULL, NULL, '确认取车', 'UPDATED', 1, '[163,{\"contract\":\"2022-12-7-15-31-24-1670398284917-image.png\"}]', '', 'com.zhuche.server.api.v1.admin.Order.confirmPickUpCarOrder', '/api/v1/orders/163/status/using');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (307, 1670399239832, NULL, NULL, '通过用户的提现申请', 'UPDATED', 1, '[180]', '', 'com.zhuche.server.api.v1.admin.Withdraw.withDrawUpdate', '/api/v1/withdraws/180/status');
+INSERT INTO `log` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `type`, `user_id`, `params`, `description`, `class_name`, `request_path`) VALUES (308, 1670400017864, NULL, NULL, '通过用户的提现申请', 'UPDATED', 1, '[180]', '', 'com.zhuche.server.api.v1.admin.Withdraw.withDrawUpdate', '/api/v1/withdraws/180/status');
 COMMIT;
 
 -- ----------------------------
@@ -4264,51 +4299,51 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-                          `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                          `created_at` bigint(20) DEFAULT NULL,
-                          `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                          `alipay_token` varchar(2000) DEFAULT NULL,
-                          `alipay_trade_no` varchar(255) DEFAULT NULL,
-                          `out_trade_no` varchar(255) DEFAULT NULL COMMENT '商家自定义订单号',
-                          `title` varchar(255) DEFAULT NULL,
-                          `amount` float DEFAULT NULL,
-                          `cover` varchar(255) DEFAULT NULL,
-                          `create_alipay_at` datetime(6) DEFAULT NULL,
-                          `deposit` float DEFAULT NULL,
-                          `end_time_stamp` bigint(20) DEFAULT NULL,
-                          `handling_fee` double DEFAULT NULL,
-                          `insurance_fee` double DEFAULT NULL,
-                          `is_insurance` bit(1) DEFAULT NULL,
-                          `pay_type` varchar(255) DEFAULT NULL,
-                          `rent` double DEFAULT NULL,
-                          `start_time_stamp` bigint(20) DEFAULT NULL,
-                          `status` varchar(255) DEFAULT NULL,
-                          `car_id` bigint(20) DEFAULT NULL,
-                          `end_store_id` bigint(20) DEFAULT NULL,
-                          `start_store_id` bigint(20) DEFAULT NULL,
-                          `user_id` bigint(20) DEFAULT NULL,
-                          `remark` varchar(255) DEFAULT NULL,
-                          `waiver_handling_fee` double DEFAULT NULL,
-                          `waiver_rent` double DEFAULT NULL,
-                          `unfreeze_amount` double DEFAULT NULL,
-                          `auth_no` varchar(255) DEFAULT NULL,
-                          `out_request_no` varchar(255) DEFAULT NULL,
-                          `auth_body` varchar(2000) DEFAULT NULL,
-                          `freeze_type` varchar(255) DEFAULT NULL,
-                          `is_unfreeze` bit(1) DEFAULT NULL,
-                          `is_refund` bit(1) DEFAULT NULL,
-                          `promotion_level1_user_id` bigint(20) DEFAULT NULL,
-                          `promotion_level2_user_id` bigint(20) DEFAULT NULL,
-                          `promotion_Level1` decimal(10,2) DEFAULT NULL,
-                          `promotion_Level2` decimal(10,2) DEFAULT NULL,
-                          `contract` varchar(255) DEFAULT NULL,
-                          `wechat_pay_token` varchar(2550) DEFAULT NULL,
-                          `wechat_transaction_id` varchar(32) DEFAULT NULL COMMENT '微信退款订单号',
-                          `wechat_out_refund_no` varchar(255) DEFAULT NULL,
-                          `is_delete` int(1) DEFAULT '0',
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `alipay_token` varchar(2000) DEFAULT NULL,
+  `alipay_trade_no` varchar(255) DEFAULT NULL,
+  `out_trade_no` varchar(255) DEFAULT NULL COMMENT '商家自定义订单号',
+  `title` varchar(255) DEFAULT NULL,
+  `amount` float DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL,
+  `create_alipay_at` datetime(6) DEFAULT NULL,
+  `deposit` float DEFAULT NULL,
+  `end_time_stamp` bigint(20) DEFAULT NULL,
+  `handling_fee` double DEFAULT NULL,
+  `insurance_fee` double DEFAULT NULL,
+  `is_insurance` bit(1) DEFAULT NULL,
+  `pay_type` varchar(255) DEFAULT NULL,
+  `rent` double DEFAULT NULL,
+  `start_time_stamp` bigint(20) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `car_id` bigint(20) DEFAULT NULL,
+  `end_store_id` bigint(20) DEFAULT NULL,
+  `start_store_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `waiver_handling_fee` double DEFAULT NULL,
+  `waiver_rent` double DEFAULT NULL,
+  `unfreeze_amount` double DEFAULT NULL,
+  `auth_no` varchar(255) DEFAULT NULL,
+  `out_request_no` varchar(255) DEFAULT NULL,
+  `auth_body` varchar(2000) DEFAULT NULL,
+  `freeze_type` varchar(255) DEFAULT NULL,
+  `is_unfreeze` bit(1) DEFAULT NULL,
+  `is_refund` bit(1) DEFAULT NULL,
+  `promotion_level1_user_id` bigint(20) DEFAULT NULL,
+  `promotion_level2_user_id` bigint(20) DEFAULT NULL,
+  `promotion_Level1` decimal(10,2) DEFAULT NULL,
+  `promotion_Level2` decimal(10,2) DEFAULT NULL,
+  `contract` varchar(255) DEFAULT NULL,
+  `wechat_pay_token` varchar(2550) DEFAULT NULL,
+  `wechat_transaction_id` varchar(32) DEFAULT NULL COMMENT '微信退款订单号',
+  `wechat_out_refund_no` varchar(255) DEFAULT NULL,
+  `is_delete` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of orders
@@ -4331,7 +4366,7 @@ INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_to
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (57, 1652676917728, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022516125517728854628\",\"trade_no\":\"2022051622001405731447442736\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"WJ53DC/ew0KMp6pR4wO0+fF9wmlXDcKOJmsDf+OTw7440lfLTx+iRG3GlrvTn4U/igSJ8CawTQZwK0KwIdiwC6n7qL94oE2yt626pyUnKRpYIK1sdSvNFc/PBUqLWuJO6cyhlLRQsNy4KqWGJ4EIhp6eC5gi9qt3hXc8ky3oZPi2xx1N9Uq3WSUISAQGD60UOZ0LpFEV3m2TDiMtHR54As4/ShsTzlW9FKGK/iZW9hEWp/HBVAunUceFXqJ/UAQaHnslFl8vQsF3nRqF0rebG4OOpUha/k/m9vY5K0ZUaWUp3MLMT5DeuH4hDgXnzq1Y0R48EvjbGdjkfZzpIY/oPQ==\"}', '2022051622001405731447442736', '2022516125517728854628', '别克商务', 385, '2022-5-16-12-40-33-1652676033507-微信图片_20220516124015.jpg', '2022-05-16 12:55:17.723000', 3000, 1652803200000, 35, 0, b'0', 'ALIPAY', 350, 1652716800000, 'CREDITING', 2, 3, 3, 58, '', 0, 0, 3000, NULL, '2022516125517920192750', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%223000.0%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%222022516125517920192750%22%2C%22out_request_no%22%3A%222022516125517920192750%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fa1001zhuche.jds.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=TwysIumLizhah6LiJFnbbC%2BYY6VYF6WSUIRemichILu7HzCLFfPHjUpI2vp9rgXOrUVoVf3sVW7xyXxYScD6i82jlIwRLh7Hxpas%2B6kysH4rKQN17wxQTCs2BWFbG%2BT9drOpAPbMfxRrq0cMOKcbOehzvF1%2Fr7VriwsG7WAWCJtRX9hpKVT04gU2js8jLTL3zj0LvfoaLaYFVOXaCJPSKsZ3i4P5BHo%2FZagArmShWf%2FrJYK5WhSCUguyfUptmN%2Bljhj%2Bw5DHIazXh2Z6L0usMqrKhotXfuTjDSiNPVIcs%2BX9JU0xT0WZ%2FXFQPNg2OYZSC8dAsHv6Fr%2B7yOMIKzvhng%3D%3D&sign_type=RSA2&timestamp=2022-05-16+12%3A55%3A17&version=1.0', NULL, b'1', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (58, 1652677229170, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"202251613029170525369\",\"trade_no\":\"2022051622001405731447382612\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"mB1S7NlPRtEb7NKOwYcKxRFuw7s9aoByvwtJlWcW2U2aGkYdYvqT36P07Veyuo0OVWtVA5pdhI2wW/DDrIIICJMJCZukVTjN9Np3K0iujEIXyhZLhfeDSlIcF9ck8tdsra5VjiFLlu0visHuL8YIx5DjTG56J0NJrHemBp9LxYYPmeSw9hRZwh/MTvxtxmtvz67BrH4op/kGF60fVXGeWpHvV/mu1WKCRo8t5+fQ7xlW2vraCdGgN9oO7wpM3iAN27ELMK4oXOSYcJGndSV2pNig4ob6gNm7qJ8usBEWBiwde/I156WX5g7NhzNauEf+ntLIaJGcdGV7z7SPiMfdRg==\"}', '2022051622001405731447382612', '202251613029170525369', '别克商务', 385, '2022-5-16-12-40-33-1652676033507-微信图片_20220516124015.jpg', '2022-05-16 13:00:29.166000', 3, 1652803200000, 35, 0, b'0', 'ALIPAY', 350, 1652716800000, 'USING', 2, 3, 3, 58, '', 0, 0, 3, '2022051610002001730580492810', '202251613029406225119', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%223.0%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%22202251613029406225119%22%2C%22out_request_no%22%3A%22202251613029406225119%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fa1001zhuche.jds.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=yIOPrdb%2FM%2BaKiYMQS5Xxfe%2BlTL1Q3Vovr2t1O9DbPqEQ5YCnYC4ZC%2FNMuEljXBkcu9HMDDToyLS%2FwD9njqgMVmU0hDv%2FZzT6pawo5zEK1yq8LdSO%2BlcW7L8nByYeo3uW9AMfDpoZVImmSeEhR5zpClGOugkX0ivKQYQah%2FIHrndcYm5NClOIy%2FdBc2wrNDA%2B1Ow0SNvSJaSmJD66f4vXqSc08ZJcKfs6%2FXshBTWLvDdWyTEwNhGsu4%2FZF4V9gFF21XEx9qvlWabfrnQhx7FTAnZCNcQGdGRp8DtehZAxZ0eWgeVvYmCos0cCqIOmHvPZx7svflMTfLCeP0qw3pM2PQ%3D%3D&sign_type=RSA2&timestamp=2022-05-16+13%3A00%3A29&version=1.0', 'ALIPAY', b'0', b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (59, 1652677890751, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022516131130751984076\",\"trade_no\":\"2022051622001443081458848264\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"kaco5E1l/mm7oKHg2mU60oV6paoiQSiSB1PPFta2aa2Cltr/5Hf3uFzo56hIBFdGiHLh53CDwKWwzJxAcy3UviA04CtG2443SKtGCiLuc8wWEDRvzFH2beHJDN8nb+vBYoWC/ds/fjHTK1tpkpx5hkG9lj2XdXQS2kdwFOJ9oWuaNUYF3lc0iJ7RycBtoiaQepf2Z9O51LzFWuTQfolhkWjBTnnC0FwmWn7k2Ki9Z9AqNT0weq9NB50S+rbJzONOsKiVqaV+VgAKlaY+hdfvG3S0YyF73I8JiPlcfvA4BOmuEieEodTKjGBR1osdvPZ9kG8mUS+TNpRlW4KD2Qi52w==\"}', '2022051622001443081458848264', '2022516131130751984076', '日产轩逸', 0, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-05-16 13:11:30.748000', 0, 1653711488880, 0.03, 0, b'0', 'ALIPAY', 0.2, 1652674688880, 'USING', 1, 2, 2, 21, '', 0, 0, 0.02, '2022051610002001080599488320', '2022516131131178788799', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%220.02%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%222022516131131178788799%22%2C%22out_request_no%22%3A%222022516131131178788799%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fa1001zhuche.jds.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=rN2FPIo6KkmzYGqinjLwM8YqILlDirxgofrURPiShZtEg8QcaIhZ5Yo5Z0Z4sPQvUxiQg%2Bq5dnvehrhnKLaacW4z4o3zkX%2FvFuPRatWPs5ve7SZVARF4fOj4MqFnWLoQXTcpsrQnClXwkczXy%2FUdcHB2OcJkcBt%2ByK76h44wMzXIzDiTYD1HlyzKE58LZZzxNfuuV9JGPChhaeJiDw9VO1Ue%2FTI16JzvCY00FwwNhqP7uygCMo%2B%2BPStNgnUgJzz0JzyRZMldprjH6DdE5aN0rP80YIV5DgIiZYeD502eKgnwtRh98oPRpQugET4mbYp8n37q6o%2FUywb62tHw2M298g%3D%3D&sign_type=RSA2&timestamp=2022-05-16+13%3A11%3A31&version=1.0', 'ALIPAY', b'0', b'0', NULL, NULL, NULL, NULL, '2022-5-20-11-34-46-1653017686721-法人正面.jpeg', NULL, NULL, NULL, 0);
-INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (60, 1652682331141, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022516142531141305742\",\"trade_no\":\"2022051622001443081458829728\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"uvYTGmP7qwBauaw0PXLSfJfLL6s5KUS8k1kp7hxkChwpjCvqn524x+Zg5NsePkcE/PtJnIy33pzLxlbXsBLRwrAV+S+74hnlCC3kOB1zEeCeL+2/zFmcwGeezoHX4qsviAakwZHceVz5xR2bo01wsGl9V/iFeeR84qpLlW2aG1J7aPtfIrq9KGTS36x03ijx3Yuv1DSma/g5qLX6dwU1rE7Bitpy4j+OVjW2fD2SN/tz1Kj0m+946v193IQ/T28TNrwpfCZybF7HGZrgKRihFtKDJb+7XkqG59CzifJYY5xASyfdQLp3J4fI5qS04rc/L+cvoLpEEC0Ik6Je4Z+niQ==\"}', '2022051622001443081458829728', '2022516142531141305742', '日产轩逸', 0, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-05-16 14:25:31.137000', 0, 1652855101959, 0.03, 0, b'0', 'ALIPAY', 0.2, 1652682301959, 'CANCELED', 1, 2, 2, 21, '', 0, 0, 0.02, '2022051610002001080599484937', '2022516142531437020792', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%220.02%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%222022516142531437020792%22%2C%22out_request_no%22%3A%222022516142531437020792%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fa1001zhuche.jds.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=Iryax1jAU3MfwcuhwXfHpt1uBDfZy704qjMbxmXH%2BDmcsFqaHqCJs4Sm9xJEbq8qWqZT9ByxIOB1FKGV3rHbYaordsQW%2FuQAVqww%2BiTt3NBrzwvj68c8FPBR9OtQvjqwqM55DrQ1uz5Q6RJmcG84dzRupfT%2FdQcYAyp9RWoszcWc3eYikMqkceUMmn%2FsWGomNEFg3w%2BYwQTAwjjHoXU3l04QSDmtSjCCn7iDqoHfbOAB%2FhkY3k020SxRHW2lN75g9GrNiIJj6DgvlMcQftpRrV0yDJylmqfD7yMObgA0ifrEzxnWl%2BG68Z6SBo1dqQI%2FXbJBZRsxKSuuMjVUJX2sbA%3D%3D&sign_type=RSA2&timestamp=2022-05-16+14%3A25%3A31&version=1.0', 'ALIPAY', b'1', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (60, 1652682331141, '2022-12-07 13:48:46', NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022516142531141305742\",\"trade_no\":\"2022051622001443081458829728\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"uvYTGmP7qwBauaw0PXLSfJfLL6s5KUS8k1kp7hxkChwpjCvqn524x+Zg5NsePkcE/PtJnIy33pzLxlbXsBLRwrAV+S+74hnlCC3kOB1zEeCeL+2/zFmcwGeezoHX4qsviAakwZHceVz5xR2bo01wsGl9V/iFeeR84qpLlW2aG1J7aPtfIrq9KGTS36x03ijx3Yuv1DSma/g5qLX6dwU1rE7Bitpy4j+OVjW2fD2SN/tz1Kj0m+946v193IQ/T28TNrwpfCZybF7HGZrgKRihFtKDJb+7XkqG59CzifJYY5xASyfdQLp3J4fI5qS04rc/L+cvoLpEEC0Ik6Je4Z+niQ==\"}', '2022051622001443081458829728', '2022516142531141305742', '日产轩逸', 0, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-05-16 14:25:31.137000', 0, 1652855101959, 0.03, 0, b'0', 'ALIPAY', 0.2, 1652682301959, 'CANCELED', 1, 2, 2, 21, '', 0, 0, 0.02, '2022051610002001080599484937', '2022516142531437020792', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%220.02%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%222022516142531437020792%22%2C%22out_request_no%22%3A%222022516142531437020792%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fa1001zhuche.jds.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=Iryax1jAU3MfwcuhwXfHpt1uBDfZy704qjMbxmXH%2BDmcsFqaHqCJs4Sm9xJEbq8qWqZT9ByxIOB1FKGV3rHbYaordsQW%2FuQAVqww%2BiTt3NBrzwvj68c8FPBR9OtQvjqwqM55DrQ1uz5Q6RJmcG84dzRupfT%2FdQcYAyp9RWoszcWc3eYikMqkceUMmn%2FsWGomNEFg3w%2BYwQTAwjjHoXU3l04QSDmtSjCCn7iDqoHfbOAB%2FhkY3k020SxRHW2lN75g9GrNiIJj6DgvlMcQftpRrV0yDJylmqfD7yMObgA0ifrEzxnWl%2BG68Z6SBo1dqQI%2FXbJBZRsxKSuuMjVUJX2sbA%3D%3D&sign_type=RSA2&timestamp=2022-05-16+14%3A25%3A31&version=1.0', 'ALIPAY', b'1', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (61, 1652840030427, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022518101350427759238\",\"trade_no\":\"2022051822001451691455040789\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"WUcWG4YpOV9yxjLeGBw4VsC+xQR0cc9Di8Np/nu55z02ZuD2ejhKYTfvxFhMR/C/tEpwT5H3agqFAehK3vBHTcgpJge8c5ALw4mvRcrsnaCZNv9JkrFK5xMkgx00WWW88n4QarbYkCzOdPlgFHJQ+dUWmFYAI//5ZCDRKr5duSakfi0lT/meGKovOnDO9BrQ89AECYHk1kWqdEelPHqqx6EJJ/SLrFU7/um+n6EaK5+zrrTRK1WbbN0LVxtDlC0XDHKyAya31xtSaLfYKJ/3chG8aPsxZMZWCaPaOtmbBkiRBJNKNDYaoRW6gdkUlv6G1wxD0jO3aWFxzuh75wgmvw==\"}', '2022051822001451691455040789', '2022518101350427759238', '日产轩逸', 0, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-05-18 10:13:50.417000', 0, 1653012784292, 0.03, 0, b'0', 'ALIPAY', 0.2, 1652839984291, 'CREDITING', 1, 2, 2, 64, '', 0, 0, 0.02, NULL, '2022518101350641110610', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%220.02%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%222022518101350641110610%22%2C%22out_request_no%22%3A%222022518101350641110610%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fa1001zhuche.jds.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=vnuEeUfKYwfno%2BCxjAq8vSpCGAuvKpXHoQcZtGNcheztqlgYIe2FK6pxA492%2FC%2BGK7LdfhdojnLNXb88BJvWmPY0raReHWTze0jd8RL%2FquvnrYweq093p0ZWmtaDDqUHU%2FGj79AmJ6Lp8kfla51M22ZF9I7a%2B7dBhiCEmutK0Wkv8NV9CpPmBhrwJ7obLvdXSaeAxh9xV%2FZZskvKTvBaWXAwDcvgfsw3rRCUd%2Fue4NyvfKb8j9oz4%2BsC5PcjvQvsS0iGDnJjcL8dXs3x6z3cVtx82ZLm9PBHB1UyW%2FM17UKz7F%2FD227wyvYiwrE%2FdoIXt3Vx4dPjPFPJgBjqP4JRCQ%3D%3D&sign_type=RSA2&timestamp=2022-05-18+10%3A13%3A50&version=1.0', NULL, b'1', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (62, 1653018095491, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022520114135491969000\",\"trade_no\":\"2022052022001443081403978046\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"fglRDG92JKx5tw1lXwYjRmRUjdcb7fVaT9YZgE3yDlxYZjNdtW3oIyhM+xUeP0oPrXv2DfJ7MAxxRIrVPqd5yN7tDI9Ba2c2lAQg5gfScxj2suuDLob1AZXHey+I7l7XLgBrHAFmU0SvExUgPe4Hg3P/OftcQ71Luuc7mUCGiSELnw6Z9KtdQLhUC8WB9F2CTKh2EUCwVmQdDk6HkfL8HPIFm8/uy18uJP0n8UU3aCssElTstvQrRnbnAq+po0jyHOmNx5fc6/P5KMFQ92nWBrPpLrczKrUcv/wC0RREsZLWEbdqAslZy8WsO5ITEoIRGb9VH/GOwwA1uSTNDjUIaw==\"}', '2022052022001443081403978046', '2022520114135491969000', '日产轩逸', 0, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-05-20 11:41:35.460000', 0, 1653190852784, 0.03, 0, b'0', 'ALIPAY', 0.2, 1653018052784, 'USING', 1, 2, 2, 21, '', 0, 0, 0.02, '2022052010002001080502074699', '2022520114135875311000', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%220.02%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%222022520114135875311000%22%2C%22out_request_no%22%3A%222022520114135875311000%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fdev.a1001zhuche.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=FfIvV6wZdqDFVw7z9Fk7yU5iwQy2xXSyG1kQNzPpdLogBu%2Bw48wJ%2FzxRpvFUHuQtYWvoOHnl1J2iMYlgeEI1sPqNK%2FgCsFOKVP%2FljVIABsdlg3D3UjMiyFgvCk0occ3VwOgSdiMntcbJwN2k0pP7NIjAQahwtTGDwFyQ8sR5VUsENU5CVpKPtBQxKXEEkyWER4B2FNZq8TXmNDicMVjQRuLwbipobHnIv3s4tQJKg3Dz79OtyukpydxnWVtSe5S1ms2twy5Qmi49PYN32JDA30R3vb8dnjYa5xuykqcYNDvlF8m7cXI%2Fkyr1PN%2FlTI47Glfrv8BxoCkCP40QtED6lA%3D%3D&sign_type=RSA2&timestamp=2022-05-20+11%3A41%3A35&version=1.0', 'ALIPAY', b'0', b'0', NULL, NULL, NULL, NULL, '2022-5-20-11-42-59-1653018179777-logo.png', NULL, NULL, NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (63, 1653020517174, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022520122157174494643\",\"trade_no\":\"2022052022001492081408332259\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"JSvoBxBgJueolJm108CrOSSztWyzmzmS6uVhsYsFPAMhMiLTL/5xO27B36rhdfqzizcft7McFKqBOtOzZQ3bhiFb1paLt5DPHyqy/d7AZvf3CefnnMEZ5+uF5Q1XYR74utrWLyiC92W0I0FO3K8/HIPXkPmR2v3EWP1kho3h9C0YOo4/S6n6+cYo2MUQaHQyDdBxlkK8Cgn+ZXul5TuCxJf0SUrXfqVB5vQl5ynfYJbH0Ked2aqvKl4KuPNz2rdM0OWpsD7DZwwFb37HnP+BGYxAA5eJ6V/snbhevjgcGLHaDhbQyeh8hEMVEa3oVHypYeBZKjBUIHnP9RGRq0++9Q==\"}', '2022052022001492081408332259', '2022520122157174494643', '日产轩逸', 0, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-05-20 12:21:57.166000', 0, 1653193216254, 0.03, 0, b'0', 'ALIPAY', 0.2, 1653020416254, 'CREDITING', 1, 2, 2, 67, '', 0, 0, 0.02, NULL, '2022520122157457061781', 'alipay_root_cert_sn=687b59193f3f462dd5336e5abf83c5d8_02941eef3187dddf3d3b83462e1dfcf6&alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_cert_sn=55bb524e73daa4e2510071f111a3458c&app_id=2021002192682271&biz_content=%7B%22amount%22%3A%220.02%22%2C%22order_title%22%3A%22%E4%BF%9D%E8%AF%81%E9%87%91%E9%A2%84%E6%8E%88%E6%9D%83%E5%86%BB%E7%BB%93%22%2C%22out_order_no%22%3A%222022520122157457061781%22%2C%22out_request_no%22%3A%222022520122157457061781%22%2C%22pay_timeout%22%3A%2215d%22%2C%22payee_user_id%22%3A%222088241974604591%22%2C%22product_code%22%3A%22PRE_AUTH_ONLINE%22%7D&charset=UTF-8&format=json&method=alipay.fund.auth.order.app.freeze&notify_url=https%3A%2F%2Fa1001zhuche.jds.wuchuheng.com%2Fapi%2Fv1%2FminiProgram%2FalipayNotice%2Ffreeze&sign=rYB44t5GALncx5SB%2FBx0upI5IpJK%2Fp5fpYOGQhnLhFQ4eUkdaYHEXFdjdFjuc28dhaSlqTBJrPozWwI35YJkCcaXydiVU3gJTmakJdcwKr%2FwU3ILf%2FGzDy4VIfYFS%2FiBGdZq2u6aobFvNutL%2BKs2ymr2FQBZl1pcEkZNBIxqV%2FqXhIZg84ODgoD1fyJDnpSHhus9ShsIjSP0niAryHHvcH0kHGSvyr9EEYfGHrFLEf%2BnBspuNglVADRUp6DcnpZZbSmfDKij2bP4htBB%2F%2BRhmQAhvT9QVDzZEX46CNUK3Zqe%2FnF4pLn9fmbIB0BJ%2BXnWJBJFQjMfB5bo8vrh7VpOGQ%3D%3D&sign_type=RSA2&timestamp=2022-05-20+12%3A21%3A57&version=1.0', NULL, b'1', b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
@@ -4358,13 +4393,50 @@ INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_to
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (118, 1669932241098, NULL, NULL, NULL, NULL, '202212264198398000', '皮卡费用', 0.4, '2022-12-1-15-8-6-1669878486006-2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-02 06:04:00.814000', 0.3, 1670051331415, 0.2, 0, b'0', 'WECHAT', 0.2, 1669878531415, 'FINISHED', 4, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-2-8-45-7-1669941907294-logo.jpeg', '{ \"timeStamp\" : \"1669932241\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx02060401661546937136aeedcc1b2f0000\", \"nonceStr\": \"PIy0VPqGFTMaxoUY\", \"paySign\": \"QCmevkEEKKAYV5R6WKmtQyQBmScxsssxGiVujXYeIqQ9J6wuyjUq5s2KFOQIXQMXOBn0NOd1Prq1xwTanOO6yEuiYo/mI6kV7DdOrWq0hKjWyeFNef5H53LayBZjvKeBgjDs3fF2iHfZ3CcRW5ZDo2ne6OqIf9T/+O54yZ/usAbEKDE3kghUDnhlkGnRfcmlop8N4oEemn3Wx8KdUGIKMGBAY46jrsGVWmG0Cjhk7TgKS3wVGM5WqkyWOVOKIepHz6Cq/LTbmrozRnromNS3R9hZNK1zf18/IyRSs3dNCeWxWYrrrmEuMkDU2Iixy3FwDy7BMVI7ZDd0obnh39/y8w==\" }', '4200001685202212023755846846', NULL, 1);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (119, 1670026987297, NULL, NULL, NULL, NULL, '20221238237296248000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 08:23:06.975000', 0.02, 1670286423135, 0.03, 0, b'0', 'WECHAT', 0.2, 1669940823135, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-3-8-33-9-1670027589145-logo.jpeg', '{ \"timeStamp\" : \"1670026988\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0308230801484287f31fb3878ea9e90000\", \"nonceStr\": \"IrBKBdqp4IP02bcO\", \"paySign\": \"IcSMbqK3kkqn6Orf/CdofFOpvHuQExCrYj9jArsoL5ry6p7awcOKLDdI4EXSojauO8Dq0yPHF4RcdUqmBXb4mDaE+EtoSfiHhH8cCxalP7IB7CP+TeYiM+f28J1EOlA5YKjCs4xdH8TVWsq9d8kgtrT9OWArXQPLQlHZsCBjw4KC+wMxdbsa3BVKYCu4N1ZmfOPBixooFGe0uPqcwC56ll8YJPH5wr29xbAFcbdxyQ3IqToIjUmbcRd0V4qFNftFdJ0ywBtnDqK6btWyxY5lnQV3fQLtcu1BaY4M16nt7phqq0rlNREwKRowNy6SBIG90Np1mscdYcZPXP8mABJxiw==\" }', '4200001700202212036041089809', NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (120, 1670060191709, NULL, NULL, NULL, NULL, '2022123173631699399000', '皮卡费用', 0.4, '2022-12-1-15-8-6-1669878486006-2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 17:36:30.660000', 0.3, 1670232936062, 0.2, 0.02, b'1', 'WECHAT', 0.2, 1670060136062, 'FINISHED', 4, 2, 2, 132, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', NULL, NULL, NULL, NULL, '2022-12-3-17-34-48-1670060088196-3c08a2344b05109e13e0a38f316cb1d.jpg', '{ \"timeStamp\" : \"1670060192\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx031736329436790ddc54dd3c8b78320000\", \"nonceStr\": \"jpcgaKUpc8G6kweM\", \"paySign\": \"CZogX5AGxszdZw4od/S8Mv61uj+3LH3mDLJ20V9X9nXIIulweIbEKFfZjK5fV0MnAmBaT6eEqYE/+S5QHkmXKyY8OxSkVQT9cm/BHdaGQN92LJdriEHZBdECtshpJ1TFozxeNSqosG6BRPUph0vujNRRJBL4n1ovInRGs2xxfwcH3Y11z4y+URn6Nmv7VD15fvEXhscJOpQ6GA724EMOwB1BRGNyL8X8zMg+sz1tZpEFU4cqWUeg6k6Qxozs7i76Myj/AqBXOgYdZUbcSKvKfN+/967Kro6Cv7ubKd3dlsFJnoJhcX5aQm8LLyPI7ycShQC0p6HLC4y8VtX4MMLQgQ==\" }', '4200001686202212039674407826', NULL, 0);
-INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (121, 1670060229626, NULL, NULL, NULL, NULL, '202212317379626073000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 17:37:09.243000', 0.02, 1670319336062, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670060136062, 'USING', 1, 2, 2, 132, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', NULL, NULL, NULL, NULL, '2022-12-3-17-34-36-1670060076075-微信图片_20220321180857.jpg', '{ \"timeStamp\" : \"1670060230\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0317371017519865a638f24415e71e0000\", \"nonceStr\": \"ifoLwXmeA2tPuVtE\", \"paySign\": \"H6Y3zsx6emiSb/GslXXZGnlXylegxhTDFsU/fY0o71/cDTjypXlPaA8/72wyYvrwikF9TEbAnQKwxyW3+kFN+WUyDWAKuG8SgiFsH74y5hvi9fpsga0MZsQwhVBjiJs0j1F0KFgnzZANDjMx+Q2EFvEJl02c2IZBWRHzdJD9O1m06z/jvtlem6Co3FyZ2kynDCTzEjqgSfdVlUcY1nhTsh223RrUaRVylnsTxcfQrG/rgFHYCROrv5qpR1N5NuMzSfPjwwRZFQv4a6ZMOQK3hGHtFEdyu3zJcZJrqEjAOjHMw+J8Aty4wFGIl6aG0geVhdOt/9KhSN1qzDoeFYbkTQ==\" }', '4200001694202212032922554169', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (121, 1670060229626, NULL, NULL, NULL, NULL, '202212317379626073000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 17:37:09.243000', 0.02, 1670492136062, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670060136062, 'USING', 1, 2, 2, 132, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', NULL, NULL, NULL, NULL, '2022-12-3-17-34-36-1670060076075-微信图片_20220321180857.jpg', '{ \"timeStamp\" : \"1670060230\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0317371017519865a638f24415e71e0000\", \"nonceStr\": \"ifoLwXmeA2tPuVtE\", \"paySign\": \"H6Y3zsx6emiSb/GslXXZGnlXylegxhTDFsU/fY0o71/cDTjypXlPaA8/72wyYvrwikF9TEbAnQKwxyW3+kFN+WUyDWAKuG8SgiFsH74y5hvi9fpsga0MZsQwhVBjiJs0j1F0KFgnzZANDjMx+Q2EFvEJl02c2IZBWRHzdJD9O1m06z/jvtlem6Co3FyZ2kynDCTzEjqgSfdVlUcY1nhTsh223RrUaRVylnsTxcfQrG/rgFHYCROrv5qpR1N5NuMzSfPjwwRZFQv4a6ZMOQK3hGHtFEdyu3zJcZJrqEjAOjHMw+J8Aty4wFGIl6aG0geVhdOt/9KhSN1qzDoeFYbkTQ==\" }', '4200001694202212032922554169', NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (122, 1670063808372, NULL, NULL, NULL, NULL, '2022123183648371757000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 18:36:48.079000', 0.02, 1670234084393, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670061284393, 'CAR_PICKUP_IN_PROGRESS', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670063809\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03183649227456ca80e4461e2ec6140000\", \"nonceStr\": \"RNKvc3AhvY4OEuad\", \"paySign\": \"SShX90WWE5YUxMsGpCU38ZETFsBgXoc1bCuNNUjfQR52jnaruQbI/Rai9b+23VouCwMhpOpbf9SXHcVgbT3x6NhIHm3J2ZFLenatvojk7joQSnU4ioIBAhbvqqIUZ7xGwRSRtT+5KnNChZ7jXz2a83rY7h1Ok50LbWgsWlO1O5HXNGM6wm4iMHG4m4E0FQii6h89XUu+XRz+P7pBb8L2I3nOdP8L1U2B5da3Ve8nAfjvKRAVBFZnw3UfQHS6FOTWY5QTM2bycLlXq5OlFEqdDu7FqJEBukf9/BBWEAr0WXM8hmG8PwQAdmMa3Zq2DMV30cbb7+o4CmZZEuKPTJ9aag==\" }', '4200001686202212039496304977', NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (123, 1670064068762, NULL, NULL, NULL, NULL, '202212318418761848000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 18:41:08.371000', 0.02, 1670234084393, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670061284393, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670064069\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03184109711703d030a56493963a420000\", \"nonceStr\": \"WnYfcGV4uMPvlsQG\", \"paySign\": \"K7of/1OeBNemP0fEHQSAALKEJH9FeWreKAoIc5jpHKsx3YF3DbDVq4q/oZKcuVB1smql39hh+UYY+uWCK/LxqEGAt8nY6FSxpCxGNR3EC2W6Dxem3pSHS7X5QzE6/x3rrCd6+Afc+4f+rjpp6V8qNdUDBTCUKeI3DoN+ukwXvCoazk16Iz8m5tKqWXoflQBz98d2K7V+vBZtFkjXC85dPstw1OQzdA3iudjhdkyuPfjwXz2at3PddLvkQU7oP1mWzubhs+ys9a2GIv0dZjNWuLRJFVDF2y2eEBkW4J/s5EPqAL85m2Q/zpp0hXSq+GvO9e+LlhQl/L2crssdJEv49A==\" }', NULL, NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (124, 1670064166994, '2022-12-03 19:28:00', NULL, NULL, NULL, '2022123184246993386000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 18:42:24.950000', 0.02, 1670234084393, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670061284393, 'CANCELED', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'1', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670064167\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03184247748000a2d1116d123c6dae0000\", \"nonceStr\": \"2hxTVe78Q0otqY6m\", \"paySign\": \"FMV05r2yY+UdL1CuUH7qfVzqKw/fJXUc4QYF7tjH/F1R5GJ3FtEZhw5K2ubAmixEmoqTN8U6vVDnXd8sripp/64rOGtwoHm6I07f0JTZTK9InBN1XO5Upf0W3TTS5OkR+urInqIQNZ1NzYjioe76+1gbWR/noRLupcRpk2Dhq2Ysu/25zP05s05hzGymthdEufsddUAAmRFNTVA1UzwJGuR7xqj2hlwOaL/PEOrZYA/MXupU4BfkT5Ts4WWw+3zKUWkQZJVWt+BLbNEBeMcWxwKFG+BPPdGzKDvJlrongMX0xsRMP66MS2W8LnA1MtqIdsHzJUHrsvBxIWH0sq4bqQ==\" }', '4200001713202212034271662336', '1670066538131', 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (125, 1670064314804, NULL, NULL, NULL, NULL, '2022123184514803950000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 18:45:05.421000', 0.02, 1670406884393, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670061284393, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-3-18-45-50-1670064350379-image.png', '{ \"timeStamp\" : \"1670064315\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx031845155781219d5f31ed26991e7a0000\", \"nonceStr\": \"SicnVAM8Gn0CnfpM\", \"paySign\": \"gj2gKDMmEUSLtdcx9zBIk8owMDDJdZNIzW/0qIiQMNoCy0XANFKRp6O1BxZcQFjxXtL8IsNoQkzze66iMnyFAax120j2DAICDjRvsQZ304ZtgIcvT0rHMfRW9leQMDKJFj5ClzfoZjF5V3z9/sYauRjXtJ3MA0kV9SQ0dWiTEZytjcUo0FA1bvlvd4kv5+0PPDjDyrcqYruywuVcNmRkB1thVdHHgkfQ8OsFrpQ37AigE5SvImvgFmPqNWrVeMbNSFeY6UTLqlnQFac2svtpTN2yO6R4os7JFQestVMLPdDlBGcvYYxhqXMHOimW9PX/7d2NeHZQGbFbPdmMfL9Fxw==\" }', '4200001693202212036938205085', NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (126, 1670073120179, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"202212321120177502000\",\"trade_no\":\"2022120322001443081455970873\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"BF/PFTwUcA2YNHmOghFJrCIz8uaWYLxW78p8ZavgrjfzjmYUTnyUMMKApph0fWdvwa8Gop3NA5g3ndBqTRt8Fm9tD1BxDu21Xo2600H+hUNrXty2m6CCX7TyXNDURKN+fYsd5IG82UtLbsd82fqpQdSQVkUH1aEWpKV/SxA/twHTvZrK3wxvjbGcqOK3Gyt1w+sduyqEIyBTVnv2rHi2p+7u4yPy0F2S+NmZG4Gp/xvCAhlOP/JTYYv/yk+8bMrr3gR9s9MTXzL35mF6xcHCfoIcgEmgqWVb9ueCY72+V96R3F2hM7ZP0Mfv1YjCiBfr6LTERLP0ay7/K3vykDPxNg==\"}', '2022120322001443081455970873', '202212321120177502000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 21:12:00.124000', 0.02, 1670505103031, 0.03, 0, b'0', 'ALIPAY', 0.2, 1670073103031, 'USING', 1, 2, 2, 21, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', NULL, NULL, NULL, NULL, '2022-12-3-21-13-22-1670073202839-image.png', NULL, NULL, NULL, 0);
 INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (127, 1670075079062, NULL, NULL, NULL, NULL, '202212321443961593000', '日产轩逸费用', 1.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-03 21:44:38.781000', 0.02, 1671480000000, 0.03, 0, b'0', 'WECHAT', 1.2, 1670428800000, 'FINISHED', 1, 2, 2, 136, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 127, 126, 1.00, 1.00, '2022-12-3-21-45-26-1670075126275-image.png', '{ \"timeStamp\" : \"1670075079\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx032144396934165b00031073f3e8ed0000\", \"nonceStr\": \"0g4EefAkARcpOrpQ\", \"paySign\": \"TfMFdC8RY9GtwHcXMo/3nOt4jLOh79sjbs4B41L6JTy4ipDCn0bcipo+byPniHPgST7zA5D/LZAcAiWrvBapPIodC9ynY5wby4jNHVOJRtxMYkxobwRAFB5hc/RGJDD5/mQExMZ8Igqy0CSADaTseNF7DxIHuB4wXh5uxbHOPWaAH+nXFzLHfYL2optaYaYvZU0vgvP5pMMOXgUArd2A06UT1K55RY4ZVkFvJPGGKFxnsAwhHx0epFi0+mHj4nvJOYOJuL63C6KGo7GWoT39BDIvjNqU5XsgJQ8ZVvKL3Wa15IxHNeRIrkSZCKK/yW0mbNCJBAvuOe1pWA50ayh8dA==\" }', '4200001690202212038129617049', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (128, 1670121294867, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022124103454866959607\",\"trade_no\":\"2022120422001447881458235037\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"nxEXNoZ4UE6mBno8xL5vP85y1tRM3z7UEEOA6MVEerWCAgnbGaRmHUmIN12DO/esS+oi0SjIk/g1BzXcv9eFnV0mbYO9wDc3TZEJVlJ2HtyQJ+TvMbGwftZxZMYm7PoV7vb0wFWlfSGp/P9QCIIpt2sx39GT3U8TRmvzJGdUTkOETiSraAR1j03wPgKQ3pOQkU9MDxSoztgJG+/lr64sZ0XSvVekp2w6CZ8nAVy8kValkhEH2iFvUQIXjAVRKI9NobMpkhS7M/vSlqi0cJi8pFrc16kOQOU7Z8k92R1699s1lJqWbGujQAg64DZju1Sx4o36JDMIgI+dmBTpQgyFUg==\"}', '2022120422001447881458235037', '2022124103454866959607', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-04 10:34:54.856000', 0.02, 1670294023292, 0.03, 0, b'0', 'ALIPAY', 0.2, 1670121223292, 'PAYING', 1, 2, 2, 70, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (129, 1670227997362, NULL, NULL, NULL, NULL, '2022125161317362183551', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:13:17.350000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670227997\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"olYPhMlzLDW50I3y\", \"paySign\": \"KPVJDrp1h/M0CXIgPgY859dWzSfYDEmJ4D99z5ap0yYubukqjBKW2vCQgkVrGeCUYwcmBwqrBsLMdfPZxbHFLMK6xt0F1I77ogyOjt8hqTQlyiyDJMbk4eLCNtaksN3KmLZpvEZcepRQIsIMiOc5ImeSDAPl5LhvycvaRVvltKAMks/kKfoXg90kw107FE6744w5O4TxSNOXWz6AdjMrcEzgxElRmYK1i9brhOZvN71iVzLFu4kf14sxLtBZUDU5UFoVv6nS7UeAyfJ8AJa+T2GRY74mf/kcCCW6+3vWeKBfjBXIkNfdzHuZRN0kGOjblIOtJLLGaq+WzhM9YLJEag==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (130, 1670228197113, NULL, NULL, NULL, NULL, '2022125161637112645000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:16:36.487000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670228365\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx05161925568720cb78e8964e4aae230000\", \"nonceStr\": \"2TkVHGfCNQuENgDW\", \"paySign\": \"PLCmjIsn4zBR1iSdo9tt9m6YKFCyuPfEmzIWNeJ4DkWdHEP1WjWXX5I84GqXxwMPrbs6LotHvWgfWalo7NDpIpoArV55SGv0p+Psc0zkGq/4OzVPUKsyMoQfhuIklWQ5rb6azpumTR0z5Pj/dTZHbnbzZVCozG97EK7/U5QoO0w5E/PJ4YWOS5Hi0pfdKhLBrPbihc97iKJoYUmcVRe80RKSlH5TM4cDF1Yj01rnnC1VxmjLUlUs0KGI2iaSaITbmtQtq3Z8nrb8/0wxk+JapaKQUaLhRnO1wVE/tbFfHG23ZcLZlhon3BmgFH+SoyPNNddT33BvkUBIKmDpS+lxiw==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (131, 1670228428124, NULL, NULL, NULL, NULL, '2022125162028123445000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:20:27.519000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670228433\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"ELAr3rktuJTs0K8T\", \"paySign\": \"NqpmvRgy8DC9zXAzJeTeSXSlYDM3RWsGRQTvYh+EcUnzzS+XYMrZ9WrgEtCjv88LU4pAQFqJDglh5bQd0vi9Nzpo5u+GPutLUlv3U5qPWROKhsXsH86rnsL4dDRK4hsbE9p1EUqzzUOuVA7y9yEnPfqJOGHbAxGl7k5lF7O20bKXISRo4XLmloCMwwUJ1GCTtSjy2oo8ZhKwheXn+HGuIK1q9uX3PqSuqENoScM5zqhT8QupaBrjCr6wtxxfCSKOXO3AfYMDj+IkyDIiexFdnJeHUnBh4BKPge6SvDEcQE1lESuZOihNWMZFoUM3Zos4c2SKsedyST2UP0lIh5iuHg==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (132, 1670228461986, NULL, NULL, NULL, NULL, '202212516211986328000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:21:01.129000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670228486\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"kDTkPBOgaayNg03w\", \"paySign\": \"dJVSCLSvFSTjv3LJOcnvLx3DEcu0LoJMQdj7rMiOZoUbEbBtNar+avtrfum55EIdg5a6Se3IUoiScRbyus62sKuiZkaSqa1UXpFhzVFR1Y5jpV3+QbI8NdiOHzu1J2CNV0r64m7Khn4EUujjL+KBMUbN9tFUMKa1pL8kzVwTEkc2jyZSNYKkowgqRm+XdW96Q+UFsojqDOd/ZCgGMs8SRKMfDBQf/ZaasuTDpT3JsSgEUkkk1kjGJMJRh4dtAjuk0RUg1OKdAwduR7fF2RdvlD9o06ll8sh2Uvpz3CmDr4mP/FFkN4bqZsX6VVnH1wf3EN+d0r+I6fnNdMKPNsF9xQ==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (133, 1670228523115, NULL, NULL, NULL, NULL, '202212516223115673000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:22:02.430000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670228970\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"AquAmakoTrlMKZvs\", \"paySign\": \"UDfzVTk65bg9c2rTj/vFbzbLFQV/Os5ZMMj3VIRGfQRaYbr2n7LfmGor9jiQFbBjBJCX1kwWRljBD6b7LvDho5/cfGsplu1EFE6sss78Sp6E5+IAG4O/a3h/NwLIJPnwk1CaJuDgwglzpEfy0OogvSw4gisCD4cvs7sXbj85Gv2eRfAzbXQT85Ny+3qBMnv/lzrIRVwloRz0jDbVToXEO/Arm3GmNrB9cQqXRBCHkjcKl1FWFf4mELQyVH5h2mjeJRdfbSLu1MeR5IyAsfcR9A14wVCyn+mxr2bdSTNyXb0hHVaHj67dcfzqw56CW/Dl8RrUv92LID2dM5xDGsxKFQ==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (134, 1670228970720, NULL, NULL, NULL, NULL, '2022125162930720287000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:22:07.455000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670229080\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"z3XNpgrTu5VQtrDb\", \"paySign\": \"GFMaJlzUzShvzwkJNFrGQF6wfJmOI2QJpUBm2LoXlu7nTCFLFwgN6D+xfF9AJimEWvafJhPi+GMQdjvRAlZ1fYvrY0/eykYiDOxx95oADCevwHkyvI1Y+7Tx6+UHWxMN+W4doyzy5hsjpYbYq63ahB0YvgtUtO61n+TWn46VfojjnqEiRKLycsllGgzPLZwgZLF2360n0qNySJuHMTSpWgueTqFdXY19GVs6TFWP/IX9kXKrkzmMjZq6zlZ18z8srXwRttdXVyI+DAtDz8wkPc4M2NcqV6zMHClLqcev244EcTb/GjfSx+aMKNyqBoeOOrOPKgNOxI2GhjmCabQLyw==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (135, 1670229081521, NULL, NULL, NULL, NULL, '2022125163121521496000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:31:20.796000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670229082\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"OQfkRsRx8NWINvT3\", \"paySign\": \"ezMZ/yT7MQDjIHkoClSYsa4l6atpBc7YzIXkkHol/A/c6xumSe74iKg16eMXGKWCVunhMJXV1kprLbYdGrxjoKUXWWBCl2RuSyvDIT5+LxK7Gug4X9dFm8Bg5oAFFBn5cUCUklbdG1bvz+mMJnr8h6e/FLxxtkDNnWr4qMU0L2Ae6zp/3Uaj4khn8AJMR39ozqv6jwnflYahe8+UGv31mbtLQlbebEvMdtZqe/7+imGfCZ4ezGu9LKPazmiHr45ETjpK5TaIXrEwgcADboiCcEZCipzyQ8Xzy5z9w1GOkFS7tV0CopP5vf7Y8gJpN0VsPfNF2BwwDbO8CNewXFZ8qA==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (136, 1670229100749, NULL, NULL, NULL, NULL, '2022125163140748483000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:31:40.169000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670229160\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx051632100971089705ca354612e2d10000\", \"nonceStr\": \"61tnzuIjXRCJDggR\", \"paySign\": \"JSVSvGwOOtkyrTLC9PqhnKuVpD09vgZUQYywLxJP044nxMywxEzYf063YmvBTsFLPc3UtLGXiwvKAlo28pifPx0oggznZSE/wCjy6+RiNgc1gzplHlNcDtcAe33kMQHJbSrTH8W6pZZ16Uyk3L1IqkWYiYxs92eR1BUHKUakW4sOT3Ho9qxmT9YgwzI6agHzCkdV/9iRer81UKGMgrK45SJ0sPJ1GAhPauzWrVLD1ra4NewHpHstghTgIi6dHMeoinHWf3CS9vxTw1CXu+0AOJGKaXDcFlDk3hKgxqbnbTlFbRehX9YitIVKCHZUAXvpdeYUzbOsw/ROKwvvjtiqVw==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (137, 1670229171805, NULL, NULL, NULL, NULL, '2022125163251805376000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:32:51.192000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'CANCELED', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'1', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670229179\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx05163256232713b8a2e37698538e020000\", \"nonceStr\": \"ISU75Rli6S61YFTR\", \"paySign\": \"QBGbejUdv9cik+yhKMaL5KCrUuWlnsdQniZ/OcKiRXq6Y35SCGBjZ8NPz1ufXePUggrSS4te/lbMcLUpJLcbGSAKiVjmF6Jbk8mXGN/c1oeFPtMHaQBgha+otglN87kjKT+8zoHAbjlyPjPJVgwL2H4wXFtzSDH+7sKBgKLSxzARbpNLHNwySg/6mcmrOOsXctrLAl1zYeERBwRLpwIHasrbfknCDf2kmn1aHDHW3a3771hRZbSDSc5w4DolNDCbwS5x9Ngm5wtOsXEeJ0z+u1I04LO1Di6py4IjK5czd3EqmiT4/ONR/H3/m5spEMAy8ESR2INIXHgrHk6aEMHexA==\" }', '4200001717202212055473126497', '1670229938770', 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (138, 1670229957531, NULL, NULL, NULL, NULL, '2022125164557530824692', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:45:57.512000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670229957\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"vkKVFMMd5kaijo0U\", \"paySign\": \"Vz13ls2MptBzleZ3N39HI+YgAh7kGbfVVvXTVEQbGr67tsTAlbH9E6FKul2n9y2G91p01iWzWsi2IRHVEtFEO46lnjWFXJI3oG2u73BY/kcAz1Dc1Px0RdyxJczEehP/Kd7SayFFiZYaSNWG35X3AtooZOiKyz+JVJvWe92A2d/tFBN04QJRfGOg0jtydM9v6S9+IZqrTBuNIovhNLw6IqaFzk5hvxLViYbA8suk3FJ53O79THaBhztaq7rBbXsEdni6ZAcspKq2ErnPKTUytxmzNLyha+8uiVYvaAX+kZPDL+oLoFyG2GGyPs/idaLLKJ9yFSCjkXRaOqu90okh/A==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (139, 1670230163504, NULL, NULL, NULL, NULL, '2022125164923503907000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:49:17.495000', 0.02, 1670400661326, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670227861326, 'CAR_PICKUP_IN_PROGRESS', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670230172\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0516493237476524fa792d94c8ac310000\", \"nonceStr\": \"YbnJfOXmwR0vmuF3\", \"paySign\": \"kmnTqmrqW5IOoYOxjtj7C4j3BDC8iJvEiRRK1lCxezOYQIM/1jP64UgHICsLM4OXG/yG3xGc44mAX9r6mVrtOySQbq1gHlNfNzk3FfPKEPzXb37u/ZdsSEuAjR20UqK1mm4boEzuVshBX+pf/bNr5xn5Kg0jy4ewpQOj8LkjWiQwlaWUXrE8yCuyOrMie3nUWjInXJkqayVkww7XeIg6VuOwxoTLnT1CwQQwTrFe4jgjxnR5ILx3vBoB+t/V0BBQimiKkzWuFzLRqScS83Q5UgRel5IMeBo7S6zbw+2S42Ug9zSkUKMug9U2qeKD8wHDLqZPL7CXBdSAv52hI54o7g==\" }', '4200001706202212052537752950', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (140, 1670230544869, NULL, NULL, NULL, NULL, '2022125165544869480202', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:55:44.830000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670230545\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"uZdYHDUTBZaNIluO\", \"paySign\": \"Xf5t98ss4gwNpdpPnuNIbidMyNvZ5wDTSzoYgO/lF2SeHKJWo1GetFGtdtqqLdE8Wwn0U+yu5hSsTqqcm7iOojVSxnF4xFWadSaj4lja7S6Py5N77mMiedrVNLH/BCJKHWRxd8JvbW1nHIcqg5GescU1QjRhSOMfOjvNtSHFrHeBRN/5XGRb15tiL/rbPfWL2/sHFvkr+ZtZk1TrHANCjiHHKzKT3J5aCXdr+FcsyIG7QOyp6WfmprDf2z6RXs613PyiVClv1dFvU6v0kRe8tceKUa1wv0OwizPfSadtJbwZt8fd2WYNeGwRzkqdLk/cFUpHAIuBOZ+vOEJCvuFwCw==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (141, 1670230694527, NULL, NULL, NULL, NULL, '2022125165814527707990', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:58:14.509000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670230694\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"aoB3JvYgQB0BKe4Q\", \"paySign\": \"TS06FzbMEOdMl7aWhOizBgbEoSokPwmA4QDMzLwMTjTAcw/3tjL+hmaaXuMIIYTCKg16m+CN1Y47YgB+/iF0Xe3/rHG7uLEIcOw9HQLdjE0g5augj1s0RGpMM1Ae7urC8VQD0IXGebRUwLZkWbCAdf8oqjcX3HHW5COW6idE4mtbbC4rOZLkKiwZGFFZz+xPkVTgXnPg9UXGIqVqmrMM11zF/Exbr+tGrYAd/sIaitZh0tvL98IjxpaCQ5O14PVvqLBt6/VzRElcJbNShCXr5rQaUSeYG4Vx2Z5V1tNk/mOQluPs+TCQIENSltkEkwLaUCug762t2y88xMXbyX7sUg==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (142, 1670230720682, NULL, NULL, NULL, NULL, '2022125165840682146590', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:58:40.666000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670230720\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"3epDhTMWneXtkhuQ\", \"paySign\": \"Mk9VnxC5AHYaUz1ZojOek6lT/98Fb/uZrDwMNp70+i2L7Pd509GzEfieQbkOBVDoJ9raFNvpjcr0Pu8IxPAiwFASfVFv48SDPj5r11IsMz3A3GVciZLjLIOFZZTdt371JW5ksEpWEgFFt8XnzU/2xpQZQRGkFu/cz43CjaYXc653rA77LwvOiGUlYCetCtPNMaKXnjCTxDFrsMKNEBqYTpt7LDyOzzXFYxjbflHcduudP6cQjVWqOZMw13MNa6JvbxMU/xybzDpES5bxjqh4pq5jOu7j7ZZ384QlQbBWzYsjJeZ8QFpyCccLtm55c70sjpiokpIMYCOBUFVKMP0xlA==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (143, 1670230783283, NULL, NULL, NULL, NULL, '2022125165943283437277', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 16:59:43.247000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670230783\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"Iix0I3CGWtvmwwmD\", \"paySign\": \"BrFsNYn8QciQel4ZBk7+63xXcvq+ByXy1GMt4p3WwTKaLZfSYoLS3kxUDQGslHICn8IZPbCF/UOS1EJPLYI2XIbk8y7c4DWyJVAiDm1RQSwNAahzgoiBDjTKZLdcWMbrslknR6OsoRJlLdwL+S/iPweSQIiWucJTchx3lfPGy/F/Ti1KdhF9CqPG6TNLmmhJmYWIMnztOcojbcx+LXwZ4Et8U4Nl+tyLvHNRUErZoEORFwK+kGpL0dssWxot1U/Zs6FzX0tnVawF0SOvrXS8IH8rOnSqM6LcqZsQ3sBdXcsYMxIm+wPcLFLreIVEsSEFjhOo/XHBfPz12eT1+Pmkyg==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (144, 1670230982894, NULL, NULL, NULL, NULL, '20221251732894424000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 17:02:58.153000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670231006\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx05170326332270f437c0180d590b980000\", \"nonceStr\": \"85iaDAmp5LcUnQQu\", \"paySign\": \"a9gA6XnIyg4TXMvmNiwy9Ed7SCCPHsxyDQKK87G1WPu3CDGsANq49GufZ7wPPOCpBo9X5qxCmrrsZPXFSjiasqF8iB14HQrFpdaRjtHcdn7NZfx4B2QH0R/7SDUcZ+9QFNjhi4GsuJm6+nmj0SFIPvpvUil7CbaWp7jbTBp++F4bk1AgRShbMPrTzpuh5+WxGgTv5DoOknwIslp8CDjEqzmQdakTZh5QWsVdQEmlFgvZiGlfxLuDcg/qYMVMMSNbAnRZtSy1nhi+Nx8lJelegNWcNJCa9W4Uio9J9QfvvRRgQo292SFvKj5vF8xg2zWqzl9/U7TghfKSc7sgUUoqfQ==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (145, 1670231038441, NULL, NULL, NULL, NULL, '202212517358440859000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 17:03:52.572000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670231046\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx05170406732900abe259698fb4f6e00000\", \"nonceStr\": \"SEFSysyAUKx30FWV\", \"paySign\": \"OZX3+PGuIPUQCd2nIvcwdVmUqzYBTSkBv1yj+GHfWrlJA95uQnRZC35vg47LZOhAI9U2LXGuKou8kyxZRpPaS7zArtnxVgd0xoiVLSOWimGxwSFBbswfZzdXeB66vf03mqqRwq/o5f/oV3Haky4QIvf5x5dC3HKKBXvFVBSl7wWI6ixGua+YN90GMpjJPHolAXOmzbNuwgemJI4SF1cf5YO5fKUBjtknjkVbGKK5nytLjjmGsBD3LVF2gizia3M4+A38MDfM8JhNJmGN1bkXCSMQ5PQVOl0aa92scJn8HgyKHOLkbvPN3BuEt7P0eNA/buKv8hjawfj3WhSmv/yz7g==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (146, 1670231250589, NULL, NULL, NULL, NULL, '202212517730589859000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 17:07:27.418000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670231263\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0517074284741346345b18ef47bea70000\", \"nonceStr\": \"Tbo4fA5sGerL1cZV\", \"paySign\": \"SieLn0Ce9s2qN0WfuYzYLe7yB48iu2XoMLMkuGI502V5UxZnEFU0ZTYaDhlujEyB/FGiPAOvjsLOoWLAaJuMXuIriHYG3Kxd5myK4YK+3ZY1/npZokofhooFmT9E2cCooVkANqWEIVEo8O1n/0tQFkZEyEzKvmoT0ACkI5i5BEen3heA66ZdAIDBASAktXaReqeZ4h3vGSCe2ckMxZ9+PO6+KwhhTHhSBPQXnrMASIDdP0j1if/SJ2jU0tpD015Tzt4zzrjVw6PNUCDAAqDZV8pnk2th1e37uAB1VNBS8cTQV5Dn5PYcnBGqZbPCvVzGvv7DgWriH1r3e76As34FRQ==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (147, 1670231356203, NULL, NULL, NULL, NULL, '202212517916203177000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 17:09:14.763000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'CAR_PICKUP_IN_PROGRESS', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670231380\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx051709400907969a5a9331773737fa0000\", \"nonceStr\": \"57PEnOc3lTj6StZI\", \"paySign\": \"Gi6p7+kSEovy+6IYW8eqt+locUkpyecq2cshlvRPtkdUJLU4QmHujXgR0eYL4F8ImaplSSSabGr4mrrNTxRziV2d2+7SLg/7k+CTaTbGZfSWPrphmlGCK9CWLcHFI6vR74DZBrVm3pKnppodjc6RvC0isA+QaW8gZMVWXrDii07AH+lzlJQakMHs6mHX0HkaU0X+CBfIIaCw6YnsZ5NrQZ9VTobCBMFn5pKRvffMWdFEvIyUUIVTKehjT/xLPbIbex+CjOhUODqAEW9pMspNOAyIRf4h/Q11JBH5luuvS24APMykl3iY6ajBDE+dqctId1KGbLeuQE6KwXwdbY62bg==\" }', '4200001708202212059034572681', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (148, 1670232808350, NULL, NULL, NULL, NULL, '2022125173328349114000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 17:33:25.866000', 0.02, 1670400661326, 0.03, 0, b'0', 'WECHAT', 0.2, 1670227861326, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670232818\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx051733381993369046e6bb93b917400000\", \"nonceStr\": \"sOdA7LSpO0QqjHfd\", \"paySign\": \"BDmvT3KwBVB864s3kmtU3iz0q6naAljMEBet7030BJj55UTqJHU9SBZShB0H3Jtr8dNx3u+408NBpGfq+CTfXGMfhxL/u/1A/codjO2mV3rLwkBb+ZIr44sZey3cv4pu2rkYqNdSFHcX8s/9kBwF36tQFinYzh7KrFg7mq2P9jHVFije+roKYP3rVz85oijYk2kMypYQXfNoMNjQdDUwNeZvhbQnxvULnL1QKqvbinbQUepd2xlW3q8NWbQosUfddj8Uy+FqOkhKMabC5yPa2yrmetkqjE5SDphRV7aEN/dfVupA3i1BbYGWnR7BisWlAAdRrSlGUM8dcNIYJdE5SQ==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (149, 1670235191655, NULL, NULL, NULL, NULL, '2022125181311653594000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 18:13:11.056000', 0.02, 1670407973409, 0.03, 0, b'0', 'WECHAT', 0.2, 1670235173409, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670235196\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0518131605702080136b73202348730000\", \"nonceStr\": \"JLyVb8VUskw2a884\", \"paySign\": \"mSse97DjKDQJ+xQA0B+75VNZ/53rNKGrvn70gJLyNSxD+oORDxiMWRlbnT3gFEkPHgzcc/qal1B479CNtFGsvp7osrJ5ByiV6gRKQhXFq49Fgw7/mXBlyXcaIy4wxkaX0yfd5RcuXh/Ttb4bCqNGU71PMouKUy0UYPZE1YQ40utJao+dbEPwk6AZ0n5RIux1laKvjo/eO+iwtUHdxNo1bMKWBee9jz/oEeUEfIhhgCy/bX1uwEtfU62lz1wI8UDT4oZkY3AuHejr7WCVghGLDgbrL4G7YlaWiPEFTrd9Bq8BTDO08w4y3aREuD68jN97/5Eevxp+QwLLRQCI+jYHvg==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (150, 1670235425743, NULL, NULL, NULL, NULL, '202212518175743303069', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 18:17:05.642000', 0.02, 1670407973409, 0.03, 0, b'0', 'WECHAT', 0.2, 1670235173409, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670235426\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"OR22NlyzRIpdWQ4C\", \"paySign\": \"GTYq3E7v9nthz15Es6xcVU05rIf9fLVjj/P00e4SmO5gSdTkeTPzpZjzF5dPOV5WyXH32pru8Z40Iu6r9YDC//XpNpjt9wdIMSe/BS7+n6jXU1pES3Yxtnnkk3aPNspejvDVIndjyB+IKo1zITQrPqBP/7SJKiX9anMx9mH7ylGcl6V0cl9+ZSwa0RSO6ZH715JIBEm3tWaFVmnoxh0mDIctVRuvbksYNPEPrhu67ocb9joUjcZe+NiYPP4UjDApTiET39BA/5+7K6x1O6GPuoF4Wf5YHbYboUCKe4egtpxZ4QvPmlm7/BXjQJ/Ik87NBzaMKOCEWCPj+uL3aT+oMw==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (151, 1670235518081, NULL, NULL, NULL, NULL, '202212518183881245514', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 18:18:38.054000', 0.02, 1670407973409, 0.03, 0, b'0', 'WECHAT', 0.2, 1670235173409, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670235518\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx051818384386081ca43179684d62180000\", \"nonceStr\": \"4HjFYgCZjrkm1nwL\", \"paySign\": \"kFDBkP70LtTwBBgFSQU9klEWbcigt151CVoJKF/HJZm9AC+oc6Om9CPrX+z7IXylYLNM4xeuYBi4/2Ey/Ew4DLS0tjlG8z4F3T74UTEUvO3LZdTXCb6ZkzCrce3+274GBupVKZC+cp+dbXo/VSslJbzUEnJD3N+DmUx9bmYIVu5QivkaZmTxFgG2qtk12pcsg4Z2f9TCLG/ZG4Fy471KktGpLmFcbVFCNlsVT5qww6IXMdQMAFRruAXpcjRDosm6EuQuWjsCHwEfLvy4oCeH/zM3gg/yRrGKZOpDgBnjLlTzs6MBuh6teLQfMCNnYI697+MFPPndGGOwR3XKT9IRTQ==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (152, 1670235519147, NULL, NULL, NULL, NULL, '2022125181839147555667', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 18:18:39.124000', 0.02, 1670407973409, 0.03, 0, b'0', 'WECHAT', 0.2, 1670235173409, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670235519\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0518183947953191f1f394623f2a6c0000\", \"nonceStr\": \"W8zn4WZyqeftNBY2\", \"paySign\": \"RW54r6gYX/ZrKP0G3wpT55WK8WWEKJlyba6gE61APoVz8Jd8VmSvNBaF6FGigbDnogvmiCLY737lHSxijxSX12ZJ2+UCPKCf9S/KLH+jLB1VuxUxmi9SsMvD4ng3P23/JyhXbGrRXJTK5I6lyQ1/LfLMRzjxUCK9No5RtXrK4ME+88FC+P8M0E4qRSKwqoL0PvuSaKhOBNNFjEfxRdHGJSr+rFTf2UQs4K9LdMEEEDw9iV4rX5bEkBZRXqBlXgg+yFBuLp7rYH+FKJygO3ZmyQEzGL1uJwIr2C0g0hjNBr9MkZxOw29wCVZMSzw/r9qf5ezDci1yxSL/EOuxO1+/Qg==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (153, 1670236227297, NULL, NULL, NULL, NULL, '2022125183027289045785', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 18:30:27.254000', 0.02, 1670407973409, 0.03, 0, b'0', 'WECHAT', 0.2, 1670235173409, 'CANCELED', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'1', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670236228\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx05183027881898b36f858618c48f410000\", \"nonceStr\": \"Lm48ckjiGQGRK5cz\", \"paySign\": \"XVtNt73sxlmY1vDHXyJ03jYqq8HOwJqGLdJixJod4h01jvA7qztAu03ivn8YBOs00xG/A4qYVhpo03rUU3Sw6vpRbf4SPLtrgje/kSZ3tkwkgCg8zzDp1zU2wIZZOYgnK3yA+VdSNEpyoMAmExKFCHbRxTF+rw6z4cjzmBvHzvk5DGtSOp9BK2xu4+/7ltlyMHx5QjGDpbwSxX+o9HLAXPnQUfhoxqQs8LZyVjS2SKmbeQAXiy9VieuFTXd6P6NeiqSre35Xm2JnLmyO/xpvqsGZCYCx0Wu1zQL8aKPT0qNsNX5mCQT83TUEY3TSNHJy1/E6Xpsu3p3XI6xthJXlGg==\" }', '4200001683202212059831109224', '1670236266790', 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (154, 1670236316386, NULL, NULL, NULL, NULL, '2022125183156385927868', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-05 18:31:56.368000', 0.02, 1670580773409, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670235173409, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-5-18-32-28-1670236348737-image.png', '{ \"timeStamp\" : \"1670236316\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx05183156675934aa259f65d1f531cc0000\", \"nonceStr\": \"StpiD5BB31KyNJJB\", \"paySign\": \"kIRNViRd/Zihj1I6ZjHYwXd60lSJcerQSFgZbnvCTiIiKkDL/9RF5zz3ZyU3GJLbRDqFXpXmxkZB3rbA+czSK8QgaqYDCe6+i0zffxi34zOOoJX4mm03qsygH7yBae4xjiwYvUnV+fLqaup9wZt6pFJUtapjGFQ+L7U1UnA7cJXNGmiXS+YAUTgRmRDrNiNZvdVg1e6Cy7rOluyfnGQwU/uJm0LVd4DG6T+lzkVxS6HTiN9i7HyiOPvXaqnOhtCkXrgM8pQpDW8Tjgu0vmWGDTljb4BWONCXpTBaV4MVARqSweJiuTuNVMcKCsYfmke84JUqUm/F+IW51J0dUkQwrQ==\" }', '4200001689202212055545502451', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (155, 1670394821313, NULL, NULL, NULL, NULL, '2022127143341312649000', '日产轩逸费用', 0.43, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 14:33:41.012000', 0.02, 1670580773409, 0.03, 0, b'0', 'WECHAT', 0.2, 1670235173409, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-7-14-34-49-1670394889523-image.png', '{ \"timeStamp\" : \"1670394838\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx07143358710061e6085b9e4e87780e0000\", \"nonceStr\": \"Wpsu2UIEqzLSes8s\", \"paySign\": \"XPM+x+0au5h9F9e1HP+HgYHg/M7udNSfsDIhNXN356d1TX8gpiy18Roql3p5X1TJxB/uOXgr4W754c4Ymtl4ymzJLHBmDGv/Kq0CkbTf907HmsKD7csesR4A0A9n7ZqP0Mft5Q8PMfdQf/oMiaxJgCkCRuWFQ4NKbnEQ5VGMucMQ+E4awbZ1BvyeUYt3Rw0Jq5stEaurEYAnaMFaYjTwfxoD7yjO5py+R4YbMc0XIGlUX/IKvtDAbt4b2BRHolwOrOdEUDPK92IwnnfiQ39mC/IVAdIHjvjFbZ1ZpLSxXVhQ/WbPPxLaxtoxyGBKZjyuRfRqqazt/ytj5FXuaD7OLg==\" }', '4200001709202212074939421139', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (156, 1670395274980, NULL, NULL, NULL, NULL, '2022127144114979229000', '日产轩逸费用', 0.45, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 14:41:14.669000', 0.02, 1670494373409, 0.03, 0.12, b'1', 'WECHAT', 0.2, 1670235173409, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-7-14-41-52-1670395312258-image.png', '{ \"timeStamp\" : \"1670395275\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0714411566410043d6b23a3c3bd12b0000\", \"nonceStr\": \"rbjb3I74k0PCYxgF\", \"paySign\": \"T6ZKt+dk1O+kU2qf5h6+bd58jSU8pqAz18nU4BgNzIFqMEpBM3Tbl5tk6uQ7HL33+BKflpzXoq9ffcKO5+jI4i4ZYUO48uOtLzoqJ+t0pkizs82Nfhje0Jso+kBeRL1XfdRvk+DV6NeMHLW4ymnIHeNf0+NiwJaZ6xG/dgvZlDoMux7czT0uOJo0s5J5yOrdluC+M5rHCt8a1Wa1x+t0BMMoqmURbnPglFSl/JKNX+clgz63/Wj/2RyMNCLRgB+VeauBjA1ZZwgCtLqkjqCQ7rhR3qhw61B0dNJ/fPCemv+Wf4GV9mR8snCg5Ie+Ds4ku9fhczMMrQfdedEjf728Iw==\" }', '4200001689202212076095925005', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (157, 1670395581781, NULL, NULL, NULL, NULL, '2022127144621780762000', '日产轩逸费用', 0.33, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 14:46:21.517000', 0.02, 1670494373409, 0.03, 0, b'0', 'WECHAT', 0.3, 1670235173409, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-7-14-46-50-1670395610665-image.png', '{ \"timeStamp\" : \"1670395582\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx07144622577522a15307cabaa0a29a0000\", \"nonceStr\": \"N1HAyyyUx2UzcPSn\", \"paySign\": \"BKBCodc4qVbAq/UZPL90gZm4of2EXQYIMyGu9e+7Ci8uJbxvpWocbVZ2eaB1Y0msQrUm58st2RLdM/POwkKil0NG57ZeVLUsTtTgUBJHDzB2WeY3LQN9nUhJfZYN7OtX6vYgSmNefZXCrUbDUB9TKZhhOGoXxG2uslSqS8ggWLyZUpJRKKq3IOFxc7gOUlRlldniI/LCBWlwoZapUuMKK68GarwpnQy0k6Hbr6Lg9Lkgyicc5ojMXk0NMs0NqgB2LZ76nLedj9xZGH/9qli7Uky+i34DZ68YGXrtJoIE7ug0zlS3lYY7Vyoa2mvqn/Gy1QICRghFj4F1yB2DM7nV2A==\" }', '4200001709202212070973481752', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (158, 1670396070425, NULL, NULL, NULL, NULL, '2022127145430425596000', '日产轩逸费用', 0.59, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 14:54:30.153000', 0.02, 1670741555114, 0.03, 0.16, b'1', 'WECHAT', 0.3, 1670395955114, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-7-14-55-8-1670396108995-image.png', '{ \"timeStamp\" : \"1670396071\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx071454310275863d6c4d64cdf65da80000\", \"nonceStr\": \"Nxu41WneYCwxE2tp\", \"paySign\": \"V0zbq0GiOhwqE87f2WW2BtaDvrhqGtNZ1JJeWyOHDPjfPBuSFIOdcCKgndFvNX7ooqNR+CBnJMRUWILHh/EhksFrwJ/iN/Zwr6iu4CAbIEyOJWsKi/UshEZKe8VqSuZhxxfO+GRXdacyBJSoySVDSRGb4DJr5TTEwLJ20A8MQu78FFdr8V4zyxilnE5AlT3SSnUMl5ftjQsmjjFTBCnJjoynXwz1+DZ/E2wO80oVKrnK7A/6AUxrG3u4TVu/kyxBXU5HO4qRwXpOeC7STTVPmN8D5rVCX0cr5oN0+Yj8bDZiQVXLbv8RO4ufC3EtcpMrbQ9dHll09n2laVOr7EEChw==\" }', '4200001683202212075812962602', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (159, 1670396377534, NULL, NULL, NULL, NULL, '2022127145937533321000', '日产轩逸费用', 0.59, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 14:59:37.257000', 0.02, 1670741555114, 0.03, 0.16, b'1', 'WECHAT', 0.4, 1670395955114, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-7-15-0-9-1670396409795-image.png', '{ \"timeStamp\" : \"1670396378\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx071459381716568db845647516cd070000\", \"nonceStr\": \"iI8zXYb4DZUCj3JB\", \"paySign\": \"kqFOh0tqIHdkySB5MG2t9mGeKt+lDBJrGz2rK8YcKc23eUdmhw6C3pKIWopph8MeDwO4TaybSXRo7AP/D2QFL5b/SsZVHEV6Hbg3lrwOZC87TnnxttObgPzZC/q12my9uaklqag1GWbX3LkzrB8Xwf1C5kjD7u7xQrT/iO+7f4LwB5DOmOoDpJta5M38y4tr2KQPDbAVg29NQtr8oFdM+ti33l+rpY/hhmo9/rui7aibspdpolEhAJ0NB2Q9dhcjysQcqdsXary4ST3AdLwNcn+VEU7HA1HYI8q/OCoFBHH72ujOLVR+Dj6pXj6IJIneSxOquv6S/7VOv/VU+LSngw==\" }', '4200001708202212077488791990', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (160, 1670397123700, NULL, NULL, NULL, NULL, '202212715123699564000', '日产轩逸费用', 0.31, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 15:12:03.388000', 0.02, 1670568755114, 0.03, 0.08, b'1', 'WECHAT', 0.2, 1670395955114, 'PAYING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, NULL, '{ \"timeStamp\" : \"1670397124\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx071512043491274bba5eb87b015aaa0000\", \"nonceStr\": \"Hx0PlylSy4KJb4Hy\", \"paySign\": \"hr2zqKItHPhj1OWZwuWvtWxtm+L9iASEjMMT44W5aJDza9lC/FvrfC6JCFftaaXNDFWrF3xaKqXNO6mOPh4GCaWweTwalT/qgZs1bbv3auWjgS3ziwiOmREkxJ5I2leb3ICMou/P/8KSQ9ipdQDXPAihhvImuFaRJqouCOLzfnpSnVrBkMXAJGL3OOjzdZJD0Uhb26Q1fh8TgJBsY7cThvWatqIKY90XdEA09fxifvSVY+eJhmG6//9ccs6q/wO5zx0Bdjo3poAS6xCCS5h3AdI8QHD16RTAgKD/lWiSfzftHXiOjViPvqQiOAnrOq+fi0fjtzG1Exs5sOBICYwKjg==\" }', NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (161, 1670397124765, NULL, NULL, NULL, NULL, '202212715124765187000', '日产轩逸费用', 0.59, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 15:12:04.467000', 0.02, 1670741555114, 0.03, 0.16, b'1', 'WECHAT', 0.4, 1670395955114, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-7-15-12-44-1670397164359-image.png', '{ \"timeStamp\" : \"1670397125\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx07151205226505f9dbbbf3aee541e10000\", \"nonceStr\": \"FTTpf6GlTQ6PBEUE\", \"paySign\": \"Kmh9GixPPBLhhrGTK1p29XlzhvtSeQxH0yI7gHjJOiwESLVtfsPnVrP2UUDvsaDBCbMtHmMBQiCZMMlbY6hz9TORCPHa5HP0JKAWaNEMMpHbiz8KVXdNFeZGqx7PHJ8rHxTle/4O0qciwJ1d+/yiODQD+gM5pHGKi/xmg9oiFeDs+CYbF8FDELt5EP2RqCxhlrRBk/Z9Sj+F5ygC0aeloZc3F1dRB7NxCccTeetXI1R8OdM4FjbuJ+RZAIc0kbxy3mpU7O4rhipFtWedstoLoO858PmaUETYthlb3utAii+C413xtzGzwtGpqx1hiJIVLaGUQ6yuZ31FqIAvl5sNyg==\" }', '4200001708202212075008220879', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (162, 1670397346797, NULL, NULL, NULL, NULL, '2022127151546797040000', '日产轩逸费用', 0.87, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 15:15:46.524000', 0.02, 1670914355114, 0.03, 0.24, b'1', 'WECHAT', 0.6, 1670395955114, 'USING', 1, 2, 2, 127, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', 126, NULL, 1.00, NULL, '2022-12-7-15-16-20-1670397380331-image.png', '{ \"timeStamp\" : \"1670397347\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0715154745411326726e1dfbc2eed50000\", \"nonceStr\": \"LGVqV3IHyjlTdIFm\", \"paySign\": \"bz3Hbjuz9tmPeI11UwmypRfS5/fdu5s/XsKogoUJjQBBCoXhUfb0cwW5DLIvcnO5LWQmTuY4IkWCK3xfeyLCKHD8YIVFUvl987Zy3eX9FDQp1l+osPZnxGAAhwmG2orr1Ehz/cNxPTt88C4DQ0h7nVvqM46Fjmu8g88qY9tS0xfpbpd5hb+J7dTUlE0ac8YdxOiy0ZPfa0evL3h5Whm74StEHPAKUfA29gTrWkgaJfb56oi7up5NLpfDfJpspqvfv5YeN/2aSoUja9H2/ltNDvA6x2ouuojRH5nNl2k64DjmqxOr6RueYuRqTiEPgnPvlqdP5LGEbGagYEal2Tydjg==\" }', '4200001705202212072759623922', NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (163, 1670398228103, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022127153028102233000\",\"trade_no\":\"2022120722001443081411678772\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"RYxTWPSCiD1sElDAY/uaPCotf4nreAIT5MyAVysxM1Pgs98xryFZgYUUKOHmHoJMKLo3RUxLJJAsugAVgS5Ty6tq3q4TP1lIkVAKuB49ZhFxmPa61Y4nJgxLev00XKv4HpvGn41ESEb1ls+0tEtNgJx6DfORxun0SHvmRxX34DXbD05bBI0pxo0jucXt+U5kmbHpbObjeLJBxfzSRrdE3NidiJu6d+hMiB2DJFK6WM3CNkEiPM2dzmnJJCwWI1zIibK1dGUDCJNAasPfLn2kWxPvFQo8GKs5u4dyu2bXL+LCnFiq3mnVjavUbLbrrVq7hk5VvobNeYurjGH3Z/K36w==\"}', '2022120722001443081411678772', '2022127153028102233000', '日产轩逸费用', 0.59, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 15:30:28.039000', 0.02, 1670743807181, 0.03, 0.16, b'1', 'ALIPAY', 0.4, 1670398207181, 'USING', 1, 2, 2, 21, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', NULL, NULL, NULL, NULL, '2022-12-7-15-31-24-1670398284917-image.png', NULL, NULL, NULL, 0);
+INSERT INTO `orders` (`id`, `created_at`, `deleted_at`, `updated_at`, `alipay_token`, `alipay_trade_no`, `out_trade_no`, `title`, `amount`, `cover`, `create_alipay_at`, `deposit`, `end_time_stamp`, `handling_fee`, `insurance_fee`, `is_insurance`, `pay_type`, `rent`, `start_time_stamp`, `status`, `car_id`, `end_store_id`, `start_store_id`, `user_id`, `remark`, `waiver_handling_fee`, `waiver_rent`, `unfreeze_amount`, `auth_no`, `out_request_no`, `auth_body`, `freeze_type`, `is_unfreeze`, `is_refund`, `promotion_level1_user_id`, `promotion_level2_user_id`, `promotion_Level1`, `promotion_Level2`, `contract`, `wechat_pay_token`, `wechat_transaction_id`, `wechat_out_refund_no`, `is_delete`) VALUES (164, 1670398967359, NULL, NULL, '{\"alipay_trade_create_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"out_trade_no\":\"2022127154247358326000\",\"trade_no\":\"2022120722001443081410444970\"},\"alipay_cert_sn\":\"570c961460dcc9ae00d973c2c0f503eb\",\"sign\":\"aHgFAGnDM1V3N98RKyz6wNpm8V8pldSGSXfpk/vKvx3FWDRLWH9ljQWmLgu+h5a8cE2ifBnzTK9sE95Hxf8+Yp5Bt1AIKGKpzQa7Zt4xYehBK6z6WuLZmUMHUdeHsaFm+QpH+1v3S0yc12cHSWHetyEbQqteaj2VayXT1qDQRM/v33NGVjkAvESuX33GBNAwSmtyGwJKOme9c4ot9VxSmjAmnOR8JSH9qlfw9MPWVhwAknAg+swDl5TtUm6ZS52hhyxz+lj85LKAdZ4kxK+9L+Fd8CjPeN48uk/cv2vwiV2hBT3YCTQk96Z3UDHgSu2Bdsu5zxBpuaDiXagNWbadEw==\"}', '2022120722001443081410444970', '2022127154247358326000', '日产轩逸费用', 0.23, '2022-4-25-23-35-14-1650900914689-cover.jpg', '2022-12-07 15:42:47.310000', 0.02, 1670571743271, 0.03, 0, b'0', 'ALIPAY', 0.2, 1670398943271, 'CAR_PICKUP_IN_PROGRESS', 1, 2, 2, 21, '', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, b'0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -4372,14 +4444,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `pickup_guid`;
 CREATE TABLE `pickup_guid` (
-                               `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                               `created_at` bigint(20) DEFAULT NULL,
-                               `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `img_key` varchar(255) DEFAULT NULL,
-                               `title` varchar(255) DEFAULT NULL,
-                               `store_id` bigint(20) DEFAULT NULL,
-                               PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `img_key` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4395,15 +4467,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `promotional_poster`;
 CREATE TABLE `promotional_poster` (
-                                      `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                      `created_at` bigint(20) DEFAULT NULL,
-                                      `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                      `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                      `url` varchar(255) DEFAULT NULL,
-                                      `size` decimal(10,2) DEFAULT NULL,
-                                      `position_x` decimal(10,2) DEFAULT NULL,
-                                      `position_y` decimal(10,2) DEFAULT NULL,
-                                      PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `url` varchar(255) DEFAULT NULL,
+  `size` decimal(10,2) DEFAULT NULL,
+  `position_x` decimal(10,2) DEFAULT NULL,
+  `position_y` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4420,9 +4492,9 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `province`;
 CREATE TABLE `province` (
-                            `code` varchar(255) NOT NULL,
-                            `name` varchar(255) DEFAULT NULL,
-                            PRIMARY KEY (`code`)
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4467,36 +4539,50 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `renewal_order`;
 CREATE TABLE `renewal_order` (
-                                 `id` int(11) NOT NULL AUTO_INCREMENT,
-                                 `pay_type` varchar(20) DEFAULT NULL COMMENT '支付方式',
-                                 `out_trade_no` varchar(255) DEFAULT NULL COMMENT '订单号',
-                                 `days` int(8) DEFAULT NULL COMMENT '续期时长',
-                                 `pay_token` varchar(2550) DEFAULT NULL COMMENT '支付信息',
-                                 `is_ok` int(11) DEFAULT NULL COMMENT '是否支付',
-                                 `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                 `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                 `created_at` bigint(20) DEFAULT NULL,
-                                 `order_id` int(11) DEFAULT NULL COMMENT '订单id',
-                                 `total` int(11) DEFAULT NULL COMMENT '费用',
-                                 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='续费订单\n';
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pay_type` varchar(20) DEFAULT NULL COMMENT '支付方式',
+  `out_trade_no` varchar(255) DEFAULT NULL COMMENT '订单号',
+  `days` int(8) DEFAULT NULL COMMENT '续期时长',
+  `pay_token` varchar(2550) DEFAULT NULL COMMENT '支付信息',
+  `is_ok` int(11) DEFAULT NULL COMMENT '是否支付',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_at` bigint(20) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL COMMENT '订单id',
+  `total` int(11) DEFAULT NULL COMMENT '费用(分)',
+  `insurance_fee` int(10) DEFAULT NULL COMMENT '保险费(分)',
+  `rent` int(10) DEFAULT NULL COMMENT '租金(分)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='续费订单\n';
 
 -- ----------------------------
 -- Records of renewal_order
 -- ----------------------------
 BEGIN;
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (1, '1', '202211277658220087000', 1, '{ \"timeStamp\" : \"1669504018\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx27070658701163818cbaf6c1be2a3c0000\", \"nonceStr\": \"Pg7ZNWg2rlzZ63ZG\", \"paySign\": \"Ed6GyLtpXFx5PfRyeQBIbSbYnrAadZTQ92YDER8ka5XufRtbezL4M4HdrdLLcPap0b4NOBEfKypP8KcBk9ShgyZKVDvzg+yb6aDqUrpcoXQ6mM61rk8fyyplEPMSy5dcUkS2doNJ0KHmh6/M0C/tpd4nFeK+IA8UGRVQuF/HFCO2urLHLBr5UrmFZsN7y2QFx/DSoSgypA0BSsaosN5T3/liJIdbyjBnfopltMsGKNp5skxBKEUUxTiPIMRx8gc7ateqjXVBzDerYdjoEO3ytQhTGzM5FrlpXA9F5CYDtUBk/nByJE6xuOjjWTpz4BHXzk6hgarbTRnPwnVEM2v5kQ==\" }', 1, NULL, NULL, NULL, 112, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (2, '1', '2022112772234921148000', 1, '{ \"timeStamp\" : \"1669504955\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx27072235593731b8b0d852d8473ec00000\", \"nonceStr\": \"ZGZ2amXbhihYRAzK\", \"paySign\": \"gE93aof4hJIcvsVN6K553yYuc/Knk9DZ269TbwI4eHkNfUrAK7/jPp3fOKwMqsPaBH/fYE8TC2dUlX7UZZa/XSilSCfSgJcY+jIw+XNEyTnM7gcIOnoNQfj7dvPu/ZZBMgaHtrm4T6WLGtlRGn5Xasva7m4Bsk5fIo7ipNOGcgYnwIqWd01CKt21Yc+3yjcYoRd04PM0dKUa/rcOIPf0juKsMdDHE+eY/VR6g3oB0QhKCmaJr8npzTyj7DrI9gKJDjfucufo3FOFrU3MrAhourt6WzNhCE/az08E/84wrACTkMlZ6NLKOKBCPcvN8MO1vy+sui/UaLTph8EN+Sf+VQ==\" }', 1, NULL, NULL, NULL, 112, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (3, '1', '2022112792833102153000', 1, '{ \"timeStamp\" : \"1669512513\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx27092833595314f794b00be33f830d0000\", \"nonceStr\": \"Ei5WLcaBeBH8cqDo\", \"paySign\": \"TgmMutc3gTl+L0pK0s3wOvsLZxZjHU1rZwctgSnZarW8HYNB74KVr+iHW+zkSToclG8KMB7VBnGwjzklmUyrmcZGanu6zeEavLSiIIm4/Me9Rq0CgDOcbZPJp69WKRwD8kbzZoBp1H94n+HYaGavkli1DrO1+9XldYOBpEN7d5DwIdNZ4nJjb2s+aBnx0ENpJj1i/t34jdTkPE8OrS5+dUrh+ISfsHm6Ye7ESrhM+buwHLBu+HGcDuLNutgM76CEMjNAk4UPsI06gycRWT92n5enpLExho/fMzCv2hwiFREvtUw/QN9CuOlzfAW2Jk9d/s8xdiV7SyHF3HIdETGYVw==\" }', 1, NULL, NULL, NULL, 112, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (4, '1', '202212173841126688000', 3, '{ \"timeStamp\" : \"1669851521\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx010738416092785cf4e4a7735f77920000\", \"nonceStr\": \"syjYFhj4zNjDpkGL\", \"paySign\": \"Ckwckh7r1oxCsP4C3nxnRNLP5LVG0KvlRzTUu01IQdafyKc17eHFN/bahZ+xXXBUDlWTWwV85v/oDTByb2cfwk7Qxk/WW1BqMeO6MVUoLHzDziZEvdjcTwz2WFIlOsL39oRRsUDEU0mS4wr3409y6ffjhCbK7OdUVd1GBfRipg22HSwZWiTmFzU1XSwQ7eMzVVko7p+Jt0FPHyLqUmG+iPa9r+DjIHgn5AaAkRgDTlN0uENoSxysEnsvuR4F48PXdVpoTr+x7xTAxFfow+LWcqUrrsRBIXGyDCDSWCmYunfMkalmdd41UAjrzO4hXx/5dExxgnpgrNwDyiqN9thldg==\" }', 1, NULL, NULL, NULL, 112, 30);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (5, '1', '2022121133725793197000', 1, '{ \"timeStamp\" : \"1669873046\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx01133726291012f27b41b74f15b0600000\", \"nonceStr\": \"ifDiStWyunU0rJq4\", \"paySign\": \"OEEOdrctFwEW2andwfqq5U1gdX96sZOayQvHvmRS1Npcls8p1LwQyetggpleRQabp1/5qHDiWJYbN25kSVASvqnEHFQEFj+rxbaCjjayT1JiA8pVbwU9GlXU/A5LPQPTJEXDtk+JuFWUKuh2vBgY3Eyros2CmgtCHbM2nPHlPYfzxXqsirbGkMm53VjWtg/KOu+d5MfsLnmx1qt2SlEItqkevxEyI2DIErfeSrxJF9qGksQAW2kr4Ss2e0tviYS1MZgEmPzvuP8i4IP8DxTfuNachqb+d5r1dJWr8FZLVw7J42WhjQPLMtCMCYgSR4JOsCC5smyL2WlRkdYWxae45w==\" }', 0, NULL, NULL, NULL, 113, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (6, '1', '202212383355293961000', 1, '{ \"timeStamp\" : \"1670027636\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03083355971248265865586bd568880000\", \"nonceStr\": \"KZIaBvQnCM2IAVzy\", \"paySign\": \"U383v37pjMo+gY+GGPWjNSF0V1fInyL7rlAk4iFA5CNod7H4ckLSuoiA5hDbgW0lOYhQjzFVzQagoPzj9u2UcXbvOKT1iFzOgRbzKt9N0cwp3V5x1bv+d/DzOwlCceekYpt0x1gCKSnAnv8VVKeqFYgJ91nm29Tha7NpjoNd6IhLoXsA6q2AGgAE57BpETpjTMHUPd84RyeoTKm0nrTxB2NQUx2wxXsaYhYreRAs7pYK+SQMWokLLX2Q7Ilvc1gxoIDlr1wuabKobhKFC5DxHlqVVMMoz9as3zt/igmuEl2yRWRiRmtu4hffheWzF6plGK9mmlY1/F+nf84nhSGK8w==\" }', 0, NULL, NULL, NULL, 119, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (7, '1', '2022123836107003000', 1, '{ \"timeStamp\" : \"1670027770\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx030836104828898bc10e551676b9540000\", \"nonceStr\": \"6dhXy5NISDmDyFJc\", \"paySign\": \"WVHLhjP8/TASdm+tK6TV2wzf59huJq1MteuBHIJca9wp2y0GmRQmrzhrwgq7ntpcWXGe48IaFp+/xssyWVFzdDs49YS02cU1lfwijbyRSJcmwoyE/UCr2BeA1Msh4OeCKpSUINqGpRe8inDnoaMUwzo/dKvufijkyiJVljAUsr2UiEWCxgit7X3KlAna58rrlMP9WplzcSF9Vvvld7oXN/MsZf4qgCRQBYqwrWyIdtGvS6xuySFP1akTbNiO6nHWX0N7rw5HyqVUOe+WBO/C5360x3cgMjZLRMwpZe9Ft71LoPy2M4zvya5ZMhKOCvUBrcrSrOHNiCZ/86iLohIB4A==\" }', 1, NULL, NULL, NULL, 119, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (8, '1', '20221238411740727000', 1, '{ \"timeStamp\" : \"1670028077\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx030841176121254941e3a26818e32e0000\", \"nonceStr\": \"caTLEK645DgrSpB0\", \"paySign\": \"fCt4x6GUfCBSbYcj63gIjxGPmXArX4KBu0HIKcoVJ2xlMujMc3BoAyYWlD0b2RfQqgBLvVv32+jzQC+EGoxOSq+4g7HRcCMFOHl51o5r1iyehm4EcGhBYs9lzj6MvC0cWRNISWc3gBzQS2F2kRWNd3oU4lsv3MGE0Ei6skDZ+WpevyuJm6KKsBfM3S/0e7QLU5/LXA4RLLB9pjLRFIEJ3PZRSvvqH0AsHXnQ2AYGgkhZWtPs6ihEtOrkkCaOFTh/rSk8FrhT56xBV09SCqk0vZJ3A2zWENxgwVYwOqdRUbovgT0m+WKWty1p2hB7AXHbWttS/CPrSLai9upJwSyMKw==\" }', 1, NULL, NULL, NULL, 119, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (9, '1', '2022123173939232516000', 1, '{ \"timeStamp\" : \"1670060380\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0317394079941483013cfb0a5433840000\", \"nonceStr\": \"XoM0RJcqJuZFDMid\", \"paySign\": \"cP+to4ZY1u4K5pFaZ8ODLnBz1Dj8FxfEzyFoThCI33eTTnyzFyjKWnFfin2rp7h/1N7iql1Zfdg8ztzgzdUqn9EVQXs2x7O7Laho9jnsizHm1BnPvlkFnqty4VSJfQAuAewIM2OBOK4AVJpt6PiBMmnCutw95A8O+lgp+pY7ZO6c/k0Ks9S08qz8UMcp+BUv73EIgNTO09ykN9t7U83osxnvaBFp1KAzNuZarhgy/XGQUl9iV11xAhNldtqM0en3bgpyE5GvqqBiS/NGWYGAtEOmiQc1+8vnpCcPZ8yn6dJIEH5Y1vnVA6C9QWDW22UGPBQwwXujfY7mjv7RbMG25g==\" }', 1, NULL, NULL, NULL, 121, 10);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (10, '1', '2022123185439619516000', 2, '{ \"timeStamp\" : \"1670064881\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03185441345342e54ec5ae9cdb42460000\", \"nonceStr\": \"gRsyJ2Qms2saAf5g\", \"paySign\": \"blaQDSI7fSqgE4UnXsujX352ZWAvOQhEaNGLsi07BFofb5Gq61gaWrSSQawK+Dnbfj4veE6ZYPEueYW0Ck+yLSLOFPzWAEu9/v5rUolqcj2sc3M0gE7QHgm1uEXwX7hjsc3REv42+NrTvWlUdpHKh3oMPejxsOnN7Hwwk4/Lw2vRYax27SqDoIeXpNHXnR5BnaAUMxsYSQuOjnWUXtcMv8TFYcpMZQ3vz+LxNcDN9bslqvllmNPOra5a4EYvcWVXaY2rzAPDSV/1mAlG9lsT9OeoifCgcZLibxervGiekXA7OMIW64RJ6a1gkKlmTHVcgMJPKoQsHhcJuBqxBrtyhw==\" }', 0, NULL, NULL, NULL, 125, 27);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (11, '1', '2022123185733282262000', 2, '{ \"timeStamp\" : \"1670065076\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03185756135353cb6c69a13309dad70000\", \"nonceStr\": \"1jDUZNM6ld1QMhWz\", \"paySign\": \"F33dSEWibPjlJM4JiL9e0wWSSEbtERhS51tK2URLJEiS+zkCCOLsEqgnKwacN98s7TbsX+c90u81JndhkEOY/qFDJ0NI6hzprZQcR97ng4cxlSHdiYzM+LHQw66UW7KO2zrc6n4uxBcoGt/4t+6SjeFubDMB++ZX/mEwKgEbjjr6wR9u8XDmv54ukDbqr1oZzD3iqnY2J0+0/2MMJSVxQNxjKDIlKlKFSKiz//UoBEjKUYjG6bINCSspHdAchpmVE2UDEaPNkrjpLfcZBuV6EJHAdDXu/jboiXXIpPpc+UIZMg7hE6jWrtZyepdENNQfy7oiE9mXdf5Zz152sLLPMg==\" }', 0, NULL, NULL, NULL, 125, 27);
-INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`) VALUES (12, '1', '202212319453115682000', 2, '{ \"timeStamp\" : \"1670065501\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx031905009144775add05604a81b1e10000\", \"nonceStr\": \"qWdOWXCGEPtSXn2z\", \"paySign\": \"WkAfkqJdqKFAGfnVCpciPZGd7lcEOAJHLmfZwLA65gI4N16e5mFyHfFadWjx5H2x1hjgrSN+WqVZ6xoHjuZGl4BMT3nEm3YpxePiYUjf6LB5fDBOPjqyRKVudcJKvm7tQnf+cA3+rp95fJuf41x+NrW2PpLpyGJsoE0+iaN4H6WWyll9IcQQ+HcjgVWoO/bqB3G1YIzHMg5u6QDMPTRUJtdoWWVyr8hcYA4nBOG7AHLMtSS0Aq0HfCVw5GWLdvFREq7EMipgghiQwcj8njxrPr6BgNHMfU2m8F854x8UfWXn3VEO4IFikj+QPu8Ona5HNI2xdJru9HFc70G1VlqzMg==\" }', 1, NULL, NULL, NULL, 125, 28);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (1, '1', '202211277658220087000', 1, '{ \"timeStamp\" : \"1669504018\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx27070658701163818cbaf6c1be2a3c0000\", \"nonceStr\": \"Pg7ZNWg2rlzZ63ZG\", \"paySign\": \"Ed6GyLtpXFx5PfRyeQBIbSbYnrAadZTQ92YDER8ka5XufRtbezL4M4HdrdLLcPap0b4NOBEfKypP8KcBk9ShgyZKVDvzg+yb6aDqUrpcoXQ6mM61rk8fyyplEPMSy5dcUkS2doNJ0KHmh6/M0C/tpd4nFeK+IA8UGRVQuF/HFCO2urLHLBr5UrmFZsN7y2QFx/DSoSgypA0BSsaosN5T3/liJIdbyjBnfopltMsGKNp5skxBKEUUxTiPIMRx8gc7ateqjXVBzDerYdjoEO3ytQhTGzM5FrlpXA9F5CYDtUBk/nByJE6xuOjjWTpz4BHXzk6hgarbTRnPwnVEM2v5kQ==\" }', 1, NULL, NULL, NULL, 112, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (2, '1', '2022112772234921148000', 1, '{ \"timeStamp\" : \"1669504955\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx27072235593731b8b0d852d8473ec00000\", \"nonceStr\": \"ZGZ2amXbhihYRAzK\", \"paySign\": \"gE93aof4hJIcvsVN6K553yYuc/Knk9DZ269TbwI4eHkNfUrAK7/jPp3fOKwMqsPaBH/fYE8TC2dUlX7UZZa/XSilSCfSgJcY+jIw+XNEyTnM7gcIOnoNQfj7dvPu/ZZBMgaHtrm4T6WLGtlRGn5Xasva7m4Bsk5fIo7ipNOGcgYnwIqWd01CKt21Yc+3yjcYoRd04PM0dKUa/rcOIPf0juKsMdDHE+eY/VR6g3oB0QhKCmaJr8npzTyj7DrI9gKJDjfucufo3FOFrU3MrAhourt6WzNhCE/az08E/84wrACTkMlZ6NLKOKBCPcvN8MO1vy+sui/UaLTph8EN+Sf+VQ==\" }', 1, NULL, NULL, NULL, 112, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (3, '1', '2022112792833102153000', 1, '{ \"timeStamp\" : \"1669512513\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx27092833595314f794b00be33f830d0000\", \"nonceStr\": \"Ei5WLcaBeBH8cqDo\", \"paySign\": \"TgmMutc3gTl+L0pK0s3wOvsLZxZjHU1rZwctgSnZarW8HYNB74KVr+iHW+zkSToclG8KMB7VBnGwjzklmUyrmcZGanu6zeEavLSiIIm4/Me9Rq0CgDOcbZPJp69WKRwD8kbzZoBp1H94n+HYaGavkli1DrO1+9XldYOBpEN7d5DwIdNZ4nJjb2s+aBnx0ENpJj1i/t34jdTkPE8OrS5+dUrh+ISfsHm6Ye7ESrhM+buwHLBu+HGcDuLNutgM76CEMjNAk4UPsI06gycRWT92n5enpLExho/fMzCv2hwiFREvtUw/QN9CuOlzfAW2Jk9d/s8xdiV7SyHF3HIdETGYVw==\" }', 1, NULL, NULL, NULL, 112, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (4, '1', '202212173841126688000', 3, '{ \"timeStamp\" : \"1669851521\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx010738416092785cf4e4a7735f77920000\", \"nonceStr\": \"syjYFhj4zNjDpkGL\", \"paySign\": \"Ckwckh7r1oxCsP4C3nxnRNLP5LVG0KvlRzTUu01IQdafyKc17eHFN/bahZ+xXXBUDlWTWwV85v/oDTByb2cfwk7Qxk/WW1BqMeO6MVUoLHzDziZEvdjcTwz2WFIlOsL39oRRsUDEU0mS4wr3409y6ffjhCbK7OdUVd1GBfRipg22HSwZWiTmFzU1XSwQ7eMzVVko7p+Jt0FPHyLqUmG+iPa9r+DjIHgn5AaAkRgDTlN0uENoSxysEnsvuR4F48PXdVpoTr+x7xTAxFfow+LWcqUrrsRBIXGyDCDSWCmYunfMkalmdd41UAjrzO4hXx/5dExxgnpgrNwDyiqN9thldg==\" }', 1, NULL, NULL, NULL, 112, 30, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (5, '1', '2022121133725793197000', 1, '{ \"timeStamp\" : \"1669873046\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx01133726291012f27b41b74f15b0600000\", \"nonceStr\": \"ifDiStWyunU0rJq4\", \"paySign\": \"OEEOdrctFwEW2andwfqq5U1gdX96sZOayQvHvmRS1Npcls8p1LwQyetggpleRQabp1/5qHDiWJYbN25kSVASvqnEHFQEFj+rxbaCjjayT1JiA8pVbwU9GlXU/A5LPQPTJEXDtk+JuFWUKuh2vBgY3Eyros2CmgtCHbM2nPHlPYfzxXqsirbGkMm53VjWtg/KOu+d5MfsLnmx1qt2SlEItqkevxEyI2DIErfeSrxJF9qGksQAW2kr4Ss2e0tviYS1MZgEmPzvuP8i4IP8DxTfuNachqb+d5r1dJWr8FZLVw7J42WhjQPLMtCMCYgSR4JOsCC5smyL2WlRkdYWxae45w==\" }', 0, NULL, NULL, NULL, 113, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (6, '1', '202212383355293961000', 1, '{ \"timeStamp\" : \"1670027636\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03083355971248265865586bd568880000\", \"nonceStr\": \"KZIaBvQnCM2IAVzy\", \"paySign\": \"U383v37pjMo+gY+GGPWjNSF0V1fInyL7rlAk4iFA5CNod7H4ckLSuoiA5hDbgW0lOYhQjzFVzQagoPzj9u2UcXbvOKT1iFzOgRbzKt9N0cwp3V5x1bv+d/DzOwlCceekYpt0x1gCKSnAnv8VVKeqFYgJ91nm29Tha7NpjoNd6IhLoXsA6q2AGgAE57BpETpjTMHUPd84RyeoTKm0nrTxB2NQUx2wxXsaYhYreRAs7pYK+SQMWokLLX2Q7Ilvc1gxoIDlr1wuabKobhKFC5DxHlqVVMMoz9as3zt/igmuEl2yRWRiRmtu4hffheWzF6plGK9mmlY1/F+nf84nhSGK8w==\" }', 0, NULL, NULL, NULL, 119, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (7, '1', '2022123836107003000', 1, '{ \"timeStamp\" : \"1670027770\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx030836104828898bc10e551676b9540000\", \"nonceStr\": \"6dhXy5NISDmDyFJc\", \"paySign\": \"WVHLhjP8/TASdm+tK6TV2wzf59huJq1MteuBHIJca9wp2y0GmRQmrzhrwgq7ntpcWXGe48IaFp+/xssyWVFzdDs49YS02cU1lfwijbyRSJcmwoyE/UCr2BeA1Msh4OeCKpSUINqGpRe8inDnoaMUwzo/dKvufijkyiJVljAUsr2UiEWCxgit7X3KlAna58rrlMP9WplzcSF9Vvvld7oXN/MsZf4qgCRQBYqwrWyIdtGvS6xuySFP1akTbNiO6nHWX0N7rw5HyqVUOe+WBO/C5360x3cgMjZLRMwpZe9Ft71LoPy2M4zvya5ZMhKOCvUBrcrSrOHNiCZ/86iLohIB4A==\" }', 1, NULL, NULL, NULL, 119, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (8, '1', '20221238411740727000', 1, '{ \"timeStamp\" : \"1670028077\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx030841176121254941e3a26818e32e0000\", \"nonceStr\": \"caTLEK645DgrSpB0\", \"paySign\": \"fCt4x6GUfCBSbYcj63gIjxGPmXArX4KBu0HIKcoVJ2xlMujMc3BoAyYWlD0b2RfQqgBLvVv32+jzQC+EGoxOSq+4g7HRcCMFOHl51o5r1iyehm4EcGhBYs9lzj6MvC0cWRNISWc3gBzQS2F2kRWNd3oU4lsv3MGE0Ei6skDZ+WpevyuJm6KKsBfM3S/0e7QLU5/LXA4RLLB9pjLRFIEJ3PZRSvvqH0AsHXnQ2AYGgkhZWtPs6ihEtOrkkCaOFTh/rSk8FrhT56xBV09SCqk0vZJ3A2zWENxgwVYwOqdRUbovgT0m+WKWty1p2hB7AXHbWttS/CPrSLai9upJwSyMKw==\" }', 1, NULL, NULL, NULL, 119, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (9, '1', '2022123173939232516000', 1, '{ \"timeStamp\" : \"1670060380\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0317394079941483013cfb0a5433840000\", \"nonceStr\": \"XoM0RJcqJuZFDMid\", \"paySign\": \"cP+to4ZY1u4K5pFaZ8ODLnBz1Dj8FxfEzyFoThCI33eTTnyzFyjKWnFfin2rp7h/1N7iql1Zfdg8ztzgzdUqn9EVQXs2x7O7Laho9jnsizHm1BnPvlkFnqty4VSJfQAuAewIM2OBOK4AVJpt6PiBMmnCutw95A8O+lgp+pY7ZO6c/k0Ks9S08qz8UMcp+BUv73EIgNTO09ykN9t7U83osxnvaBFp1KAzNuZarhgy/XGQUl9iV11xAhNldtqM0en3bgpyE5GvqqBiS/NGWYGAtEOmiQc1+8vnpCcPZ8yn6dJIEH5Y1vnVA6C9QWDW22UGPBQwwXujfY7mjv7RbMG25g==\" }', 1, NULL, NULL, NULL, 121, 10, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (10, '1', '2022123185439619516000', 2, '{ \"timeStamp\" : \"1670064881\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03185441345342e54ec5ae9cdb42460000\", \"nonceStr\": \"gRsyJ2Qms2saAf5g\", \"paySign\": \"blaQDSI7fSqgE4UnXsujX352ZWAvOQhEaNGLsi07BFofb5Gq61gaWrSSQawK+Dnbfj4veE6ZYPEueYW0Ck+yLSLOFPzWAEu9/v5rUolqcj2sc3M0gE7QHgm1uEXwX7hjsc3REv42+NrTvWlUdpHKh3oMPejxsOnN7Hwwk4/Lw2vRYax27SqDoIeXpNHXnR5BnaAUMxsYSQuOjnWUXtcMv8TFYcpMZQ3vz+LxNcDN9bslqvllmNPOra5a4EYvcWVXaY2rzAPDSV/1mAlG9lsT9OeoifCgcZLibxervGiekXA7OMIW64RJ6a1gkKlmTHVcgMJPKoQsHhcJuBqxBrtyhw==\" }', 0, NULL, NULL, NULL, 125, 27, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (11, '1', '2022123185733282262000', 2, '{ \"timeStamp\" : \"1670065076\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx03185756135353cb6c69a13309dad70000\", \"nonceStr\": \"1jDUZNM6ld1QMhWz\", \"paySign\": \"F33dSEWibPjlJM4JiL9e0wWSSEbtERhS51tK2URLJEiS+zkCCOLsEqgnKwacN98s7TbsX+c90u81JndhkEOY/qFDJ0NI6hzprZQcR97ng4cxlSHdiYzM+LHQw66UW7KO2zrc6n4uxBcoGt/4t+6SjeFubDMB++ZX/mEwKgEbjjr6wR9u8XDmv54ukDbqr1oZzD3iqnY2J0+0/2MMJSVxQNxjKDIlKlKFSKiz//UoBEjKUYjG6bINCSspHdAchpmVE2UDEaPNkrjpLfcZBuV6EJHAdDXu/jboiXXIpPpc+UIZMg7hE6jWrtZyepdENNQfy7oiE9mXdf5Zz152sLLPMg==\" }', 0, NULL, NULL, NULL, 125, 27, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (12, '1', '202212319453115682000', 2, '{ \"timeStamp\" : \"1670065501\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx031905009144775add05604a81b1e10000\", \"nonceStr\": \"qWdOWXCGEPtSXn2z\", \"paySign\": \"WkAfkqJdqKFAGfnVCpciPZGd7lcEOAJHLmfZwLA65gI4N16e5mFyHfFadWjx5H2x1hjgrSN+WqVZ6xoHjuZGl4BMT3nEm3YpxePiYUjf6LB5fDBOPjqyRKVudcJKvm7tQnf+cA3+rp95fJuf41x+NrW2PpLpyGJsoE0+iaN4H6WWyll9IcQQ+HcjgVWoO/bqB3G1YIzHMg5u6QDMPTRUJtdoWWVyr8hcYA4nBOG7AHLMtSS0Aq0HfCVw5GWLdvFREq7EMipgghiQwcj8njxrPr6BgNHMfU2m8F854x8UfWXn3VEO4IFikj+QPu8Ona5HNI2xdJru9HFc70G1VlqzMg==\" }', 1, NULL, NULL, NULL, 125, 28, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (13, '1', '2022125161210627912137', 1, '{ \"timeStamp\" : \"1670227930\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=null\", \"nonceStr\": \"7cG7zFoz3wbNl8gM\", \"paySign\": \"K3qDAqZ81P0eQMc4D9XfFiPQnVnBKXgXqmpBCTeyz9+61ASTvzR27BtfHBFyqr9+0WL9rOx1XfNB5HEhlzga29S6n0qtZXj2aLdXS9iz5IN3WRy1tpl3wEPmlhWID/BfbmDomoawr+h23Lm+1nHL1T/wD+QXuQKzji+26ZnXOcKgFuD0e/brNsyrwgu76XXMLeWvsWwSKbLAq4loReBM4wEWQDvxYxSrP8IR1VbxodOzNdbTVbHqb3ZdrDBerMNyYf8WQxWxi6pltqklwgh0H/hioGod13W9m7QhEa5+NZHH5I6hmdLukzjssuxkzHXPUHt4MvF/VgyoYJXU5cNLqA==\" }', 0, NULL, NULL, NULL, 121, 14, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (14, '1', '2022125183259740777286', 2, '{ \"timeStamp\" : \"1670236380\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx05183300053255c5a3fb7cf29af9d10000\", \"nonceStr\": \"0Jg1swvGwNtzECmd\", \"paySign\": \"MMHp4x+2rdFxTWNnWRlF0XfEM/mGogizh0wCVbHok0CVyH+h2NSOoyNkqk+luw5M2wROQPuGXB77C0x0xBOOlh9vXZ1zizrzlf5mwKzxlJ+facQvGsY6wm1NqGppDvtHwTvAQldb+CUQxX7IkfiZs8apATuPDw7FtNK4mVtOcvwxMmfwngTT2Ftq9y+l2iBvZCFQMx6VvwtgqizG2rp4kFNlYllcd6iy0feBm6wr4Ln67ZDXQy6k0/q2iWrw4gjxd8uUVkappo/046BrtcdovE+xYp6VyY6x5OfOnvX8ojKwPIIG0SnyTtFzZ2EqpmEPt1NR8z0oRn43wNpYAor/vA==\" }', 1, NULL, NULL, NULL, 154, 28, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (15, '1', '2022127133721405704059', 2, '{ \"timeStamp\" : \"1670391441\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0713372176222615acc7121b437f880000\", \"nonceStr\": \"F02Gpsyfbjl5nHjj\", \"paySign\": \"X/u0p01Nl4/9ahmUVPrnryPLOU7ORltpq1fbujJC2RDxJ9xodvLg0K1GJmu4x9MqLsSYeSJd5wahAxkP+/HyYpb9WOOTa02V9y5J/aiFmTb0YImYx4lvifK/qiDN0mcvhv56tXzHOqlpFJi/qNxtjR83WXo3aHxJgWfnN60qBK04YVfAUL9q/+hV4I/a9qXY8VIQe60q7ra9WLFTlZ/434PCxFN0Zg+ZcBRbnZTD8Rfk8p03XMrko6RRgJ13Gzdn4OC7IsgCX7Gy2M7xUIWIYxixZ5XF6qELv2vUissUcBTWb/qiQik8IYRQbzo45t0xNtiCZFI9VMLIFqVA2e18RQ==\" }', 1, NULL, NULL, NULL, 121, 28, NULL, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (16, '1', '2022127143514741921000', 2, '{ \"timeStamp\" : \"1670394915\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx07143515136546b52d60f3e61096650000\", \"nonceStr\": \"B1GvkWobbdjkFCxk\", \"paySign\": \"Vt9OlVu/VkAcWVgYJY4BwpukHUsyXguIPgVIwaKz+7VqKvg8dkWqwF9NVqtsklOinEgwiLbGi5wBCta6WmI5Jz95MUGYnUz0QqjmbtwLzMfAAsqbkBKmSHvc5nt63YPgdkih5gYzLXJkufC3dJdNgUfYs8VlSRctQk/JpwaNPSgHzFcJubQ8c1P2dnP2Y0mP5TtOK0xYyweZ+zozDgwmdtL5PL8ffyOexixtt0O2pMYaEXHeJQq3M8+GStz2tgiEt1QFP+zmuCz3lKzeGXkVNSiMrHvdvmLdK+3WExwYivl/XS5DDJddO/KnzxEDKjTPPukp7we6HhnkUVeyMiU7Zw==\" }', 1, NULL, NULL, NULL, 155, 20, 0, NULL);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (17, '1', '202212714429844635000', 1, '{ \"timeStamp\" : \"1670395330\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx07144210246738d602a78b81e1f5ce0000\", \"nonceStr\": \"LWcXwv3ucg0faNmX\", \"paySign\": \"mCV7eoCqc6ooPLEpGIuTpgCMV1/kILxDb1y26WeEh1BYfQSItpGsMPbOFzKeI6XulQ/KsUHaq8RIHSBVucRHPwfoKhFsddfJC4sRgp6YKxFUhmQJrVRwRlo5ZMroVCd89Xn0htktKmx93dfojRui+BYi8xi6vDzb+xPIpExCCNQgPpVvDY4oqIgF8KRDxX2sCobiW2t72jU+eoM7C9ts0tXGvd3eUS6wiCO0XYqEU/fViUGnwI9TD7yObdwhhAxPNMbwXFbfzz2nmmzgbM0u0vozl4kHzkH178YgWv3NVnZu0h1ArI/49cNxIMrkS9kGekBswJQGxn78QSOfXqLfCQ==\" }', 1, NULL, NULL, NULL, 156, 14, 4, 0);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (18, '1', '2022127144711540461000', 1, '{ \"timeStamp\" : \"1670395631\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx07144711920251da87ea9d127d5f910000\", \"nonceStr\": \"sfqsuHTe35nBiGTk\", \"paySign\": \"j6nAW3ciTAvtMg4mQ4j65+Wm3nwOSnVfL7fKwRcYYYKK3iZ9Tu12HLQi+o2m5scRpMqKMzZs0dI/f9YgnvHVHy1cf/sea0UIo9gitzFZnRq/PBLPpEQyyxCa+H/cDHHAjhzSHMTH8RgPUreTiIHYTgsLaO9bNtxKP13UAcEFM3tALF9Co0MWcE82Hc+XEJEGfrK8sSdKije2IOFYTljHAHcq9tUQdL8+9Vjt7ucw+Ze56LSYcN//MjUq4J043DwrjH7bXzQUcsNFcQNVLrQQ3ty3ZOunzNL1N+bXdAwadjpjSFk77Mi850m3bMCn16MsnOWrwy+quzh0HzKE/r/foA==\" }', 1, NULL, NULL, NULL, 157, 10, 0, 10);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (19, '1', '202212714554586493000', 2, '{ \"timeStamp\" : \"1670396145\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0714554544250642d0a4bd577a356c0000\", \"nonceStr\": \"INhmAplMaLy2SBHT\", \"paySign\": \"F0vJ6eDpDyEgi/4cqOPECarRiFbyGyLiB/FUKsw1B2cRVX4ixdhQStHBdIu6QR3FH/lZNBGGOqnCOeITcJBzM0CatpAoFFqMDuSyUn+7rA1387fU2Z7DaiUBeZLZx0dNAsJria9R07cyZyhGRf5GIGRU4hxrDGkJmQsdbHMMOOIxA0pmm4TU7DVxwiAs1I0V2jUyx9zo6wdzaa+8Gk/UcygR6e4eUWBMJoJTVIX9Tg/N0hRHspL/lsfAUbOmyguA0cbZ+/e/WAUsAzWmsdwKPvGqruMHmgAGnGXnAuEF3s3fPu3aTbSOoZD9WMNFpOzcFUJJoZp8JuS5sLm5SmuKbw==\" }', 1, NULL, NULL, NULL, 158, 28, 8, 10);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (20, '1', '202212715032744505000', 2, '{ \"timeStamp\" : \"1670396433\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0715003308693827ce251f357115a80000\", \"nonceStr\": \"OZQhJOO5IfcdkH68\", \"paySign\": \"BPhYvw+Xx5cgQJ3JaG1mGdBhanUcWgKnqHynNKLh5z9YnQSlWdoSLsR6ge+WWrnJ6S944xMSVpQwrVnrzs0ZENW8+9K7ijOGhmvnkQFdIDGxZpJJvGzX8Ge8vcE+RHycise0TeLGDhPcCCt4EOOGyIHwDzhk5WHp5UvTTX3NbL77+JSUnev9t4O0wHfTOdboV+qUl/+8Yg7THkkheq/M/JOMGWDZD+ahN/B2KscBhSA28PFbq9Jbc0X5AtirilGIvBIHYM1fCe9ufCddg0X1KNBCF601doiylYXwpUxcNeHMawc+A5SKdxo5UapQMPLZIFEp0nP6TYE0M22shC00PQ==\" }', 1, NULL, NULL, NULL, 159, 28, 8, 20);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (21, '1', '202212715138142694000', 2, '{ \"timeStamp\" : \"1670397188\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx0715130848131960b983ed0ab24aa10000\", \"nonceStr\": \"lKB0Zh2U18ULP0Fi\", \"paySign\": \"ZEn5z7tb/ZeDFtksYkxUHXxBzfHLJZQ5JLcb6a+D/5Jsjm27OPeIUDEDViX7sSAvNephhleiG8P3KRcr/Er0vzeMunT3g/xLBaCMFgWfTWsG8XAkPXHADvbyvmtMBQM2vtSNNp8Ei/SFfL1MngBqJFSczV1MU27JvUIM1BP5LxNUW5XZCzeK7JsQDruDZVUEqu20SxmAh8SIrZw2E8P/cIWvXu6lvC416QGraGcupFGVVl2ILQES9GfVnScaTaUd0lEHjVZy//5wTKJazxagfDzEHk9E9GQ3ZjYsctniD1AlQZ6hVFN48bv/DU7RlssUYY9swbCRcmhlxkhvuoE7jA==\" }', 1, NULL, NULL, NULL, 161, 28, 8, 20);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (22, '1', '202212715177249977000', 2, '{ \"timeStamp\" : \"1670397427\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx071517076333621f0e49976d0124cc0000\", \"nonceStr\": \"TjkrgoyGrSGS1jST\", \"paySign\": \"E5Don1ISa3jCS2SGg0R9JQTEiZYJJmG73TtDul86c2V/GcJ20NipMmGKjoCpEWCWIMTs927oprcyPHGd2p0QT7j5awNGXdSz7GTpyZQotGYDWYfP1cqnWgYbZgKhuYHNc6mgfBhLpb0ZUNhAyuBcqdI3XeV4at0cYtj7cpSdK1nKuGmTWt2phYU/6A6BfdDxJe3NexfBSFn53qg9FSlLVaKqvgd4OxuIWfP9akDYfXrxAONwKKiHNSlcGancOWrhrmtBE6KxxcU4lh35qUC/PliMFRGSXCDX3OOabd0KsKO7E5IquJmpau8LRpbOd20myuOf9hIhRLZT9Cs7OCRXjw==\" }', 1, NULL, NULL, NULL, 162, 28, 8, 20);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (23, '1', '202212715204725577000', 2, '{ \"timeStamp\" : \"1670397605\", \"signType\" : \"RSA\", \"package\" : \"prepay_id=wx071520052946807082fb85e028111c0000\", \"nonceStr\": \"32s6eVp1tP3RrK3h\", \"paySign\": \"hAj/dKgY9PIW/Yw2xGWPuj9rH4x3FIp7qUA2Lg4quwkdUZKSIe1BgTqDojXZacxlgW5z27lz5tm+jim8/TmQ05Fl4Q+ZoktZUSAa5z1ceR35XwxgueH7gcZpae47Z8rKA0FLcKObyipFPR3HkeQExLJdAyydYmPh0A5JmoxcDbF/BNnPRPmbaaiM0XRoqsWQ3kAZV2BKiorBS2ywPQTDwqpfT2uXCs2ttU7hdkvBH/bO/WI70SNki1DtqylN5AfuWMn6UmXOPkyhdfNgE50CzIF4GKJUzLIXH5jL8NTtF26GgLqXA4GQDi7apNqERH/0uNRqmacmRhmpcy1abjdO8A==\" }', 1, NULL, NULL, NULL, 162, 28, 8, 20);
+INSERT INTO `renewal_order` (`id`, `pay_type`, `out_trade_no`, `days`, `pay_token`, `is_ok`, `updated_at`, `deleted_at`, `created_at`, `order_id`, `total`, `insurance_fee`, `rent`) VALUES (24, '0', '2022127154320688779000', 2, NULL, 1, NULL, NULL, NULL, 163, 28, 8, 20);
 COMMIT;
 
 -- ----------------------------
@@ -4504,14 +4590,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `return_guid`;
 CREATE TABLE `return_guid` (
-                               `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                               `created_at` bigint(20) DEFAULT NULL,
-                               `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `img_key` varchar(255) DEFAULT NULL,
-                               `title` varchar(255) DEFAULT NULL,
-                               `store_id` bigint(20) DEFAULT NULL,
-                               PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `img_key` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4529,27 +4615,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `store`;
 CREATE TABLE `store` (
-                         `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                         `created_at` bigint(20) DEFAULT NULL,
-                         `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                         `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                         `address` varchar(255) DEFAULT NULL,
-                         `end_at` varchar(255) DEFAULT NULL,
-                         `is_airport` bit(1) DEFAULT NULL,
-                         `is_enable` bit(1) DEFAULT NULL,
-                         `is_self_service` bit(1) DEFAULT NULL,
-                         `is_station` bit(1) DEFAULT NULL,
-                         `lat` float DEFAULT NULL,
-                         `lng` float DEFAULT NULL,
-                         `mark` varchar(255) DEFAULT NULL,
-                         `name` varchar(255) DEFAULT NULL,
-                         `service_phone` varchar(255) DEFAULT NULL,
-                         `star_at` varchar(255) DEFAULT NULL,
-                         `admin_id` bigint(20) DEFAULT NULL,
-                         `area_code` varchar(255) DEFAULT NULL,
-                         `city_code` varchar(255) DEFAULT NULL,
-                         `province_code` varchar(255) DEFAULT NULL,
-                         PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `address` varchar(255) DEFAULT NULL,
+  `end_at` varchar(255) DEFAULT NULL,
+  `is_airport` bit(1) DEFAULT NULL,
+  `is_enable` bit(1) DEFAULT NULL,
+  `is_self_service` bit(1) DEFAULT NULL,
+  `is_station` bit(1) DEFAULT NULL,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL,
+  `mark` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `service_phone` varchar(255) DEFAULT NULL,
+  `star_at` varchar(255) DEFAULT NULL,
+  `admin_id` bigint(20) DEFAULT NULL,
+  `area_code` varchar(255) DEFAULT NULL,
+  `city_code` varchar(255) DEFAULT NULL,
+  `province_code` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4566,13 +4652,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `store_banner`;
 CREATE TABLE `store_banner` (
-                                `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                `created_at` bigint(20) DEFAULT NULL,
-                                `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `img_key` varchar(255) DEFAULT NULL,
-                                `store_id` bigint(20) DEFAULT NULL,
-                                PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `img_key` varchar(255) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4591,13 +4677,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `store_car_config`;
 CREATE TABLE `store_car_config` (
-                                    `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                    `created_at` bigint(20) DEFAULT NULL,
-                                    `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                    `name` varchar(255) DEFAULT NULL,
-                                    `store_id` bigint(20) DEFAULT NULL,
-                                    PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4623,25 +4709,25 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
-                               `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                               `created_at` bigint(20) DEFAULT NULL,
-                               `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `title` varchar(255) DEFAULT NULL,
-                               `amount` double DEFAULT NULL,
-                               `user_id` bigint(20) DEFAULT NULL,
-                               `pay_type` varchar(255) DEFAULT NULL,
-                               `out_trade_no` varbinary(255) DEFAULT NULL,
-                               `trade_no` varbinary(255) DEFAULT NULL,
-                               `balance` int(11) DEFAULT NULL COMMENT '余额分',
-                               `status` varchar(255) DEFAULT NULL,
-                               `failed_reason` varchar(255) DEFAULT NULL,
-                               `is_with_draw` bit(1) DEFAULT NULL,
-                               `remark` varchar(255) DEFAULT NULL,
-                               `out_biz_no` varchar(255) DEFAULT NULL,
-                               `transaction_type` varchar(255) DEFAULT NULL,
-                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `title` varchar(255) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `pay_type` varchar(255) DEFAULT NULL,
+  `out_trade_no` varbinary(255) DEFAULT NULL,
+  `trade_no` varbinary(255) DEFAULT NULL,
+  `balance` int(11) DEFAULT NULL COMMENT '余额分',
+  `status` varchar(255) DEFAULT NULL,
+  `failed_reason` varchar(255) DEFAULT NULL,
+  `is_with_draw` bit(1) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `out_biz_no` varchar(255) DEFAULT NULL,
+  `transaction_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of transaction
@@ -4718,6 +4804,19 @@ INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `titl
 INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (165, 1670078601551, NULL, NULL, '佣金提现申请', -0.5, 127, 'WECHAT', NULL, NULL, 150, 'PROCESSING', NULL, b'1', '微信提现测试', NULL, 'COMMISSION');
 INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (166, 1670079088033, NULL, NULL, '佣金提现申请', -2, 127, 'WECHAT', NULL, NULL, -50, 'PROCESSING', NULL, b'1', '', NULL, 'COMMISSION');
 INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (167, 1670079115476, NULL, NULL, '佣金提现申请', -5, 127, 'WECHAT', NULL, NULL, -550, 'PROCESSING', NULL, b'1', '', NULL, 'COMMISSION');
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (168, 1670079933736, NULL, NULL, '余额提现申请', -1, 127, 'WECHAT', NULL, NULL, 900, 'PROCESSING', NULL, b'1', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (169, 1670236391338, NULL, NULL, '续租', -0.28, 127, 'WECHAT', 0x32303232313235313833323539373430373737323836, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (170, 1670391450027, NULL, NULL, '续租', -0.28, 132, 'WECHAT', 0x32303232313237313333373231343035373034303539, '', 0, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (171, 1670394932764, NULL, NULL, '续租', -0.2, 127, 'WECHAT', 0x32303232313237313433353134373431393231303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (172, 1670395342316, NULL, NULL, '续租', -0.14, 127, 'WECHAT', 0x323032323132373134343239383434363335303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (173, 1670395643898, NULL, NULL, '续租', -0.1, 127, 'WECHAT', 0x32303232313237313434373131353430343631303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (174, 1670396157387, NULL, NULL, '续租', -0.28, 127, 'WECHAT', 0x323032323132373134353534353836343933303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (175, 1670396446217, NULL, NULL, '续租', -0.28, 127, 'WECHAT', 0x323032323132373135303332373434353035303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (176, 1670397620261, NULL, NULL, '续租', -0.28, 127, 'WECHAT', 0x323032323132373135323034373235353737303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (177, 1670397681119, NULL, NULL, '续租', -0.28, 127, 'WECHAT', 0x323032323132373135313737323439393737303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (178, 1670398040555, NULL, NULL, '续租', -0.28, 127, 'WECHAT', 0x323032323132373135313338313432363934303030, '', 900, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (179, 1670399022654, NULL, NULL, '续租', -0.28, 21, 'WECHAT', 0x32303232313237313534333230363838373739303030, '', 0, 'FINISHED', NULL, b'0', '', NULL, NULL);
+INSERT INTO `transaction` (`id`, `created_at`, `deleted_at`, `updated_at`, `title`, `amount`, `user_id`, `pay_type`, `out_trade_no`, `trade_no`, `balance`, `status`, `failed_reason`, `is_with_draw`, `remark`, `out_biz_no`, `transaction_type`) VALUES (180, 1670399197271, NULL, NULL, '佣金提现申请', -1, 127, 'WECHAT', NULL, NULL, 800, 'PROCESSING', NULL, b'1', '支付宝提现测试', NULL, 'COMMISSION');
 COMMIT;
 
 -- ----------------------------
@@ -4725,27 +4824,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-                        `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                        `created_at` bigint(20) DEFAULT NULL,
-                        `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                        `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                        `is_enabled` bit(1) DEFAULT NULL,
-                        `password` varchar(255) DEFAULT NULL,
-                        `username` varchar(255) DEFAULT NULL,
-                        `alipay_account_id` bigint(20) DEFAULT NULL,
-                        `store_id` bigint(20) DEFAULT NULL,
-                        `balance` double DEFAULT '0' COMMENT '余额: 分',
-                        `alipay_qr` varchar(255) DEFAULT NULL,
-                        `commission` decimal(10,2) DEFAULT NULL COMMENT '佣金: 分',
-                        `withdrawn_commission` decimal(10,2) DEFAULT NULL,
-                        `withdrawal_in_progress_commission` decimal(10,2) DEFAULT NULL,
-                        `p_id` bigint(20) DEFAULT NULL,
-                        `id_car_frontal` varchar(255) DEFAULT NULL,
-                        `id_car_back` varchar(255) DEFAULT NULL,
-                        `driver_license` varchar(255) DEFAULT NULL,
-                        `wechat_account_id` bigint(20) DEFAULT NULL,
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_enabled` bit(1) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `alipay_account_id` bigint(20) DEFAULT NULL,
+  `store_id` bigint(20) DEFAULT NULL,
+  `balance` double DEFAULT '0' COMMENT '余额: 分',
+  `alipay_qr` varchar(255) DEFAULT NULL,
+  `commission` decimal(10,2) DEFAULT NULL COMMENT '佣金: 分',
+  `withdrawn_commission` decimal(10,2) DEFAULT NULL,
+  `withdrawal_in_progress_commission` decimal(10,2) DEFAULT NULL,
+  `p_id` bigint(20) DEFAULT NULL,
+  `id_car_frontal` varchar(255) DEFAULT NULL,
+  `id_car_back` varchar(255) DEFAULT NULL,
+  `driver_license` varchar(255) DEFAULT NULL,
+  `wechat_account_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -4802,7 +4901,7 @@ INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (67, NULL, NULL, NULL, b'1', NULL, NULL, 64, NULL, 0, 'https://mass.alipay.com/wsdk/img?fileid=A*x68eS6An-BMAAAAAAAAAAAAAAQAAAQ&bz=am_afts_openhome&zoom=227w_277h', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (68, NULL, NULL, NULL, b'1', NULL, NULL, 65, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (69, NULL, NULL, NULL, b'1', NULL, NULL, 66, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (70, NULL, NULL, NULL, b'1', NULL, NULL, 67, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (70, NULL, NULL, NULL, b'1', NULL, NULL, 67, NULL, 0, NULL, NULL, NULL, NULL, NULL, '1670121283733', '1670121276932', '1670121287663', NULL);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (71, NULL, NULL, NULL, b'1', NULL, NULL, 68, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (72, NULL, NULL, NULL, b'1', NULL, NULL, 69, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (73, NULL, NULL, NULL, b'1', NULL, NULL, 70, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -4848,7 +4947,7 @@ INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (124, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 118);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (125, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 119);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (126, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, 2.95, NULL, 0.04, NULL, NULL, NULL, NULL, NULL, NULL, 120);
-INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (127, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, -5.5, NULL, 3.00, NULL, 27.50, 126, '1669930684179', '1669930696156', '1669930639900', 121);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (127, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, 8, NULL, 2.00, NULL, 28.50, 126, '1669930684179', '1669930696156', '1669930639900', 121);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (128, NULL, NULL, NULL, b'1', NULL, NULL, 109, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (129, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 122);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (130, NULL, NULL, NULL, b'1', NULL, NULL, 110, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -4858,6 +4957,15 @@ INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (134, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 124);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (135, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 125);
 INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (136, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 127, '1670075059640', '1670075045344', '1670075066749', 126);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (137, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 127);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (138, NULL, NULL, NULL, b'1', NULL, NULL, 113, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (139, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 128);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (140, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 129);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (141, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 130);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (142, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 131);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (143, NULL, NULL, NULL, b'1', NULL, NULL, 114, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (144, NULL, NULL, NULL, b'1', NULL, NULL, 115, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `created_at`, `deleted_at`, `updated_at`, `is_enabled`, `password`, `username`, `alipay_account_id`, `store_id`, `balance`, `alipay_qr`, `commission`, `withdrawn_commission`, `withdrawal_in_progress_commission`, `p_id`, `id_car_frontal`, `id_car_back`, `driver_license`, `wechat_account_id`) VALUES (145, NULL, NULL, NULL, b'1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 132);
 COMMIT;
 
 -- ----------------------------
@@ -4865,15 +4973,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user_contact`;
 CREATE TABLE `user_contact` (
-                                `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                `created_at` bigint(20) DEFAULT NULL,
-                                `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                `name` varchar(255) DEFAULT NULL,
-                                `phone` varchar(255) DEFAULT NULL,
-                                `relation` varchar(255) DEFAULT NULL,
-                                `user_id` bigint(20) DEFAULT NULL,
-                                PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `relation` varchar(255) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4894,22 +5002,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon`;
 CREATE TABLE `user_coupon` (
-                               `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                               `created_at` bigint(20) DEFAULT NULL,
-                               `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                               `expired` bigint(20) DEFAULT NULL,
-                               `user_id` int(11) DEFAULT NULL,
-                               `coupon_id` int(11) DEFAULT NULL,
-                               `title` varchar(255) DEFAULT NULL,
-                               `content` text,
-                               `amount` float DEFAULT NULL,
-                               `meet_amount` float DEFAULT NULL,
-                               `is_with_holiday` int(11) DEFAULT NULL,
-                               `is_with_rent` int(11) DEFAULT NULL,
-                               `is_with_service_amount` int(11) DEFAULT NULL,
-                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=410 DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `expired` bigint(20) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `coupon_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `amount` float DEFAULT NULL,
+  `meet_amount` float DEFAULT NULL,
+  `is_with_holiday` int(11) DEFAULT NULL,
+  `is_with_rent` int(11) DEFAULT NULL,
+  `is_with_service_amount` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_coupon
@@ -5028,6 +5136,15 @@ INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expi
 INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (407, 1670049253554, NULL, NULL, 60, 134, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
 INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (408, 1670065946644, NULL, NULL, 60, 135, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
 INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (409, 1670074834565, NULL, NULL, 60, 136, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (410, 1670079678246, NULL, NULL, 60, 137, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (411, 1670080895127, NULL, NULL, 60, 138, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (412, 1670127217349, NULL, NULL, 60, 139, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (413, 1670138174801, NULL, NULL, 60, 140, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (414, 1670171899244, NULL, NULL, 60, 141, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (415, 1670188951873, NULL, NULL, 60, 142, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (416, 1670211614372, NULL, NULL, 60, 143, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (417, 1670231212451, NULL, NULL, 60, 144, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
+INSERT INTO `user_coupon` (`id`, `created_at`, `deleted_at`, `updated_at`, `expired`, `user_id`, `coupon_id`, `title`, `content`, `amount`, `meet_amount`, `is_with_holiday`, `is_with_rent`, `is_with_service_amount`) VALUES (418, 1670238882624, NULL, NULL, 60, 145, 1, '新用户满200减100优惠券', '<h2 style=\"text-align:center;\"><span style=\"color:#07a9fe\">使用规则</span></h2><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\"> 1、新用户注册后，首次租车租期满2天及以上 可参加该活动，订单第一天车辆租赁费及门店 服务费低于100元的减免第一天车辆租赁费及 门店服务费费用，订单第一天车辆租赁费及门 店服务费高于100元的最高抵扣车辆租赁费及 门店服务费100元，其他费用正常收取； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">2、不可重复使用，限新用户本人使用，不与租车其他优惠活动并用，仅限租车国 内自驾业务使用； </span></span></span></p><p><span style=\"line-height:2\"><span style=\"font-size:12px\"><span style=\"color:#999999\">3、新用户指同一账户在车租婆从未有过成功订单(已验证状态的订单)的用户，同一身份证下通过任意手机号注册的账户均属于同一账户。  </span></span></span></p>', 100, 200, 0, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -5035,8 +5152,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
-                              `user_id` bigint(20) NOT NULL,
-                              `roles` varchar(255) DEFAULT NULL
+  `user_id` bigint(20) NOT NULL,
+  `roles` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -5153,6 +5270,15 @@ INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (133, 'ROLE_USER');
 INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (134, 'ROLE_USER');
 INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (135, 'ROLE_USER');
 INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (136, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (137, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (138, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (139, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (140, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (141, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (142, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (143, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (144, 'ROLE_USER');
+INSERT INTO `user_roles` (`user_id`, `roles`) VALUES (145, 'ROLE_USER');
 COMMIT;
 
 -- ----------------------------
@@ -5160,19 +5286,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `violation`;
 CREATE TABLE `violation` (
-                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                             `created_at` bigint(20) DEFAULT NULL,
-                             `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                             `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                             `title` varchar(255) DEFAULT NULL,
-                             `description` text,
-                             `images` text,
-                             `amount` double DEFAULT NULL,
-                             `freeze_amount` double DEFAULT NULL,
-                             `user_id` bigint(20) DEFAULT NULL,
-                             `order_id` bigint(20) DEFAULT NULL,
-                             `alipay_out_trade_no` varchar(255) DEFAULT NULL,
-                             PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
+  `images` text,
+  `amount` double DEFAULT NULL,
+  `freeze_amount` double DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `order_id` bigint(20) DEFAULT NULL,
+  `alipay_out_trade_no` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -5196,24 +5322,24 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_account`;
 CREATE TABLE `wechat_account` (
-                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                  `created_at` bigint(20) DEFAULT NULL,
-                                  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-                                  `avatar` varchar(255) DEFAULT NULL,
-                                  `city` varchar(255) DEFAULT NULL,
-                                  `code` varchar(255) DEFAULT NULL,
-                                  `country_code` varchar(255) DEFAULT NULL,
-                                  `gender` varchar(255) DEFAULT NULL,
-                                  `nick_name` varchar(255) DEFAULT NULL,
-                                  `phone` varchar(255) DEFAULT NULL,
-                                  `province` varchar(255) DEFAULT NULL,
-                                  `user_id` varchar(255) DEFAULT NULL,
-                                  `is_authorize_base_info` int(11) DEFAULT NULL,
-                                  `open_id` varchar(255) DEFAULT NULL,
-                                  `session_key` varchar(255) DEFAULT NULL,
-                                  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` bigint(20) DEFAULT NULL,
+  `deleted_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `avatar` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `country_code` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `nick_name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `is_authorize_base_info` int(11) DEFAULT NULL,
+  `open_id` varchar(255) DEFAULT NULL,
+  `session_key` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wechat_account
@@ -5223,12 +5349,18 @@ INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `a
 INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (118, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5WfEWW__Dc8dcsKYNTX5EK4', 'UygRVkjSElppwslAjIiuuw==');
 INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (119, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5R9CexnhflSWQUJ83jV0otM', 'cmjuUkXsNq3C7oOyj8iTkw==');
 INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (120, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', NULL, '', NULL, 1, 'o91vt5U9XdnojT2gMdAjEgI6Q-yA2', '+tnjbhzM+0W9zDXibh5iZQ==');
-INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (121, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', '13427969604', '', NULL, 1, 'o91vt5U9XdnojT2gMdAjEgI6Q-yA', 'IIRxMjlaQBeoGVV33GcJ6w==');
-INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (122, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', NULL, '', NULL, 1, 'o91vt5WPukZGZ-58Iop30PW2LNxU', '0uO3djgmQUJn+L1+14FsoQ==');
-INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (123, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', '15308987118', '', NULL, 1, 'o91vt5ZDv0uA3-0Ym7pH8GDahspw', 'mHfFcU4L18e2ZrMX0P63fQ==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (121, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', '13427969604', '', NULL, 1, 'o91vt5U9XdnojT2gMdAjEgI6Q-yA', 'rjRQI6P4A5UseCpghmQ6ug==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (122, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', NULL, '', NULL, 1, 'o91vt5WPukZGZ-58Iop30PW2LNxU', 'JQl1kaJs585KbA65sGmwzA==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (123, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', '15308987118', '', NULL, 1, 'o91vt5ZDv0uA3-0Ym7pH8GDahspw', '4XDyNqpW+yr+Saabqom+/A==');
 INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (124, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5SuWHaEn2nHZLkNuDEiWhQI', 'm6xe2IYVPlAEqAk3NehDoQ==');
-INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (125, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5S0gpVdeYDLroAr9oR0Bjwc', '51l8C27Hl9oG9e0ezIImQw==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (125, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5S0gpVdeYDLroAr9oR0Bjwc', 'xgjFaBuZ/hzj6Kk8XiZFEA==');
 INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (126, NULL, NULL, NULL, 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132', '', '', '', '0', '微信用户', '13427969604', '', NULL, 1, 'o91vt5U9XdnojT2gMdAjEgI6Q-yA3', 'xFjPMmuUbBdWP2q/3FmJWQ==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (127, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5c81XzbH995T6sXfT8N_TOM', 'oC4RTL2sw63GHDTMXUUjiA==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (128, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5bn_bHvmVb-d-MLLKz_yRhk', 'fqYQMt5OR7//Iwn3/eolWw==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (129, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5aw5KaQUsYiDh7JYNwGym3g', '0U+gC9kGBsRVY0Nm8s58YQ==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (130, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5VIOFrr2ukodIzu91epLKYY', 'DI1VCFYXSsYsc6dFTThbog==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (131, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5UWUMMBuKeAFmiJGX5Vd3FY', 'qD8s7UpF6dFhNd3l+VBCXQ==');
+INSERT INTO `wechat_account` (`id`, `created_at`, `deleted_at`, `updated_at`, `avatar`, `city`, `code`, `country_code`, `gender`, `nick_name`, `phone`, `province`, `user_id`, `is_authorize_base_info`, `open_id`, `session_key`) VALUES (132, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'o91vt5Q5TiN9RaGxyuVVbcdP-8wE', 'CGOIZwbx7SCB3Zv9QF5KGg==');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

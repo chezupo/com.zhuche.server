@@ -75,7 +75,7 @@ public class WechatNotice {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    @Transactional
+    @PostMapping("/renewalNotify")
     public String renewalNotify(
         @RequestBody String requestBody
     ) throws GeneralSecurityException, IOException {

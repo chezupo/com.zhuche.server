@@ -778,6 +778,7 @@ public class OrderService {
      * 续费通知处理
      * @param renewalOrder
      */
+    @Transactional
     public void onRenewalOrderNotice(RenewalOrder renewalOrder) {
         renewalOrder.setOk(true);
         var order = orderRepository.findById(renewalOrder.getOrderId()).get();
